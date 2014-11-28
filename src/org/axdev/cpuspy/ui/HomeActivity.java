@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +33,7 @@ import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import android.util.Log;
 
 /** main activity class */
-public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener
+public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "CpuSpy";
 
@@ -64,9 +65,6 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
                 R.color.accent);
         _app = (CpuSpyApp)getApplicationContext();
         findViews();
-
-        // set title to version string
-        setTitle(getResources().getText(R.string.app_name));
 
         // see if we're updating data during a config change (rotate screen)
         if (savedInstanceState != null) {

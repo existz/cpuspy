@@ -5,6 +5,4 @@
     <color name="accent">#ffe91e63</color>
     <color name="text_primary_color">#ff212121</color>
     <color name="text_secondary_color">#ffffffff</color>
-
-    <color name="progess_mtrl_disabled">#ffcecfd0</color>
 </resources>

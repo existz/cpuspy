@@ -14,8 +14,4 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="Widget.Material.ActionBar" parent="@*android:style/Widget.Material.ActionBar.Solid">
-        <item name="android:elevation">8dp</item>
-    </style>
-
 </resources>

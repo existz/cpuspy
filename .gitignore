@@ -2,6 +2,10 @@
 bin/*
 gen/*
 
+# appcompat
+appcompat/bin/*
+appcompat/gen/*
+
 # maven output
 target/*
 
