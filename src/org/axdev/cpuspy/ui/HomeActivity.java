@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,11 +32,12 @@ import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import android.util.Log;
 
 /** main activity class */
-public class HomeActivity extends Activity
+public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "CpuSpy";
 
     private CpuSpyApp _app = null;
+    private SwipeRefreshLayout swipeLayout;
 
     // the views
     private LinearLayout    _uiStatesView = null;
@@ -55,6 +58,10 @@ public class HomeActivity extends Activity
 
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorScheme(R.color.primary,
+                R.color.accent);
         _app = (CpuSpyApp)getApplicationContext();
         findViews();
 
@@ -78,6 +85,15 @@ public class HomeActivity extends Activity
     @Override public void onResume () {
         super.onResume();
         refreshData();
+    }
+
+    @Override public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override public void run() {
+                swipeLayout.setRefreshing(false);
+                refreshData();
+            }
+        }, 1950);
     }
 
     /** Map all of the UI elements to member variables */
@@ -109,9 +125,6 @@ public class HomeActivity extends Activity
         // what it do mayne
         switch (item.getItemId()) {
         /* pressed the load menu button */
-        case R.id.menu_refresh:
-            refreshData();
-            break;
         case R.id.menu_reset:
             try {
                 _app.getCpuStateMonitor().setOffsets();
