@@ -7,14 +7,18 @@
 package org.axdev.cpuspy.ui;
 
 // imports
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -23,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,6 +41,7 @@ import android.util.Log;
 public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "CpuSpy";
+
 
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout swipeLayout;
@@ -52,6 +58,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** whether or not we're updating the data in the background */
     private boolean     _updatingData = false;
 
+    private boolean     mAutoRefresh = false;
+
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
     {
@@ -64,20 +72,31 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         swipeLayout.setColorScheme(R.color.primary,
                 R.color.accent);
         _app = (CpuSpyApp)getApplicationContext();
-        findViews();
 
-        // see if we're updating data during a config change (rotate screen)
-        if (savedInstanceState != null) {
-            _updatingData = savedInstanceState.getBoolean("updatingData");
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        findViews();
+    }
+
+    @Override public void onStart () {
+        super.onStart();
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (settings.getBoolean("autoRefresh", true)) {
+            mAutoRefresh = true;
+            refreshAuto();
+        } else {
+            mAutoRefresh = false;
         }
     }
 
-    /** When the activity is about to change orientation */
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("updatingData", _updatingData);
+    /** Update the view when the application regains focus */
+    @Override public void onPause () {
+        super.onPause();
+        mAutoRefresh = false;
     }
-
 
     /** Update the view when the application regains focus */
     @Override public void onResume () {
@@ -113,6 +132,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // request inflater from activity and inflate into its menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
+        inflater.inflate(R.menu.settings_menu, menu);
 
         // made it
         return true;
@@ -138,6 +158,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             _app.saveOffsets();
             updateView();
             break;
+        case R.id.menu_settings:
+            Intent intent = new Intent(this, PrefsActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         // made it
@@ -287,20 +311,41 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         /** Executed on the UI thread right before starting the task */
         @Override protected void onPreExecute() {
-            log("starting data update");
+            //log("starting data update");
             _updatingData = true;
         }
 
         /** Executed on UI thread after task */
         @Override protected void onPostExecute(Void v) {
-            log("finished data update");
+            //log("finished data update");
             _updatingData = false;
             updateView();
         }
     }
 
+    private void refreshAuto () {
+        Thread t = new Thread(new Runnable() {
+            @Override public void run() {
+                try {
+                    while(mAutoRefresh) {
+                        refreshData();
+                        Thread.sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+    }
+
     /** logging */
     private void log(String s) {
         Log.d(TAG, s);
+    }
+
+    @Override protected void onDestroy() {
+        mAutoRefresh = false;
+        super.onDestroy();
     }
 }
