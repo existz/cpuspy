@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,8 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.nispok.snackbar.Snackbar;
 
 import org.axdev.cpuspy.*;
 import org.axdev.cpuspy.CpuStateMonitor.CpuState;
@@ -153,11 +156,21 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
             _app.saveOffsets();
             updateView();
+            Snackbar.with(getApplicationContext()) // context
+                .text("Timers reset successfully") // text to display
+                .actionLabel("Dismiss") // action button label
+                .actionColor(Color.parseColor("#fff4b400"))
+                .show(this); // activity where it is displayed
             break;
         case R.id.menu_restore:
             _app.getCpuStateMonitor().removeOffsets();
             _app.saveOffsets();
             updateView();
+            Snackbar.with(getApplicationContext()) // context
+                .text("Timers restored successfully") // text to display
+                .actionLabel("Dismiss") // action button label
+                .actionColor(Color.parseColor("#fff4b400"))
+                .show(this); // activity where it is displayed
             break;
         case R.id.menu_settings:
             Intent intent = new Intent(this, PrefsActivity.class);

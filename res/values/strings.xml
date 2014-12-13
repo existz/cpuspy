@@ -32,7 +32,9 @@
     &#8226; <b>Android Support Library</b><br/>
     <small> Android Open Source Project - <a href=\'http://www.apache.org/licenses/LICENSE-2.0\'>Apache 2.0</a>&nbsp;<br/><br/></small>
     &#8226; <b><a href=\'https://github.com/afollestad/material-dialogs\'>Material Dialogs</a></b><br/>
-    <small>Aidan Follestad - <a href=\'http://opensource.org/licenses/MIT\'>The MIT License</a></small>
+    <small>Aidan Follestad - <a href=\'http://opensource.org/licenses/MIT\'>The MIT License</a>&nbsp;<br/><br/></small>
+    &#8226; <b><a href=\'https://github.com/nispok/snackbar\'>Snackbar</a></b><br/>
+    <small>William Mora - <a href=\'http://opensource.org/licenses/MIT\'>The MIT License</a></small>
     ]]></string>
 
     <string name="app_name_and_version" translatable="false"><![CDATA[

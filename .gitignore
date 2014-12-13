@@ -10,6 +10,10 @@ appcompat/gen/*
 material-dialogs/bin/*
 material-dialogs/gen/*
 
+# snackbar
+snackbar/bin/*
+snackbar/gen/*
+
 # maven output
 target/*
 
