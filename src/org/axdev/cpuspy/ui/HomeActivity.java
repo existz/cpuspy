@@ -76,8 +76,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
         findViews();
     }
 
