@@ -3,16 +3,16 @@ bin/*
 gen/*
 
 # appcompat
-appcompat/bin/*
-appcompat/gen/*
+libs/appcompat/bin/*
+libs/appcompat/gen/*
 
 # material dialogs
-material-dialogs/bin/*
-material-dialogs/gen/*
+libs/material-dialogs/bin/*
+libs/material-dialogs/gen/*
 
 # snackbar
-snackbar/bin/*
-snackbar/gen/*
+libs/snackbar/bin/*
+libs/snackbar/gen/*
 
 # maven output
 target/*
