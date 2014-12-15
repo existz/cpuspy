@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="custom_rules">
+    <target name="-post-compile" if="${project.is.library}">
+    <echo>Post Compile: add assests from ${asset.absolute.dir} to ${out.library.jar.file}</echo>
+    <jar destfile="${out.library.jar.file}" update="true">
+        <zipfileset dir="${asset.absolute.dir}" prefix="assets" excludes="**/*.java ${android.package.excludes}"/>
+    </jar>
+</target>
+</project>

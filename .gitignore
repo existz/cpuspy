@@ -6,6 +6,10 @@ gen/*
 appcompat/bin/*
 appcompat/gen/*
 
+# material dialogs
+material-dialogs/bin/*
+material-dialogs/gen/*
+
 # maven output
 target/*
 

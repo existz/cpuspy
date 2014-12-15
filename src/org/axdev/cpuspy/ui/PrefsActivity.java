@@ -1,7 +1,9 @@
 package org.axdev.cpuspy.ui;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.fragments.*;
 
 public class PrefsActivity extends PreferenceActivity {
 
@@ -21,6 +24,23 @@ public class PrefsActivity extends PreferenceActivity {
 
         toolbar.setTitle(getTitle());
         toolbar.setNavigationIcon(R.drawable.ic_ab_back_mtrl_am_alpha);
+
+        Preference aboutPref = (Preference) findPreference("about");
+        aboutPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+             public boolean onPreferenceClick(Preference preference) {
+                 AboutDialog newFragment = new AboutDialog();
+                 newFragment.show(getFragmentManager(), "ABOUT");
+                 return true;
+             }
+        });
+        Preference libraryPref = (Preference) findPreference("library");
+        libraryPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+             public boolean onPreferenceClick(Preference preference) {
+                     LibraryDialog newFragment = new LibraryDialog();
+                     newFragment.show(getFragmentManager(), "LIBRARY");
+                 return true;
+             }
+        });
     }
 
     @Override
