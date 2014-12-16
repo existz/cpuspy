@@ -19,7 +19,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -83,6 +83,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
     private ListAdapter adapter;
     private ListType listType;
     private List<Integer> selectedIndicesList;
+    private boolean forceStacking;
 
     protected static ContextThemeWrapper getTheme(Builder builder) {
         TypedArray a = builder.context.getTheme().obtainStyledAttributes(new int[]{R.attr.md_dark_theme});
@@ -120,7 +121,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
         this.items = builder.items;
         this.setCancelable(builder.cancelable);
         this.selectedIndex = builder.selectedIndex;
-        this.selectedIndices = builder.selectedIndicies;
+        this.selectedIndices = builder.selectedIndices;
         this.autoDismiss = builder.autoDismiss;
         this.adapter = builder.adapter;
 
@@ -189,7 +190,11 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
                     listType = ListType.SINGLE;
                 } else if (listCallbackMulti != null) {
                     listType = ListType.MULTI;
-                    selectedIndicesList = new ArrayList<>(Arrays.asList(selectedIndices));
+                    if (selectedIndices != null) {
+                        selectedIndicesList = new ArrayList<>(Arrays.asList(selectedIndices));
+                    } else {
+                        selectedIndicesList = new ArrayList<>();
+                    }
                 } else {
                     listType = ListType.REGULAR;
                 }
@@ -435,35 +440,29 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
      */
     private void checkIfStackingNeeded() {
         if (numberOfActionButtons() <= 1) {
-            Log.v("MD_Stacking", "Less than or equal to 1 button, stacking isn't needed.");
+            return;
+        } else if (forceStacking) {
+            isStacked = true;
+            invalidateActions();
             return;
         }
+
         final int maxWidth = calculateMaxButtonWidth();
-        Log.v("MD_Stacking", "Max button width: " + maxWidth);
         isStacked = false;
 
         if (this.positiveText != null) {
             final int positiveWidth = positiveButton.getWidth();
             isStacked = positiveWidth > maxWidth;
-            Log.v("MD_Stacking", "Positive button width: " + positiveWidth);
-        } else {
-            Log.v("MD_Stacking", "No positive button");
         }
 
         if (!isStacked && this.neutralText != null) {
             final int neutralWidth = neutralButton.getWidth();
             isStacked = neutralWidth > maxWidth;
-            Log.v("MD_Stacking", "Neutral button width: " + neutralWidth);
-        } else {
-            Log.v("MD_Stacking", "No neutral button or already stacked");
         }
 
         if (!isStacked && this.negativeText != null) {
             final int negativeWidth = negativeButton.getWidth();
             isStacked = negativeWidth > maxWidth;
-            Log.v("MD_Stacking", "Negative button width: " + negativeWidth);
-        } else {
-            Log.v("MD_Stacking", "No negative button or already stacked");
         }
 
         invalidateActions();
@@ -568,52 +567,44 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
     @Override
     public final void onClick(View v) {
         String tag = (String) v.getTag();
-        if (tag.equals(POSITIVE)) {
-            if (listCallbackSingle != null) {
+        switch (tag) {
+            case POSITIVE:
+                if (callback != null) {
+                    callback.onPositive(this);
+                }
                 if (autoDismiss) dismiss();
-                sendSingleChoiceCallback(v);
-            } else if (listCallbackMulti != null) {
+                break;
+            case NEGATIVE:
+                if (callback != null && callback instanceof Callback) {
+                    ((Callback) callback).onNegative(this);
+                }
                 if (autoDismiss) dismiss();
-                sendMultichoiceCallback();
-            } else if (callback != null) {
+                break;
+            case NEUTRAL:
+                if (callback != null && callback instanceof FullCallback) {
+                    ((FullCallback) callback).onNeutral(this);
+                }
                 if (autoDismiss) dismiss();
-                callback.onPositive(this);
-            } else if (autoDismiss) dismiss();
-        } else if (tag.equals(NEGATIVE)) {
-            if (callback != null && callback instanceof Callback) {
-                if (autoDismiss) dismiss();
-                ((Callback) callback).onNegative(this);
-            } else if (autoDismiss) dismiss();
-        } else if (tag.equals(NEUTRAL)) {
-            if (callback != null && callback instanceof FullCallback) {
-                if (autoDismiss) dismiss();
-                ((FullCallback) callback).onNeutral(this);
-            } else if (autoDismiss) dismiss();
-        } else {
-            String[] split = tag.split(":");
-            int index = Integer.parseInt(split[0]);
-            if (listCallback != null) {
-                if (autoDismiss) dismiss();
-                listCallback.onSelection(this, v, index, split[1]);
-            } else if (listCallbackSingle != null) {
-                RadioButton cb = (RadioButton) ((LinearLayout) v).getChildAt(0);
-                if (!cb.isChecked())
-                    cb.setChecked(true);
-                invalidateSingleChoice(index);
-                if (positiveText == null) {
-                    // Immediately send the selection callback if no positive button is shown
+                break;
+            default:
+                String[] split = tag.split(":");
+                int index = Integer.parseInt(split[0]);
+                if (listCallback != null) {
+                    if (autoDismiss) dismiss();
+                    listCallback.onSelection(this, v, index, split[1]);
+                } else if (listCallbackSingle != null) {
+                    RadioButton cb = (RadioButton) ((LinearLayout) v).getChildAt(0);
+                    if (!cb.isChecked())
+                        cb.setChecked(true);
+                    invalidateSingleChoice(index);
                     if (autoDismiss) dismiss();
                     sendSingleChoiceCallback(v);
-                }
-            } else if (listCallbackMulti != null) {
-                CheckBox cb = (CheckBox) ((LinearLayout) v).getChildAt(0);
-                cb.setChecked(!cb.isChecked());
-                if (positiveText == null) {
-                    // Immediately send the selection callback if no positive button is shown
-                    if (autoDismiss) dismiss();
+                } else if (listCallbackMulti != null) {
+                    CheckBox cb = (CheckBox) ((LinearLayout) v).getChildAt(0);
+                    cb.setChecked(!cb.isChecked());
                     sendMultichoiceCallback();
-                }
-            } else if (autoDismiss) dismiss();
+                } else if (autoDismiss) dismiss();
+                break;
         }
     }
 
@@ -658,7 +649,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
         protected boolean cancelable = true;
         protected float contentLineSpacingMultiplier = 1.3f;
         protected int selectedIndex = -1;
-        protected Integer[] selectedIndicies = null;
+        protected Integer[] selectedIndices = null;
         protected boolean autoDismiss = true;
         protected Typeface regularFont;
         protected Typeface mediumFont;
@@ -667,6 +658,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
         private OnDismissListener dismissListener;
         private OnCancelListener cancelListener;
         private OnShowListener showListener;
+        protected boolean forceStacking;
 
         public Builder(@NonNull Context context) {
             this.context = context;
@@ -830,7 +822,7 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
          * @return The Builder instance so you can chain calls to it.
          */
         public Builder itemsCallbackMultiChoice(Integer[] selectedIndices, ListCallbackMulti callback) {
-            this.selectedIndicies = selectedIndices;
+            this.selectedIndices = selectedIndices;
             this.listCallback = null;
             this.listCallbackSingle = null;
             this.listCallbackMulti = callback;
@@ -961,6 +953,11 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
             return this;
         }
 
+        public Builder forceStacking(boolean stacked) {
+            this.forceStacking = stacked;
+            return this;
+        }
+
         public MaterialDialog build() {
             MaterialDialog dialog = new MaterialDialog(this);
             if (this.showListener != null) {
@@ -1003,26 +1000,43 @@ public class MaterialDialog extends DialogBase implements View.OnClickListener, 
      * @param which The action button of which to get the view for.
      * @return The view from the dialog's layout representing this action button.
      */
-    public final View getActionButton(DialogAction which) {
+    public final Button getActionButton(DialogAction which) {
         if (view == null) return null;
         if (isStacked) {
             switch (which) {
                 default:
-                    return view.findViewById(R.id.buttonStackedPositive);
+                    return (Button) view.findViewById(R.id.buttonStackedPositive);
                 case NEUTRAL:
-                    return view.findViewById(R.id.buttonStackedNeutral);
+                    return (Button) view.findViewById(R.id.buttonStackedNeutral);
                 case NEGATIVE:
-                    return view.findViewById(R.id.buttonStackedNegative);
+                    return (Button) view.findViewById(R.id.buttonStackedNegative);
             }
         } else {
             switch (which) {
                 default:
-                    return view.findViewById(R.id.buttonDefaultPositive);
+                    return (Button) view.findViewById(R.id.buttonDefaultPositive);
                 case NEUTRAL:
-                    return view.findViewById(R.id.buttonDefaultNeutral);
+                    return (Button) view.findViewById(R.id.buttonDefaultNeutral);
                 case NEGATIVE:
-                    return view.findViewById(R.id.buttonDefaultNegative);
+                    return (Button) view.findViewById(R.id.buttonDefaultNegative);
             }
+        }
+    }
+
+    /**
+     * @deprecated Use getActionButton(com.afollestad.materialdialogs.DialogAction)} instead.
+     */
+    @Override
+    public Button getButton(int whichButton) {
+        switch (whichButton) {
+            case BUTTON_POSITIVE:
+                return getActionButton(DialogAction.POSITIVE);
+            case BUTTON_NEUTRAL:
+                return getActionButton(DialogAction.NEUTRAL);
+            case BUTTON_NEGATIVE:
+                return getActionButton(DialogAction.NEGATIVE);
+            default:
+                return null;
         }
     }
 
