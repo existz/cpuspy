@@ -2,10 +2,11 @@ package org.axdev.cpuspy.ui;
 
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -13,56 +14,49 @@ import android.widget.LinearLayout;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.*;
 
-public class PrefsActivity extends PreferenceActivity {
+public class PrefsActivity extends ActionBarActivity {
 
-    private Toolbar toolbar;
+    public static class PrefsFragment extends PreferenceFragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
 
-        toolbar.setTitle(getTitle());
-        toolbar.setNavigationIcon(R.drawable.ic_ab_back_mtrl_am_alpha);
+            Preference aboutPref = (Preference) findPreference("about");
+            aboutPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                 public boolean onPreferenceClick(Preference preference) {
+                     AboutDialog newFragment = new AboutDialog();
+                     newFragment.show(getFragmentManager(), "ABOUT");
+                     return true;
+                 }
+            });
 
-        Preference aboutPref = (Preference) findPreference("about");
-        aboutPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-             public boolean onPreferenceClick(Preference preference) {
-                 AboutDialog newFragment = new AboutDialog();
-                 newFragment.show(getFragmentManager(), "ABOUT");
-                 return true;
-             }
-        });
-        Preference libraryPref = (Preference) findPreference("library");
-        libraryPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-             public boolean onPreferenceClick(Preference preference) {
+            Preference libraryPref = (Preference) findPreference("library");
+            libraryPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
                      LibraryDialog newFragment = new LibraryDialog();
                      newFragment.show(getFragmentManager(), "LIBRARY");
-                 return true;
-             }
-        });
+                     return true;
+                 }
+            });
+        }
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        ViewGroup contentView = (ViewGroup) LayoutInflater.from(this).inflate(
-                R.layout.settings_layout, new LinearLayout(this), false);
-
-        toolbar = (Toolbar) contentView.findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        ViewGroup contentWrapper = (ViewGroup) contentView.findViewById(R.id.content_wrapper);
-        LayoutInflater.from(this).inflate(layoutResID, contentWrapper, true);
-
-        getWindow().setContentView(contentView);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefsFragment()).commit();
     }
 
-    @Override protected void onDestroy() {
-        super.onDestroy();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

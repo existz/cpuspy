@@ -2,8 +2,6 @@
 <resources>
 
     <style name="Theme" parent="@style/Theme.AppCompat.Light.DarkActionBar" >
-        <!--We will be using the toolbar so no need to show ActionBar-->
-        <item name="windowActionBar">false</item>
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
         <item name="colorPrimary">@color/primary</item>

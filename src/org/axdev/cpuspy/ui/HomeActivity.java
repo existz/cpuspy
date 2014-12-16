@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,9 +45,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 {
     private static final String TAG = "CpuSpy";
 
+
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout swipeLayout;
-    private Toolbar toolbar;
 
     // the views
     private LinearLayout    _uiStatesView = null;
@@ -76,8 +75,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         swipeLayout.setColorScheme(R.color.primary,
                 R.color.accent);
         _app = (CpuSpyApp)getApplicationContext();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         findViews();
     }
