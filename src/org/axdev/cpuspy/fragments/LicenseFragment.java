@@ -1,4 +1,4 @@
-package org.axdev.cpuspy.ui;
+package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;

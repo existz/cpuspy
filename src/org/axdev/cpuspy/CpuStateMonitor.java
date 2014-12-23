@@ -54,8 +54,8 @@ public class CpuStateMonitor {
 
         /** for sorting, compare the freqs */
         public int compareTo(CpuState state) {
-            Integer a = new Integer(freq);
-            Integer b = new Integer(state.freq);
+            Integer a = Integer.valueOf(freq);
+            Integer b = Integer.valueOf(state.freq);
             return a.compareTo(b);
         }
     }
