@@ -16,13 +16,14 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
+        android:layout_marginStart="2dp"
         android:scaleType="fitXY" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pref_about_appname"
-        android:textColor="#191919"
+        android:textColor="@color/text_primary_color"
         android:textSize="18sp" />
 
     <TextView
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/pref_about_appinfo"
-        android:textColor="#191919"
+        android:textColor="@color/text_primary_color"
         android:textSize="16sp" />
 
     <TextView
@@ -52,15 +53,15 @@
         android:text="@string/pref_about_header_dev"
         android:textColor="@color/accent"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
         android:id="@+id/developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pref_about_developer"
-        android:textColorLink="#ff191919"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:textColorLink="@color/text_primary_color" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +70,7 @@
         android:text="@string/pref_about_header_contrib"
         android:textColor="@color/accent"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
         android:id="@+id/origdev"
@@ -78,7 +79,7 @@
         android:gravity="center_horizontal"
         android:text="@string/pref_about_origdev"
         android:textSize="15sp"
-        android:textColorLink="#ff191919" />
+        android:textColorLink="@color/text_primary_color" />
 
     <TextView
         android:id="@+id/iconcreator"
@@ -87,9 +88,8 @@
         android:gravity="center_horizontal"
         android:text="@string/pref_about_iconcreator"
         android:textSize="15sp"
-        android:textColorLink="#ff191919" />
+        android:textColorLink="@color/text_primary_color" />
 
     </LinearLayout>
 
 </LinearLayout>
-
