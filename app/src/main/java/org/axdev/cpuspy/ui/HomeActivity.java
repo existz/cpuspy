@@ -11,6 +11,8 @@ package org.axdev.cpuspy.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,10 +27,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nispok.snackbar.Snackbar;
 
 import org.axdev.cpuspy.CpuSpyApp;
@@ -44,7 +48,7 @@ import java.util.List;
 public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "CpuSpy";
-
+    private static final String VERSION_KEY = "version_number";
 
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout swipeLayout;
@@ -75,7 +79,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         swipeLayout.setColorScheme(R.color.primary,
                 R.color.accent);
         _app = (CpuSpyApp)getApplicationContext();
-
+        checkVersion();
         findViews();
     }
 
@@ -112,6 +116,35 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 refreshData();
             }
         }, 1950);
+    }
+
+    /** Show WhatsNewDialog if versionCode has changed **/
+    private void checkVersion() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int currentVersionNumber = 0;
+        int savedVersionNumber = sharedPref.getInt(VERSION_KEY, 0);
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionNumber = pi.versionCode;
+        } catch (Exception e) {}
+
+        if (currentVersionNumber > savedVersionNumber) {
+            showWhatsNewDialog();
+            Editor editor = sharedPref.edit();
+            editor.putInt(VERSION_KEY, currentVersionNumber);
+            editor.commit();
+        }
+    }
+
+    private void showWhatsNewDialog() {
+        WebView wv = new WebView(getApplicationContext());
+        wv.loadData(getString(R.string.changelog_dialog_text), "text/html", "utf-8");
+
+        new MaterialDialog.Builder(this)
+                .title("Whats New")
+                .customView(wv)
+                .positiveText("Dismiss")
+                .show();
     }
 
     /** Map all of the UI elements to member variables */

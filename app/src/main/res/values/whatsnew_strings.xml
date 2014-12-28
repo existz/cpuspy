@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="changelog_dialog_text">
+        <![CDATA[<small>
+            <b>Version 1.2</b>
+            <ul>
+            <li>Fix issue when no states file found</li>
+            <li>Fix padding for Material guidelines</li>
+            <li>Rearrange layout and fix formatting</li>
+            </ul>
+
+            <b>Version 1.1</b>
+            <ul>
+            <li>Adjusted padding a little</li>
+            <li>Reduced some text sizes</li>
+            <li>Removed some unused PNGs</li>
+            <li>Added shadow to action bar</li>
+            <li>Removed Time in State header</li>
+            <li>Fixed progress bar background</li>
+            </ul>
+            </small>
+        ]]>
+    </string>
+
+</resources>
