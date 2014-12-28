@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CPU Spy</string>
-    <string name="version_name">1.2</string>
+    <string name="version_name">2.0</string>
 
     <string name="unused_cpu_states">Unused CPU States</string>
     <string name="total_state_time">Total State Time</string>

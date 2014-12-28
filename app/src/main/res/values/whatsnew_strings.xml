@@ -3,6 +3,20 @@
 
     <string name="changelog_dialog_text">
         <![CDATA[<small>
+            <b>Version 2.0</b>
+            <ul>
+            <li>Added Pull to Refresh library</li>
+            <li>Fixed a few more lint warnings</li>
+            <li>New About and License menus</li>
+            <li>Added support for KitKat and TVs</li>
+            <li>New Material style launcher icon</li>
+            <li>Use colored nav bar on Lollipop</li>
+            <li>Optimized/removed unused PNGs</li>
+            <li>Add Gmail-like Snackbar library</li>
+            <li>Timers now reset when battery full</li>
+            <li>Add Auto Refresh option to settings</li>
+            </ul>
+
             <b>Version 1.2</b>
             <ul>
             <li>Fix issue when no states file found</li>
