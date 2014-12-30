@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -42,7 +37,7 @@
                 android:text="@string/states_warning"
                 android:textColor="@color/text_secondary_color"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-medium"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:background="#ffdb4437"
                 android:visibility="gone" />
 
@@ -97,7 +92,5 @@
 
     </ScrollView>
 
-  </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 
