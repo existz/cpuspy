@@ -141,9 +141,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         wv.loadData(getString(R.string.changelog_dialog_text), "text/html", "utf-8");
 
         new MaterialDialog.Builder(this)
-                .title("Whats New")
+                .title(R.string.changelog_dialog_title)
                 .customView(wv)
-                .positiveText("Dismiss")
+                .negativeText(R.string.action_dismiss)
                 .show();
     }
 
@@ -183,13 +183,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             } catch (CpuStateMonitorException e) {
                 // TODO: something
             }
-
             _app.saveOffsets();
             updateView();
             Snackbar.with(getApplicationContext()) // context
-                .text("Timers reset successfully") // text to display
-                .actionLabel("Dismiss") // action button label
-                .actionColor(Color.parseColor("#fff4b400"))
+                .text(R.string.snackbar_text_reset) // text to display
+                .actionLabel(R.string.action_dismiss) // action button label
+                .actionColor(Color.parseColor("#f4b400"))
                 .show(this); // activity where it is displayed
             break;
         case R.id.menu_restore:
@@ -197,9 +196,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             _app.saveOffsets();
             updateView();
             Snackbar.with(getApplicationContext()) // context
-                .text("Timers restored successfully") // text to display
-                .actionLabel("Dismiss") // action button label
-                .actionColor(Color.parseColor("#fff4b400"))
+                .text(R.string.snackbar_text_restore) // text to display
+                .actionLabel(R.string.action_dismiss) // action button label
+                .actionColor(Color.parseColor("#f4b400"))
                 .show(this); // activity where it is displayed
             break;
         case R.id.menu_settings:
@@ -207,9 +206,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             startActivity(intent);
             return true;
         }
-
-        // made it
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     /** Generate and update all UI elements */
