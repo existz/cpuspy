@@ -294,7 +294,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
      */
     private View generateStateRow(CpuState state, ViewGroup parent) {
         // inflate the XML into a view in the parent
-        LayoutInflater inf = LayoutInflater.from((Context)_app);
+        LayoutInflater inf = LayoutInflater.from(_app);
         LinearLayout theRow = (LinearLayout)inf.inflate(
                 R.layout.state_row, parent, false);
 

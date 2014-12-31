@@ -96,7 +96,7 @@ public class CpuSpyApp extends Application {
         }
 
         editor.putString(PREF_OFFSETS, str);
-        editor.apply();
+        editor.commit();
     }
 
     /** Try to read the kernel version string from the proc fileystem */
