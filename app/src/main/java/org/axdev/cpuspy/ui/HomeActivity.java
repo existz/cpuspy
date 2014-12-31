@@ -8,7 +8,6 @@ package org.axdev.cpuspy.ui;
 
 // imports
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -65,6 +64,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** whether or not we're updating the data in the background */
     private boolean     _updatingData = false;
 
+    /** whether or not auto refresh is enabled */
     private boolean     mAutoRefresh = false;
 
     /** Initialize the Activity */
@@ -97,7 +97,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
     }
 
-    /** Update the view when the application regains focus */
+    /** Disable auto refresh when app is in the background */
     @Override public void onPause () {
         super.onPause();
         mAutoRefresh = false;
@@ -118,7 +118,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }, 1950);
     }
 
-    /** Show WhatsNewDialog if versionCode has changed **/
+    /** Show WhatsNewDialog if versionCode has changed */
     private void checkVersion() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         int currentVersionNumber = 0;
@@ -352,18 +352,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         /** Executed on the UI thread right before starting the task */
         @Override protected void onPreExecute() {
-            //log("starting data update");
             _updatingData = true;
         }
 
         /** Executed on UI thread after task */
         @Override protected void onPostExecute(Void v) {
-            //log("finished data update");
             _updatingData = false;
             updateView();
         }
     }
 
+    /** Update data every 1s if auto refresh is enabled */
     private void refreshAuto () {
         Thread t = new Thread(new Runnable() {
             @Override public void run() {
@@ -378,11 +377,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
         });
         t.start();
-    }
-
-    /** logging */
-    private void log(String s) {
-        Log.d(TAG, s);
     }
 
     @Override protected void onDestroy() {

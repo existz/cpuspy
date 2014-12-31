@@ -31,8 +31,6 @@ public class CpuStateMonitor {
     public static final String TIME_IN_STATE_PATH =
         "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
 
-    private static final String TAG = "CpuStateMonitor";
-
     private final List<CpuState>      _states = new ArrayList<>();
     private Map<Integer, Long>  _offsets = new HashMap<>();
 

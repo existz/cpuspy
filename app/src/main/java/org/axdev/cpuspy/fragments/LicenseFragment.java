@@ -40,8 +40,4 @@ public class LicenseFragment extends Fragment {
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -21,6 +21,7 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int percent = (level*100)/scale;
 
+        /** Reset timers if battery is above 97% AND charger is unplugged */
         if(percent >= 97 && action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
             try {
                 _app.getCpuStateMonitor().setOffsets();
