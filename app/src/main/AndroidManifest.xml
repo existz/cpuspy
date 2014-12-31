@@ -31,6 +31,7 @@
         <!-- Settings Menu -->
         <activity android:name=".ui.PrefsActivity"
             android:label="@string/settings"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".ui.HomeActivity" >
                 <meta-data
                     android:name="android.support.PARENT_ACTIVITY"

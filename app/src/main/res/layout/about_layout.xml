@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/version_name"
+        android:textColor="#777777"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -53,7 +54,7 @@
         android:text="@string/pref_about_header_dev"
         android:textColor="@color/accent"
         android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/developer"
@@ -70,7 +71,7 @@
         android:text="@string/pref_about_header_contrib"
         android:textColor="@color/accent"
         android:textSize="14sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/origdev"
