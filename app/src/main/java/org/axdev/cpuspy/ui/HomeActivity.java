@@ -74,19 +74,21 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);
+        _app = (CpuSpyApp)getApplicationContext();
+        checkVersion();
+        findViews();
+
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorScheme(R.color.primary,
                 R.color.accent);
-        _app = (CpuSpyApp)getApplicationContext();
-        checkVersion();
-        findViews();
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
     @Override public void onStart () {
         super.onStart();
 
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (settings.getBoolean("autoRefresh", true)) {
