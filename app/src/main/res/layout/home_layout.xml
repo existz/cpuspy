@@ -74,6 +74,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/ui_header_kernel_string"
                 style="@style/infoHeader"
                 android:text="@string/kernel_info" />
 

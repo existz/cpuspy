@@ -1,6 +1,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
@@ -14,7 +15,6 @@ import org.axdev.cpuspy.R;
 
 public class LicenseFragment extends Fragment {
 
-
     /** Inflate the license layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,6 +24,17 @@ public class LicenseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/Roboto-Medium.ttf");
+
+        // Applying Roboto-Medium font
+        ((TextView) getView().findViewById(R.id.supportlib)).setTypeface(tf);
+        ((TextView) getView().findViewById(R.id.materialdialog)).setTypeface(tf);
+        ((TextView) getView().findViewById(R.id.snackbar)).setTypeface(tf);
+
+        // Allow strings to use HTML and hyperlinks
         ((TextView) getView().findViewById(R.id.supportlib)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) getView().findViewById(R.id.supportlib)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
 

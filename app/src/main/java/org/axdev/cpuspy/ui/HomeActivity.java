@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,6 +59,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private TextView        _uiTotalStateTime = null;
     private TextView        _uiHeaderAdditionalStates = null;
     private TextView        _uiHeaderTotalStateTime = null;
+    private TextView        _uiHeaderKernelString = null;
     private TextView        _uiStatesWarning = null;
     private TextView        _uiKernelString = null;
 
@@ -153,6 +155,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private void findViews() {
         _uiStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
         _uiKernelString = (TextView)findViewById(R.id.ui_kernel_string);
+        _uiHeaderKernelString = (TextView) findViewById(
+                R.id.ui_header_kernel_string);
         _uiAdditionalStates = (TextView)findViewById(
                 R.id.ui_additional_states);
         _uiHeaderAdditionalStates = (TextView)findViewById(
@@ -216,6 +220,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         /** Get the CpuStateMonitor from the app, and iterate over all states,
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/Roboto-Medium.ttf");
+
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         _uiStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
@@ -242,6 +251,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // update the total state time
         long totTime = monitor.getTotalStateTime() / 100;
         _uiTotalStateTime.setText(sToString(totTime));
+        _uiHeaderTotalStateTime.setTypeface(tf);
 
         // for all the 0 duration states, add the the Unused State area
         if (extraStates.size() > 0) {
@@ -256,6 +266,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
             _uiAdditionalStates.setVisibility(View.VISIBLE);
             _uiHeaderAdditionalStates.setVisibility(View.VISIBLE);
+            _uiHeaderAdditionalStates.setTypeface(tf);
             _uiAdditionalStates.setText(str);
         } else {
             _uiAdditionalStates.setVisibility(View.GONE);
@@ -263,6 +274,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
 
         // kernel line
+        _uiHeaderKernelString.setTypeface(tf);
         _uiKernelString.setText(_app.getKernelVersion());
     }
 

@@ -15,7 +15,6 @@
             android:text="@string/pref_license_supportlib"
             android:textColorLink="@color/text_primary_color"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -53,7 +52,6 @@
             android:text="@string/pref_license_materialdialog"
             android:textColorLink="@color/text_primary_color"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:linksClickable="true" />
@@ -89,7 +87,6 @@
             android:text="@string/pref_license_snackbar"
             android:textColorLink="@color/text_primary_color"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:linksClickable="true" />

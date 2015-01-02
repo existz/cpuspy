@@ -1,6 +1,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
@@ -23,13 +24,18 @@ public class AboutFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        TextView iconText = ((TextView) getView().findViewById(R.id.iconcreator));
-        TextView devText = ((TextView) getView().findViewById(R.id.developer));
-        TextView origText = ((TextView) getView().findViewById(R.id.origdev));
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/Roboto-Medium.ttf");
 
-        iconText.setMovementMethod(LinkMovementMethod.getInstance());
-        devText.setMovementMethod(LinkMovementMethod.getInstance());
-        origText.setMovementMethod(LinkMovementMethod.getInstance());
+        // Applying Roboto-Medium font
+        ((TextView) getView().findViewById(R.id.about_header_developer)).setTypeface(tf);
+        ((TextView) getView().findViewById(R.id.about_header_contrib)).setTypeface(tf);
+
+        // Allow strings to use hyperlinks
+        ((TextView) getView().findViewById(R.id.iconcreator)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) getView().findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) getView().findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

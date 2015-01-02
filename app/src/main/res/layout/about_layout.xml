@@ -49,12 +49,12 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/about_header_developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pref_about_header_dev"
         android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/developer"
@@ -65,13 +65,13 @@
         android:textColorLink="@color/text_primary_color" />
 
     <TextView
+        android:id="@+id/about_header_contrib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="24dp"
         android:text="@string/pref_about_header_contrib"
         android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/origdev"
