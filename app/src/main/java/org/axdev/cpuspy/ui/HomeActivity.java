@@ -8,13 +8,17 @@ package org.axdev.cpuspy.ui;
 
 // imports
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -28,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,6 +60,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     // the views
     private LinearLayout    _uiStatesView = null;
+    private TextView        _uiChargedView = null;
+    private ImageView       _uiChargedImg = null;
     private TextView        _uiAdditionalStates = null;
     private TextView        _uiTotalStateTime = null;
     private TextView        _uiHeaderAdditionalStates = null;
@@ -68,6 +75,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** whether or not auto refresh is enabled */
     private boolean     mAutoRefresh = false;
+
+    /** lets us know if the battery is fully charged or not */
+    private boolean     mIsCharged = false;
 
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
@@ -91,6 +101,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 R.color.accent);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // Register receiver
+        this.registerReceiver(this.mBatInfoReceiver,
+                new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     /** When the activity is about to change orientation */
@@ -133,6 +147,27 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }, 1950);
     }
 
+    /** Check to see if the device is fully charged or not */
+    private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+            int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+            int percent = (level * 100) / scale;
+            boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                    status == BatteryManager.BATTERY_STATUS_FULL;
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+
+            mIsCharged = percent >= 97 && isCharging;
+
+            if (sp.getBoolean("autoReset", true) && mIsCharged) {
+                updateView();
+            }
+        }
+    };
+
     /** Show WhatsNewDialog if versionCode has changed */
     private void checkVersion() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -165,6 +200,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Map all of the UI elements to member variables */
     private void findViews() {
         _uiStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
+        _uiChargedView = (TextView)findViewById(R.id.ui_charged_view);
+        _uiChargedImg = (ImageView)findViewById(R.id.ui_charged_img);
         _uiKernelString = (TextView)findViewById(R.id.ui_kernel_string);
         _uiHeaderKernelString = (TextView) findViewById(
                 R.id.ui_header_kernel_string);
@@ -236,6 +273,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         _uiStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
@@ -246,17 +285,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 if (state.freq == 0) {
                     extraStates.add("Deep Sleep");
                 } else {
-                    extraStates.add(state.freq/1000 + " MHz");
+                    extraStates.add(state.freq / 1000 + " MHz");
                 }
             }
-        }
-
-        // show the red warning label if no states found
-        if ( monitor.getStates().size() == 0) {
-            _uiStatesWarning.setVisibility(View.VISIBLE);
-            _uiHeaderTotalStateTime.setVisibility(View.GONE);
-            _uiTotalStateTime.setVisibility(View.GONE);
-            _uiStatesView.setVisibility(View.GONE);
         }
 
         // update the total state time
@@ -287,6 +318,54 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // kernel line
         _uiHeaderKernelString.setTypeface(tf);
         _uiKernelString.setText(_app.getKernelVersion());
+
+        /** Reset timers and show info when battery is charged */
+        if (sp.getBoolean("autoReset", true) && mIsCharged) {
+            _uiStatesWarning.setVisibility(View.GONE);
+            _uiStatesView.setVisibility(View.GONE);
+            _uiHeaderTotalStateTime.setVisibility(View.GONE);
+            _uiTotalStateTime.setVisibility(View.GONE);
+            _uiHeaderAdditionalStates.setVisibility(View.GONE);
+            _uiAdditionalStates.setVisibility(View.GONE);
+            _uiHeaderKernelString.setVisibility(View.GONE);
+            _uiKernelString.setVisibility(View.GONE);
+            _uiChargedView.setVisibility(View.VISIBLE);
+            _uiChargedImg.setVisibility(View.VISIBLE);
+
+            _uiChargedView.setTypeface(tf);
+
+            try {
+                _app.getCpuStateMonitor().setOffsets();
+            } catch (CpuStateMonitorException e) {
+                // TODO: something
+            }
+            _app.saveOffsets();
+        } else {
+            _uiStatesWarning.setVisibility(View.GONE);
+            _uiChargedView.setVisibility(View.GONE);
+            _uiChargedImg.setVisibility(View.GONE);
+            _uiStatesView.setVisibility(View.VISIBLE);
+            _uiHeaderTotalStateTime.setVisibility(View.VISIBLE);
+            _uiTotalStateTime.setVisibility(View.VISIBLE);
+            _uiHeaderKernelString.setVisibility(View.VISIBLE);
+            _uiKernelString.setVisibility(View.VISIBLE);
+        }
+
+        /** show the red warning label if no states found */
+        if (monitor.getStates().size() == 0) {
+            _uiStatesWarning.setVisibility(View.VISIBLE);
+            _uiHeaderKernelString.setVisibility(View.VISIBLE);
+            _uiKernelString.setVisibility(View.VISIBLE);
+            _uiHeaderTotalStateTime.setVisibility(View.GONE);
+            _uiTotalStateTime.setVisibility(View.GONE);
+            _uiStatesView.setVisibility(View.GONE);
+            _uiChargedView.setVisibility(View.GONE);
+            _uiChargedImg.setVisibility(View.GONE);
+
+            _uiStatesWarning.setTypeface(tf);
+
+            return; // let's end this
+        }
     }
 
     /** Attempt to update the time-in-state info */
@@ -401,6 +480,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     @Override protected void onDestroy() {
         mAutoRefresh = false;
+        this.unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
         super.onDestroy();
     }
 }

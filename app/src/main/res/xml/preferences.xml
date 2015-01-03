@@ -7,6 +7,11 @@
             android:title="@string/pref_title_autorefresh"
             android:summary="@string/pref_summary_autorefresh"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="autoReset"
+            android:title="@string/pref_title_autoreset"
+            android:summary="@string/pref_summary_autoreset"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_info" >

@@ -25,6 +25,23 @@
                 android:layout_marginRight="16dp"
                 android:textColor="@color/text_primary_color" />
 
+            <ImageView
+                android:id="@+id/ui_charged_img"
+                android:src="@drawable/ic_charged_info"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="80dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/ui_charged_view"
+                style="@style/chargedView"
+                android:visibility="gone"
+                android:text="@string/charged_view_message" />
+
             <TextView
                 android:id="@+id/ui_states_warning"
                 android:padding="6dp"

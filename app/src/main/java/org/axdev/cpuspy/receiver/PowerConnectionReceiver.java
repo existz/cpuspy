@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.BatteryManager;
+import android.preference.PreferenceManager;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
@@ -21,14 +23,20 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int percent = (level*100)/scale;
 
-        /** Reset timers if battery is above 97% AND charger is unplugged */
-        if(percent >= 97 && action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-            try {
-                _app.getCpuStateMonitor().setOffsets();
-            } catch (CpuStateMonitorException e) {
-                // TODO: something
+        SharedPreferences settings =
+                PreferenceManager.getDefaultSharedPreferences(
+                        context.getApplicationContext());
+
+        if (settings.getBoolean("autoReset", true)) {
+            /** Reset timers if battery is above 97% AND charger is unplugged */
+            if (percent >= 97 && action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
+                try {
+                    _app.getCpuStateMonitor().setOffsets();
+                } catch (CpuStateMonitorException e) {
+                    // TODO: something
+                }
+                _app.saveOffsets();
             }
-            _app.saveOffsets();
         }
     }
 }

@@ -14,4 +14,15 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <!-- charged info -->
+    <style name="chargedView">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#c7c7c7</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
 </resources>
