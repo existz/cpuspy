@@ -141,14 +141,14 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     private void showWhatsNewDialog() {
-        WebView wv = new WebView(getApplicationContext());
-        wv.loadData(getString(R.string.changelog_dialog_text), "text/html", "utf-8");
-
-        new MaterialDialog.Builder(this)
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title(R.string.changelog_dialog_title)
-                .customView(wv)
+                .customView(R.layout.dialog_webview, false)
                 .negativeText(R.string.action_dismiss)
-                .show();
+                .build();
+        WebView webView = (WebView) dialog.getCustomView().findViewById(R.id.webview);
+        webView.loadUrl("file:///android_asset/webview.html");
+        dialog.show();
     }
 
     /** Map all of the UI elements to member variables */
