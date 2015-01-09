@@ -95,7 +95,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         if (settings.getBoolean("autoRefresh", true)) {
             mAutoRefresh = true;
-            refreshAuto();
+            mHandler.post(refreshAuto);
         } else {
             mAutoRefresh = false;
         }
@@ -377,21 +377,16 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Update data every 1s if auto refresh is enabled */
-    private void refreshAuto () {
-        Thread t = new Thread(new Runnable() {
-            @Override public void run() {
-                try {
-                    while(mAutoRefresh) {
-                        refreshData();
-                        Thread.sleep(1000);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    private final Handler mHandler = new Handler();
+
+    private final Runnable refreshAuto = new Runnable() {
+        public void run() {
+            if(mAutoRefresh) {
+                refreshData();
+                mHandler.postDelayed(refreshAuto, 1000); // 1 second
             }
-        });
-        t.start();
-    }
+        }
+    };
 
     @Override protected void onDestroy() {
         mAutoRefresh = false;
