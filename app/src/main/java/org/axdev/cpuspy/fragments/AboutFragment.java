@@ -2,6 +2,7 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
@@ -42,5 +43,8 @@ public class AboutFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
+        }
     }
 }

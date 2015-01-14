@@ -1,5 +1,6 @@
 package org.axdev.cpuspy.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -48,6 +49,10 @@ public class PrefsActivity extends ActionBarActivity {
         public void onResume() {
             super.onResume();
             ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.settings);
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+                int elev = (int) getResources().getDimension(R.dimen.ab_elevation);
+                ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(elev);
+            }
         }
 
     } /** End PrefsFragment **/

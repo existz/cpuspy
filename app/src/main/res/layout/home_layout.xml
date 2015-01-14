@@ -23,7 +23,8 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/text_primary_color" />
+                android:textColor="@color/text_primary_color"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/ui_charged_img"
@@ -39,30 +40,31 @@
             <TextView
                 android:id="@+id/ui_charged_view"
                 style="@style/chargedView"
-                android:visibility="gone"
-                android:text="@string/charged_view_message" />
+                android:text="@string/charged_view_message"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ui_states_warning"
                 android:padding="6dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/states_warning"
-                android:textColor="@color/text_secondary_color"
-                android:textSize="20sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:background="#ffdb4437"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center"
+                android:text="@string/states_warning"
+                android:textColor="@android:color/primary_text_dark"
+                android:textSize="20sp"
+                android:background="#ffdb4437"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/ui_header_total_state_time"
                 style="@style/infoHeader"
-                android:text="@string/total_state_time" />
+                android:text="@string/total_state_time"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ui_total_state_time"
@@ -70,15 +72,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:textColor="@color/text_primary_color"
                 android:textSize="23sp"
-                android:gravity="center_horizontal" />
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ui_header_additional_states"
                 style="@style/infoHeader"
-                android:visibility="gone"
-                android:text="@string/unused_cpu_states" />
+                android:text="@string/unused_cpu_states"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ui_additional_states"
@@ -88,14 +92,17 @@
                 android:layout_marginBottom="6dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:textColor="@color/text_primary_color"
-                android:visibility="gone"
-                android:gravity="center_horizontal" />
+                android:textSize="15sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/ui_header_kernel_string"
                 style="@style/infoHeader"
-                android:text="@string/kernel_info" />
+                android:text="@string/kernel_info"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/ui_kernel_string"
@@ -105,9 +112,11 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:textColor="@color/text_primary_color"
                 android:textSize="17sp"
-                android:gravity="center_horizontal" />
+                android:visibility="gone"/>
 
         </LinearLayout>
 

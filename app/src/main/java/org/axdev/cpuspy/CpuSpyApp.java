@@ -10,6 +10,7 @@ package org.axdev.cpuspy;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -27,7 +28,6 @@ public class CpuSpyApp extends Application {
 
     private static final String TAG = "CpuSpyApp";
 
-    private static final String PREF_NAME = "CpuSpyPreferences";
     private static final String PREF_OFFSETS = "offsets";
 
     /** the long-living object used to monitor the system frequency states */
@@ -58,10 +58,10 @@ public class CpuSpyApp extends Application {
      * Load the saved string of offsets from preferences and put it into
      * the state monitor
      */
-    public void loadOffsets() {
-        SharedPreferences settings = getSharedPreferences(
-                PREF_NAME, MODE_PRIVATE);
-        String prefs = settings.getString (PREF_OFFSETS, "");
+    void loadOffsets() {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String prefs = sp.getString (PREF_OFFSETS, "");
 
         if (prefs == null || prefs.length() < 1) {
             return;
@@ -84,9 +84,9 @@ public class CpuSpyApp extends Application {
      * e.g. "100 24, 200 251, 500 124 etc
      */
     public void saveOffsets() {
-        SharedPreferences settings = getSharedPreferences(
-                PREF_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
 
         // build the string by iterating over the freq->duration map
         String str = "";
@@ -100,7 +100,7 @@ public class CpuSpyApp extends Application {
     }
 
     /** Try to read the kernel version string from the proc fileystem */
-    public String updateKernelVersion() {
+    String updateKernelVersion() {
         try {
             InputStream is = new FileInputStream(KERNEL_VERSION_PATH);
             InputStreamReader ir = new InputStreamReader(is);

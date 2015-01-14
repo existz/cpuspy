@@ -3,6 +3,5 @@
     <color name="primary">#ff3f51b5</color>
     <color name="primary_dark">#ff303f9f</color>
     <color name="accent">#ffe91e63</color>
-    <color name="text_primary_color">#ff191919</color>
-    <color name="text_secondary_color">#ffffffff</color>
+    <color name="text_primary_color">#ff353535</color>
 </resources>

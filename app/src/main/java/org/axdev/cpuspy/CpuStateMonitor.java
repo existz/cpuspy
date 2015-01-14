@@ -9,6 +9,7 @@ package org.axdev.cpuspy;
 // imports
 
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -28,7 +29,7 @@ import java.util.Map;
  */
 public class CpuStateMonitor {
 
-    public static final String TIME_IN_STATE_PATH =
+    private static final String TIME_IN_STATE_PATH =
         "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
 
     private final List<CpuState>      _states = new ArrayList<>();
@@ -52,7 +53,7 @@ public class CpuStateMonitor {
         public long duration = 0;
 
         /** for sorting, compare the freqs */
-        public int compareTo(CpuState state) {
+        public int compareTo(@NonNull CpuState state) {
             Integer a = freq;
             Integer b = state.freq;
             return a.compareTo(b);

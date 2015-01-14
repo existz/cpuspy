@@ -1,96 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:id="@+id/about1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingBottom="16dp"
+        android:background="@color/primary"
+        android:height="200dp"
+        android:elevation="6dp"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:src="@mipmap/icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:id="@+id/about_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pref_about_appname"
+            android:id="@+id/about_appname"
+            android:paddingLeft="16dp"
+            android:textSize="28sp"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:paddingTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/version_name"
+            android:id="@+id/about_version"
+            android:layout_marginEnd="88dp"
+            android:textColor="#ffeeeeee"
+            android:textSize="16sp"
+            android:layout_below="@+id/about_appname"
+            android:layout_alignEnd="@+id/about_appname" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/pref_about_appinfo"
+        android:id="@+id/about_appinfo"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:orientation="vertical">
-
-    <ImageView
-        android:src="@mipmap/icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="2dp"
-        android:scaleType="fitXY" />
+        android:layout_below="@+id/about1"
+        android:layout_alignParentStart="true"
+        android:paddingTop="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pref_about_appname"
-        android:textColor="@color/text_primary_color"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/version_name"
-        android:textColor="#777777"
-        android:textSize="14sp" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="3px"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="#d1d1d1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/pref_about_appinfo"
-        android:textColor="@color/text_primary_color"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/about_header_developer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pref_about_header_dev"
         android:textColor="@color/accent"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:id="@+id/about_header_developer"
+        android:layout_below="@+id/about_appinfo"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_developer"
         android:textSize="15sp"
-        android:textColorLink="@color/text_primary_color" />
+        android:id="@+id/developer"
+        android:layout_below="@+id/about_header_developer"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/about_header_contrib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="24dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pref_about_header_contrib"
         android:textColor="@color/accent"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:id="@+id/about_header_contrib"
+        android:layout_below="@+id/developer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp" />
 
     <TextView
-        android:id="@+id/origdev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_origdev"
         android:textSize="15sp"
-        android:textColorLink="@color/text_primary_color" />
+        android:id="@+id/origdev"
+        android:layout_below="@+id/about_header_contrib"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/iconcreator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_iconcreator"
         android:textSize="15sp"
-        android:textColorLink="@color/text_primary_color" />
+        android:id="@+id/iconcreator"
+        android:layout_below="@+id/origdev"
+        android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

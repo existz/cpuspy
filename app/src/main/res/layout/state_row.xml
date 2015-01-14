@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="5dp"
             android:gravity="end"
+            android:textSize="15sp"
             android:textColor="@color/text_primary_color" />
 
         <TextView
@@ -36,6 +37,7 @@
             android:layout_weight="0"
             android:layout_marginEnd="5dp"
             android:gravity="end"
+            android:textSize="15sp"
             android:textColor="@color/text_primary_color" />
 
     </LinearLayout>
@@ -44,6 +46,7 @@
         android:id="@+id/ui_bar"
         android:layout_width="fill_parent"
         android:layout_height="10dp"
+        android:layout_marginBottom="1dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/progess_drawable"
         android:max="100" />

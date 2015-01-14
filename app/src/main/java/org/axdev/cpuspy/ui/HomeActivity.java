@@ -116,9 +116,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override public void onStart () {
         super.onStart();
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (settings.getBoolean("autoRefresh", true)) {
+        if (sp.getBoolean("autoRefresh", true)) {
             mAutoRefresh = true;
             mHandler.post(refreshAuto);
         } else {
@@ -170,17 +170,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Show WhatsNewDialog if versionCode has changed */
     private void checkVersion() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int currentVersionNumber = 0;
-        int savedVersionNumber = sharedPref.getInt(VERSION_KEY, 0);
+        int savedVersionNumber = sp.getInt(VERSION_KEY, 0);
         try {
             PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
             currentVersionNumber = pi.versionCode;
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
 
         if (currentVersionNumber > savedVersionNumber) {
             showWhatsNewDialog();
-            Editor editor = sharedPref.edit();
+            Editor editor = sp.edit();
             editor.putInt(VERSION_KEY, currentVersionNumber);
             editor.commit();
         }
@@ -198,10 +198,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Map all of the UI elements to member variables */
-    private void findViews() {
+    void findViews() {
         _uiStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
-        _uiChargedView = (TextView)findViewById(R.id.ui_charged_view);
         _uiChargedImg = (ImageView)findViewById(R.id.ui_charged_img);
+        _uiChargedView = (TextView)findViewById(R.id.ui_charged_view);
         _uiKernelString = (TextView)findViewById(R.id.ui_kernel_string);
         _uiHeaderKernelString = (TextView) findViewById(
                 R.id.ui_header_kernel_string);
@@ -264,7 +264,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Generate and update all UI elements */
-    public void updateView() {
+    void updateView() {
         /** Get the CpuStateMonitor from the app, and iterate over all states,
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
@@ -273,7 +273,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         _uiStatesView.removeAllViews();
@@ -285,7 +285,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 if (state.freq == 0) {
                     extraStates.add("Deep Sleep");
                 } else {
-                    extraStates.add(state.freq / 1000 + " MHz");
+                    extraStates.add(state.freq / 1000 + "MHz");
                 }
             }
         }
@@ -369,7 +369,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Attempt to update the time-in-state info */
-    public void refreshData() {
+    void refreshData() {
         if (!_updatingData) {
             new RefreshStateDataTask().execute((Void)null);
         }
@@ -413,7 +413,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (state.freq == 0) {
             sFreq = "Deep Sleep";
         } else {
-            sFreq = state.freq / 1000 + " MHz";
+            sFreq = state.freq / 1000 + "MHz";
         }
 
         // duration
@@ -440,7 +440,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Keep updating the state data off the UI thread for slow devices */
-    protected class RefreshStateDataTask extends AsyncTask<Void, Void, Void> {
+    private class RefreshStateDataTask extends AsyncTask<Void, Void, Void> {
 
         /** Stuff to do on a seperate thread */
         @Override protected Void doInBackground(Void... v) {
