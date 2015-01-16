@@ -82,7 +82,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorScheme(R.color.primary,
+        swipeLayout.setColorSchemeResources(R.color.primary,
                 R.color.accent);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
