@@ -80,12 +80,23 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         checkVersion();
         findViews();
 
+        // see if we're updating data during a config change (rotate screen)
+        if (savedInstanceState != null) {
+            _updatingData = savedInstanceState.getBoolean("updatingData");
+        }
+
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeResources(R.color.primary,
                 R.color.accent);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    }
+
+    /** When the activity is about to change orientation */
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("updatingData", _updatingData);
     }
 
     @Override public void onStart () {

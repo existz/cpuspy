@@ -14,12 +14,12 @@
         android:label="@string/app_name"
         android:logo="@drawable/icon"
         android:theme="@style/AppTheme"
-        android:name="CpuSpyApp">
+        android:name="CpuSpyApp"
+        android:allowBackup="true">
 
         <!-- main view -->
         <activity android:name=".ui.HomeActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|screenSize">
+            android:label="@string/app_name">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
