@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
     <ImageView
-        android:src="@drawable/icon"
+        android:src="@mipmap/icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
