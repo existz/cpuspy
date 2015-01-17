@@ -19,6 +19,14 @@
 
     <string name="action_dismiss">Dismiss</string>
 
+    <!-- Welcome info -->
+    <string name="welcome">Welcome</string>
+    <string name="welcome_summary">Welcome to CPUSpy Material! Use this tool to monitor which frequencies your CPU uses the most.</string>
+    <string name="welcome_features">Features</string>
+    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time.</string>
+    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full.</string>
+    <string name="welcome_button_text">OK, GOT IT</string>
+
     <!-- Settings info -->
     <string name="settings">Settings</string>
     <string name="pref_header_general">General</string>

@@ -1,125 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/about"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/about1"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/about_toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingBottom="16dp"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
         android:background="@color/primary"
-        android:height="200dp"
-        android:elevation="6dp"
-        android:orientation="vertical" >
+        android:elevation="8dp">
 
-        <ImageView
-            android:src="@mipmap/icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="fitXY"
-            android:id="@+id/about_icon"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/about_toolbar_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/pref_about_appname"
-            android:id="@+id/about_appname"
-            android:paddingLeft="16dp"
-            android:textSize="28sp"
-            android:textColor="@android:color/primary_text_dark"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:paddingTop="16dp" />
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/version_name"
-            android:id="@+id/about_version"
-            android:layout_marginEnd="88dp"
-            android:textColor="#ffeeeeee"
-            android:textSize="16sp"
-            android:layout_below="@+id/about_appname"
-            android:layout_alignEnd="@+id/about_appname" />
+            <TextView
+                android:id="@+id/about_appname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pref_about_appname"
+                android:textSize="28sp"
+                android:textColor="@android:color/primary_text_dark" />
 
+            <TextView
+                android:id="@+id/about_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/about_appname"
+                android:layout_alignEnd="@+id/about_appname"
+                android:layout_marginEnd="88dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/version_name"
+                android:textColor="#ffeeeeee"
+                android:textSize="16sp" />
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/about_icon"
+                android:src="@mipmap/icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <TextView
+        android:id="@+id/about_appinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_appinfo"
-        android:id="@+id/about_appinfo"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:layout_below="@+id/about1"
-        android:layout_alignParentStart="true"
         android:paddingTop="16dp" />
 
     <TextView
+        android:id="@+id/about_header_developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pref_about_header_dev"
         android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:id="@+id/about_header_developer"
-        android:layout_below="@+id/about_appinfo"
-        android:layout_centerHorizontal="true" />
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_developer"
-        android:textSize="15sp"
-        android:id="@+id/developer"
-        android:layout_below="@+id/about_header_developer"
-        android:layout_centerHorizontal="true" />
+        android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/about_header_contrib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/pref_about_header_contrib"
         android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:id="@+id/about_header_contrib"
-        android:layout_below="@+id/developer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
+        android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/origdev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_origdev"
-        android:textSize="15sp"
-        android:id="@+id/origdev"
-        android:layout_below="@+id/about_header_contrib"
-        android:layout_centerHorizontal="true" />
+        android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/iconcreator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/pref_about_iconcreator"
-        android:textSize="15sp"
-        android:id="@+id/iconcreator"
-        android:layout_below="@+id/origdev"
-        android:layout_centerHorizontal="true" />
+        android:textSize="15sp" />
 
-</RelativeLayout>
+</LinearLayout>

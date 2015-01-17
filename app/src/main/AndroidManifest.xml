@@ -38,6 +38,12 @@
                     android:value=".ui.HomeActivity" />
         </activity>
 
+        <!-- Welcome Screen -->
+        <activity android:name=".ui.WelcomeActivity"
+            android:label="@string/welcome"
+            android:theme="@style/WelcomeTheme" >
+        </activity>
+
         <receiver android:name=".receiver.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>

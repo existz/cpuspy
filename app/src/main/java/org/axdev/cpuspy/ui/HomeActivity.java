@@ -54,6 +54,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 {
     private static final String TAG = "CpuSpy";
     private static final String VERSION_KEY = "version_number";
+    private static final String WELCOME_SCREEN = "welcomeScreenShown";
 
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout swipeLayout;
@@ -83,6 +84,16 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // second argument is the default to use if the preference can't be found
+        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, false);
+
+        if (!welcomeScreenShown) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
 
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);

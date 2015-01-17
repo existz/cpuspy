@@ -15,7 +15,7 @@ import org.axdev.cpuspy.R;
 
 public class AboutFragment extends Fragment {
 
-    /** Inflate the license layout */
+    /** Inflate the About layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.about_layout, container, false);
