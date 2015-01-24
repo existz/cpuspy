@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuStateMonitor;
@@ -250,21 +251,19 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
             _app.saveOffsets();
             updateView();
-            Snackbar.with(getApplicationContext()) // context
+            SnackbarManager.show(Snackbar.with(this)
                 .text(R.string.snackbar_text_reset) // text to display
                 .actionLabel(R.string.action_dismiss) // action button label
-                .actionColor(Color.parseColor("#f4b400"))
-                .show(this); // activity where it is displayed
+                .actionColor(Color.parseColor("#f4b400")));
             break;
         case R.id.menu_restore:
             _app.getCpuStateMonitor().removeOffsets();
             _app.saveOffsets();
             updateView();
-            Snackbar.with(getApplicationContext()) // context
+            SnackbarManager.show(Snackbar.with(this)
                 .text(R.string.snackbar_text_restore) // text to display
                 .actionLabel(R.string.action_dismiss) // action button label
-                .actionColor(Color.parseColor("#f4b400"))
-                .show(this); // activity where it is displayed
+                .actionColor(Color.parseColor("#f4b400")));
             break;
         case R.id.menu_settings:
             Intent intent = new Intent(this, PrefsActivity.class);
