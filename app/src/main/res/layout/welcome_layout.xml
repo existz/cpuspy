@@ -67,6 +67,15 @@
         android:id="@+id/welcome_textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/welcome_crashreport"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="24dp" />
+
+    <TextView
+        android:id="@+id/welcome_textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/welcome_autorefresh"
         android:paddingTop="6dp"
@@ -74,7 +83,7 @@
         android:paddingStart="24dp" />
 
     <TextView
-        android:id="@+id/welcome_textView5"
+        android:id="@+id/welcome_textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_autoreset"

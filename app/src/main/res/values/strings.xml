@@ -16,6 +16,7 @@
 
     <string name="snackbar_text_reset">Timers reset successfully</string>
     <string name="snackbar_text_restore">Timers restored successfully</string>
+    <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
 
     <string name="action_dismiss">Dismiss</string>
 
@@ -23,6 +24,7 @@
     <string name="welcome">Welcome</string>
     <string name="welcome_summary">Welcome to CPUSpy Material! Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
+    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports.</string>
     <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time.</string>
     <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full.</string>
     <string name="welcome_button_text">OK, GOT IT</string>
@@ -37,6 +39,8 @@
     <string name="pref_summary_autorefresh">Refresh the CPU timers automatically</string>
     <string name="pref_title_autoreset">Automatic Reset</string>
     <string name="pref_summary_autoreset">Reset CPU timers when fully charged</string>
+    <string name="pref_title_crashreport">Anonymous Crash Reporting</string>
+    <string name="pref_summary_crashreport">Allow collection of Crash and Usage data</string>
 
     <!-- About -->
     <string name="pref_about_header_dev">Developer</string>

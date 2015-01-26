@@ -21,12 +21,16 @@
             android:summary="@string/pref_summary_about"
             android:persistent="false" >
         </Preference>
-
         <Preference
             android:key="license"
             android:title="@string/pref_title_license"
             android:persistent="false" >
         </Preference>
+        <CheckBoxPreference
+            android:key="crashReport"
+            android:title="@string/pref_title_crashreport"
+            android:summary="@string/pref_summary_crashreport"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

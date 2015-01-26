@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +22,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.fabric.sdk.android.Fabric;
 
 /** main application class */
 public class CpuSpyApp extends Application {
@@ -39,7 +43,15 @@ public class CpuSpyApp extends Application {
      * On application start, load the saved offsets and stash the
      * current kernel version string
      */
-    @Override public void onCreate(){
+    @Override public void onCreate() {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        // Initialize and start automatic crash reporting
+        if(sp.getBoolean("crashReport", true)) {
+            Fabric.with(this, new Crashlytics());
+        }
+
         loadOffsets();
         updateKernelVersion();
     }

@@ -2,10 +2,15 @@ package org.axdev.cpuspy.ui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.AboutFragment;
@@ -40,6 +45,19 @@ public class PrefsActivity extends ActionBarActivity {
                         .replace(R.id.content_wrapper, new LicenseFragment())
                         .addToBackStack(null)
                         .commit();
+                    return true;
+                }
+            });
+
+            final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
+
+            crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue.toString().equals("false")) {
+                        SnackbarManager.show(Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(R.string.snackbar_text_crashreport));
+                    }
                     return true;
                 }
             });

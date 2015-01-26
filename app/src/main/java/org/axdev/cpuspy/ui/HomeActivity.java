@@ -38,6 +38,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import com.crashlytics.android.Crashlytics;
+
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
@@ -49,6 +52,8 @@ import org.axdev.cpuspy.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
 public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
@@ -86,6 +91,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     {
         super.onCreate(savedInstanceState);
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // second argument is the default to use if the preference can't be found
@@ -111,8 +117,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         swipeLayout.setOnRefreshListener(this);
         swipeLayout.setColorSchemeResources(R.color.primary,
                 R.color.accent);
-
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Register receiver
         this.registerReceiver(this.mBatInfoReceiver,
@@ -148,6 +152,13 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override public void onResume () {
         super.onResume();
         refreshData();
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        // Initialize and start automatic crash reporting
+        if(sp.getBoolean("crashReport", true)) {
+            Fabric.with(this, new Crashlytics());
+        }
     }
 
     @Override public void onRefresh() {
