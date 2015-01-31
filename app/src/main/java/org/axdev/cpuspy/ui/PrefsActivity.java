@@ -6,7 +6,11 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -15,6 +19,7 @@ import com.nispok.snackbar.enums.SnackbarType;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.AboutFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
+import org.axdev.cpuspy.fragments.WhatsNewDialog;
 
 public class PrefsActivity extends ActionBarActivity {
 
@@ -83,8 +88,7 @@ public class PrefsActivity extends ActionBarActivity {
         getFragmentManager().beginTransaction().add(R.id.content_wrapper, new PrefsFragment()).commit();
     }
 
-    @Override
-    public void onBackPressed() {
+    private void checkBackStack() {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             this.finish();
         } else {
@@ -93,14 +97,32 @@ public class PrefsActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (getFragmentManager().getBackStackEntryCount() == 0) {
-                this.finish();
-            } else {
-                getFragmentManager().popBackStack();
-            }
-            return true;
+    public void onBackPressed() {
+        checkBackStack();
+    }
+
+    /** called when we want to infalte the menu */
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        // request inflater from activity and inflate into its menu
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+
+        // made it
+        return true;
+    }
+
+    /** called to handle a menu event */
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        // what it do mayne
+        switch (item.getItemId()) {
+        /* pressed the load menu button */
+            case R.id.menu_changelog:
+                WhatsNewDialog newFragment = new WhatsNewDialog();
+                newFragment.show(getFragmentManager(), "whatsnew");
+                break;
+            case android.R.id.home:
+                checkBackStack();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

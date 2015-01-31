@@ -9,6 +9,7 @@
 
     <string name="charged_view_message">Unplug charger to start timers</string>
 
+    <string name="menu_changelog">Changelog</string>
     <string name="menu_timers_reset">Reset Timers</string>
     <string name="menu_timers_restore">Restore Timers</string>
 

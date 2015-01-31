@@ -48,6 +48,7 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
+import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.R;
 
 import java.util.ArrayList;
@@ -202,14 +203,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     private void showWhatsNewDialog() {
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
-                .title(R.string.changelog_dialog_title)
-                .customView(R.layout.dialog_webview, false)
-                .negativeText(R.string.action_dismiss)
-                .build();
-        WebView webView = (WebView) dialog.getCustomView().findViewById(R.id.webview);
-        webView.loadUrl("file:///android_asset/webview.html");
-        dialog.show();
+        WhatsNewDialog newFragment = new WhatsNewDialog();
+        newFragment.show(getFragmentManager(), "whatsnew");
     }
 
     /** Check to see if autoRefresh is enabled or not **/
@@ -247,7 +242,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // request inflater from activity and inflate into its menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
-        inflater.inflate(R.menu.settings_menu, menu);
+        inflater.inflate(R.menu.prefs_menu, menu);
 
         // made it
         return true;
