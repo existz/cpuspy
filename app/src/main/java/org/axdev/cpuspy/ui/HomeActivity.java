@@ -78,7 +78,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private TextView        _uiKernelString = null;
 
     /** whether or not we're updating the data in the background */
-    private boolean     _updatingData = false;
+    private boolean     mUpdatingData = false;
 
     /** whether or not auto refresh is enabled */
     private boolean     mAutoRefresh = false;
@@ -110,7 +110,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // see if we're updating data during a config change (rotate screen)
         if (savedInstanceState != null) {
-            _updatingData = savedInstanceState.getBoolean("updatingData");
+            mUpdatingData = savedInstanceState.getBoolean("updatingData");
         }
 
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -126,20 +126,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** When the activity is about to change orientation */
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("updatingData", _updatingData);
+        outState.putBoolean("updatingData", mUpdatingData);
     }
 
     @Override public void onStart () {
         super.onStart();
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-
-        if (sp.getBoolean("autoRefresh", true)) {
-            mAutoRefresh = true;
-            mHandler.post(refreshAuto);
-        } else {
-            mAutoRefresh = false;
-        }
+        checkAutoRefresh();
     }
 
     /** Disable auto refresh when app is in the background */
@@ -218,6 +210,18 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         WebView webView = (WebView) dialog.getCustomView().findViewById(R.id.webview);
         webView.loadUrl("file:///android_asset/webview.html");
         dialog.show();
+    }
+
+    /** Check to see if autoRefresh is enabled or not **/
+    private void checkAutoRefresh() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (sp.getBoolean("autoRefresh", true)) {
+            mAutoRefresh = true;
+            mHandler.post(refreshAuto);
+        } else {
+            mAutoRefresh = false;
+        }
     }
 
     /** Map all of the UI elements to member variables */
@@ -391,7 +395,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Attempt to update the time-in-state info */
     void refreshData() {
-        if (!_updatingData) {
+        if (!mUpdatingData) {
             new RefreshStateDataTask().execute((Void)null);
         }
     }
@@ -477,12 +481,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         /** Executed on the UI thread right before starting the task */
         @Override protected void onPreExecute() {
-            _updatingData = true;
+            mUpdatingData = true;
         }
 
         /** Executed on UI thread after task */
         @Override protected void onPostExecute(Void v) {
-            _updatingData = false;
+            mUpdatingData = false;
             updateView();
         }
     }
