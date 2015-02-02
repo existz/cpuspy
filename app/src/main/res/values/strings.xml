@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
-    <string name="version_name">2.0</string>
+    <string name="version_name">2.1-BETA</string>
 
     <string name="unused_states_show">Show Unused States</string>
     <string name="unused_states_hide">Hide Unused States</string>
@@ -33,10 +33,11 @@
     <string name="welcome">Welcome</string>
     <string name="welcome_summary">Welcome to CPUSpy Material! Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
+    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring.</string>
     <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports.</string>
     <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time.</string>
     <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full.</string>
-    <string name="welcome_button_text">OK, GOT IT</string>
+    <string name="welcome_button_text">CONTINUE</string>
 
     <!-- Settings info -->
     <string name="settings">Settings</string>
