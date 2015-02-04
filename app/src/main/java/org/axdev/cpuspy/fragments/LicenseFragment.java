@@ -22,33 +22,34 @@ public class LicenseFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
         // Applying Roboto-Medium font
-        ((TextView) getView().findViewById(R.id.supportlib)).setTypeface(tf);
-        ((TextView) getView().findViewById(R.id.materialdialog)).setTypeface(tf);
-        ((TextView) getView().findViewById(R.id.snackbar)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.supportlib)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.materialdialog)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.snackbar)).setTypeface(tf);
 
         // Allow strings to use HTML and hyperlinks
-        ((TextView) getView().findViewById(R.id.supportlib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) getView().findViewById(R.id.supportlib)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
+        ((TextView) view.findViewById(R.id.supportlib)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.supportlib)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
 
-        ((TextView) getView().findViewById(R.id.materialdialog)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) getView().findViewById(R.id.materialdialog)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
+        ((TextView) view.findViewById(R.id.materialdialog)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.materialdialog)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
 
-        ((TextView) getView().findViewById(R.id.snackbar)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) getView().findViewById(R.id.snackbar)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
+        ((TextView) view.findViewById(R.id.snackbar)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.snackbar)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

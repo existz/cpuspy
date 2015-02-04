@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/welcome_toolbar"
+        android:id="@+id/toolbar_welcome"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,13 +15,13 @@
         android:elevation="8dp">
 
         <RelativeLayout
-            android:id="@+id/welcome_toolbar_layout"
+            android:id="@+id/toolbar_welcome_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/welcome_title"
+                android:id="@+id/toolbar_welcome_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -32,9 +32,9 @@
                 android:textColor="@android:color/primary_text_dark" />
 
             <ImageView
-                android:id="@+id/welcome_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_welcome_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/icon_large" />
@@ -49,9 +49,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/welcome_summary"
+        android:textColor="@color/primary_text_color"
         android:paddingTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp" />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <TextView
         android:id="@+id/welcome_textView3"
@@ -59,18 +60,21 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/welcome_features"
+        android:textColor="@color/primary_text_color"
         android:textStyle="bold"
         android:paddingTop="16dp"
-        android:paddingStart="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
 
     <TextView
         android:id="@+id/welcome_textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_crashreport"
+        android:textColor="@color/primary_text_color"
         android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="24dp" />
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp" />
 
     <TextView
         android:id="@+id/welcome_textView5"
@@ -78,24 +82,25 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/welcome_autorefresh"
+        android:textColor="@color/primary_text_color"
         android:paddingTop="6dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="24dp" />
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp" />
 
     <TextView
         android:id="@+id/welcome_textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome_autoreset"
+        android:textColor="@color/primary_text_color"
         android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingStart="24dp" />
+        android:paddingLeft="24dp"
+        android:paddingRight="16dp" />
 
-    <TextView
+    <View
         android:id="@+id/welcome_blankspace"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="32dp" />
+        android:layout_height="32dp" />
 
     <Button
         android:id="@+id/buttonflat"
@@ -105,6 +110,7 @@
         android:layout_marginEnd="24dp"
         android:text="@string/welcome_button_text"
         android:textColor="@color/accent"
+        android:textSize="14sp"
         android:onClick="onClick"
         android:clickable="true"
         style="?android:attr/borderlessButtonStyle"/>

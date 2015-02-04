@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- info header -->
-    <style name="infoHeader">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">2dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/header_background</item>
-        <item name="android:textColor">@android:color/primary_text_dark</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
     <!-- charged info -->
     <style name="chargedView">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
         <item name="android:padding">6dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">#c7c7c7</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

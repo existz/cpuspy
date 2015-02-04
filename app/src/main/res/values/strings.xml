@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CPU Spy</string>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
     <string name="version_name">2.0</string>
 
-    <string name="unused_cpu_states">Unused CPU States</string>
-    <string name="total_state_time">Total State Time</string>
-    <string name="kernel_info">Kernel Info</string>
+    <string name="unused_states_show">Show Unused States</string>
+    <string name="unused_states_hide">Hide Unused States</string>
 
-    <string name="charged_view_message">Unplug charger to start timers</string>
+    <string name="total_state_time">Total State Time</string>
+
+    <string name="charged_view_message"><b>Charged!</b>\n\nUnplug your charger to automatically reset the CPU timers</string>
 
     <string name="menu_changelog">Changelog</string>
     <string name="menu_timers_reset">Reset Timers</string>
     <string name="menu_timers_restore">Restore Timers</string>
 
-    <string name="states_warning">No states file found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
+    <string name="states_warning"><b>Uh Oh!</b>\n\nNo states file found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
 
     <string name="snackbar_text_reset">Timers reset successfully</string>
     <string name="snackbar_text_restore">Timers restored successfully</string>
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
 
     <string name="action_dismiss">Dismiss</string>
+
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="information_kernel_version">Kernel Version</string>
+    <string name="information_cpu_info">CPU Info</string>
+    <string name="information_cur_freq">Current Frequency:</string>
 
     <!-- Welcome info -->
     <string name="welcome">Welcome</string>
@@ -59,8 +67,7 @@
     <b><a href="https://google.com/+NathanielHukelSpeaks">Nathaniel Hukel</a></b>\n
     <small>Icon creator</small></string>
 
-    <string name="pref_about_appname" translatable="false">
-    <b>CPUSpy</b>Material</string>
+    <string name="pref_about_appname" translatable="false"><b>CPUSpy</b>Material</string>
 
     <string name="changelog_dialog_title">Whats New</string>
 

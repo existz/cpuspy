@@ -22,10 +22,11 @@ public class WelcomeActivity extends ActionBarActivity {
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.welcome_layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.welcome_toolbar);
-        setSupportActionBar(toolbar);
+        // set Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_welcome);
+        setSupportActionBar(mToolbar);
 
-        ImageView imageView = (ImageView)findViewById(R.id.welcome_image);
+        ImageView imageView = (ImageView)findViewById(R.id.toolbar_welcome_image);
         // Animate states view sliding in from the right
         Animation slideIn = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.slide_in_right);

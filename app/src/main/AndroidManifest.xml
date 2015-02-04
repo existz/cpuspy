@@ -34,16 +34,27 @@
         <activity android:name=".ui.PrefsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".ui.HomeActivity" >
                 <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.HomeActivity" />
         </activity>
 
+        <!-- Info Screen -->
+        <activity android:name=".ui.InfoActivity"
+            android:label="@string/information"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".ui.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
+        </activity>
+
         <!-- Welcome Screen -->
         <activity android:name=".ui.WelcomeActivity"
             android:label="@string/welcome"
-            android:theme="@style/WelcomeTheme" >
+            android:theme="@style/NoTitleTheme" >
         </activity>
 
         <receiver android:name=".receiver.PowerConnectionReceiver">

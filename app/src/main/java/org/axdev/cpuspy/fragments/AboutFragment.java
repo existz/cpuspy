@@ -22,27 +22,28 @@ public class AboutFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
         // Applying Roboto-Medium font
-        ((TextView) getView().findViewById(R.id.about_header_developer)).setTypeface(tf);
-        ((TextView) getView().findViewById(R.id.about_header_contrib)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.about_header_developer)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.about_header_contrib)).setTypeface(tf);
 
         // Allow strings to use hyperlinks
-        ((TextView) getView().findViewById(R.id.iconcreator)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) getView().findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) getView().findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.iconcreator)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
             ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
         }

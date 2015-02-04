@@ -22,8 +22,11 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,13 +34,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ImageView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -64,28 +67,32 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private static final String WELCOME_SCREEN = "welcomeScreenShown";
 
     private CpuSpyApp _app = null;
-    private SwipeRefreshLayout swipeLayout;
+    private SwipeRefreshLayout mSwipeLayout;
 
     // the views
-    private LinearLayout    _uiStatesView = null;
-    private TextView        _uiChargedView = null;
-    private ImageView       _uiChargedImg = null;
-    private TextView        _uiAdditionalStates = null;
-    private TextView        _uiTotalStateTime = null;
-    private TextView        _uiHeaderAdditionalStates = null;
-    private TextView        _uiHeaderTotalStateTime = null;
-    private TextView        _uiHeaderKernelString = null;
-    private TextView        _uiStatesWarning = null;
-    private TextView        _uiKernelString = null;
+    private CardView mStatesCardView;
+    private ImageButton mInfoButton;
+    private ImageButton mShowButton;
+    private ImageButton mHideButton;
+    private LinearLayout mStatesView;
+    private LinearLayout mChargedView;
+    private LinearLayout mStatesWarning;
+    private TextView mAdditionalStates;
+    private TextView mTotalStateTime;
+    private TextView mAdditionalStatesShow;
+    private TextView mAdditionalStatesHide;
+    private TextView mHeaderTotalStateTime;
+
+    private final Handler mHandler = new Handler();
 
     /** whether or not we're updating the data in the background */
-    private boolean     mUpdatingData = false;
+    private boolean mUpdatingData = false;
 
     /** whether or not auto refresh is enabled */
-    private boolean     mAutoRefresh = false;
+    private boolean mAutoRefresh = false;
 
     /** lets us know if the battery is fully charged or not */
-    private boolean     mIsCharged = false;
+    private boolean mIsCharged = false;
 
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
@@ -109,19 +116,32 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         checkVersion();
         findViews();
 
-        // see if we're updating data during a config change (rotate screen)
-        if (savedInstanceState != null) {
-            mUpdatingData = savedInstanceState.getBoolean("updatingData");
+        // set Toolbar as ActionBar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle(R.string.app_name_long);
         }
 
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
-        swipeLayout.setColorSchemeResources(R.color.primary,
+        View mHeaderView = findViewById(R.id.header);
+        ViewCompat.setElevation(mHeaderView, getResources().getDimension(R.dimen.toolbar_elevation));
+
+        // start CardView animation
+        cardViewAnimation();
+
+        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeResources(R.color.primary,
                 R.color.accent);
 
         // Register receiver
         this.registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        // see if we're updating data during a config change (rotate screen)
+        if (savedInstanceState != null) {
+            mUpdatingData = savedInstanceState.getBoolean("updatingData");
+        }
     }
 
     /** When the activity is about to change orientation */
@@ -157,7 +177,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
-                swipeLayout.setRefreshing(false);
+                mSwipeLayout.setRefreshing(false);
                 refreshData();
             }
         }, 1950);
@@ -219,22 +239,59 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
     }
 
+    /** Animate cardview sliding up from bottom */
+    private void cardViewAnimation() {
+        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_in_up);
+
+        mStatesCardView.startAnimation(slideUp);
+    }
+
+    /** Button to launch Info Activity */
+    public void infoButton(View view) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+    }
+
+    /** Buttons to hide and show Additional States */
+    public void showButton(View view) {
+        mShowButton.setVisibility(View.GONE);
+        mHideButton.setVisibility(View.VISIBLE);
+        mAdditionalStatesShow.setVisibility(View.GONE);
+        mAdditionalStatesHide.setVisibility(View.VISIBLE);
+        mAdditionalStates.setVisibility(View.VISIBLE);
+    }
+
+    public void hideButton(View view) {
+        mShowButton.setVisibility(View.VISIBLE);
+        mHideButton.setVisibility(View.GONE);
+        mAdditionalStatesShow.setVisibility(View.VISIBLE);
+        mAdditionalStatesHide.setVisibility(View.GONE);
+        mAdditionalStates.setVisibility(View.GONE);
+    }
+
     /** Map all of the UI elements to member variables */
     void findViews() {
-        _uiStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
-        _uiChargedImg = (ImageView)findViewById(R.id.ui_charged_img);
-        _uiChargedView = (TextView)findViewById(R.id.ui_charged_view);
-        _uiKernelString = (TextView)findViewById(R.id.ui_kernel_string);
-        _uiHeaderKernelString = (TextView) findViewById(
-                R.id.ui_header_kernel_string);
-        _uiAdditionalStates = (TextView)findViewById(
-                R.id.ui_additional_states);
-        _uiHeaderAdditionalStates = (TextView)findViewById(
-                R.id.ui_header_additional_states);
-        _uiHeaderTotalStateTime = (TextView)findViewById(
-                R.id.ui_header_total_state_time);
-        _uiStatesWarning = (TextView)findViewById(R.id.ui_states_warning);
-        _uiTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+
+        mStatesCardView = (CardView)findViewById(R.id.card_view_states);
+        mInfoButton = (ImageButton)findViewById(R.id.ui_info_button);
+        mShowButton = (ImageButton)findViewById(R.id.ui_show_button);
+        mHideButton = (ImageButton)findViewById(R.id.ui_hide_button);
+        mStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
+        mChargedView = (LinearLayout)findViewById(R.id.ui_charged_view);
+        mStatesWarning = (LinearLayout)findViewById(R.id.ui_states_warning);
+        mAdditionalStates = (TextView)findViewById(R.id.ui_additional_states);
+        mAdditionalStatesShow = (TextView)findViewById(R.id.ui_additional_states_show);
+        mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
+        mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
+
+        mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
+        mHeaderTotalStateTime.setTypeface(tf);
+
+        TextView mToolbarKernelVersion = (TextView) findViewById(R.id.toolbar_kernel_version);
+        mToolbarKernelVersion.setText(System.getProperty("os.version"));
     }
 
     /** called when we want to infalte the menu */
@@ -265,6 +322,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 .text(R.string.snackbar_text_reset) // text to display
                 .actionLabel(R.string.action_dismiss) // action button label
                 .actionColor(Color.parseColor("#f4b400")));
+            mStatesCardView.setVisibility(View.GONE);
             break;
         case R.id.menu_restore:
             _app.getCpuStateMonitor().removeOffsets();
@@ -289,18 +347,14 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
 
-        // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getAssets(),
-                "fonts/Roboto-Medium.ttf");
-
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
-        _uiStatesView.removeAllViews();
+        mStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
         for (CpuState state : monitor.getStates()) {
             if (state.duration > 0) {
-                generateStateRow(state, _uiStatesView);
+                generateStateRow(state, mStatesView);
             } else {
                 if (state.freq == 0) {
                     extraStates.add("Deep Sleep");
@@ -312,8 +366,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // update the total state time
         long totTime = monitor.getTotalStateTime() / 100;
-        _uiTotalStateTime.setText(sToString(totTime));
-        _uiHeaderTotalStateTime.setTypeface(tf);
+        mTotalStateTime.setText(sToString(totTime));
 
         // for all the 0 duration states, add the the Unused State area
         if (extraStates.size() > 0) {
@@ -325,34 +378,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                     str += ", ";
                 str += s;
             }
-
-            _uiAdditionalStates.setVisibility(View.VISIBLE);
-            _uiHeaderAdditionalStates.setVisibility(View.VISIBLE);
-            _uiHeaderAdditionalStates.setTypeface(tf);
-            _uiAdditionalStates.setText(str);
-        } else {
-            _uiAdditionalStates.setVisibility(View.GONE);
-            _uiHeaderAdditionalStates.setVisibility(View.GONE);
+            mAdditionalStates.setText(str);
         }
-
-        // kernel line
-        _uiHeaderKernelString.setTypeface(tf);
-        _uiKernelString.setText(_app.getKernelVersion());
 
         /** Reset timers and show info when battery is charged */
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
-            _uiStatesWarning.setVisibility(View.GONE);
-            _uiStatesView.setVisibility(View.GONE);
-            _uiHeaderTotalStateTime.setVisibility(View.GONE);
-            _uiTotalStateTime.setVisibility(View.GONE);
-            _uiHeaderAdditionalStates.setVisibility(View.GONE);
-            _uiAdditionalStates.setVisibility(View.GONE);
-            _uiHeaderKernelString.setVisibility(View.GONE);
-            _uiKernelString.setVisibility(View.GONE);
-            _uiChargedView.setVisibility(View.VISIBLE);
-            _uiChargedImg.setVisibility(View.VISIBLE);
-
-            _uiChargedView.setTypeface(tf);
+            mStatesWarning.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.GONE);
+            mHeaderTotalStateTime.setVisibility(View.GONE);
+            mTotalStateTime.setVisibility(View.GONE);
+            mInfoButton.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.VISIBLE);
 
             try {
                 _app.getCpuStateMonitor().setOffsets();
@@ -361,37 +397,29 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
             _app.saveOffsets();
         } else {
-            _uiStatesWarning.setVisibility(View.GONE);
-            _uiChargedView.setVisibility(View.GONE);
-            _uiChargedImg.setVisibility(View.GONE);
-            _uiStatesView.setVisibility(View.VISIBLE);
-            _uiHeaderTotalStateTime.setVisibility(View.VISIBLE);
-            _uiTotalStateTime.setVisibility(View.VISIBLE);
-            _uiHeaderKernelString.setVisibility(View.VISIBLE);
-            _uiKernelString.setVisibility(View.VISIBLE);
+            mStatesWarning.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.VISIBLE);
+            mHeaderTotalStateTime.setVisibility(View.VISIBLE);
+            mTotalStateTime.setVisibility(View.VISIBLE);
+            mInfoButton.setVisibility(View.VISIBLE);
         }
 
-        /** show the red warning label if no states found */
+        /** show warning label if no states found */
         if (monitor.getStates().size() == 0) {
-            _uiStatesWarning.setVisibility(View.VISIBLE);
-            _uiHeaderKernelString.setVisibility(View.VISIBLE);
-            _uiKernelString.setVisibility(View.VISIBLE);
-            _uiHeaderTotalStateTime.setVisibility(View.GONE);
-            _uiTotalStateTime.setVisibility(View.GONE);
-            _uiStatesView.setVisibility(View.GONE);
-            _uiChargedView.setVisibility(View.GONE);
-            _uiChargedImg.setVisibility(View.GONE);
-
-            _uiStatesWarning.setTypeface(tf);
-
-            return; // let's end this
+            mStatesWarning.setVisibility(View.VISIBLE);
+            mHeaderTotalStateTime.setVisibility(View.GONE);
+            mTotalStateTime.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.GONE);
+            mInfoButton.setVisibility(View.GONE);
         }
     }
 
     /** Attempt to update the time-in-state info */
     void refreshData() {
         if (!mUpdatingData) {
-            new RefreshStateDataTask().execute((Void)null);
+            new RefreshStateDataTask().execute((Void) null);
         }
     }
 
@@ -419,7 +447,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private View generateStateRow(CpuState state, ViewGroup parent) {
         // inflate the XML into a view in the parent
         LayoutInflater inf = LayoutInflater.from(_app);
-        LinearLayout theRow = (LinearLayout)inf.inflate(
+        RelativeLayout theRow = (RelativeLayout)inf.inflate(
                 R.layout.state_row, parent, false);
 
         // what percetnage we've got
@@ -486,9 +514,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
     }
 
-    /** Update data every 1s if auto refresh is enabled */
-    private final Handler mHandler = new Handler();
-
+    /** Update data every 1 second if auto refresh is enabled */
     private final Runnable refreshAuto = new Runnable() {
         public void run() {
             if(mAutoRefresh) {

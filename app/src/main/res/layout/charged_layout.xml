@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ui_charged_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <ImageView
+        android:src="@drawable/ic_charged_info"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        style="@style/chargedView"
+        android:text="@string/charged_view_message"
+        android:textColor="@color/primary_text_color"/>
+
+</LinearLayout>

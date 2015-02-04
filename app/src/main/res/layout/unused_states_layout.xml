@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/ui_show_button"
+                android:src="@drawable/ic_expand_more"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                style="?android:attr/borderlessButtonStyle"
+                android:clickable="true"
+                android:onClick="showButton"/>
+
+            <TextView
+                android:id="@+id/ui_additional_states_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ui_show_button"
+                android:text="@string/unused_states_show"
+                android:textColor="@color/primary_text_color"/>
+
+            <ImageButton
+                android:id="@+id/ui_hide_button"
+                android:src="@drawable/ic_expand_less"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                style="?android:attr/borderlessButtonStyle"
+                android:clickable="true"
+                android:onClick="hideButton"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/ui_additional_states_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ui_hide_button"
+                android:text="@string/unused_states_hide"
+                android:textColor="@color/primary_text_color"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ui_additional_states"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/primary_text_color"
+            android:visibility="gone"/>
+
+</LinearLayout>
