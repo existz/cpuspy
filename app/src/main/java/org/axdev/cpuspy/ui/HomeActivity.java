@@ -178,7 +178,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
             mIsCharged = percent >= 97 && isCharging;
 
-            if (sp.getBoolean("autoReset", true) && mIsCharged) {
+            if (sp.getBoolean("autoReset", true) || mIsCharged) {
                 updateView();
             }
         }
