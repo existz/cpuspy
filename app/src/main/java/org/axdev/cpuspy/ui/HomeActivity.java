@@ -454,7 +454,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
             monitor.getTotalStateTime();
-        String sPer = (int)per + "%";
+        String sPer = String.format("%.01f", per) + "%";
 
         // state name
         String sFreq;
@@ -480,7 +480,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         freqText.setText(sFreq);
         perText.setText(sPer);
         durText.setText(sDur);
-        bar.setProgress((int)per);
+        bar.setProgress(Math.round(per));
 
         // add it to parent and return
         parent.addView(theRow);
