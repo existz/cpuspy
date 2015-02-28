@@ -43,86 +43,99 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/welcome_textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/welcome_summary"
-        android:textColor="@color/primary_text_color"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/welcome_textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/welcome_features"
-        android:textColor="@color/primary_text_color"
-        android:textStyle="bold"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/welcome_textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_cpuinfo"
-        android:textColor="@color/primary_text_color"
-        android:paddingTop="8dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="16dp" />
+            <TextView
+                android:id="@+id/welcome_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/welcome_summary"
+                android:textColor="@color/primary_text_color"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" />
 
-    <TextView
-        android:id="@+id/welcome_textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_crashreport"
-        android:textColor="@color/primary_text_color"
-        android:paddingTop="8dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="16dp" />
+            <TextView
+                android:id="@+id/welcome_textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/welcome_features"
+                android:textColor="@color/primary_text_color"
+                android:textStyle="bold"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"/>
 
-    <TextView
-        android:id="@+id/welcome_textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/welcome_autorefresh"
-        android:textColor="@color/primary_text_color"
-        android:paddingTop="6dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="16dp" />
+            <TextView
+                android:id="@+id/welcome_textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_cpuinfo"
+                android:textColor="@color/primary_text_color"
+                android:paddingTop="8dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="16dp" />
 
-    <TextView
-        android:id="@+id/welcome_textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_autoreset"
-        android:textColor="@color/primary_text_color"
-        android:paddingTop="8dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="16dp" />
+            <TextView
+                android:id="@+id/welcome_textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_crashreport"
+                android:textColor="@color/primary_text_color"
+                android:paddingTop="8dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="16dp" />
 
-    <View
-        android:id="@+id/welcome_blankspace"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp" />
+            <TextView
+                android:id="@+id/welcome_textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/welcome_autorefresh"
+                android:textColor="@color/primary_text_color"
+                android:paddingTop="6dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="16dp" />
 
-    <Button
-        android:id="@+id/buttonflat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginEnd="24dp"
-        android:text="@string/welcome_button_text"
-        android:textColor="@color/accent"
-        android:textSize="14sp"
-        android:onClick="onClick"
-        android:clickable="true"
-        style="?android:attr/borderlessButtonStyle"/>
+            <TextView
+                android:id="@+id/welcome_textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_autoreset"
+                android:textColor="@color/primary_text_color"
+                android:paddingTop="8dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="16dp" />
+
+            <View
+                android:id="@+id/welcome_blankspace"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp" />
+
+            <Button
+                android:id="@+id/buttonflat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="24dp"
+                android:text="@string/welcome_button_text"
+                android:textColor="@color/accent"
+                android:textSize="14sp"
+                android:onClick="onClick"
+                android:clickable="true"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
