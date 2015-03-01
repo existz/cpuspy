@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,23 +67,26 @@ public class CpuStateMonitor {
 
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */
-        for (CpuState state : _states) {
-            long duration = state.duration;
-            if (_offsets.containsKey(state.freq)) {
-                long offset = _offsets.get(state.freq);
-                if (offset <= duration) {
-                    duration -= offset;
-                } else {
+        try {
+            for (CpuState state : _states) {
+                long duration = state.duration;
+                if (_offsets.containsKey(state.freq)) {
+                    long offset = _offsets.get(state.freq);
+                    if (offset <= duration) {
+                        duration -= offset;
+                    } else {
                     /* offset > duration implies our offsets are now invalid,
                      * so clear and recall this function */
-                    _offsets.clear();
-                    return getStates();
+                        _offsets.clear();
+                        return getStates();
+                    }
                 }
+
+                states.add(new CpuState(state.freq, duration));
             }
-
-            states.add(new CpuState(state.freq, duration));
+        } catch (ConcurrentModificationException ignored) {
+            // DO SOMETHING
         }
-
         return states;
     }
 
