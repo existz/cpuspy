@@ -10,7 +10,7 @@
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
         <item name="android:statusBarColor">@color/primary_dark</item>
-        <item name="android:navigationBarColor">@color/primary_dark</item>
+        <item name="android:navigationBarColor">#323232</item>
     </style>
 
 </resources>

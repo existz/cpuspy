@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/toolbar_kernel_version"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="48dp"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
