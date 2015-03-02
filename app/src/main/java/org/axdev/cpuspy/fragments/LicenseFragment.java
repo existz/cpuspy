@@ -33,6 +33,7 @@ public class LicenseFragment extends Fragment {
         ((TextView) view.findViewById(R.id.supportlib)).setTypeface(tf);
         ((TextView) view.findViewById(R.id.materialdialog)).setTypeface(tf);
         ((TextView) view.findViewById(R.id.snackbar)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.switchprefcompat)).setTypeface(tf);
 
         // Allow strings to use HTML and hyperlinks
         ((TextView) view.findViewById(R.id.supportlib)).setMovementMethod(LinkMovementMethod.getInstance());
@@ -43,6 +44,9 @@ public class LicenseFragment extends Fragment {
 
         ((TextView) view.findViewById(R.id.snackbar)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.snackbar)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
+
+        ((TextView) view.findViewById(R.id.switchprefcompat)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) view.findViewById(R.id.switchprefcompat)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_switchprefcompat)));
     }
 
     @Override

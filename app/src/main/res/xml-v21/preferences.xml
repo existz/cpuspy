@@ -2,12 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/pref_header_general" >
-        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
+        <SwitchPreference
             android:key="autoRefresh"
             android:title="@string/pref_title_autorefresh"
             android:summary="@string/pref_summary_autorefresh"
             android:defaultValue="false" />
-        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
+        <SwitchPreference
             android:key="autoReset"
             android:title="@string/pref_title_autoreset"
             android:summary="@string/pref_summary_autoreset"
