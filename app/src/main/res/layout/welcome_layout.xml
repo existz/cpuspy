@@ -5,43 +5,35 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_welcome"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        android:id="@+id/welcome_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="175dp"
+        android:layout_height="175dp"
         android:background="@color/primary"
-        android:elevation="8dp">
+        android:elevation="@dimen/toolbar_elevation"
+        android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/toolbar_welcome_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/welcome_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="16dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/welcome"
+            android:textSize="36sp"
+            android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/toolbar_welcome_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/welcome"
-                android:textSize="36sp"
-                android:textColor="@android:color/primary_text_dark" />
+        <ImageView
+            android:id="@+id/welcome_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_large" />
 
-            <ImageView
-                android:id="@+id/toolbar_welcome_image"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/icon_large" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"

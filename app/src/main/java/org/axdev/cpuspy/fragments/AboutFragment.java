@@ -25,6 +25,14 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set title and fix elevation for layout header
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
+        }
+
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
@@ -37,15 +45,5 @@ public class AboutFragment extends Fragment {
         ((TextView) view.findViewById(R.id.iconcreator)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
-        }
     }
 }

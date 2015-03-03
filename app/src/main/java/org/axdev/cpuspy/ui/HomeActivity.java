@@ -19,14 +19,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -116,15 +115,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         checkVersion();
         findViews();
 
-        // set Toolbar as ActionBar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setTitle(R.string.app_name_long);
-        }
+        // set custom action bar title
+        getSupportActionBar().setTitle(R.string.app_name_long);
 
-        View mHeaderView = findViewById(R.id.header);
-        ViewCompat.setElevation(mHeaderView, getResources().getDimension(R.dimen.toolbar_elevation));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            getSupportActionBar().setElevation(0);
+        }
 
         // start CardView animation
         cardViewAnimation();
@@ -290,8 +286,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
         mHeaderTotalStateTime.setTypeface(tf);
 
-        TextView mToolbarKernelVersion = (TextView) findViewById(R.id.toolbar_kernel_version);
-        mToolbarKernelVersion.setText(System.getProperty("os.version"));
+        TextView mKernelVersion = (TextView) findViewById(R.id.kernel_version);
+        mKernelVersion.setText(System.getProperty("os.version"));
     }
 
     /** called when we want to infalte the menu */

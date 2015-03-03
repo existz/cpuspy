@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -33,13 +32,7 @@ public class InfoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
         CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
-
-        // set Toolbar as ActionBar
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Override entering Activity animation
         overridePendingTransition(R.anim.slide_on_start_enter, R.anim.slide_on_start_exit);

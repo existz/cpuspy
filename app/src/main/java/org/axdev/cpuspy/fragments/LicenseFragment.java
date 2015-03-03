@@ -25,6 +25,10 @@ public class LicenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Set action bar title
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
@@ -48,12 +52,4 @@ public class LicenseFragment extends Fragment {
         ((TextView) view.findViewById(R.id.switchprefcompat)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.switchprefcompat)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_switchprefcompat)));
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
 }

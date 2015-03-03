@@ -7,57 +7,49 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_about"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        android:id="@+id/about_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="100dp"
+        android:layout_height="100dp"
         android:background="@color/primary"
-        android:elevation="8dp">
+        android:elevation="@dimen/toolbar_elevation"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:gravity="center">
 
-        <RelativeLayout
-            android:id="@+id/toolbar_about_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/toolbar_about_appname"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:gravity="center">
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pref_about_appname"
+            android:textSize="28sp"
+            android:textColor="@android:color/primary_text_dark" />
 
-            <TextView
-                android:id="@+id/toolbar_about_appname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/pref_about_appname"
-                android:textSize="28sp"
-                android:textColor="@android:color/primary_text_dark" />
+        <TextView
+            android:id="@+id/toolbar_about_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar_about_appname"
+            android:layout_alignEnd="@+id/toolbar_about_appname"
+            android:layout_marginEnd="88dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/version_name"
+            android:textColor="#eeeeee"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/toolbar_about_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbar_about_appname"
-                android:layout_alignEnd="@+id/toolbar_about_appname"
-                android:layout_marginEnd="88dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/version_name"
-                android:textColor="#eeeeee"
-                android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/toolbar_about_icon"
+            android:src="@mipmap/icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:scaleType="fitXY" />
 
-            <ImageView
-                android:id="@+id/toolbar_about_icon"
-                android:src="@mipmap/icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:scaleType="fitXY" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
