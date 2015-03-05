@@ -53,6 +53,12 @@ import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.R;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,13 +68,19 @@ import io.fabric.sdk.android.Fabric;
 public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
 {
     private static final String TAG = "CpuSpy";
-    private static final String VERSION_KEY = "version_number";
-    private static final String WELCOME_SCREEN = "welcomeScreenShown";
+
+    private final String VERSION_KEY = "version_number";
+    private final String WELCOME_SCREEN = "welcomeScreenShown";
+
+    private final String CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
+    private final String CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
+    private final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
+    private final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout mSwipeLayout;
 
-    // the views
+    // main ui views
     private CardView mStatesCardView;
     private ImageButton mInfoButton;
     private ImageButton mShowButton;
@@ -82,7 +94,20 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private TextView mAdditionalStatesHide;
     private TextView mHeaderTotalStateTime;
 
-    private final Handler mHandler = new Handler();
+    private TextView mCore0;
+    private TextView mCore1;
+    private TextView mCore2;
+    private TextView mCore3;
+
+    private String mFreq0;
+    private String mFreq1;
+    private String mFreq2;
+    private String mFreq3;
+
+    private boolean mMonitorCpu0;
+    private boolean mMonitorCpu1;
+    private boolean mMonitorCpu2;
+    private boolean mMonitorCpu3;
 
     /** whether or not we're updating the data in the background */
     private boolean mUpdatingData = false;
@@ -92,6 +117,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** lets us know if the battery is fully charged or not */
     private boolean mIsCharged = false;
+
+    private final Handler mHandler = new Handler();
 
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
@@ -129,6 +156,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.primary,
                 R.color.accent);
+
+        // Start CPU core monitoring
+        startCoreMonitor();
 
         // Register receiver
         this.registerReceiver(this.mBatInfoReceiver,
@@ -266,6 +296,208 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mAdditionalStates.setVisibility(View.GONE);
     }
 
+    /** Get the current frequency for CPU0 */
+    private String getCpu0() {
+        try {
+            InputStream is = new FileInputStream(CPU0);
+            InputStreamReader ir = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(ir);
+
+            String line;
+            while ((line = br.readLine())!= null ) {
+                mFreq0 = line;
+            }
+
+            is.close();
+        } catch (IOException ignored) {}
+
+        // made it
+        return mFreq0;
+    }
+
+    /** Get the current frequency for CPU1 */
+    private String getCpu1() {
+        try {
+            InputStream is = new FileInputStream(CPU1);
+            InputStreamReader ir = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(ir);
+
+            String line;
+            while ((line = br.readLine())!= null ) {
+                mFreq1 = line;
+            }
+
+            is.close();
+        } catch (IOException ignored) {}
+
+        // made it
+        return mFreq1;
+    }
+
+    /** Get the current frequency for CPU2 */
+    private String getCpu2() {
+        try {
+            InputStream is = new FileInputStream(CPU1);
+            InputStreamReader ir = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(ir);
+
+            String line;
+            while ((line = br.readLine())!= null ) {
+                mFreq2 = line;
+            }
+
+            is.close();
+        } catch (IOException ignored) {}
+
+        // made it
+        return mFreq2;
+    }
+
+    /** Get the current frequency for CPU3 */
+    private String getCpu3() {
+        try {
+            InputStream is = new FileInputStream(CPU1);
+            InputStreamReader ir = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(ir);
+
+            String line;
+            while ((line = br.readLine())!= null ) {
+                mFreq3 = line;
+            }
+
+            is.close();
+        } catch (IOException ignored) {}
+
+        // made it
+        return mFreq3;
+    }
+
+    private final Runnable monitorCpu = new Runnable() {
+        public void run() {
+            File cpu0 = new File(CPU0);
+            File cpu1 = new File(CPU1);
+            File cpu2 = new File(CPU2);
+            File cpu3 = new File(CPU3);
+
+            /** Set the frequency for CPU0 */
+            if(mMonitorCpu0) {
+                try {
+                    if (cpu0.length() == 0) {
+                        // CPU0 should never be empty
+                        mCore0.setText(null);
+                        Log.e(TAG, "Problem getting CPU cores");
+                        return;
+                    } else {
+                        int i = Integer.parseInt(getCpu0()) / 1000;
+                        String s = String.valueOf(i) + "MHz";
+                        mCore0.setText(s);
+                    }
+                } catch (NumberFormatException ignored) {
+                    //DO SOMETHING
+                }
+            }
+
+            /** Set the frequency for CPU1 */
+            if(mMonitorCpu1) {
+                try {
+                    if (cpu1.length() == 0) {
+                        mCore1.setText(R.string.core_offline);
+                    } else {
+                        int i = Integer.parseInt(getCpu1()) / 1000;
+                        String s = String.valueOf(i) + "MHz";
+                        mCore1.setText(s);
+                    }
+                } catch (NumberFormatException ignored) {
+                    // DO SOMETHING
+                }
+            }
+
+            /** Set the frequency for CPU2 */
+            if(mMonitorCpu2) {
+                try {
+                    if (cpu2.length() == 0) {
+                        mCore2.setText(R.string.core_offline);
+                    } else {
+                        int i = Integer.parseInt(getCpu2()) / 1000;
+                        String s = String.valueOf(i) + "MHz";
+                        mCore2.setText(s);
+                    }
+                } catch (NumberFormatException ignored) {
+                    // DO SOMETHING
+                }
+            }
+
+            /** Set the frequency for CPU3 */
+            if(mMonitorCpu3) {
+                try {
+                    if (cpu3.length() == 0) {
+                        mCore3.setText(R.string.core_offline);
+                    } else {
+                        int i = Integer.parseInt(getCpu3()) / 1000;
+                        String s = String.valueOf(i) + "MHz";
+                        mCore3.setText(s);
+                    }
+                } catch (NumberFormatException ignored) {
+                    //DO SOMETHING
+                }
+            }
+
+            mHandler.postDelayed(monitorCpu, 1000); // 1 second
+        }
+    };
+
+    /** Check which CPU cores to start monitoring */
+    private void startCoreMonitor() {
+        int numCores = Runtime.getRuntime().availableProcessors();
+        switch (numCores) {
+            case 1:
+                mMonitorCpu0 = true;
+                mMonitorCpu1 = false;
+                mMonitorCpu2 = false;
+                mMonitorCpu3 = false;
+
+                mCore0.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.GONE);
+                mCore2.setVisibility(View.GONE);
+                mCore3.setVisibility(View.GONE);
+                break;
+            case 2:
+                mMonitorCpu0 = true;
+                mMonitorCpu1 = true;
+                mMonitorCpu2 = false;
+                mMonitorCpu3 = false;
+
+                mCore0.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.VISIBLE);
+                mCore2.setVisibility(View.GONE);
+                mCore3.setVisibility(View.GONE);
+                break;
+            case 3:
+                mMonitorCpu0 = true;
+                mMonitorCpu1 = true;
+                mMonitorCpu2 = true;
+                mMonitorCpu3 = false;
+
+                mCore0.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.VISIBLE);
+                mCore2.setVisibility(View.VISIBLE);
+                mCore3.setVisibility(View.GONE);
+                break;
+            case 4:
+                mMonitorCpu0 = true;
+                mMonitorCpu1 = true;
+                mMonitorCpu2 = true;
+                mMonitorCpu3 = true;
+
+                mCore0.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.VISIBLE);
+                mCore2.setVisibility(View.VISIBLE);
+                mCore3.setVisibility(View.VISIBLE);
+                break;
+        }
+        mHandler.post(monitorCpu);
+    }
+
     /** Map all of the UI elements to member variables */
     void findViews() {
         // Loading Font Face
@@ -286,8 +518,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
         mHeaderTotalStateTime.setTypeface(tf);
 
-        TextView mKernelVersion = (TextView) findViewById(R.id.kernel_version);
-        mKernelVersion.setText(System.getProperty("os.version"));
+        mCore0 = (TextView) findViewById(R.id.ui_cpu_freq0);
+        mCore1 = (TextView) findViewById(R.id.ui_cpu_freq1);
+        mCore2 = (TextView) findViewById(R.id.ui_cpu_freq2);
+        mCore3 = (TextView) findViewById(R.id.ui_cpu_freq3);
     }
 
     /** called when we want to infalte the menu */
@@ -521,8 +755,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     };
 
     @Override protected void onDestroy() {
-        mAutoRefresh = false;
-        this.unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
         super.onDestroy();
+        mAutoRefresh = false;
+        mMonitorCpu0 = false;
+        mMonitorCpu1 = false;
+        mMonitorCpu2 = false;
+        mMonitorCpu2 = false;
+        this.unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
     }
 }

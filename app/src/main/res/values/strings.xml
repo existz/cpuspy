@@ -4,6 +4,8 @@
     <string name="app_name_long">CPUSpy Material</string>
     <string name="version_name">2.1-BETA</string>
 
+    <string name="core_offline">Offline</string>
+
     <string name="unused_states_show">Show Unused States</string>
     <string name="unused_states_hide">Hide Unused States</string>
 

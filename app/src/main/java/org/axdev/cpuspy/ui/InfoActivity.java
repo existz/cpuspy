@@ -21,12 +21,6 @@ import org.axdev.cpuspy.R;
 
 public class InfoActivity extends ActionBarActivity {
 
-    private String mFreqString;
-
-    private final Handler mHandler = new Handler();
-
-    private boolean mMonitorCpuFreq;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +30,6 @@ public class InfoActivity extends ActionBarActivity {
 
         // Override entering Activity animation
         overridePendingTransition(R.anim.slide_on_start_enter, R.anim.slide_on_start_exit);
-
-        // Start monitoring CPU frequency
-        mMonitorCpuFreq = true;
-        mHandler.post(monitorCpuFreq);
 
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(),
@@ -57,38 +47,6 @@ public class InfoActivity extends ActionBarActivity {
         TextView mCpuInfo = (TextView) findViewById(R.id.ui_cpu_info);
         mCpuInfo.setText(getCpuInfo());
     }
-
-    private String getCpuFrequency() {
-        try {
-            InputStream is = new FileInputStream("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreqString = line;
-            }
-
-            is.close();
-        } catch (IOException ignored) {}
-
-        // made it
-        return mFreqString;
-    }
-
-    private final Runnable monitorCpuFreq = new Runnable() {
-        public void run() {
-            if(mMonitorCpuFreq) {
-                TextView mFreqText = (TextView) findViewById(R.id.ui_cpu_cur_freq);
-
-                int i = Integer.parseInt(getCpuFrequency()) / 1000;
-                String s = String.valueOf(i) + "MHz";
-                mFreqText.setText(s);
-
-                mHandler.postDelayed(monitorCpuFreq, 1000); // 1 second
-            }
-        }
-    };
 
     @SuppressWarnings("deprecation")
     private String getCpuInfo() {
@@ -122,7 +80,6 @@ public class InfoActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        mMonitorCpuFreq = false;
         // Override exiting Activity animation
         overridePendingTransition(R.anim.slide_on_stop_enter, R.anim.slide_on_stop_exit);
     }

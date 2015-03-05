@@ -38,7 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_below="@+id/ui_kernel_string"
@@ -46,34 +45,14 @@
                 android:textColor="@color/accent"/>
 
             <TextView
-                android:id="@+id/ui_cpu_freq_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="16dp"
-                android:text="@string/information_cur_freq"
-                android:layout_below="@+id/ui_cpu_header"
-                android:textColor="@color/primary_text_color"/>
-
-            <TextView
-                android:id="@+id/ui_cpu_cur_freq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="16dp"
-                android:layout_alignBaseline="@+id/ui_cpu_freq_header"
-                android:layout_alignBottom="@+id/ui_cpu_freq_header"
-                android:layout_toEndOf="@+id/ui_cpu_freq_header"
-                android:textColor="@color/primary_text_color"/>
-
-            <TextView
                 android:id="@+id/ui_cpu_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_below="@+id/ui_cpu_freq_header"
+                android:layout_below="@+id/ui_cpu_header"
                 android:textColor="@color/primary_text_color"/>
 
         </RelativeLayout>
