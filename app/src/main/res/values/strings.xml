@@ -35,11 +35,10 @@
     <string name="welcome">Welcome</string>
     <string name="welcome_summary">Welcome to CPUSpy Material! Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
-    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring.</string>
-    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports.</string>
-    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time.</string>
-    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full.</string>
-    <string name="welcome_button_text">CONTINUE</string>
+    <string name="welcome_cpuinfo">CPU + Kernel information and monitoring</string>
+    <string name="welcome_crashreport">Automatically sends crash and usage reports</string>
+    <string name="welcome_autorefresh">Enable Auto Refresh to update states in real time</string>
+    <string name="welcome_autoreset">Timers automatically reset once battery is full</string>
 
     <!-- Settings info -->
     <string name="settings">Settings</string>
@@ -57,7 +56,7 @@
     <!-- About -->
     <string name="pref_about_header_dev">Developer</string>
     <string name="pref_about_header_contrib">Contributions</string>
-    <string name="pref_about_appinfo">A simple app for viewing the amount of time the CPU spends in each frequency state.\n</string>
+    <string name="pref_about_appinfo">A simple app for monitoring the amount of time the CPU spends in each frequency state.\n</string>
     
     <string name="pref_about_origdev">
     <b><a href="http://goo.gl/N3drrP">Brandon Valosek</a></b>\n

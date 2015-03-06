@@ -1,135 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/about"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:id="@+id/about_header"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/primary"
-        android:elevation="@dimen/toolbar_elevation"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:gravity="center">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/toolbar_about_appname"
+            android:id="@+id/appname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="16dp"
+            android:paddingTop="16dp"
+            android:layout_gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/pref_about_appname"
-            android:textSize="28sp"
-            android:textColor="@android:color/primary_text_dark" />
+            android:textColor="@color/primary_text_color"
+            android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/toolbar_about_version"
+            android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar_about_appname"
-            android:layout_alignEnd="@+id/toolbar_about_appname"
-            android:layout_marginEnd="88dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/version_name"
-            android:textColor="#eeeeee"
-            android:textSize="16sp" />
+            android:textColor="@color/primary_text_color"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
-        <ImageView
-            android:id="@+id/toolbar_about_icon"
-            android:src="@mipmap/icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:scaleType="fitXY" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/about_appinfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/pref_about_appinfo"
-                android:textColor="@color/primary_text_color"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp" />
+            <ImageButton
+                android:id="@+id/btn_github"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/ic_github"
+                style="?android:attr/borderlessButtonStyle"
+                android:clickable="true" />
 
-            <TextView
-                android:id="@+id/about_header_developer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/pref_about_header_dev"
-                android:textColor="@color/accent"
-                android:textSize="14sp" />
+            <ImageButton
+                android:id="@+id/btn_paypal"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_toEndOf="@+id/btn_github"
+                android:src="@drawable/ic_paypal"
+                style="?android:attr/borderlessButtonStyle"
+                android:clickable="true" />
 
-            <TextView
-                android:id="@+id/developer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/pref_about_developer"
-                android:textSize="15sp" />
+            <ImageButton
+                android:id="@+id/btn_xda"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toEndOf="@+id/btn_paypal"
+                android:src="@drawable/ic_xda"
+                style="?android:attr/borderlessButtonStyle"
+                android:clickable="true" />
 
-            <TextView
-                android:id="@+id/about_header_contrib"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/pref_about_header_contrib"
-                android:textColor="@color/accent"
-                android:textSize="14sp" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/origdev"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/pref_about_origdev"
-                android:textColor="@color/primary_text_color"
-                android:textSize="15sp" />
+        <TextView
+            android:id="@+id/about_appinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/pref_about_appinfo"
+            android:textColor="@color/primary_text_color"
+            android:textSize="16sp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:gravity="center" />
 
-            <TextView
-                android:id="@+id/iconcreator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/pref_about_iconcreator"
-                android:textColor="@color/primary_text_color"
-                android:textSize="15sp" />
+        <TextView
+            android:id="@+id/about_header_developer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/pref_about_header_dev"
+            android:textColor="@color/accent"
+            android:textSize="14sp" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/developer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pref_about_developer"
+            android:textSize="15sp" />
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/about_header_contrib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/pref_about_header_contrib"
+            android:textColor="@color/accent"
+            android:textSize="14sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/origdev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pref_about_origdev"
+            android:textColor="@color/primary_text_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/iconcreator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/pref_about_iconcreator"
+            android:textColor="@color/primary_text_color"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</ScrollView>

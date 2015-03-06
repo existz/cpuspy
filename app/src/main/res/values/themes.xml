@@ -14,11 +14,6 @@
         <item name="android:listSeparatorTextViewStyle">@style/PreferenceListHeader</item>
     </style>
 
-    <style name="NoTitleTheme" parent="@style/AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <style name="Widget.TextView.ListSeparator" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

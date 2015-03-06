@@ -82,6 +82,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     // main ui views
     private CardView mStatesCardView;
+    private CardView mWelcomeCardView;
     private ImageButton mInfoButton;
     private ImageButton mShowButton;
     private ImageButton mHideButton;
@@ -93,6 +94,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private TextView mAdditionalStatesShow;
     private TextView mAdditionalStatesHide;
     private TextView mHeaderTotalStateTime;
+    private TextView mWelcomeSummary;
+    private TextView mWelcomeFeatures;
 
     private TextView mCore0;
     private TextView mCore1;
@@ -128,19 +131,18 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // second argument is the default to use if the preference can't be found
-        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, false);
-
-        if (!welcomeScreenShown) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            startActivity(intent);
-        }
-
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);
         _app = (CpuSpyApp)getApplicationContext();
         checkVersion();
         findViews();
+
+        // second argument is the default to use if the preference can't be found
+        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, false);
+
+        if (!welcomeScreenShown) {
+            mWelcomeCardView.setVisibility(View.VISIBLE);
+        }
 
         // set custom action bar title
         getSupportActionBar().setTitle(R.string.app_name_long);
@@ -277,6 +279,14 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     public void infoButton(View view) {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
+    }
+
+    public void welcomeButton(View view) {
+        mWelcomeCardView.setVisibility(View.GONE);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(WELCOME_SCREEN, true);
+        editor.commit();
     }
 
     /** Buttons to hide and show Additional States */
@@ -504,6 +514,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
 
         mStatesCardView = (CardView)findViewById(R.id.card_view_states);
+        mWelcomeCardView = (CardView) findViewById(R.id.card_view_welcome);
         mInfoButton = (ImageButton)findViewById(R.id.ui_info_button);
         mShowButton = (ImageButton)findViewById(R.id.ui_show_button);
         mHideButton = (ImageButton)findViewById(R.id.ui_hide_button);
@@ -514,6 +525,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mAdditionalStatesShow = (TextView)findViewById(R.id.ui_additional_states_show);
         mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
         mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
+
+        mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
+        mWelcomeSummary.setTypeface(tf);
+
+        mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
+        mWelcomeFeatures.setTypeface(tf);
 
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
         mHeaderTotalStateTime.setTypeface(tf);
@@ -615,6 +632,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
+            mWelcomeCardView.setVisibility(View.GONE);
             mHeaderTotalStateTime.setVisibility(View.GONE);
             mTotalStateTime.setVisibility(View.GONE);
             mInfoButton.setVisibility(View.GONE);
@@ -638,6 +656,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         /** show warning label if no states found */
         if (monitor.getStates().size() == 0) {
             mStatesWarning.setVisibility(View.VISIBLE);
+            mWelcomeCardView.setVisibility(View.GONE);
             mHeaderTotalStateTime.setVisibility(View.GONE);
             mTotalStateTime.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
