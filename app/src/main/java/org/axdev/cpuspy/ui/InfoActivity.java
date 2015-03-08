@@ -28,9 +28,6 @@ public class InfoActivity extends ActionBarActivity {
         CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Override entering Activity animation
-        overridePendingTransition(R.anim.slide_on_start_enter, R.anim.slide_on_start_exit);
-
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/Roboto-Medium.ttf");
@@ -80,7 +77,5 @@ public class InfoActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        // Override exiting Activity animation
-        overridePendingTransition(R.anim.slide_on_stop_enter, R.anim.slide_on_stop_exit);
     }
 }

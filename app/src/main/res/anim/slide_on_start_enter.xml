@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<set android:zAdjustment="top"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <translate android:interpolator="@android:interpolator/accelerate_decelerate" android:duration="@integer/shortAnimTime" android:fromXDelta="100.0%" android:toXDelta="0.0" />
-</set>
