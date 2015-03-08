@@ -94,7 +94,6 @@
                 android:text="@string/action_dismiss"
                 android:textColor="@android:color/primary_text_dark"
                 android:textSize="14sp"
-                android:onClick="welcomeButton"
                 android:clickable="true"
                 android:background="@drawable/round_button"
                 android:stateListAnimator="@null" />

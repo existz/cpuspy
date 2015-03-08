@@ -35,6 +35,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -65,7 +67,7 @@ import java.util.List;
 import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
-public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener
+public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
     private static final String TAG = "CpuSpy";
 
@@ -81,6 +83,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout mSwipeLayout;
 
     // main ui views
+    private Button mWelcomeButton;
     private CardView mStatesCardView;
     private CardView mWelcomeCardView;
     private ImageButton mInfoButton;
@@ -161,6 +164,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // Start CPU core monitoring
         startCoreMonitor();
+
+        // Set onClickListener for all buttons
+        mInfoButton.setOnClickListener(this);
+        mWelcomeButton.setOnClickListener(this);
+        mShowButton.setOnClickListener(this);
+        mHideButton.setOnClickListener(this);
 
         // Register receiver
         this.registerReceiver(this.mBatInfoReceiver,
@@ -275,35 +284,36 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mStatesCardView.startAnimation(slideUp);
     }
 
-    /** Button to launch Info Activity */
-    public void infoButton(View view) {
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
-    }
-
-    public void welcomeButton(View view) {
-        mWelcomeCardView.setVisibility(View.GONE);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean(WELCOME_SCREEN, true);
-        editor.commit();
-    }
-
-    /** Buttons to hide and show Additional States */
-    public void showButton(View view) {
-        mShowButton.setVisibility(View.GONE);
-        mHideButton.setVisibility(View.VISIBLE);
-        mAdditionalStatesShow.setVisibility(View.GONE);
-        mAdditionalStatesHide.setVisibility(View.VISIBLE);
-        mAdditionalStates.setVisibility(View.VISIBLE);
-    }
-
-    public void hideButton(View view) {
-        mShowButton.setVisibility(View.VISIBLE);
-        mHideButton.setVisibility(View.GONE);
-        mAdditionalStatesShow.setVisibility(View.VISIBLE);
-        mAdditionalStatesHide.setVisibility(View.GONE);
-        mAdditionalStates.setVisibility(View.GONE);
+    /** Global On click listener for all views */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_info:
+                Intent intent = new Intent(this, InfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_show:
+                mShowButton.setVisibility(View.GONE);
+                mHideButton.setVisibility(View.VISIBLE);
+                mAdditionalStatesShow.setVisibility(View.GONE);
+                mAdditionalStatesHide.setVisibility(View.VISIBLE);
+                mAdditionalStates.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_hide:
+                mShowButton.setVisibility(View.VISIBLE);
+                mHideButton.setVisibility(View.GONE);
+                mAdditionalStatesShow.setVisibility(View.VISIBLE);
+                mAdditionalStatesHide.setVisibility(View.GONE);
+                mAdditionalStates.setVisibility(View.GONE);
+                break;
+            case R.id.btn_welcome:
+                mWelcomeCardView.setVisibility(View.GONE);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean(WELCOME_SCREEN, true);
+                editor.commit();
+                break;
+        }
     }
 
     /** Get the current frequency for CPU0 */
@@ -513,11 +523,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
 
+        mWelcomeButton = (Button)findViewById(R.id.btn_welcome);
         mStatesCardView = (CardView)findViewById(R.id.card_view_states);
         mWelcomeCardView = (CardView) findViewById(R.id.card_view_welcome);
-        mInfoButton = (ImageButton)findViewById(R.id.ui_info_button);
-        mShowButton = (ImageButton)findViewById(R.id.ui_show_button);
-        mHideButton = (ImageButton)findViewById(R.id.ui_hide_button);
+        mInfoButton = (ImageButton)findViewById(R.id.btn_info);
+        mShowButton = (ImageButton)findViewById(R.id.btn_show);
+        mHideButton = (ImageButton)findViewById(R.id.btn_hide);
         mStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
         mChargedView = (LinearLayout)findViewById(R.id.ui_charged_view);
         mStatesWarning = (LinearLayout)findViewById(R.id.ui_states_warning);

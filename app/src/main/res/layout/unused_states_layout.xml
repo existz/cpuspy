@@ -11,27 +11,26 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/ui_show_button"
+            android:id="@+id/btn_show"
             android:src="@drawable/ic_expand_more"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             style="?android:attr/borderlessButtonStyle"
-            android:clickable="true"
-            android:onClick="showButton"/>
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/ui_additional_states_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/ui_show_button"
+            android:layout_toEndOf="@+id/btn_show"
             android:text="@string/unused_states_show"
             android:textColor="@color/primary_text_color"/>
 
         <ImageButton
-            android:id="@+id/ui_hide_button"
+            android:id="@+id/btn_hide"
             android:src="@drawable/ic_expand_less"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -39,7 +38,6 @@
             android:layout_centerVertical="true"
             style="?android:attr/borderlessButtonStyle"
             android:clickable="true"
-            android:onClick="hideButton"
             android:visibility="gone"/>
 
         <TextView
@@ -47,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/ui_hide_button"
+            android:layout_toEndOf="@+id/btn_hide"
             android:text="@string/unused_states_hide"
             android:textColor="@color/primary_text_color"
             android:visibility="gone"/>
