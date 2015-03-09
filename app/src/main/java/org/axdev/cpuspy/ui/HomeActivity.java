@@ -159,8 +159,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(R.color.primary,
-                R.color.accent);
+        mSwipeLayout.setColorSchemeResources(R.color.primary);
 
         // Start CPU core monitoring
         startCoreMonitor();

@@ -33,7 +33,7 @@
 
     <!-- Welcome info -->
     <string name="welcome">Welcome</string>
-    <string name="welcome_summary">Welcome to CPUSpy Material! Use this tool to monitor which frequencies your CPU uses the most.</string>
+    <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
     <string name="welcome_cpuinfo">CPU + Kernel information and monitoring</string>
     <string name="welcome_crashreport">Automatically sends crash and usage reports</string>
