@@ -20,6 +20,10 @@ public class WhatsNewDialog extends DialogFragment {
                 .build();
         WebView webView = (WebView) dialog.getCustomView().findViewById(R.id.webview);
         webView.loadUrl("file:///android_asset/webview.html");
+
+        // Override dialog enter/exit animation
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
         dialog.show();
 
         return dialog;
