@@ -97,8 +97,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private TextView mAdditionalStatesShow;
     private TextView mAdditionalStatesHide;
     private TextView mHeaderTotalStateTime;
-    private TextView mWelcomeSummary;
-    private TextView mWelcomeFeatures;
 
     private TextView mCore0;
     private TextView mCore1;
@@ -149,10 +147,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // set custom action bar title
         getSupportActionBar().setTitle(R.string.app_name_long);
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT) {
             getSupportActionBar().setElevation(0);
         }
+
 
         // start CardView animation
         cardViewAnimation();
@@ -536,10 +534,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
         mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
 
-        mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
+        TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
         mWelcomeSummary.setTypeface(tf);
 
-        mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
+        TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
         mWelcomeFeatures.setTypeface(tf);
 
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
