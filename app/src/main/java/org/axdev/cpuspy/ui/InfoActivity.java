@@ -3,18 +3,14 @@ package org.axdev.cpuspy.ui;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;

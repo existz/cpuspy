@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;

@@ -1,62 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar_actionbar">
+        <TextView
+            android:id="@+id/ui_kernel_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/information_kernel_version"
+            android:textColor="@color/accent"/>
 
-            <TextView
-                android:id="@+id/ui_kernel_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="@string/information_kernel_version"
-                android:textColor="@color/accent"/>
+        <TextView
+            android:id="@+id/ui_kernel_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/ui_kernel_header"
+            android:textColor="@color/primary_text_color"/>
 
-            <TextView
-                android:id="@+id/ui_kernel_string"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_below="@+id/ui_kernel_header"
-                android:textColor="@color/primary_text_color"/>
+        <TextView
+            android:id="@+id/ui_cpu_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/ui_kernel_string"
+            android:text="@string/information_cpu_info"
+            android:textColor="@color/accent"/>
 
-            <TextView
-                android:id="@+id/ui_cpu_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_below="@+id/ui_kernel_string"
-                android:text="@string/information_cpu_info"
-                android:textColor="@color/accent"/>
+        <TextView
+            android:id="@+id/ui_cpu_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/ui_cpu_header"
+            android:textColor="@color/primary_text_color"/>
 
-            <TextView
-                android:id="@+id/ui_cpu_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_below="@+id/ui_cpu_header"
-                android:textColor="@color/primary_text_color"/>
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</ScrollView>

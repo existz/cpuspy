@@ -8,7 +8,6 @@ package org.axdev.cpuspy.ui;
 
 // imports
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
