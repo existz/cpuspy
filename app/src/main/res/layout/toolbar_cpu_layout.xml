@@ -3,24 +3,25 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/cpu_core_toolbar"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:elevation="@dimen/toolbar_elevation"
         android:background="@color/primary">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="16dp">
 
             <TextView
                 android:id="@+id/ui_cpu_freq0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="14dp"
+                android:padding="10dp"
                 android:textColor="@android:color/primary_text_dark"
                 android:visibility="gone"/>
 
@@ -28,8 +29,7 @@
                 android:id="@+id/ui_cpu_freq1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
+                android:padding="10dp"
                 android:textColor="@android:color/primary_text_dark"
                 android:layout_toEndOf="@+id/ui_cpu_freq0"
                 android:visibility="gone"/>
@@ -38,8 +38,7 @@
                 android:id="@+id/ui_cpu_freq2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
+                android:padding="10dp"
                 android:textColor="@android:color/primary_text_dark"
                 android:layout_toEndOf="@+id/ui_cpu_freq1"
                 android:visibility="gone"/>
@@ -48,7 +47,7 @@
                 android:id="@+id/ui_cpu_freq3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
+                android:padding="10dp"
                 android:textColor="@android:color/primary_text_dark"
                 android:layout_toEndOf="@+id/ui_cpu_freq2"
                 android:visibility="gone"/>
