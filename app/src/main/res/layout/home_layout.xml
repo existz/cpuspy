@@ -72,6 +72,8 @@
                     android:layout_marginLeft="9dp"
                     android:layout_marginRight="9dp"
                     android:layout_below="@+id/ui_total_state_time"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     card_view:cardCornerRadius="3dp"
                     android:visibility="gone">
 
@@ -86,10 +88,27 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"/>
 
-                        <include layout="@layout/unused_states_layout"/>
+                        <TextView
+                            android:id="@+id/ui_additional_states"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"/>
+
+                        <TextView
+                            android:id="@+id/ui_additional_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:text="@string/unused_states_hint"
+                            android:textColor="#ccc"/>
 
                     </LinearLayout>
 

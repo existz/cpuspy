@@ -6,8 +6,8 @@
 
     <string name="core_offline">Offline</string>
 
-    <string name="unused_states_show">Show Unused States</string>
-    <string name="unused_states_hide">Hide Unused States</string>
+    <string name="unused_states_hint">Click to show unused states</string>
+    <string name="unused_states_empty">All frequencies have been used!</string>
 
     <string name="total_state_time">Total State Time</string>
 
@@ -35,10 +35,10 @@
     <string name="welcome">Welcome</string>
     <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
-    <string name="welcome_cpuinfo">CPU + Kernel information and monitoring</string>
-    <string name="welcome_crashreport">Automatically sends crash and usage reports</string>
-    <string name="welcome_autorefresh">Enable Auto Refresh to update states in real time</string>
-    <string name="welcome_autoreset">Timers automatically reset once battery is full</string>
+    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring</string>
+    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports</string>
+    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time</string>
+    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full</string>
 
     <!-- Settings info -->
     <string name="settings">Settings</string>

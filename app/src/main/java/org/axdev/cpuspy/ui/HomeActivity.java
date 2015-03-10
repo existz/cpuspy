@@ -43,6 +43,7 @@ import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
 import com.nispok.snackbar.Snackbar;
@@ -87,15 +88,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private CardView mStatesCardView;
     private CardView mWelcomeCardView;
     private ImageButton mInfoButton;
-    private ImageButton mShowButton;
-    private ImageButton mHideButton;
     private LinearLayout mStatesView;
     private LinearLayout mChargedView;
     private LinearLayout mStatesWarning;
     private TextView mAdditionalStates;
     private TextView mTotalStateTime;
-    private TextView mAdditionalStatesShow;
-    private TextView mAdditionalStatesHide;
     private TextView mHeaderTotalStateTime;
 
     private TextView mCore0;
@@ -112,9 +109,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
     private boolean mMonitorCpu3;
-
-    /** whether or not we're updating the data in the background */
-    private boolean mUpdatingData = false;
 
     /** whether or not auto refresh is enabled */
     private boolean mAutoRefresh = false;
@@ -165,23 +159,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // Set onClickListener for all buttons
         mInfoButton.setOnClickListener(this);
         mWelcomeButton.setOnClickListener(this);
-        mShowButton.setOnClickListener(this);
-        mHideButton.setOnClickListener(this);
+        mStatesCardView.setOnClickListener(this);
 
         // Register receiver
         this.registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
-        // see if we're updating data during a config change (rotate screen)
-        if (savedInstanceState != null) {
-            mUpdatingData = savedInstanceState.getBoolean("updatingData");
-        }
-    }
-
-    /** When the activity is about to change orientation */
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("updatingData", mUpdatingData);
     }
 
     @Override public void onStart () {
@@ -289,26 +271,22 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 Intent intent = new Intent(this, InfoActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btn_show:
-                mShowButton.setVisibility(View.GONE);
-                mHideButton.setVisibility(View.VISIBLE);
-                mAdditionalStatesShow.setVisibility(View.GONE);
-                mAdditionalStatesHide.setVisibility(View.VISIBLE);
-                mAdditionalStates.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btn_hide:
-                mShowButton.setVisibility(View.VISIBLE);
-                mHideButton.setVisibility(View.GONE);
-                mAdditionalStatesShow.setVisibility(View.VISIBLE);
-                mAdditionalStatesHide.setVisibility(View.GONE);
-                mAdditionalStates.setVisibility(View.GONE);
-                break;
             case R.id.btn_welcome:
                 mWelcomeCardView.setVisibility(View.GONE);
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean(WELCOME_SCREEN, true);
                 editor.commit();
+                break;
+            case R.id.card_view_states:
+                String unusedStates = mAdditionalStates.getText().toString();
+                MaterialDialog dialog = new MaterialDialog.Builder(this)
+                        .content(unusedStates)
+                        .build();
+
+                // Override dialog enter/exit animation
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogStatesAnimation;
+                dialog.show();
                 break;
         }
     }
@@ -524,29 +502,25 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mStatesCardView = (CardView)findViewById(R.id.card_view_states);
         mWelcomeCardView = (CardView) findViewById(R.id.card_view_welcome);
         mInfoButton = (ImageButton)findViewById(R.id.btn_info);
-        mShowButton = (ImageButton)findViewById(R.id.btn_show);
-        mHideButton = (ImageButton)findViewById(R.id.btn_hide);
         mStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
         mChargedView = (LinearLayout)findViewById(R.id.ui_charged_view);
         mStatesWarning = (LinearLayout)findViewById(R.id.ui_states_warning);
         mAdditionalStates = (TextView)findViewById(R.id.ui_additional_states);
-        mAdditionalStatesShow = (TextView)findViewById(R.id.ui_additional_states_show);
-        mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
-        mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
-
-        TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
-        mWelcomeSummary.setTypeface(tf);
-
-        TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
-        mWelcomeFeatures.setTypeface(tf);
-
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
-        mHeaderTotalStateTime.setTypeface(tf);
+        mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
 
         mCore0 = (TextView) findViewById(R.id.ui_cpu_freq0);
         mCore1 = (TextView) findViewById(R.id.ui_cpu_freq1);
         mCore2 = (TextView) findViewById(R.id.ui_cpu_freq2);
         mCore3 = (TextView) findViewById(R.id.ui_cpu_freq3);
+
+        TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
+        TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
+
+        // Apply roboto medium typeface
+        mWelcomeSummary.setTypeface(tf);
+        mWelcomeFeatures.setTypeface(tf);
+        mHeaderTotalStateTime.setTypeface(tf);
     }
 
     /** called when we want to infalte the menu */
@@ -634,7 +608,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 str += s;
             }
             mAdditionalStates.setText(str);
+        } else {
+            mAdditionalStates.setText(R.string.unused_states_empty);
         }
+
 
         /** Reset timers and show info when battery is charged */
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
@@ -675,9 +652,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Attempt to update the time-in-state info */
     void refreshData() {
-        if (!mUpdatingData) {
-            new RefreshStateDataTask().execute((Void) null);
-        }
+        new RefreshStateDataTask().execute((Void) null);
     }
 
     /** @return A nicely formatted String representing tSec seconds */
@@ -760,13 +735,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
 
         /** Executed on the UI thread right before starting the task */
-        @Override protected void onPreExecute() {
-            mUpdatingData = true;
-        }
+        @Override protected void onPreExecute() {}
 
         /** Executed on UI thread after task */
         @Override protected void onPostExecute(Void v) {
-            mUpdatingData = false;
             updateView();
         }
     }
