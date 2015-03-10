@@ -354,7 +354,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Get the current frequency for CPU2 */
     private String getCpu2() {
         try {
-            InputStream is = new FileInputStream(CPU1);
+            InputStream is = new FileInputStream(CPU2);
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
 
@@ -373,7 +373,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Get the current frequency for CPU3 */
     private String getCpu3() {
         try {
-            InputStream is = new FileInputStream(CPU1);
+            InputStream is = new FileInputStream(CPU3);
             InputStreamReader ir = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(ir);
 
