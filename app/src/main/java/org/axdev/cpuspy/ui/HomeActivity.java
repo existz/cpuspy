@@ -7,7 +7,7 @@
 package org.axdev.cpuspy.ui;
 
 // imports
-import android.animation.Animator;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View.OnClickListener;
-import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -307,23 +306,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 mAdditionalStates.setVisibility(View.GONE);
                 break;
             case R.id.btn_welcome:
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                    // get the center for the clipping circle
-                    int cx = (mWelcomeCardView.getLeft() + mWelcomeCardView.getRight()) / 2;
-                    int cy = (mWelcomeCardView.getTop() + mWelcomeCardView.getBottom()) / 2;
-
-                    int initialRadius = mWelcomeCardView.getWidth();
-
-                    // create the animator for this view (the start radius is zero)
-                    Animator anim =
-                            ViewAnimationUtils.createCircularReveal(mWelcomeCardView, cy, cx, initialRadius, 0);
-
-                    mWelcomeCardView.setVisibility(View.GONE);
-                    anim.start();
-                } else {
-                    mWelcomeCardView.setVisibility(View.GONE);
-                }
-
+                mWelcomeCardView.setVisibility(View.GONE);
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean(WELCOME_SCREEN, true);
