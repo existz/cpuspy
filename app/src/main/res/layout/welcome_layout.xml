@@ -95,7 +95,7 @@
                 android:textColor="@android:color/primary_text_dark"
                 android:textSize="14sp"
                 android:clickable="true"
-                android:background="@drawable/round_button"
+                android:background="@drawable/welcome_button"
                 android:stateListAnimator="@null" />
 
         </LinearLayout>
