@@ -29,10 +29,8 @@
     <string name="information">Information</string>
     <string name="information_kernel_version">Kernel Version</string>
     <string name="information_cpu_info">CPU Info</string>
-    <string name="information_cur_freq">Current Frequency:</string>
 
     <!-- Welcome info -->
-    <string name="welcome">Welcome</string>
     <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
     <string name="welcome_features">Features</string>
     <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring</string>
