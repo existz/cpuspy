@@ -272,7 +272,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 startActivity(intent);
                 break;
             case R.id.btn_welcome:
+                // setVisibility to GONE before removing to allow animations
                 mWelcomeCardView.setVisibility(View.GONE);
+                mWelcomeCardView.removeAllViews();
+
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean(WELCOME_SCREEN, true);
