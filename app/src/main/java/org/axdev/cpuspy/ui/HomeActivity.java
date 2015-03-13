@@ -141,10 +141,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // set custom action bar title
         getSupportActionBar().setTitle(R.string.app_name_long);
-        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= 21) {
             getSupportActionBar().setElevation(0);
         }
-
 
         // start CardView animation
         cardViewAnimation();

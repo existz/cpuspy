@@ -70,7 +70,7 @@ public class PrefsActivity extends ActionBarActivity {
         public void onResume() {
             super.onResume();
             ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.settings);
-            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 int mToolbarElevation = (int) getResources().getDimension(R.dimen.toolbar_elevation);
                 ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(mToolbarElevation);
             }
