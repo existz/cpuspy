@@ -1,54 +1,98 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ui_kernel_header"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_kernel"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/information_kernel_version"
-            android:textColor="@color/accent"/>
+            android:layout_marginBottom="4dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            card_view:cardCornerRadius="0dp">
 
-        <TextView
-            android:id="@+id/ui_kernel_string"
-            android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ui_kernel_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/information_kernel_version"
+                    android:textColor="@color/accent"/>
+
+                <TextView
+                    android:id="@+id/ui_kernel_string"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_below="@+id/ui_kernel_header"
+                    android:textColor="@color/primary_text_color"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view_cpu"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@+id/ui_kernel_header"
-            android:textColor="@color/primary_text_color"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/card_view_kernel"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            card_view:cardCornerRadius="0dp">
 
-        <TextView
-            android:id="@+id/ui_cpu_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@+id/ui_kernel_string"
-            android:text="@string/information_cpu_info"
-            android:textColor="@color/accent"/>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ui_cpu_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@+id/ui_cpu_header"
-            android:textColor="@color/primary_text_color"/>
+                <TextView
+                    android:id="@+id/ui_cpu_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_below="@+id/ui_kernel_string"
+                    android:text="@string/information_cpu_info"
+                    android:textColor="@color/accent"/>
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/ui_cpu_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_below="@+id/ui_cpu_header"
+                    android:textColor="@color/primary_text_color"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
 
 </ScrollView>
