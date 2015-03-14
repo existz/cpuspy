@@ -34,16 +34,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.View.OnClickListener;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
 import com.nispok.snackbar.Snackbar;
@@ -87,11 +90,15 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private Button mWelcomeButton;
     private CardView mStatesCardView;
     private CardView mWelcomeCardView;
+    private CardView mTimeCardView;
     private ImageButton mInfoButton;
+    private ImageView mShowImage;
     private LinearLayout mStatesView;
     private LinearLayout mChargedView;
     private LinearLayout mStatesWarning;
     private TextView mAdditionalStates;
+    private TextView mAdditionalStatesShow;
+    private TextView mAdditionalStatesHide;
     private TextView mTotalStateTime;
     private TextView mHeaderTotalStateTime;
 
@@ -260,6 +267,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 R.anim.slide_in_up);
 
         mStatesCardView.startAnimation(slideUp);
+        mTimeCardView.startAnimation(slideUp);
     }
 
     /** Global On click listener for all views */
@@ -281,14 +289,45 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 editor.commit();
                 break;
             case R.id.card_view_states:
-                String unusedStates = mAdditionalStates.getText().toString();
-                MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .content(unusedStates)
-                        .build();
+                if (mAdditionalStatesShow.isShown()) {
+                    AnimationSet animSet = new AnimationSet(true);
+                    animSet.setInterpolator(new DecelerateInterpolator());
+                    animSet.setFillAfter(true);
+                    animSet.setFillEnabled(true);
 
-                // Override dialog enter/exit animation
-                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogStatesAnimation;
-                dialog.show();
+                    final RotateAnimation animRotate = new RotateAnimation(0.0f, 180.0f,
+                            RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                            RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+                    animRotate.setDuration(300);
+                    animRotate.setFillAfter(true);
+                    animSet.addAnimation(animRotate);
+
+                    mShowImage.startAnimation(animSet);
+
+                    mAdditionalStatesShow.setVisibility(View.GONE);
+                    mAdditionalStatesHide.setVisibility(View.VISIBLE);
+                    mAdditionalStates.setVisibility(View.VISIBLE);
+                } else {
+                    AnimationSet animSet = new AnimationSet(true);
+                    animSet.setInterpolator(new DecelerateInterpolator());
+                    animSet.setFillAfter(true);
+                    animSet.setFillEnabled(true);
+
+                    final RotateAnimation animRotate = new RotateAnimation(-180.0f, 0f,
+                            RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                            RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+                    animRotate.setDuration(500);
+                    animRotate.setFillAfter(true);
+                    animSet.addAnimation(animRotate);
+
+                    mShowImage.startAnimation(animSet);
+
+                    mAdditionalStatesShow.setVisibility(View.VISIBLE);
+                    mAdditionalStatesHide.setVisibility(View.GONE);
+                    mAdditionalStates.setVisibility(View.GONE);
+                }
                 break;
         }
     }
@@ -502,12 +541,16 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         mWelcomeButton = (Button)findViewById(R.id.btn_welcome);
         mStatesCardView = (CardView)findViewById(R.id.card_view_states);
-        mWelcomeCardView = (CardView) findViewById(R.id.card_view_welcome);
+        mWelcomeCardView = (CardView)findViewById(R.id.card_view_welcome);
+        mTimeCardView = (CardView)findViewById(R.id.card_view_time);
         mInfoButton = (ImageButton)findViewById(R.id.btn_info);
+        mShowImage = (ImageView)findViewById(R.id.image_show);
         mStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
         mChargedView = (LinearLayout)findViewById(R.id.ui_charged_view);
         mStatesWarning = (LinearLayout)findViewById(R.id.ui_states_warning);
         mAdditionalStates = (TextView)findViewById(R.id.ui_additional_states);
+        mAdditionalStatesShow = (TextView)findViewById(R.id.ui_additional_states_show);
+        mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
         mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
         mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
 
@@ -522,6 +565,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // Apply roboto medium typeface
         mWelcomeSummary.setTypeface(tf);
         mWelcomeFeatures.setTypeface(tf);
+        mAdditionalStatesShow.setTypeface(tf);
+        mAdditionalStatesHide.setTypeface(tf);
         mHeaderTotalStateTime.setTypeface(tf);
     }
 
@@ -611,7 +656,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
             mAdditionalStates.setText(str);
         } else {
-            mAdditionalStates.setText(R.string.unused_states_empty);
+            mAdditionalStates.setText("Empty");
         }
 
 
@@ -619,6 +664,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
+            mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
             mHeaderTotalStateTime.setVisibility(View.GONE);
             mTotalStateTime.setVisibility(View.GONE);
@@ -635,6 +681,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mStatesWarning.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
+            mTimeCardView.setVisibility(View.VISIBLE);
             mHeaderTotalStateTime.setVisibility(View.VISIBLE);
             mTotalStateTime.setVisibility(View.VISIBLE);
             mInfoButton.setVisibility(View.VISIBLE);
@@ -643,6 +690,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         /** show warning label if no states found */
         if (monitor.getStates().size() == 0) {
             mStatesWarning.setVisibility(View.VISIBLE);
+            mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
             mHeaderTotalStateTime.setVisibility(View.GONE);
             mTotalStateTime.setVisibility(View.GONE);

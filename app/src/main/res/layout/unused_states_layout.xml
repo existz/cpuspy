@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="16dp">
+
+    <RelativeLayout
+        android:id="@+id/additional_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ui_additional_states_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/unused_states_show"
+            android:textColor="@color/primary_text_color"/>
+
+        <ImageView
+            android:id="@+id/image_show"
+            android:src="@drawable/ic_drop_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/ui_additional_states_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/unused_states_hide"
+            android:textColor="@color/primary_text_color"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#f5f5f5"
+        android:orientation="vertical"
+        android:animateLayoutChanges="true">
+
+        <TextView
+            android:id="@+id/ui_additional_states"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/primary_text_color"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>

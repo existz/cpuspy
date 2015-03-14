@@ -6,8 +6,8 @@
 
     <string name="core_offline">Offline</string>
 
-    <string name="unused_states_hint">Click to show unused states</string>
-    <string name="unused_states_empty">All frequencies have been used!</string>
+    <string name="unused_states_show">View Unused States</string>
+    <string name="unused_states_hide">Hide Unused States</string>
 
     <string name="total_state_time">Total State Time</string>
 
