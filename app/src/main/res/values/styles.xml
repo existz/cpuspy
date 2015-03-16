@@ -18,9 +18,9 @@
         <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
     </style>
 
-    <style name="DialogStatesAnimation">
+    <style name="DialogInfoAnimation">
         <item name="android:windowEnterAnimation">@anim/dialog_zoom_in</item>
-        <item name="android:windowExitAnimation">@anim/dialog_zoom_out</item>
+        <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
     </style>
 
 </resources>
