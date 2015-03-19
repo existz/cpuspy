@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
@@ -35,6 +36,9 @@ public class AboutFragment extends Fragment {
         // Set title and fix elevation for layout header
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (Build.VERSION.SDK_INT >= 21) {
+            ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(0);
+        }
 
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
