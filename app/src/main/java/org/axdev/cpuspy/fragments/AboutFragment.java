@@ -7,11 +7,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.CardView;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -30,17 +33,17 @@ public class AboutFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set title and fix elevation for layout header
+        /** Set title and fix elevation for layout header */
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (Build.VERSION.SDK_INT >= 21) {
             ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(0);
         }
 
-        // Loading Font Face
+        /** Set text typeface and allow hyperlinks */
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
@@ -53,7 +56,7 @@ public class AboutFragment extends Fragment {
         ((TextView) view.findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) view.findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
 
-        // Set OnClickListener for buttons
+        /** Set OnClickListener for buttons */
         ImageButton githubButton = (ImageButton) view.findViewById(R.id.btn_github);
         githubButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -83,5 +86,32 @@ public class AboutFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        /** Extend background and animate cardview sliding up */
+        View mAboutView = view.findViewById(R.id.about_background);
+        Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.abc_slide_in_top);
+
+        slideDown.setDuration(600);
+        slideDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation arg0) {}
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                CardView mAboutCardView = (CardView) view.findViewById(R.id.card_view_about);
+                Animation slideUp = AnimationUtils.loadAnimation(getActivity(),
+                        R.anim.slide_in_up);
+
+                slideUp.setDuration(375);
+                mAboutCardView.setVisibility(View.VISIBLE);
+                mAboutCardView.startAnimation(slideUp);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {}
+        });
+
+        mAboutView.startAnimation(slideDown);
     }
 }
