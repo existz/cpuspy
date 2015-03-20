@@ -40,10 +40,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.afollestad:material-dialogs:+'
-    compile 'com.nispok:snackbar:+'
-    compile 'com.android.support:cardview-v7:+'
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.afollestad:material-dialogs:0.6.4.7'
+    compile 'com.nispok:snackbar:2.10.5'
+    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.infstory:switch-preference-compat:1.0.+'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
