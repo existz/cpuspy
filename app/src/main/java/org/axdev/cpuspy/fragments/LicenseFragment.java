@@ -2,9 +2,12 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceSpan;
 
 public class LicenseFragment extends Fragment {
 
@@ -25,8 +29,18 @@ public class LicenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Set action bar title
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
+        // Use custom Typeface for action bar title on KitKat devices
+        if (Build.VERSION.SDK_INT == 19) {
+            SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
+            s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Update the action bar title with the TypefaceSpan instance
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s);
+        } else {
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
+        }
+
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Loading Font Face

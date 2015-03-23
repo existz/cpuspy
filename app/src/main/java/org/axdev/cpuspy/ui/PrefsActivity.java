@@ -6,6 +6,8 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.AboutFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.utils.TypefaceSpan;
 
 public class PrefsActivity extends ActionBarActivity {
 
@@ -69,8 +72,17 @@ public class PrefsActivity extends ActionBarActivity {
         @Override
         public void onResume() {
             super.onResume();
-            ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.settings);
-            if (Build.VERSION.SDK_INT >= 21) {
+            // Use custom Typeface for action bar title on KitKat devices
+            if (Build.VERSION.SDK_INT == 19) {
+                SpannableString s = new SpannableString(getResources().getString(R.string.settings));
+                s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                // Update the action bar title with the TypefaceSpan instance
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s);
+            } else {
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.settings);
+
                 int mToolbarElevation = (int) getResources().getDimension(R.dimen.toolbar_elevation);
                 ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(mToolbarElevation);
             }

@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceSpan;
 
 public class AboutFragment extends Fragment {
 
@@ -36,12 +39,20 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /** Set title and fix elevation for layout header */
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (Build.VERSION.SDK_INT >= 21) {
-            ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(0);
+        // Use custom Typeface for action bar title on KitKat devices
+        if (Build.VERSION.SDK_INT == 19) {
+            SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_about));
+            s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Update the action bar title with the TypefaceSpan instance
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s);
+        } else {
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_title_about);
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
         }
+
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /** Set text typeface and allow hyperlinks */
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),

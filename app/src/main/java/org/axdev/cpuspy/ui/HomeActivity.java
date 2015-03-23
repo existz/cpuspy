@@ -26,6 +26,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,6 +59,7 @@ import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.R;
 
 import java.io.BufferedReader;
@@ -146,21 +149,28 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mWelcomeCardView.setVisibility(View.VISIBLE);
         }
 
-        // set custom action bar title
-        getSupportActionBar().setTitle(R.string.app_name_long);
-        if (Build.VERSION.SDK_INT >= 21) {
+        // Use custom Typeface for action bar title on KitKat devices
+        if (Build.VERSION.SDK_INT == 19) {
+            SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
+            s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Update the action bar title with the TypefaceSpan instance
+            getSupportActionBar().setTitle(s);
+        } else {
+            getSupportActionBar().setTitle(R.string.app_name_long);
             getSupportActionBar().setElevation(0);
         }
 
         // start CardView animation
         cardViewAnimation();
 
+        // Start CPU core monitoring
+        startCoreMonitor();
+
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.primary);
-
-        // Start CPU core monitoring
-        startCoreMonitor();
 
         // Set onClickListener for all buttons
         mInfoButton.setOnClickListener(this);

@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,7 @@ import java.io.InputStreamReader;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceSpan;
 
 public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
@@ -43,6 +46,19 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
         setTextViews();
+
+        // Use custom Typeface for action bar title on KitKat devices
+        if (Build.VERSION.SDK_INT == 19) {
+            SpannableString s = new SpannableString(getResources().getString(R.string.information));
+            s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Update the action bar title with the TypefaceSpan instance
+            getSupportActionBar().setTitle(s);
+        } else {
+            getSupportActionBar().setTitle(R.string.information);
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         CardView mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
