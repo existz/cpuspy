@@ -45,6 +45,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.infstory:switch-preference-compat:1.0.+'
+    compile 'com.balysv:material-ripple:1.0.1'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }
