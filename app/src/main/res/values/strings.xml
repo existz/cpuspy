@@ -14,6 +14,7 @@
     <string name="charged_view_message"><b>Charged!</b>\n\nUnplug your charger to automatically reset the CPU timers</string>
 
     <string name="menu_changelog">Changelog</string>
+    <string name="menu_donate">Donate</string>
     <string name="menu_timers_reset">Reset Timers</string>
     <string name="menu_timers_restore">Restore Timers</string>
 

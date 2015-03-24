@@ -1,5 +1,7 @@
 package org.axdev.cpuspy.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -129,6 +131,12 @@ public class PrefsActivity extends ActionBarActivity {
             case R.id.menu_changelog:
                 WhatsNewDialog newFragment = new WhatsNewDialog();
                 newFragment.show(getFragmentManager(), "whatsnew");
+                break;
+            case R.id.menu_donate:
+                final String Urldonate="http://goo.gl/X2sA4D";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(Urldonate));
+                startActivity(i);
                 break;
             case android.R.id.home:
                 checkBackStack();
