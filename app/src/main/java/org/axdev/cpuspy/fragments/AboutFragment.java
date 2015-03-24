@@ -23,7 +23,21 @@ import android.widget.TextView;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class AboutFragment extends Fragment {
+
+    @InjectView(R.id.card_view_about) CardView mAboutCardView;
+    @InjectView(R.id.btn_github) ImageButton githubButton;
+    @InjectView(R.id.btn_paypal) ImageButton paypalButton;
+    @InjectView(R.id.btn_xda) ImageButton xdaButton;
+    @InjectView(R.id.about_header_developer) TextView mHeaderDeveloper;
+    @InjectView(R.id.about_header_contrib) TextView mHeaderContrib;
+    @InjectView(R.id.iconcreator) TextView mIconCreator;
+    @InjectView(R.id.developer) TextView mDeveloper;
+    @InjectView(R.id.origdev) TextView mOrigDev;
+    @InjectView(R.id.about_background) View mAboutView;
 
     private final String Urlgithub="https://www.github.com/existz/cpuspy";
     private final String Urldonate="http://goo.gl/X2sA4D";
@@ -32,7 +46,9 @@ public class AboutFragment extends Fragment {
     /** Inflate the About layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.about_layout, container, false);
+        View view = inflater.inflate(R.layout.about_layout, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -59,16 +75,15 @@ public class AboutFragment extends Fragment {
                 "fonts/Roboto-Medium.ttf");
 
         // Applying Roboto-Medium font
-        ((TextView) view.findViewById(R.id.about_header_developer)).setTypeface(tf);
-        ((TextView) view.findViewById(R.id.about_header_contrib)).setTypeface(tf);
+        mHeaderDeveloper.setTypeface(tf);
+        mHeaderContrib.setTypeface(tf);
 
         // Allow strings to use hyperlinks
-        ((TextView) view.findViewById(R.id.iconcreator)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.developer)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.origdev)).setMovementMethod(LinkMovementMethod.getInstance());
+        mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
+        mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
+        mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
 
         /** Set OnClickListener for buttons */
-        ImageButton githubButton = (ImageButton) view.findViewById(R.id.btn_github);
         githubButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +93,6 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        ImageButton paypalButton = (ImageButton) view.findViewById(R.id.btn_paypal);
         paypalButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +102,6 @@ public class AboutFragment extends Fragment {
             }
         });
 
-        ImageButton xdaButton = (ImageButton) view.findViewById(R.id.btn_xda);
         xdaButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +112,6 @@ public class AboutFragment extends Fragment {
         });
 
         /** Extend background and animate cardview sliding up */
-        View mAboutView = view.findViewById(R.id.about_background);
         Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.abc_slide_in_top);
 
@@ -110,7 +122,6 @@ public class AboutFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                CardView mAboutCardView = (CardView) view.findViewById(R.id.card_view_about);
                 Animation slideUp = AnimationUtils.loadAnimation(getActivity(),
                         R.anim.slide_in_up);
 
@@ -124,5 +135,10 @@ public class AboutFragment extends Fragment {
         });
 
         mAboutView.startAnimation(slideDown);
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }

@@ -27,7 +27,40 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class InfoActivity extends ActionBarActivity implements OnClickListener {
+
+    @InjectView(R.id.kernel_header) TextView mKernelHeader;
+    @InjectView(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
+    @InjectView(R.id.kernel_governor) TextView mKernelGovernor;
+    @InjectView(R.id.kernel_version_header) TextView mKernelVersionHeader;
+    @InjectView(R.id.kernel_version) TextView mKernelVersion;
+    @InjectView(R.id.cpu_header) TextView mCpuHeader;
+    @InjectView(R.id.cpu_abi_header) TextView mCpuAbiHeader;
+    @InjectView(R.id.cpu_abi) TextView mCpuAbi;
+    @InjectView(R.id.cpu_arch_header) TextView mCpuArchHeader;
+    @InjectView(R.id.cpu_arch) TextView mCpuArch;
+    @InjectView(R.id.cpu_core_header) TextView mCpuCoreHeader;
+    @InjectView(R.id.cpu_core) TextView mCpuCore;
+    @InjectView(R.id.cpu_freq_header) TextView mCpuFreqHeader;
+    @InjectView(R.id.cpu_freq) TextView mCpuFreq;
+    @InjectView(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
+    @InjectView(R.id.cpu_features) TextView mCpuFeatures;
+    @InjectView(R.id.device_header) TextView mDeviceInfo;
+    @InjectView(R.id.device_build_header) TextView mDeviceBuildHeader;
+    @InjectView(R.id.device_build) TextView mDeviceBuild;
+    @InjectView(R.id.device_api_header) TextView mDeviceApiHeader;
+    @InjectView(R.id.device_api) TextView mDeviceApi;
+    @InjectView(R.id.device_manuf_header) TextView mDeviceManufHeader;
+    @InjectView(R.id.device_manuf) TextView mDeviceManuf;
+    @InjectView(R.id.device_model_header) TextView mDeviceModelHeader;
+    @InjectView(R.id.device_model) TextView mDeviceModel;
+    @InjectView(R.id.device_board_header) TextView mDeviceBoardHeader;
+    @InjectView(R.id.device_board) TextView mDeviceBoard;
+    @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
+    @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
     private final String API_LEVEL = "ro.build.version.sdk";
     private final String BOARD_PLATFORM = "ro.board.platform";
@@ -45,6 +78,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
+        ButterKnife.inject(this);
         setTextViews();
 
         // Use custom Typeface for action bar title on KitKat devices
@@ -71,36 +105,6 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         // Loading Font Face
         final Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/Roboto-Medium.ttf");
-
-        final TextView mKernelHeader = (TextView)findViewById(R.id.kernel_header);
-        final TextView mKernelGovernorHeader = (TextView)findViewById(R.id.kernel_governor_header);
-        final TextView mKernelGovernor = (TextView)findViewById(R.id.kernel_governor);
-        final TextView mKernelVersionHeader = (TextView)findViewById(R.id.kernel_version_header);
-        final TextView mKernelVersion = (TextView)findViewById(R.id.kernel_version);
-        final TextView mCpuHeader = (TextView)findViewById(R.id.cpu_header);
-        final TextView mCpuAbiHeader = (TextView)findViewById(R.id.cpu_abi_header);
-        final TextView mCpuAbi = (TextView)findViewById(R.id.cpu_abi);
-        final TextView mCpuArchHeader = (TextView)findViewById(R.id.cpu_arch_header);
-        final TextView mCpuArch = (TextView)findViewById(R.id.cpu_arch);
-        final TextView mCpuCoreHeader = (TextView)findViewById(R.id.cpu_core_header);
-        final TextView mCpuCore = (TextView)findViewById(R.id.cpu_core);
-        final TextView mCpuFreqHeader = (TextView)findViewById(R.id.cpu_freq_header);
-        final TextView mCpuFreq = (TextView)findViewById(R.id.cpu_freq);
-        final TextView mCpuFeaturesHeader = (TextView)findViewById(R.id.cpu_features_header);
-        final TextView mCpuFeatures = (TextView)findViewById(R.id.cpu_features);
-        final TextView mDeviceInfo = (TextView)findViewById(R.id.device_header);
-        final TextView mDeviceBuildHeader = (TextView)findViewById(R.id.device_build_header);
-        final TextView mDeviceBuild = (TextView)findViewById(R.id.device_build);
-        final TextView mDeviceApiHeader = (TextView)findViewById(R.id.device_api_header);
-        final TextView mDeviceApi = (TextView)findViewById(R.id.device_api);
-        final TextView mDeviceManufHeader = (TextView)findViewById(R.id.device_manuf_header);
-        final TextView mDeviceManuf = (TextView)findViewById(R.id.device_manuf);
-        final TextView mDeviceModelHeader = (TextView)findViewById(R.id.device_model_header);
-        final TextView mDeviceModel = (TextView)findViewById(R.id.device_model);
-        final TextView mDeviceBoardHeader = (TextView)findViewById(R.id.device_board_header);
-        final TextView mDeviceBoard = (TextView)findViewById(R.id.device_board);
-        final TextView mDevicePlatformHeader = (TextView)findViewById(R.id.device_platform_header);
-        final TextView mDevicePlatform = (TextView)findViewById(R.id.device_platform);
 
         final String api = getSystemProperty(API_LEVEL);
         final String platform = getSystemProperty(BOARD_PLATFORM);
@@ -154,6 +158,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
                 break;
         }
     }
+
     /**
      * Returns a SystemProperty
      *

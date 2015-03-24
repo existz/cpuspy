@@ -26,6 +26,7 @@ android {
 
     lintOptions {
         abortOnError false
+        disable 'InvalidPackage'
     }
 
     buildTypes {
@@ -46,6 +47,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.infstory:switch-preference-compat:1.0.+'
     compile 'com.balysv:material-ripple:1.0.1'
+    compile 'com.jakewharton:butterknife:6.1.0'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }

@@ -71,6 +71,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
@@ -90,25 +92,25 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout mSwipeLayout;
 
     // main ui views
-    private Button mWelcomeButton;
-    private CardView mStatesCardView;
-    private CardView mWelcomeCardView;
-    private CardView mTimeCardView;
-    private ImageButton mInfoButton;
-    private ImageView mShowImage;
-    private LinearLayout mStatesView;
-    private LinearLayout mChargedView;
-    private LinearLayout mStatesWarning;
-    private TextView mAdditionalStates;
-    private TextView mAdditionalStatesShow;
-    private TextView mAdditionalStatesHide;
-    private TextView mTotalStateTime;
-    private TextView mHeaderTotalStateTime;
+    @InjectView(R.id.btn_welcome) Button mWelcomeButton;
+    @InjectView(R.id.card_view_states) CardView mStatesCardView;
+    @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
+    @InjectView(R.id.card_view_time) CardView mTimeCardView;
+    @InjectView(R.id.btn_info) ImageButton mInfoButton;
+    @InjectView(R.id.image_show) ImageView mShowImage;
+    @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
+    @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
+    @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
+    @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
+    @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
+    @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
+    @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
+    @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
 
-    private TextView mCore0;
-    private TextView mCore1;
-    private TextView mCore2;
-    private TextView mCore3;
+    @InjectView(R.id.ui_cpu_freq0) TextView mCore0;
+    @InjectView(R.id.ui_cpu_freq1) TextView mCore1;
+    @InjectView(R.id.ui_cpu_freq2) TextView mCore2;
+    @InjectView(R.id.ui_cpu_freq3) TextView mCore3;
 
     private String mFreq0;
     private String mFreq1;
@@ -139,8 +141,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);
         _app = (CpuSpyApp)getApplicationContext();
+        ButterKnife.inject(this);
         checkVersion();
-        findViews();
+        setTypeface();
 
         // second argument is the default to use if the preference can't be found
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, false);
@@ -546,29 +549,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Map all of the UI elements to member variables */
-    void findViews() {
+    void setTypeface() {
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-
-        mWelcomeButton = (Button)findViewById(R.id.btn_welcome);
-        mStatesCardView = (CardView)findViewById(R.id.card_view_states);
-        mWelcomeCardView = (CardView)findViewById(R.id.card_view_welcome);
-        mTimeCardView = (CardView)findViewById(R.id.card_view_time);
-        mInfoButton = (ImageButton)findViewById(R.id.btn_info);
-        mShowImage = (ImageView)findViewById(R.id.image_show);
-        mStatesView = (LinearLayout)findViewById(R.id.ui_states_view);
-        mChargedView = (LinearLayout)findViewById(R.id.ui_charged_view);
-        mStatesWarning = (LinearLayout)findViewById(R.id.ui_states_warning);
-        mAdditionalStates = (TextView)findViewById(R.id.ui_additional_states);
-        mAdditionalStatesShow = (TextView)findViewById(R.id.ui_additional_states_show);
-        mAdditionalStatesHide = (TextView)findViewById(R.id.ui_additional_states_hide);
-        mHeaderTotalStateTime = (TextView)findViewById(R.id.ui_header_total_state_time);
-        mTotalStateTime = (TextView)findViewById(R.id.ui_total_state_time);
-
-        mCore0 = (TextView) findViewById(R.id.ui_cpu_freq0);
-        mCore1 = (TextView) findViewById(R.id.ui_cpu_freq1);
-        mCore2 = (TextView) findViewById(R.id.ui_cpu_freq2);
-        mCore3 = (TextView) findViewById(R.id.ui_cpu_freq3);
 
         TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
         TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);

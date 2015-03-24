@@ -17,12 +17,24 @@ import android.widget.TextView;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class LicenseFragment extends Fragment {
+
+    @InjectView(R.id.supportlib) TextView mSupportLib;
+    @InjectView(R.id.materialdialog) TextView mMaterialDialog;
+    @InjectView(R.id.snackbar) TextView mSnackbar;
+    @InjectView(R.id.switchprefcompat) TextView mSwitchPrefCompat;
+    @InjectView(R.id.materialripple) TextView mMaterialRipple;
+    @InjectView(R.id.butterknife) TextView mButterKnife;
 
     /** Inflate the license layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.license_layout, container, false);
+        View view = inflater.inflate(R.layout.license_layout, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -47,27 +59,34 @@ public class LicenseFragment extends Fragment {
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
                 "fonts/Roboto-Medium.ttf");
 
-        // Applying Roboto-Medium font
-        ((TextView) view.findViewById(R.id.supportlib)).setTypeface(tf);
-        ((TextView) view.findViewById(R.id.materialdialog)).setTypeface(tf);
-        ((TextView) view.findViewById(R.id.snackbar)).setTypeface(tf);
-        ((TextView) view.findViewById(R.id.switchprefcompat)).setTypeface(tf);
-        ((TextView) view.findViewById(R.id.materialripple)).setTypeface(tf);
-
         // Allow strings to use HTML and hyperlinks
-        ((TextView) view.findViewById(R.id.supportlib)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.supportlib)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
+        mSupportLib.setTypeface(tf);
+        mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());
+        mSupportLib.setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
 
-        ((TextView) view.findViewById(R.id.materialdialog)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.materialdialog)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
+        mMaterialDialog.setTypeface(tf);
+        mMaterialDialog.setMovementMethod(LinkMovementMethod.getInstance());
+        mMaterialDialog.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
 
-        ((TextView) view.findViewById(R.id.snackbar)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.snackbar)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
+        mSnackbar.setTypeface(tf);
+        mSnackbar.setMovementMethod(LinkMovementMethod.getInstance());
+        mSnackbar.setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
 
-        ((TextView) view.findViewById(R.id.switchprefcompat)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.switchprefcompat)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_switchprefcompat)));
+        mSwitchPrefCompat.setTypeface(tf);
+        mSwitchPrefCompat.setMovementMethod(LinkMovementMethod.getInstance());
+        mSwitchPrefCompat.setText(Html.fromHtml(getResources().getString(R.string.pref_license_switchprefcompat)));
 
-        ((TextView) view.findViewById(R.id.materialripple)).setMovementMethod(LinkMovementMethod.getInstance());
-        ((TextView) view.findViewById(R.id.materialripple)).setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialripple)));
+        mMaterialRipple.setTypeface(tf);
+        mMaterialRipple.setMovementMethod(LinkMovementMethod.getInstance());
+        mMaterialRipple.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialripple)));
+
+        mButterKnife.setTypeface(tf);
+        mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
+        mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }
