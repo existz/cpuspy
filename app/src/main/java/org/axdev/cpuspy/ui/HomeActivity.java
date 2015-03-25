@@ -1,6 +1,7 @@
 //-----------------------------------------------------------------------------
 //
 // (C) Brandon Valosek, 2011 <bvalosek@gmail.com>
+// (C) Rob Beane, 2015 <robbeane@gmail.com>
 //
 //-----------------------------------------------------------------------------
 
@@ -97,7 +98,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
     @InjectView(R.id.btn_info) ImageButton mInfoButton;
-    @InjectView(R.id.image_show) ImageView mShowImage;
+    @InjectView(R.id.img_show) ImageView mShowImage;
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;

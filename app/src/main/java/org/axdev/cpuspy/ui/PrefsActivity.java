@@ -1,3 +1,9 @@
+//-----------------------------------------------------------------------------
+//
+// (C) Rob Beane, 2015 <robbeane@gmail.com>
+//
+//-----------------------------------------------------------------------------
+
 package org.axdev.cpuspy.ui;
 
 import android.content.Intent;
@@ -38,9 +44,9 @@ public class PrefsActivity extends ActionBarActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     // Create new fragment and transaction
                     getFragmentManager().beginTransaction()
-                        .replace(R.id.content_wrapper, new AboutFragment())
-                        .addToBackStack(null)
-                        .commit();
+                            .replace(R.id.content_wrapper, new AboutFragment())
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 }
             });
@@ -50,9 +56,9 @@ public class PrefsActivity extends ActionBarActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     // Create new fragment and transaction
                     getFragmentManager().beginTransaction()
-                        .replace(R.id.content_wrapper, new LicenseFragment())
-                        .addToBackStack(null)
-                        .commit();
+                            .replace(R.id.content_wrapper, new LicenseFragment())
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 }
             });
