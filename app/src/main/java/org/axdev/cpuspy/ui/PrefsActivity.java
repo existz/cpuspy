@@ -92,7 +92,7 @@ public class PrefsActivity extends ActionBarActivity {
                 ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.settings);
 
                 int mToolbarElevation = (int) getResources().getDimension(R.dimen.toolbar_elevation);
-                ((ActionBarActivity)getActivity()).getSupportActionBar().setElevation(mToolbarElevation);
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(mToolbarElevation);
             }
         }
 
