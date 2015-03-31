@@ -34,7 +34,6 @@
         <!-- Settings Menu -->
         <activity android:name=".ui.PrefsActivity"
             android:label="@string/settings"
-            android:theme="@style/AppTheme"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".ui.HomeActivity" >
                 <meta-data
@@ -45,7 +44,6 @@
         <!-- Info Screen -->
         <activity android:name=".ui.InfoActivity"
             android:label="@string/information"
-            android:theme="@style/AppTheme"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".ui.HomeActivity" >
             <meta-data

@@ -62,6 +62,7 @@ import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.ThemeUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -98,10 +99,13 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
     @InjectView(R.id.btn_info) ImageButton mInfoButton;
+    @InjectView(R.id.btn_info_dark) ImageButton mInfoButtonDark;
     @InjectView(R.id.img_show) ImageView mShowImage;
+    @InjectView(R.id.img_show_dark) ImageView mShowImageDark;
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
+    @InjectView(R.id.additional_layout) LinearLayout mAdditionalLayout;
     @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
     @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
     @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
@@ -134,6 +138,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
     {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ThemeUtils.onActivityCreateSetNavBar(this);
+        }
+        ThemeUtils.onActivityCreateSetTheme(this);
+
         super.onCreate(savedInstanceState);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -144,6 +153,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         _app = (CpuSpyApp)getApplicationContext();
         ButterKnife.inject(this);
         checkVersion();
+        startCoreMonitor();
+        cardViewAnimation();
         setTypeface();
 
         // second argument is the default to use if the preference can't be found
@@ -166,11 +177,30 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             getSupportActionBar().setElevation(0);
         }
 
-        // start CardView animation
-        cardViewAnimation();
-
-        // Start CPU core monitoring
-        startCoreMonitor();
+        // Set UI elements for dark and light themes
+        if (sp.getBoolean("darkTheme", true)) {
+            mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            mTotalStateTime.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mAdditionalStatesHide.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_dark_background));
+            mShowImageDark.setVisibility(View.VISIBLE);
+            mInfoButtonDark.setVisibility(View.VISIBLE);
+            mShowImage = mShowImageDark;
+            mInfoButton = mInfoButtonDark;
+        } else {
+            mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            mTotalStateTime.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mAdditionalStatesHide.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_light_background));
+            mShowImage.setVisibility(View.VISIBLE);
+            mInfoButton.setVisibility(View.VISIBLE);
+        }
 
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
@@ -200,9 +230,19 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Update the view when the application regains focus */
     @Override public void onResume () {
         super.onResume();
-        refreshData();
-        SharedPreferences sp = PreferenceManager
-                .getDefaultSharedPreferences(this);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Recreate activity if navigation bar or theme changes
+        if (PrefsActivity.mThemeChanged || PrefsActivity.mNavBarChanged) {
+            this.recreate();
+            PrefsActivity.mThemeChanged = false;
+            if (Build.VERSION.SDK_INT >= 21) {
+                PrefsActivity.mNavBarChanged = false;
+            }
+        } else {
+            refreshData();
+        }
 
         // Initialize and start automatic crash reporting
         if(sp.getBoolean("crashReport", true)) {
@@ -212,7 +252,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     @Override public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 mSwipeLayout.setRefreshing(false);
                 refreshData();
             }
@@ -288,9 +329,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Global On click listener for all views */
     @Override
     public void onClick(View v) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+        Intent intent;
+
         switch (v.getId()) {
             case R.id.btn_info:
-                Intent intent = new Intent(this, InfoActivity.class);
+                intent = new Intent(this, InfoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_info_dark:
+                intent = new Intent(this, InfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_welcome:
@@ -298,8 +347,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 mWelcomeCardView.setVisibility(View.GONE);
                 mWelcomeCardView.removeAllViews();
 
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean(WELCOME_SCREEN, true);
                 editor.commit();
                 break;
@@ -549,8 +596,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mHandler.post(monitorCpu);
     }
 
-    /** Map all of the UI elements to member variables */
-    void setTypeface() {
+    /** Apply custom typeface to textviews */
+    private void setTypeface() {
         // Loading Font Face
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
 
@@ -565,7 +612,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mHeaderTotalStateTime.setTypeface(tf);
     }
 
-    /** called when we want to infalte the menu */
+    /** called when we want to inflate the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
         MenuInflater inflater = getMenuInflater();
@@ -613,7 +660,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     /** Generate and update all UI elements */
-    void updateView() {
+    private void updateView() {
         /** Get the CpuStateMonitor from the app, and iterate over all states,
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
@@ -661,9 +708,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mStatesCardView.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
-            mHeaderTotalStateTime.setVisibility(View.GONE);
-            mTotalStateTime.setVisibility(View.GONE);
-            mInfoButton.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
             try {
@@ -677,9 +721,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mChargedView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
-            mHeaderTotalStateTime.setVisibility(View.VISIBLE);
-            mTotalStateTime.setVisibility(View.VISIBLE);
-            mInfoButton.setVisibility(View.VISIBLE);
         }
 
         /** show warning label if no states found */
@@ -687,16 +728,13 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mStatesWarning.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
-            mHeaderTotalStateTime.setVisibility(View.GONE);
-            mTotalStateTime.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
-            mInfoButton.setVisibility(View.GONE);
         }
     }
 
     /** Attempt to update the time-in-state info */
-    void refreshData() {
+    private void refreshData() {
         new RefreshStateDataTask().execute((Void) null);
     }
 
@@ -727,7 +765,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         RelativeLayout theRow = (RelativeLayout)inf.inflate(
                 R.layout.state_row, parent, false);
 
-        // what percetnage we've got
+        // what percentage we've got
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
             monitor.getTotalStateTime();
@@ -746,18 +784,34 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         String sDur = sToString(tSec);
 
         // map UI elements to objects
-        TextView freqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
-        TextView durText = (TextView)theRow.findViewById(
+        TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
+        TextView mDurText = (TextView)theRow.findViewById(
                 R.id.ui_duration_text);
-        TextView perText = (TextView)theRow.findViewById(
+        TextView mPerText = (TextView)theRow.findViewById(
                 R.id.ui_percentage_text);
-        ProgressBar bar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
+        ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
+        ProgressBar mBarDark = (ProgressBar)theRow.findViewById(R.id.ui_bar_dark);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (sp.getBoolean("darkTheme", true)) {
+            mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mDurText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mPerText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mBarDark.setVisibility(View.VISIBLE);
+            mBar = mBarDark;
+        } else {
+            mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mDurText.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mPerText.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mBar.setVisibility(View.VISIBLE);
+        }
 
         // modify the row
-        freqText.setText(sFreq);
-        perText.setText(sPer);
-        durText.setText(sDur);
-        bar.setProgress(Math.round(per));
+        mFreqText.setText(sFreq);
+        mPerText.setText(sPer);
+        mDurText.setText(sDur);
+        mBar.setProgress(Math.round(per));
 
         // add it to parent and return
         parent.addView(theRow);

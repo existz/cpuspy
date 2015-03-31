@@ -71,7 +71,7 @@ public class CpuSpyApp extends Application {
      * Load the saved string of offsets from preferences and put it into
      * the state monitor
      */
-    void loadOffsets() {
+    private void loadOffsets() {
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(this);
         String prefs = sp.getString (PREF_OFFSETS, "");
@@ -113,7 +113,7 @@ public class CpuSpyApp extends Application {
     }
 
     /** Try to read the kernel version string from the proc fileystem */
-    String updateKernelVersion() {
+    private String updateKernelVersion() {
         try {
             InputStream is = new FileInputStream(KERNEL_VERSION_PATH);
             InputStreamReader ir = new InputStreamReader(is);

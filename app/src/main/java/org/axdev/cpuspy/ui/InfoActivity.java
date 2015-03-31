@@ -6,9 +6,11 @@
 
 package org.axdev.cpuspy.ui;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
@@ -32,12 +34,16 @@ import java.io.InputStreamReader;
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceSpan;
+import org.axdev.cpuspy.utils.ThemeUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
+    @InjectView(R.id.card_view_kernel) CardView mKernelCardView;
+    @InjectView(R.id.card_view_device) CardView mDeviceCardView;
+    @InjectView(R.id.card_view_cpu) CardView mCpuCardView;
     @InjectView(R.id.kernel_header) TextView mKernelHeader;
     @InjectView(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @InjectView(R.id.kernel_governor) TextView mKernelGovernor;
@@ -82,8 +88,16 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ThemeUtils.onActivityCreateSetNavBar(this);
+        }
+        ThemeUtils.onActivityCreateSetTheme(this);
+
         super.onCreate(savedInstanceState);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         setContentView(R.layout.info_layout);
+
         ButterKnife.inject(this);
         setTextViews();
 
@@ -101,7 +115,16 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        CardView mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
+        if (sp.getBoolean("darkTheme", true)) {
+            mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+        } else {
+            mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+        }
+        mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
         mKernelCardView.setOnClickListener(this);
     }
 

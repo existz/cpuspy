@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
-        <nine-patch android:src="@drawable/progress_mtrl_disabled" />
+        <nine-patch android:src="@drawable/progress_mtrl_disabled_dark" />
     </item>
 
     <item android:id="@android:id/progress">

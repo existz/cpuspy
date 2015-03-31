@@ -35,7 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:layout_below="@+id/card_view_welcome"
-                    card_view:cardCornerRadius="0dp">
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardBackgroundColor="@color/card_light_background"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
@@ -51,8 +53,7 @@
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
                             android:text="@string/total_state_time"
-                            android:textColor="@color/accent"
-                            android:visibility="gone"/>
+                            android:textColor="@color/accent"/>
 
                         <TextView
                             android:id="@+id/ui_total_state_time"
@@ -62,13 +63,24 @@
                             android:layout_below="@+id/ui_header_total_state_time"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:textColor="@color/primary_text_color"
-                            android:textSize="42sp"
-                            android:visibility="gone"/>
+                            android:textColor="?android:attr/textColorPrimary"
+                            android:textSize="42sp"/>
 
                         <ImageButton
                             android:id="@+id/btn_info"
                             android:src="@drawable/ic_info"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_below="@+id/ui_header_total_state_time"
+                            android:layout_toEndOf="@+id/ui_total_state_time"
+                            android:layout_centerVertical="true"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:clickable="true"
+                            android:visibility="gone"/>
+
+                        <ImageButton
+                            android:id="@+id/btn_info_dark"
+                            android:src="@drawable/ic_info_dark"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_below="@+id/ui_header_total_state_time"
@@ -106,6 +118,7 @@
                         android:layout_marginBottom="8dp"
                         android:clickable="true"
                         card_view:cardCornerRadius="0dp"
+                        card_view:cardBackgroundColor="@color/card_light_background"
                         android:visibility="gone">
 
                         <LinearLayout

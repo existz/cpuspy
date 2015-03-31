@@ -14,6 +14,19 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_header_ui" >
+        <SwitchPreference
+            android:key="darkTheme"
+            android:title="@string/pref_title_darktheme"
+            android:summary="@string/pref_summary_darktheme"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="coloredNavBar"
+            android:title="@string/pref_title_navbar"
+            android:summary="@string/pref_summary_navbar"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/pref_header_info" >
         <Preference
             android:key="about"

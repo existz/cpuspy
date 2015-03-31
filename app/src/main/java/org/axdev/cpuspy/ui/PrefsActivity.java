@@ -7,12 +7,15 @@
 package org.axdev.cpuspy.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.cgollner.unclouded.preferences.SwitchPreferenceCompat;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -29,8 +33,13 @@ import org.axdev.cpuspy.fragments.AboutFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.utils.TypefaceSpan;
+import org.axdev.cpuspy.utils.ThemeUtils;
 
 public class PrefsActivity extends ActionBarActivity {
+
+    /** Whether or not the theme has changed */
+    public static boolean mThemeChanged = false;
+    public static boolean mNavBarChanged = false;
 
     public static class PrefsFragment extends PreferenceFragment {
 
@@ -75,6 +84,62 @@ public class PrefsActivity extends ActionBarActivity {
                     return true;
                 }
             });
+
+            if (Build.VERSION.SDK_INT >= 21) {
+                final SwitchPreference darkTheme = (SwitchPreference) getPreferenceManager().findPreference("darkTheme");
+
+                darkTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue.toString().equals("true")) {
+                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.DARK);
+                        } else {
+                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.LIGHT);
+                        }
+                        mThemeChanged = true;
+                        return true;
+                    }
+                });
+
+                final SwitchPreference coloredNavBar = (SwitchPreference) getPreferenceManager().findPreference("coloredNavBar");
+
+                coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor editor = sp.edit();
+                        if (newValue.toString().equals("true")) {
+                            ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_COLORED);
+                            editor.putBoolean("coloredNavBar", true);
+                            editor.commit();
+                        } else {
+                            ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_DEFAULT);
+                            editor.putBoolean("coloredNavBar", false);
+                            editor.commit();
+                        }
+                        mNavBarChanged = true;
+                        return true;
+                    }
+                });
+            } else {
+                final SwitchPreferenceCompat darkThemeCompat = (SwitchPreferenceCompat) getPreferenceManager().findPreference("darkTheme");
+
+                darkThemeCompat.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor editor = sp.edit();
+                        if (newValue.toString().equals("true")) {
+                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.DARK);
+                            editor.putBoolean("darkTheme", true);
+                            editor.commit();
+                        } else {
+                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.LIGHT);
+                            editor.putBoolean("darkTheme", false);
+                            editor.commit();
+                        }
+                        mThemeChanged = true;
+                        return true;
+                    }
+                });
+            }
         }
 
         @Override
@@ -100,6 +165,11 @@ public class PrefsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            ThemeUtils.onActivityCreateSetNavBar(this);
+        }
+        ThemeUtils.onActivityCreateSetTheme(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

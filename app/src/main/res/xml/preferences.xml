@@ -14,6 +14,14 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_header_ui" >
+        <com.cgollner.unclouded.preferences.SwitchPreferenceCompat
+            android:key="darkTheme"
+            android:title="@string/pref_title_darktheme"
+            android:summary="@string/pref_summary_darktheme"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/pref_header_info" >
         <Preference
             android:key="about"

@@ -8,10 +8,12 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
@@ -38,8 +40,14 @@ public class AboutFragment extends Fragment {
     @InjectView(R.id.btn_github) ImageButton githubButton;
     @InjectView(R.id.btn_paypal) ImageButton paypalButton;
     @InjectView(R.id.btn_xda) ImageButton xdaButton;
+    @InjectView(R.id.btn_github_dark) ImageButton githubDarkButton;
+    @InjectView(R.id.btn_paypal_dark) ImageButton paypalDarkButton;
+    @InjectView(R.id.btn_xda_dark) ImageButton xdaDarkButton;
     @InjectView(R.id.about_header_developer) TextView mHeaderDeveloper;
     @InjectView(R.id.about_header_contrib) TextView mHeaderContrib;
+    @InjectView(R.id.appname) TextView mAppName;
+    @InjectView(R.id.version) TextView mVersion;
+    @InjectView(R.id.about_appinfo) TextView mAppInfo;
     @InjectView(R.id.iconcreator) TextView mIconCreator;
     @InjectView(R.id.developer) TextView mDeveloper;
     @InjectView(R.id.origdev) TextView mOrigDev;
@@ -88,6 +96,33 @@ public class AboutFragment extends Fragment {
         mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
         mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
         mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        if (sp.getBoolean("darkTheme", true)) {
+            mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            mAppName.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mVersion.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
+            githubDarkButton.setVisibility(View.VISIBLE);
+            paypalDarkButton.setVisibility(View.VISIBLE);
+            xdaDarkButton.setVisibility(View.VISIBLE);
+            githubButton = githubDarkButton;
+            paypalButton = paypalDarkButton;
+            xdaButton = xdaDarkButton;
+        } else {
+            mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            mAppName.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mVersion.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color));
+            mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color));
+            githubButton.setVisibility(View.VISIBLE);
+            paypalButton.setVisibility(View.VISIBLE);
+            xdaButton.setVisibility(View.VISIBLE);
+        }
 
         /** Set OnClickListener for buttons */
         githubButton.setOnClickListener(new OnClickListener() {

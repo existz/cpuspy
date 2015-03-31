@@ -44,7 +44,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/kernel_header"
                     android:text="@string/information_kernel_governor"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/kernel_governor"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="12dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/kernel_governor_header"
                     android:layout_centerHorizontal="true" />
 
@@ -65,7 +65,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/kernel_governor_header"
                     android:text="@string/information_kernel_version_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/kernel_version"
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="12dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/kernel_version_header"
                     android:layout_alignStart="@+id/kernel_governor" />
 
@@ -117,13 +117,13 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_header"
                     android:text="@string/information_device_build_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_build"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_build_header"
                     android:layout_centerHorizontal="true" />
 
@@ -136,13 +136,13 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_build_header"
                     android:text="@string/information_device_api_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_api"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_api_header"
                     android:layout_alignStart="@+id/device_build" />
 
@@ -155,13 +155,13 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_api_header"
                     android:text="@string/information_device_manuf_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_manuf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_manuf_header"
                     android:layout_alignStart="@+id/device_api" />
 
@@ -174,13 +174,13 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_manuf_header"
                     android:text="@string/information_device_model_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_model"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_model_header"
                     android:layout_alignStart="@+id/device_manuf" />
 
@@ -193,13 +193,13 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_model_header"
                     android:text="@string/information_device_board_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_board"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_board_header"
                     android:layout_alignStart="@+id/device_model" />
 
@@ -212,14 +212,14 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/device_board_header"
                     android:text="@string/information_device_platform_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/device_platform"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/device_platform_header"
                     android:layout_alignStart="@+id/device_board" />
 
@@ -262,14 +262,14 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_header"
                     android:text="@string/information_cpu_abi_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/cpu_abi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="24dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_abi_header"
                     android:layout_centerHorizontal="true" />
 
@@ -282,7 +282,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_abi_header"
                     android:text="@string/information_cpu_arch_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/cpu_arch"
@@ -290,7 +290,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="24dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_arch_header"
                     android:layout_alignStart="@+id/cpu_abi" />
 
@@ -303,7 +303,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_arch_header"
                     android:text="@string/information_cpu_core_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/cpu_core"
@@ -311,7 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="24dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_core_header"
                     android:layout_alignStart="@+id/cpu_arch" />
 
@@ -324,7 +324,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_core_header"
                     android:text="@string/information_cpu_freq_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/cpu_freq"
@@ -332,7 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="24dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_freq_header"
                     android:layout_alignStart="@+id/cpu_core" />
 
@@ -345,7 +345,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_freq_header"
                     android:text="@string/information_cpu_features_header"
-                    android:textColor="@color/primary_text_color"/>
+                    android:textColor="?android:attr/textColorPrimary"/>
 
                 <TextView
                     android:id="@+id/cpu_features"
@@ -353,7 +353,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:paddingLeft="24dp"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_features_header"
                     android:layout_alignStart="@+id/cpu_freq" />
 
