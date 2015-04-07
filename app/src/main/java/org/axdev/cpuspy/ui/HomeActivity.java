@@ -90,6 +90,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     private final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
+    private final Handler mHandler = new Handler();
+
     private CpuSpyApp _app = null;
     private SwipeRefreshLayout mSwipeLayout;
 
@@ -132,8 +134,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** lets us know if the battery is fully charged or not */
     private boolean mIsCharged = false;
-
-    private final Handler mHandler = new Handler();
 
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
