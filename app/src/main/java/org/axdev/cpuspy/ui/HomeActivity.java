@@ -18,6 +18,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -63,6 +65,7 @@ import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -89,6 +92,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private CpuSpyApp _app = null;
     private Editor editor;
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
 
     // main ui views
@@ -200,7 +205,21 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         mWelcomeButton.setOnClickListener(this);
         mStatesCardView.setOnClickListener(this);
 
-        // Register receiver
+        // Add listener for shake to refresh
+        if (!mAutoRefresh) {
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+                mSensorListener = new ShakeEventListener();
+                mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+                    @Override
+                    public void onShake() {
+                        refreshData();
+                    }
+                });
+            }
+        }
+
+        // Register receiver to check battery status
         this.registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
@@ -216,6 +235,13 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override public void onPause () {
         super.onPause();
         mHandler.removeCallbacksAndMessages(null);
+
+        if (!mAutoRefresh) {
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+                mSensorManager.unregisterListener(mSensorListener);
+            }
+        }
     }
 
     /** Update the view when the application regains focus */
@@ -235,6 +261,16 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         // Initialize and start automatic crash reporting
         if(sp.getBoolean("crashReport", true)) {
             Fabric.with(this, new Crashlytics());
+        }
+
+        // Register listener for shake to refresh
+        if (!mAutoRefresh) {
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+                mSensorManager.registerListener(mSensorListener,
+                        mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                        SensorManager.SENSOR_DELAY_UI);
+            }
         }
     }
 
