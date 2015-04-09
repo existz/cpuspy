@@ -10,12 +10,12 @@
         android:orientation="vertical">
 
         <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripple"
+            android:id="@+id/ripple_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mrl_rippleDuration="450"
             app:mrl_rippleFadeDuration="200"
-            app:mrl_rippleColor="#555"
+            app:mrl_rippleColor="@color/ripple_material_light"
             app:mrl_rippleAlpha="0.1"
             app:mrl_rippleDelayClick="false"
             app:mrl_rippleOverlay="true"

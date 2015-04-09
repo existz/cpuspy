@@ -50,6 +50,8 @@ import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.balysv.materialripple.MaterialRippleLayout;
+
 import com.crashlytics.android.Crashlytics;
 
 import com.nispok.snackbar.Snackbar;
@@ -75,6 +77,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.Optional;
+
 import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
@@ -113,6 +117,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
     @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
     @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
+
+    @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     @InjectView(R.id.ui_cpu_freq0) TextView mCore0;
     @InjectView(R.id.ui_cpu_freq1) TextView mCore1;
@@ -190,6 +196,9 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mInfoButtonDark.setVisibility(View.VISIBLE);
             mShowImage = mShowImageDark;
             mInfoButton = mInfoButtonDark;
+            if (Build.VERSION.SDK_INT == 19) {
+                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
+            }
         } else {
             mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
@@ -200,11 +209,15 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_light_background));
             mShowImage.setVisibility(View.VISIBLE);
             mInfoButton.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT == 19) {
+                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_light));
+            }
         }
 
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeResources(R.color.primary);
+        mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
 
         // Set onClickListener for all buttons
         mInfoButton.setOnClickListener(this);

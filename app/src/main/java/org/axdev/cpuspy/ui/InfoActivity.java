@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import com.balysv.materialripple.MaterialRippleLayout;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +40,7 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.Optional;
 
 public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
@@ -73,6 +76,8 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
     @InjectView(R.id.device_board) TextView mDeviceBoard;
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
+
+    @Optional @InjectView(R.id.ripple_info) MaterialRippleLayout mMaterialRippleLayout;
 
     private final String API_LEVEL = "ro.build.version.sdk";
     private final String BOARD_PLATFORM = "ro.board.platform";
@@ -119,11 +124,18 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
             mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
+            if (Build.VERSION.SDK_INT == 19) {
+                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
+            }
         } else {
             mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
+            if (Build.VERSION.SDK_INT == 19) {
+                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_light));
+            }
         }
+
         mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
         mKernelCardView.setOnClickListener(this);
     }
