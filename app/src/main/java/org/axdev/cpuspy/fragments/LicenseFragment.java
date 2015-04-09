@@ -36,15 +36,12 @@ public class LicenseFragment extends Fragment {
     @InjectView(R.id.card_view_materialdialog) CardView mCardViewDialog;
     @InjectView(R.id.card_view_materialripple) CardView mCardViewRipple;
     @InjectView(R.id.card_view_snackbar) CardView mCardViewSnackbar;
-    @InjectView(R.id.card_view_switchprefcompat) CardView mCardViewSwitch;
     @InjectView(R.id.supportlib) TextView mSupportLib;
     @InjectView(R.id.supportlib_summary) TextView mSupportLibSummary;
     @InjectView(R.id.materialdialog) TextView mMaterialDialog;
     @InjectView(R.id.materialdialog_summary) TextView mMaterialDialogSummary;
     @InjectView(R.id.snackbar) TextView mSnackbar;
     @InjectView(R.id.snackbar_summary) TextView mSnackbarSummary;
-    @InjectView(R.id.switchprefcompat) TextView mSwitchPrefCompat;
-    @InjectView(R.id.switchprefcompat_summary) TextView mSwitchPrefCompatSummary;
     @InjectView(R.id.materialripple) TextView mMaterialRipple;
     @InjectView(R.id.materialripple_summary) TextView mMaterialRippleSummary;
     @InjectView(R.id.butterknife) TextView mButterKnife;
@@ -93,10 +90,6 @@ public class LicenseFragment extends Fragment {
         mSnackbar.setMovementMethod(LinkMovementMethod.getInstance());
         mSnackbar.setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
 
-        mSwitchPrefCompat.setTypeface(tf);
-        mSwitchPrefCompat.setMovementMethod(LinkMovementMethod.getInstance());
-        mSwitchPrefCompat.setText(Html.fromHtml(getResources().getString(R.string.pref_license_switchprefcompat)));
-
         mMaterialRipple.setTypeface(tf);
         mMaterialRipple.setMovementMethod(LinkMovementMethod.getInstance());
         mMaterialRipple.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialripple)));
@@ -113,26 +106,22 @@ public class LicenseFragment extends Fragment {
             mCardViewDialog.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mCardViewRipple.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCardViewSwitch.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mSupportLibSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mButterKnifeSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mMaterialDialogSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mMaterialRippleSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mSnackbarSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mSwitchPrefCompatSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
         } else {
             mCardViewSupport.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mCardViewButter.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mCardViewDialog.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mCardViewRipple.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCardViewSwitch.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mSupportLibSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
             mButterKnifeSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
             mMaterialDialogSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
             mMaterialRippleSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
             mSnackbarSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mSwitchPrefCompatSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
         }
     }
 

@@ -2,12 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/pref_header_general" >
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="autoRefresh"
             android:title="@string/pref_title_autorefresh"
             android:summary="@string/pref_summary_autorefresh"
             android:defaultValue="false" />
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="autoReset"
             android:title="@string/pref_title_autoreset"
             android:summary="@string/pref_summary_autoreset"
@@ -15,12 +15,12 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_ui" >
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="darkTheme"
             android:title="@string/pref_title_darktheme"
             android:summary="@string/pref_summary_darktheme"
             android:defaultValue="false" />
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="coloredNavBar"
             android:title="@string/pref_title_navbar"
             android:summary="@string/pref_summary_navbar"
