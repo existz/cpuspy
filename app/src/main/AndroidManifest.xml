@@ -36,9 +36,9 @@
             android:label="@string/settings"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".ui.HomeActivity" >
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".ui.HomeActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
         </activity>
 
         <!-- Info Screen -->

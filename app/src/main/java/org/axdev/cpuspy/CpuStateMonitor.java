@@ -32,7 +32,7 @@ import java.util.Map;
 public class CpuStateMonitor {
 
     private static final String TIME_IN_STATE_PATH =
-        "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
+            "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
 
     private final List<CpuState>      _states = new ArrayList<>();
     private Map<Integer, Long>  _offsets = new HashMap<>();
@@ -147,7 +147,7 @@ public class CpuStateMonitor {
      * both a frequency and a duration (time spent in that state
      */
     public List<CpuState> updateStates()
-        throws CpuStateMonitorException {
+            throws CpuStateMonitorException {
         /* attempt to create a buffered reader to the time in state
          * file and read in the states to the class */
         try {
@@ -177,7 +177,7 @@ public class CpuStateMonitor {
      * States member field
      */
     private void readInStates(BufferedReader br)
-        throws CpuStateMonitorException {
+            throws CpuStateMonitorException {
         try {
             String line;
             while ((line = br.readLine()) != null) {

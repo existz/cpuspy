@@ -641,33 +641,33 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // what it do mayne
         switch (item.getItemId()) {
         /* pressed the load menu button */
-        case R.id.menu_reset:
-            try {
-                _app.getCpuStateMonitor().setOffsets();
-            } catch (CpuStateMonitorException e) {
-                // TODO: something
-            }
-            _app.saveOffsets();
-            updateView();
-            SnackbarManager.show(Snackbar.with(this)
-                .text(R.string.snackbar_text_reset) // text to display
-                .actionLabel(R.string.action_dismiss) // action button label
-                .actionColor(Color.parseColor("#f4b400")));
-            mStatesCardView.setVisibility(View.GONE);
-            break;
-        case R.id.menu_restore:
-            _app.getCpuStateMonitor().removeOffsets();
-            _app.saveOffsets();
-            updateView();
-            SnackbarManager.show(Snackbar.with(this)
-                .text(R.string.snackbar_text_restore) // text to display
-                .actionLabel(R.string.action_dismiss) // action button label
-                .actionColor(Color.parseColor("#f4b400")));
-            break;
-        case R.id.menu_settings:
-            Intent intent = new Intent(this, PrefsActivity.class);
-            startActivity(intent);
-            return true;
+            case R.id.menu_reset:
+                try {
+                    _app.getCpuStateMonitor().setOffsets();
+                } catch (CpuStateMonitorException e) {
+                    // TODO: something
+                }
+                _app.saveOffsets();
+                updateView();
+                SnackbarManager.show(Snackbar.with(this)
+                        .text(R.string.snackbar_text_reset) // text to display
+                        .actionLabel(R.string.action_dismiss) // action button label
+                        .actionColor(Color.parseColor("#f4b400")));
+                mStatesCardView.setVisibility(View.GONE);
+                break;
+            case R.id.menu_restore:
+                _app.getCpuStateMonitor().removeOffsets();
+                _app.saveOffsets();
+                updateView();
+                SnackbarManager.show(Snackbar.with(this)
+                        .text(R.string.snackbar_text_restore) // text to display
+                        .actionLabel(R.string.action_dismiss) // action button label
+                        .actionColor(Color.parseColor("#f4b400")));
+                break;
+            case R.id.menu_settings:
+                Intent intent = new Intent(this, PrefsActivity.class);
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -781,7 +781,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         // what percentage we've got
         CpuStateMonitor monitor = _app.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
-            monitor.getTotalStateTime();
+                monitor.getTotalStateTime();
         String sPer = String.format("%.01f", per) + "%";
 
         // state name

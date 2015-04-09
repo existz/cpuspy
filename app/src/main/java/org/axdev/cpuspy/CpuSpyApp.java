@@ -86,7 +86,7 @@ public class CpuSpyApp extends Application {
         for (String offset : sOffsets) {
             String[] parts = offset.split(" ");
             offsets.put (Integer.parseInt(parts[0]),
-                         Long.parseLong(parts[1]));
+                    Long.parseLong(parts[1]));
         }
 
         _monitor.setOffsets(offsets);

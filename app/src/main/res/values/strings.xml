@@ -75,12 +75,12 @@
     <string name="pref_about_header_dev">Developer</string>
     <string name="pref_about_header_contrib">Contributions</string>
     <string name="pref_about_appinfo">A simple app for monitoring the amount of time the CPU spends in each frequency state.\n</string>
-    
+
     <string name="pref_about_origdev">
     <b><a href="http://goo.gl/N3drrP">Brandon Valosek</a></b>\n
     <small>Original developer</small>\n
     </string>
-    
+
     <string name="pref_about_developer"><b><a href="https://google.com/+RobBeane">Rob Beane (existz)</a></b></string>
 
     <string name="pref_about_iconcreator">
