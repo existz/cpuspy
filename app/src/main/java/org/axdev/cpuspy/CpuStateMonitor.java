@@ -85,9 +85,8 @@ public class CpuStateMonitor {
 
                 states.add(new CpuState(state.freq, duration));
             }
-        } catch (ConcurrentModificationException ignored) {
-            // DO SOMETHING
-        }
+        } catch (ConcurrentModificationException ignored) {}
+
         return states;
     }
 
@@ -99,13 +98,16 @@ public class CpuStateMonitor {
         long sum = 0;
         long offset = 0;
 
-        for (CpuState state : _states) {
-            sum += state.duration;
-        }
+        try {
+            for (CpuState state : _states) {
+                sum += state.duration;
+            }
 
-        for (Map.Entry<Integer, Long> entry : _offsets.entrySet()) {
-            offset += entry.getValue();
-        }
+            for (Map.Entry<Integer, Long> entry : _offsets.entrySet()) {
+                offset += entry.getValue();
+            }
+
+        } catch (ConcurrentModificationException ignored) {}
 
         return sum - offset;
     }

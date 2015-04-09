@@ -254,7 +254,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 PrefsActivity.mNavBarChanged = false;
             }
         } else {
-            refreshData();
+            if (!mAutoRefresh) { refreshData(); }
         }
 
         // Initialize and start automatic crash reporting
@@ -289,7 +289,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mIsCharged = percent >= 97 && isCharging;
 
             if (sp.getBoolean("autoReset", true) || mIsCharged) {
-                updateView();
+                if (!mAutoRefresh) { updateView(); }
             }
         }
     };
