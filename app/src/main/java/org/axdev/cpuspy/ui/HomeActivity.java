@@ -159,7 +159,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         _app = (CpuSpyApp)getApplicationContext();
         ButterKnife.inject(this);
         checkVersion();
-        startCoreMonitor();
         cardViewAnimation();
         setTypeface();
 
@@ -232,12 +231,13 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override public void onStart () {
         super.onStart();
         checkAutoRefresh();
+        startCoreMonitor();
     }
 
-    /** Disable auto refresh when app is in the background */
+    /** Disable handler when activity loses focus */
     @Override public void onPause () {
         super.onPause();
-        mAutoRefresh = false;
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /** Update the view when the application regains focus */
