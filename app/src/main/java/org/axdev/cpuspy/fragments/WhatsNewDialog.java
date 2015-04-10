@@ -25,7 +25,7 @@ public class WhatsNewDialog extends DialogFragment {
                 .negativeText(R.string.action_dismiss)
                 .build();
         WebView webView = (WebView) dialog.getCustomView().findViewById(R.id.webview);
-        webView.loadUrl("file:///android_asset/webview.html");
+        webView.loadUrl("file:///android_asset/changelog.html");
 
         // Override dialog enter/exit animation
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
