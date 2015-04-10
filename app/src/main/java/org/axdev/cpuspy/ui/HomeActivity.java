@@ -97,7 +97,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private final Handler mHandler = new Handler();
 
     private CpuSpyApp _app = null;
-    private SwipeRefreshLayout mSwipeLayout;
 
     // main ui views
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
@@ -112,6 +111,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
     @InjectView(R.id.additional_layout) LinearLayout mAdditionalLayout;
+    @InjectView(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
     @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
     @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
@@ -214,7 +214,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             }
         }
 
-        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        // Set colors and listener for SwipeRefreshLayout
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
         mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
@@ -248,7 +248,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // Recreate activity if navigation bar or theme changes
         if (PrefsActivity.mThemeChanged || PrefsActivity.mNavBarChanged) {
-            this.recreate();
+            this.startActivity(new Intent(this, this.getClass()));
+            this.finish();
+            this.overridePendingTransition(0, 0);
+
             PrefsActivity.mThemeChanged = false;
             if (Build.VERSION.SDK_INT >= 21) {
                 PrefsActivity.mNavBarChanged = false;
@@ -331,8 +334,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Animate cardview sliding up from bottom */
     private void cardViewAnimation() {
-        Animation slideUp = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slide_in_up);
+        Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
 
         slideUp.setDuration(750);
         mStatesCardView.startAnimation(slideUp);

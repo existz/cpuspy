@@ -26,9 +26,9 @@ public class ThemeUtils extends ActionBarActivity {
         editor.putInt("theme", theme);
         editor.commit();
 
-        activity.startActivity(new Intent(activity, activity.getClass()));
-
         activity.finish();
+        activity.startActivity(new Intent(activity, activity.getClass()));
+        activity.overridePendingTransition(0, 0);
     }
 
     public static void changeNavBar(Activity activity, int navbar) {
@@ -37,9 +37,9 @@ public class ThemeUtils extends ActionBarActivity {
         editor.putInt("navbar", navbar);
         editor.commit();
 
-        activity.startActivity(new Intent(activity, activity.getClass()));
-
         activity.finish();
+        activity.startActivity(new Intent(activity, activity.getClass()));
+        activity.overridePendingTransition(0, 0);
     }
 
     public static void onActivityCreateSetTheme(Activity activity) {
