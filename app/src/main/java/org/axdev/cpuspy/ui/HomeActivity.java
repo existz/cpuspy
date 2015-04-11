@@ -62,16 +62,12 @@ import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.utils.CPUUtils;
+import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.utils.ThemeUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,15 +80,10 @@ import io.fabric.sdk.android.Fabric;
 /** main activity class */
 public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
-    private static final String TAG = "CpuSpy";
+    public static final String TAG = "CpuSpy";
 
     private final String VERSION_KEY = "version_number";
     private final String WELCOME_SCREEN = "welcomeScreenShown";
-
-    private final String CPU0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
-    private final String CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
-    private final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
-    private final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
     private final Handler mHandler = new Handler();
 
@@ -124,11 +115,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_cpu_freq1) TextView mCore1;
     @InjectView(R.id.ui_cpu_freq2) TextView mCore2;
     @InjectView(R.id.ui_cpu_freq3) TextView mCore3;
-
-    private String mFreq0;
-    private String mFreq1;
-    private String mFreq2;
-    private String mFreq3;
 
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
@@ -409,88 +395,12 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
     }
 
-    /** Get the current frequency for CPU0 */
-    private String getCpu0() {
-        try {
-            InputStream is = new FileInputStream(CPU0);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq0 = line;
-            }
-
-            is.close();
-        } catch (IOException ignored) {}
-
-        // made it
-        return mFreq0;
-    }
-
-    /** Get the current frequency for CPU1 */
-    private String getCpu1() {
-        try {
-            InputStream is = new FileInputStream(CPU1);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq1 = line;
-            }
-
-            is.close();
-        } catch (IOException ignored) {}
-
-        // made it
-        return mFreq1;
-    }
-
-    /** Get the current frequency for CPU2 */
-    private String getCpu2() {
-        try {
-            InputStream is = new FileInputStream(CPU2);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq2 = line;
-            }
-
-            is.close();
-        } catch (IOException ignored) {}
-
-        // made it
-        return mFreq2;
-    }
-
-    /** Get the current frequency for CPU3 */
-    private String getCpu3() {
-        try {
-            InputStream is = new FileInputStream(CPU3);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq3 = line;
-            }
-
-            is.close();
-        } catch (IOException ignored) {}
-
-        // made it
-        return mFreq3;
-    }
-
     private final Runnable monitorCpu = new Runnable() {
         public void run() {
-            File cpu0 = new File(CPU0);
-            File cpu1 = new File(CPU1);
-            File cpu2 = new File(CPU2);
-            File cpu3 = new File(CPU3);
+            File cpu0 = new File(CPUUtils.CPU0);
+            File cpu1 = new File(CPUUtils.CPU1);
+            File cpu2 = new File(CPUUtils.CPU2);
+            File cpu3 = new File(CPUUtils.CPU3);
 
             /** Set the frequency for CPU0 */
             if(mMonitorCpu0) {
@@ -501,8 +411,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                         Log.e(TAG, "Problem getting CPU cores");
                         return;
                     } else {
-                        int i = Integer.parseInt(getCpu0()) / 1000;
-                        String s = String.valueOf(i) + "MHz";
+                        String s = CPUUtils.getCpu0() + "MHz";
                         mCore0.setText(s);
                     }
                 } catch (NumberFormatException ignored) {
@@ -516,8 +425,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                     if (cpu1.length() == 0) {
                         mCore1.setText(R.string.core_offline);
                     } else {
-                        int i = Integer.parseInt(getCpu1()) / 1000;
-                        String s = String.valueOf(i) + "MHz";
+                        String s = CPUUtils.getCpu1() + "MHz";
                         mCore1.setText(s);
                     }
                 } catch (NumberFormatException ignored) {
@@ -531,8 +439,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                     if (cpu2.length() == 0) {
                         mCore2.setText(R.string.core_offline);
                     } else {
-                        int i = Integer.parseInt(getCpu2()) / 1000;
-                        String s = String.valueOf(i) + "MHz";
+                        String s = CPUUtils.getCpu2() + "MHz";
                         mCore2.setText(s);
                     }
                 } catch (NumberFormatException ignored) {
@@ -546,8 +453,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                     if (cpu3.length() == 0) {
                         mCore3.setText(R.string.core_offline);
                     } else {
-                        int i = Integer.parseInt(getCpu3()) / 1000;
-                        String s = String.valueOf(i) + "MHz";
+                        String s = CPUUtils.getCpu3() + "MHz";
                         mCore3.setText(s);
                     }
                 } catch (NumberFormatException ignored) {
