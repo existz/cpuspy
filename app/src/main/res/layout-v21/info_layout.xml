@@ -72,7 +72,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
                     android:paddingLeft="12dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/kernel_version_header"
                     android:layout_alignStart="@+id/kernel_governor" />
