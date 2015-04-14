@@ -316,7 +316,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     private void cardViewAnimation() {
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
 
-        slideUp.setDuration(750);
+        slideUp.setDuration(500);
         mStatesCardView.startAnimation(slideUp);
         mTimeCardView.startAnimation(slideUp);
     }
