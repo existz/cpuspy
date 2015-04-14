@@ -95,9 +95,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
     @InjectView(R.id.btn_info) ImageButton mInfoButton;
-    @InjectView(R.id.btn_info_dark) ImageButton mInfoButtonDark;
     @InjectView(R.id.img_show) ImageView mShowImage;
-    @InjectView(R.id.img_show_dark) ImageView mShowImageDark;
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
@@ -177,10 +175,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_dark_background));
-            mShowImageDark.setVisibility(View.VISIBLE);
-            mInfoButtonDark.setVisibility(View.VISIBLE);
-            mShowImage = mShowImageDark;
-            mInfoButton = mInfoButtonDark;
+            mShowImage.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
+            mInfoButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
             if (Build.VERSION.SDK_INT == 19) {
                 mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
             }
@@ -192,8 +188,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color));
             mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color));
             mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_light_background));
-            mShowImage.setVisibility(View.VISIBLE);
-            mInfoButton.setVisibility(View.VISIBLE);
             if (Build.VERSION.SDK_INT == 19) {
                 mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_light));
             }
@@ -336,10 +330,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         switch (v.getId()) {
             case R.id.btn_info:
-                intent = new Intent(this, InfoActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_info_dark:
                 intent = new Intent(this, InfoActivity.class);
                 startActivity(intent);
                 break;
@@ -711,7 +701,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         TextView mPerText = (TextView)theRow.findViewById(
                 R.id.ui_percentage_text);
         ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
-        ProgressBar mBarDark = (ProgressBar)theRow.findViewById(R.id.ui_bar_dark);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -719,13 +708,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mDurText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mPerText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mBarDark.setVisibility(View.VISIBLE);
-            mBar = mBarDark;
+            mBar.setProgressDrawable(getResources().getDrawable(R.drawable.progess_drawable_dark));
         } else {
             mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color));
             mDurText.setTextColor(getResources().getColor(R.color.primary_text_color));
             mPerText.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mBar.setVisibility(View.VISIBLE);
         }
 
         // modify the row

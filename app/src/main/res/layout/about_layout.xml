@@ -72,20 +72,7 @@
                         android:layout_marginRight="4dp"
                         android:src="@drawable/ic_github"
                         style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
-
-                    <ImageButton
-                        android:id="@+id/btn_github_dark"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_github_dark"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
+                        android:clickable="true" />
 
                     <ImageButton
                         android:id="@+id/btn_paypal"
@@ -98,22 +85,7 @@
                         android:layout_toEndOf="@+id/btn_github"
                         android:src="@drawable/ic_paypal"
                         style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
-
-                    <ImageButton
-                        android:id="@+id/btn_paypal_dark"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_toEndOf="@+id/btn_github_dark"
-                        android:src="@drawable/ic_paypal_dark"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
+                        android:clickable="true" />
 
                     <ImageButton
                         android:id="@+id/btn_xda"
@@ -124,20 +96,7 @@
                         android:layout_toEndOf="@+id/btn_paypal"
                         android:src="@drawable/ic_xda"
                         style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
-
-                    <ImageButton
-                        android:id="@+id/btn_xda_dark"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_toEndOf="@+id/btn_paypal_dark"
-                        android:src="@drawable/ic_xda_dark"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:clickable="true"
-                        android:visibility="gone"/>
+                        android:clickable="true" />
 
                 </RelativeLayout>
 

@@ -75,20 +75,7 @@
                             android:layout_toEndOf="@+id/ui_total_state_time"
                             android:layout_centerVertical="true"
                             style="?android:attr/borderlessButtonStyle"
-                            android:clickable="true"
-                            android:visibility="gone"/>
-
-                        <ImageButton
-                            android:id="@+id/btn_info_dark"
-                            android:src="@drawable/ic_info_dark"
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
-                            android:layout_below="@+id/ui_header_total_state_time"
-                            android:layout_toEndOf="@+id/ui_total_state_time"
-                            android:layout_centerVertical="true"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:clickable="true"
-                            android:visibility="gone"/>
+                            android:clickable="true" />
 
                     </RelativeLayout>
 

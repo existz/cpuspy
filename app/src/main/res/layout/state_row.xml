@@ -36,19 +36,6 @@
         android:layout_marginBottom="5dp"
         android:max="100"
         style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progess_drawable"
-        android:visibility="gone"/>
-
-    <ProgressBar
-        android:id="@+id/ui_bar_dark"
-        android:layout_width="fill_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/ui_freq_text"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:max="100"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progess_drawable_dark"
-        android:visibility="gone"/>
+        android:progressDrawable="@drawable/progess_drawable" />
 
 </RelativeLayout>

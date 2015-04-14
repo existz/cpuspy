@@ -40,9 +40,6 @@ public class AboutFragment extends Fragment {
     @InjectView(R.id.btn_github) ImageButton githubButton;
     @InjectView(R.id.btn_paypal) ImageButton paypalButton;
     @InjectView(R.id.btn_xda) ImageButton xdaButton;
-    @InjectView(R.id.btn_github_dark) ImageButton githubDarkButton;
-    @InjectView(R.id.btn_paypal_dark) ImageButton paypalDarkButton;
-    @InjectView(R.id.btn_xda_dark) ImageButton xdaDarkButton;
     @InjectView(R.id.about_header_developer) TextView mHeaderDeveloper;
     @InjectView(R.id.about_header_contrib) TextView mHeaderContrib;
     @InjectView(R.id.appname) TextView mAppName;
@@ -106,12 +103,9 @@ public class AboutFragment extends Fragment {
             mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            githubDarkButton.setVisibility(View.VISIBLE);
-            paypalDarkButton.setVisibility(View.VISIBLE);
-            xdaDarkButton.setVisibility(View.VISIBLE);
-            githubButton = githubDarkButton;
-            paypalButton = paypalDarkButton;
-            xdaButton = xdaDarkButton;
+            githubButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
+            paypalButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
+            xdaButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
         } else {
             mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
             mAppName.setTextColor(getResources().getColor(R.color.primary_text_color));
@@ -119,9 +113,6 @@ public class AboutFragment extends Fragment {
             mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color));
             mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color));
             mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color));
-            githubButton.setVisibility(View.VISIBLE);
-            paypalButton.setVisibility(View.VISIBLE);
-            xdaButton.setVisibility(View.VISIBLE);
         }
 
         /** Set OnClickListener for buttons */
