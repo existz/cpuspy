@@ -141,7 +141,6 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
         final String api = CPUUtils.getSystemProperty(API_LEVEL);
         final String platform = CPUUtils.getSystemProperty(BOARD_PLATFORM);
-        final String frequency = CPUUtils.getMinFreq() + " - " + CPUUtils.getMaxFreq();
 
         final int getNumCores = Runtime.getRuntime().availableProcessors();
 
@@ -150,7 +149,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         mCpuAbi.setText(Build.CPU_ABI);
         mCpuArch.setText(CPUUtils.getArch());
         mCpuCore.setText(Integer.toString(getNumCores));
-        mCpuFreq.setText(frequency);
+        mCpuFreq.setText(CPUUtils.getMinMax());
         mCpuFeatures.setText(CPUUtils.getFeatures());
         mDeviceBuild.setText(Build.ID);
         mDeviceApi.setText(api);

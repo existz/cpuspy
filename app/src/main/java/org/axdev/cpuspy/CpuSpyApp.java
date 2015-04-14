@@ -54,12 +54,12 @@ public class CpuSpyApp extends Application {
         }
 
         loadOffsets();
-        updateKernelVersion();
+        getKernelVersion();
     }
 
     /** @return the kernel version string */
     public String getKernelVersion() {
-        return _kernelVersion;
+        return setKernelVersion();
     }
 
     /** @return the internal CpuStateMonitor object */
@@ -113,7 +113,7 @@ public class CpuSpyApp extends Application {
     }
 
     /** Try to read the kernel version string from the proc fileystem */
-    private String updateKernelVersion() {
+    private String setKernelVersion() {
         try {
             InputStream is = new FileInputStream(KERNEL_VERSION_PATH);
             InputStreamReader ir = new InputStreamReader(is);

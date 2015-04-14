@@ -42,7 +42,7 @@ public class CPUUtils {
     private static String mFreq3;
 
     /** Get the current frequency for CPU0 */
-    public static String setCpu0() {
+    private static String setCpu0() {
         try {
             InputStream is = new FileInputStream(CPU0);
             InputStreamReader ir = new InputStreamReader(is);
@@ -65,7 +65,7 @@ public class CPUUtils {
     }
 
     /** Get the current frequency for CPU1 */
-    public static String setCpu1() {
+    private static String setCpu1() {
         try {
             InputStream is = new FileInputStream(CPU1);
             InputStreamReader ir = new InputStreamReader(is);
@@ -88,7 +88,7 @@ public class CPUUtils {
     }
 
     /** Get the current frequency for CPU2 */
-    public static String setCpu2() {
+    private static String setCpu2() {
         try {
             InputStream is = new FileInputStream(CPU2);
             InputStreamReader ir = new InputStreamReader(is);
@@ -112,7 +112,7 @@ public class CPUUtils {
     }
 
     /** Get the current frequency for CPU3 */
-    public static String setCpu3() {
+    private static String setCpu3() {
         try {
             InputStream is = new FileInputStream(CPU3);
             InputStreamReader ir = new InputStreamReader(is);
@@ -135,7 +135,7 @@ public class CPUUtils {
     }
 
     /** Get the current cpu governor */
-    public static String setGovernor() {
+    private static String setGovernor() {
         try {
             InputStream is = new FileInputStream(GOVERNOR);
             InputStreamReader ir = new InputStreamReader(is);
@@ -155,7 +155,7 @@ public class CPUUtils {
     }
 
     /** Get the current minimum frequency */
-    public static String setMinFreq() {
+    private static String setMinFreq() {
         try {
             InputStream is = new FileInputStream(MIN_FREQ);
             InputStreamReader ir = new InputStreamReader(is);
@@ -178,7 +178,7 @@ public class CPUUtils {
     }
 
     /** Get the current maximum frequency */
-    public static String setMaxFreq() {
+    private static String setMaxFreq() {
         try {
             InputStream is = new FileInputStream(MAX_FREQ);
             InputStreamReader ir = new InputStreamReader(is);
@@ -201,7 +201,7 @@ public class CPUUtils {
     }
 
     /** Retrieves information for ARM CPUs. */
-    public static String setFeatures() {
+    private static String setFeatures() {
         try {
             File info = new File("/proc/cpuinfo");
             if (info.exists()) {
@@ -222,7 +222,7 @@ public class CPUUtils {
         return mFeatures;
     }
 
-    public static String setArch() {
+    private static String setArch() {
         try {
             File info = new File("/proc/cpuinfo");
             if (info.exists()) {
@@ -312,14 +312,9 @@ public class CPUUtils {
         return setGovernor();
     }
 
-    /** @return min CPU freq string */
-    public static String getMinFreq() {
-        return setMinFreq();
-    }
-
-    /** @return max CPU freq string */
-    public static String getMaxFreq() {
-        return setMaxFreq();
+    /** @return CPU min/max frequency string */
+    public static String getMinMax() {
+        return setMinFreq() + " - " + setMaxFreq();
     }
 
     /** @return CPU features string */
