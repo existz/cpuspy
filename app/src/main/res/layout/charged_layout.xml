@@ -20,6 +20,6 @@
     <TextView
         style="@style/chargedView"
         android:text="@string/charged_view_message"
-        android:textColor="@color/primary_text_color"/>
+        android:textColor="?android:attr/textColorPrimary"/>
 
 </LinearLayout>

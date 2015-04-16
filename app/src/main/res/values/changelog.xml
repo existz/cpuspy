@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="whats_new">&#8226; Add Material Ripple library (KitKat)\n&#8226; Updated internal 3rd party libraries\n&#8226; Animate About cardview sliding up\n&#8226; Adjust padding for welcome cardview\n&#8226; Add donate to settings overflow menu\n&#8226; Kernel version should use singleLine\n&#8226; Add custom Typeface for ActionBar title\n&#8226; Revert back to using CheckBoxPreference\n&#8226; Add colored navigation bar and dark theme\n&#8226; Disable cpu monitoring when app is paused\n</string>
+
+</resources>

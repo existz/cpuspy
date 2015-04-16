@@ -13,10 +13,9 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -151,12 +150,13 @@ public class CpuStateMonitor {
         /* attempt to create a buffered reader to the time in state
          * file and read in the states to the class */
         try {
-            InputStream is = new FileInputStream(TIME_IN_STATE_PATH);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-            _states.clear();
-            readInStates(br);
-            is.close();
+            final File file = new File(TIME_IN_STATE_PATH);
+            if (file.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(file));
+                _states.clear();
+                readInStates(br);
+                br.close();
+            }
         } catch (IOException e) {
             throw new CpuStateMonitorException(
                     "Problem opening time-in-states file");

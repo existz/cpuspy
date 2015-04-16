@@ -7,14 +7,12 @@
 package org.axdev.cpuspy.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -37,7 +35,6 @@ public class PrefsActivity extends ActionBarActivity {
 
     /** Whether or not the theme has changed */
     public static boolean mThemeChanged = false;
-    public static boolean mNavBarChanged = false;
 
     public static class PrefsFragment extends PreferenceFragment {
 
@@ -102,18 +99,12 @@ public class PrefsActivity extends ActionBarActivity {
 
                 coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                        SharedPreferences.Editor editor = sp.edit();
                         if (newValue.toString().equals("true")) {
                             ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_COLORED);
-                            editor.putBoolean("coloredNavBar", true);
-                            editor.commit();
                         } else {
                             ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_DEFAULT);
-                            editor.putBoolean("coloredNavBar", false);
-                            editor.commit();
                         }
-                        mNavBarChanged = true;
+                        mThemeChanged = true;
                         return true;
                     }
                 });
@@ -125,7 +116,7 @@ public class PrefsActivity extends ActionBarActivity {
             super.onResume();
             // Use custom Typeface for action bar title on KitKat devices
             if (Build.VERSION.SDK_INT == 19) {
-                SpannableString s = new SpannableString(getResources().getString(R.string.settings));
+                final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -183,12 +174,12 @@ public class PrefsActivity extends ActionBarActivity {
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_changelog:
-                WhatsNewDialog newFragment = new WhatsNewDialog();
+                final WhatsNewDialog newFragment = new WhatsNewDialog();
                 newFragment.show(getFragmentManager(), "whatsnew");
                 break;
             case R.id.menu_donate:
                 final String Urldonate="http://goo.gl/X2sA4D";
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(Urldonate));
                 startActivity(i);
                 break;

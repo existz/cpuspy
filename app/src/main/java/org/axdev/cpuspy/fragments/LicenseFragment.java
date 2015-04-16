@@ -38,22 +38,15 @@ public class LicenseFragment extends Fragment {
     @InjectView(R.id.card_view_materialripple) CardView mCardViewRipple;
     @InjectView(R.id.card_view_snackbar) CardView mCardViewSnackbar;
     @InjectView(R.id.supportlib) TextView mSupportLib;
-    @InjectView(R.id.supportlib_summary) TextView mSupportLibSummary;
     @InjectView(R.id.materialdialog) TextView mMaterialDialog;
-    @InjectView(R.id.materialdialog_summary) TextView mMaterialDialogSummary;
     @InjectView(R.id.snackbar) TextView mSnackbar;
-    @InjectView(R.id.snackbar_summary) TextView mSnackbarSummary;
     @InjectView(R.id.materialripple) TextView mMaterialRipple;
-    @InjectView(R.id.materialripple_summary) TextView mMaterialRippleSummary;
     @InjectView(R.id.butterknife) TextView mButterKnife;
-    @InjectView(R.id.butterknife_summary) TextView mButterKnifeSummary;
-
-    private Typeface mediumFont;
 
     /** Inflate the license layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.license_layout, container, false);
+        final View view = inflater.inflate(R.layout.license_layout, container, false);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -64,7 +57,7 @@ public class LicenseFragment extends Fragment {
 
         // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT == 19) {
-            SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
+            final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
             s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -77,7 +70,7 @@ public class LicenseFragment extends Fragment {
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Allow strings to use HTML and hyperlinks
-        mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
 
         mSupportLib.setTypeface(mediumFont);
         mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());
@@ -99,7 +92,7 @@ public class LicenseFragment extends Fragment {
         mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
         mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         if (sp.getBoolean("darkTheme", true)) {
             mCardViewSupport.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
@@ -107,22 +100,6 @@ public class LicenseFragment extends Fragment {
             mCardViewDialog.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mCardViewRipple.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mSupportLibSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mButterKnifeSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mMaterialDialogSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mMaterialRippleSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mSnackbarSummary.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-        } else {
-            mCardViewSupport.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCardViewButter.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCardViewDialog.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCardViewRipple.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mSupportLibSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mButterKnifeSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mMaterialDialogSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mMaterialRippleSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mSnackbarSummary.setTextColor(getResources().getColor(R.color.primary_text_color));
         }
     }
 

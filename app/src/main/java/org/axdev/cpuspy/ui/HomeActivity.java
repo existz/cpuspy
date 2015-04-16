@@ -115,8 +115,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_cpu_freq2) TextView mCore2;
     @InjectView(R.id.ui_cpu_freq3) TextView mCore3;
 
-    private Typeface mediumFont;
-
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
@@ -158,7 +156,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT == 19) {
-            SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
+            final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
             s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -173,26 +171,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (sp.getBoolean("darkTheme", true)) {
             mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
             mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mTotalStateTime.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mAdditionalStatesHide.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_dark_background));
             mShowImage.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
             mInfoButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
             if (Build.VERSION.SDK_INT == 19) {
                 mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
-            }
-        } else {
-            mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mTotalStateTime.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mAdditionalStatesHide.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mAdditionalStatesShow.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mAdditionalStates.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_light_background));
-            if (Build.VERSION.SDK_INT == 19) {
-                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_light));
             }
         }
 
@@ -230,15 +213,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Recreate activity if navigation bar or theme changes
-        if (PrefsActivity.mThemeChanged || PrefsActivity.mNavBarChanged) {
+        if (PrefsActivity.mThemeChanged) {
             this.startActivity(new Intent(this, this.getClass()));
             this.finish();
             this.overridePendingTransition(0, 0);
-
             PrefsActivity.mThemeChanged = false;
-            if (Build.VERSION.SDK_INT >= 21) {
-                PrefsActivity.mNavBarChanged = false;
-            }
         } else {
             if (!mAutoRefresh) { refreshData(); }
         }
@@ -299,7 +278,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     }
 
     private void showWhatsNewDialog() {
-        WhatsNewDialog newFragment = new WhatsNewDialog();
+        final WhatsNewDialog newFragment = new WhatsNewDialog();
         newFragment.show(getFragmentManager(), "whatsnew");
     }
 
@@ -317,7 +296,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Animate cardview sliding up from bottom */
     private void cardViewAnimation() {
-        Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
+        final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
 
         slideUp.setDuration(500);
         mStatesCardView.startAnimation(slideUp);
@@ -328,12 +307,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @Override
     public void onClick(View v) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sp.edit();
-        Intent intent;
+        Editor editor = sp.edit();
 
         switch (v.getId()) {
             case R.id.btn_info:
-                intent = new Intent(this, InfoActivity.class);
+                final Intent intent = new Intent(this, InfoActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_welcome:
@@ -390,10 +368,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     private final Runnable monitorCpu = new Runnable() {
         public void run() {
-            File cpu0 = new File(CPUUtils.CPU0);
-            File cpu1 = new File(CPUUtils.CPU1);
-            File cpu2 = new File(CPUUtils.CPU2);
-            File cpu3 = new File(CPUUtils.CPU3);
+            final File cpu0 = new File(CPUUtils.CPU0);
+            final File cpu1 = new File(CPUUtils.CPU1);
+            final File cpu2 = new File(CPUUtils.CPU2);
+            final File cpu3 = new File(CPUUtils.CPU3);
 
             /** Set the frequency for CPU0 */
             if(mMonitorCpu0) {
@@ -460,8 +438,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Check which CPU cores to start monitoring */
     private void startCoreMonitor() {
-        int numCores = Runtime.getRuntime().availableProcessors();
-        switch (numCores) {
+        switch (CPUUtils.getCoreCount()) {
             case 1:
                 mMonitorCpu0 = true;
                 mMonitorCpu1 = false;
@@ -512,10 +489,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
-        mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
 
-        TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
-        TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
+        final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
+        final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
 
         // Apply roboto medium typeface
         mWelcomeSummary.setTypeface(mediumFont);
@@ -580,7 +557,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        CpuStateMonitor monitor = _app.getCpuStateMonitor();
+        final CpuStateMonitor monitor = _app.getCpuStateMonitor();
         mStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
         for (CpuState state : monitor.getStates()) {
@@ -674,15 +651,15 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
      */
     private View generateStateRow(CpuState state, ViewGroup parent) {
         // inflate the XML into a view in the parent
-        LayoutInflater inf = LayoutInflater.from(_app);
-        RelativeLayout theRow = (RelativeLayout)inf.inflate(
+        final LayoutInflater inf = LayoutInflater.from(_app);
+        final RelativeLayout theRow = (RelativeLayout)inf.inflate(
                 R.layout.state_row, parent, false);
 
         // what percentage we've got
-        CpuStateMonitor monitor = _app.getCpuStateMonitor();
+        final CpuStateMonitor monitor = _app.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
-        String sPer = String.format("%.01f", per) + "%";
+        final String sPer = String.format("%.01f", per) + "%";
 
         // state name
         String sFreq;
@@ -694,15 +671,15 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         // duration
         long tSec = state.duration / 100;
-        String sDur = sToString(tSec);
+        final String sDur = sToString(tSec);
 
         // map UI elements to objects
-        TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
-        TextView mDurText = (TextView)theRow.findViewById(
+        final TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
+        final TextView mDurText = (TextView)theRow.findViewById(
                 R.id.ui_duration_text);
-        TextView mPerText = (TextView)theRow.findViewById(
+        final TextView mPerText = (TextView)theRow.findViewById(
                 R.id.ui_percentage_text);
-        ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
+        final ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -733,7 +710,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
         /** Stuff to do on a seperate thread */
         @Override protected Void doInBackground(Void... v) {
-            CpuStateMonitor monitor = _app.getCpuStateMonitor();
+            final CpuStateMonitor monitor = _app.getCpuStateMonitor();
             try {
                 monitor.updateStates();
             } catch (CpuStateMonitorException e) {

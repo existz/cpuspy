@@ -26,7 +26,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:visibility="gone"
-            card_view:cardCornerRadius="3dp">
+            card_view:cardCornerRadius="3dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -41,7 +42,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/pref_about_appname"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="28sp" />
 
                 <TextView
@@ -52,7 +53,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/version_name"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textStyle="bold"
                     android:textSize="15sp" />
 
@@ -109,7 +110,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/pref_about_appinfo"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16sp"
                     android:gravity="center" />
 
@@ -158,7 +159,7 @@
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/pref_about_origdev"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp" />
 
                 <TextView
@@ -170,7 +171,7 @@
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/pref_about_iconcreator"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="15sp" />
 
             </LinearLayout>

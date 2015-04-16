@@ -89,6 +89,4 @@
 
     <string name="pref_about_appname" translatable="false"><b>CPUSpy</b>Material</string>
 
-    <string name="changelog_dialog_title">Whats New</string>
-
 </resources>

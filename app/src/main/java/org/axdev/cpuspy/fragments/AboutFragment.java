@@ -43,9 +43,6 @@ public class AboutFragment extends Fragment {
     @InjectView(R.id.btn_xda) ImageButton xdaButton;
     @InjectView(R.id.about_header_developer) TextView mHeaderDeveloper;
     @InjectView(R.id.about_header_contrib) TextView mHeaderContrib;
-    @InjectView(R.id.appname) TextView mAppName;
-    @InjectView(R.id.version) TextView mVersion;
-    @InjectView(R.id.about_appinfo) TextView mAppInfo;
     @InjectView(R.id.iconcreator) TextView mIconCreator;
     @InjectView(R.id.developer) TextView mDeveloper;
     @InjectView(R.id.origdev) TextView mOrigDev;
@@ -55,12 +52,10 @@ public class AboutFragment extends Fragment {
     private final String Urldonate="http://goo.gl/X2sA4D";
     private final String Urlxda="http://goo.gl/AusQy8";
 
-    private Typeface mediumFont;
-
     /** Inflate the About layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.about_layout, container, false);
+        final View view = inflater.inflate(R.layout.about_layout, container, false);
         ButterKnife.inject(this, view);
         return view;
     }
@@ -71,7 +66,7 @@ public class AboutFragment extends Fragment {
 
         // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT == 19) {
-            SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_about));
+            final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_about));
             s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -85,7 +80,7 @@ public class AboutFragment extends Fragment {
         ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /** Set typeface and allow hyperlinks */
-        mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
 
         mHeaderDeveloper.setTypeface(mediumFont);
         mHeaderContrib.setTypeface(mediumFont);
@@ -95,25 +90,13 @@ public class AboutFragment extends Fragment {
         mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
         mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         if (sp.getBoolean("darkTheme", true)) {
             mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mAppName.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mVersion.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             githubButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
             paypalButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
             xdaButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-        } else {
-            mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mAppName.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mVersion.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mAppInfo.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mOrigDev.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mIconCreator.setTextColor(getResources().getColor(R.color.primary_text_color));
         }
 
         /** Set OnClickListener for buttons */
@@ -145,7 +128,7 @@ public class AboutFragment extends Fragment {
         });
 
         /** Extend background and animate cardview sliding up */
-        Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
+        final Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.abc_slide_in_top);
 
         slideDown.setDuration(600);
@@ -155,7 +138,7 @@ public class AboutFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                Animation slideUp = AnimationUtils.loadAnimation(getActivity(),
+                final Animation slideUp = AnimationUtils.loadAnimation(getActivity(),
                         R.anim.slide_in_up);
 
                 slideUp.setDuration(375);

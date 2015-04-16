@@ -12,10 +12,8 @@ import org.axdev.cpuspy.ui.HomeActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CPUUtils {
@@ -24,10 +22,6 @@ public class CPUUtils {
     public static final String CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
     public static final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     public static final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
-
-    private static final String MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
-    private static final String MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-    private static final String GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
 
     private static final String TAG = "CPUSpyInfo";
 
@@ -44,21 +38,22 @@ public class CPUUtils {
     /** Get the current frequency for CPU0 */
     private static String setCpu0() {
         try {
-            InputStream is = new FileInputStream(CPU0);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File cpu0 = new File(CPU0);
+            if (cpu0.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(cpu0));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq0 = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mFreq0 = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(HomeActivity.TAG, "Unable to read CPU0");
         }
 
-        int i = Integer.parseInt(mFreq0) / 1000;
+        final int i = Integer.parseInt(mFreq0) / 1000;
         mFreq0 = String.valueOf(i);
 
         return mFreq0;
@@ -67,21 +62,22 @@ public class CPUUtils {
     /** Get the current frequency for CPU1 */
     private static String setCpu1() {
         try {
-            InputStream is = new FileInputStream(CPU1);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File cpu1 = new File(CPU1);
+            if (cpu1.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(cpu1));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq1 = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mFreq1 = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(HomeActivity.TAG, "Unable to read CPU1");
         }
 
-        int i = Integer.parseInt(mFreq1) / 1000;
+        final int i = Integer.parseInt(mFreq1) / 1000;
         mFreq1 = String.valueOf(i);
 
         return mFreq1;
@@ -90,22 +86,23 @@ public class CPUUtils {
     /** Get the current frequency for CPU2 */
     private static String setCpu2() {
         try {
-            InputStream is = new FileInputStream(CPU2);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File cpu2 = new File(CPU2);
+            if (cpu2.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(cpu2));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq2 = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mFreq2 = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(HomeActivity.TAG, "Unable to read CPU2");
         }
 
         // made it
-        int i = Integer.parseInt(mFreq2) / 1000;
+        final int i = Integer.parseInt(mFreq2) / 1000;
         mFreq2 = String.valueOf(i);
 
         return mFreq2;
@@ -114,21 +111,22 @@ public class CPUUtils {
     /** Get the current frequency for CPU3 */
     private static String setCpu3() {
         try {
-            InputStream is = new FileInputStream(CPU3);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File cpu3 = new File(CPU3);
+            if (cpu3.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(cpu3));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mFreq3 = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mFreq3 = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(HomeActivity.TAG, "Unable to read CPU3");
         }
 
-        int i = Integer.parseInt(mFreq3) / 1000;
+        final int i = Integer.parseInt(mFreq3) / 1000;
         mFreq3 = String.valueOf(i);
 
         return mFreq3;
@@ -136,17 +134,19 @@ public class CPUUtils {
 
     /** Get the current cpu governor */
     private static String setGovernor() {
+        final String GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
         try {
-            InputStream is = new FileInputStream(GOVERNOR);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File governor = new File(GOVERNOR);
+            if (governor.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(governor));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mGovernor = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mGovernor = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(TAG, "Unable to read cpu governor");
         }
@@ -156,22 +156,24 @@ public class CPUUtils {
 
     /** Get the current minimum frequency */
     private static String setMinFreq() {
+        final String MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
         try {
-            InputStream is = new FileInputStream(MIN_FREQ);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File min_freq = new File(MIN_FREQ);
+            if (min_freq.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(min_freq));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mMinFreq = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mMinFreq = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(TAG, "Unable to read min cpu frequency");
         }
 
-        int i = Integer.parseInt(mMinFreq) / 1000;
+        final int i = Integer.parseInt(mMinFreq) / 1000;
         mMinFreq = Integer.toString(i) + "MHz";
 
         return mMinFreq;
@@ -179,22 +181,24 @@ public class CPUUtils {
 
     /** Get the current maximum frequency */
     private static String setMaxFreq() {
+        final String MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
         try {
-            InputStream is = new FileInputStream(MAX_FREQ);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
+            final File max_freq = new File(MAX_FREQ);
+            if (max_freq.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(max_freq));
 
-            String line;
-            while ((line = br.readLine())!= null ) {
-                mMaxFreq = line;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mMaxFreq = line;
+                }
+
+                br.close();
             }
-
-            is.close();
         } catch (IOException e) {
             Log.e(TAG, "Unable to read max cpu frequency");
         }
 
-        int i = Integer.parseInt(mMaxFreq) / 1000;
+        final int i = Integer.parseInt(mMaxFreq) / 1000;
         mMaxFreq = Integer.toString(i) + "MHz";
 
         return mMaxFreq;
@@ -203,9 +207,9 @@ public class CPUUtils {
     /** Retrieves information for ARM CPUs. */
     private static String setFeatures() {
         try {
-            File info = new File("/proc/cpuinfo");
+            final File info = new File("/proc/cpuinfo");
             if (info.exists()) {
-                BufferedReader br = new BufferedReader(new FileReader(info));
+                final BufferedReader br = new BufferedReader(new FileReader(info));
 
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -226,7 +230,7 @@ public class CPUUtils {
         try {
             File info = new File("/proc/cpuinfo");
             if (info.exists()) {
-                BufferedReader br = new BufferedReader(new FileReader(info));
+                final BufferedReader br = new BufferedReader(new FileReader(info));
 
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -263,21 +267,21 @@ public class CPUUtils {
      */
     public static String getSystemProperty(String propName) {
         String line;
-        BufferedReader input = null;
+        BufferedReader br = null;
         try {
             Process p = Runtime.getRuntime().exec("getprop " + propName);
-            input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
-            line = input.readLine();
-            input.close();
+            br = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
+            line = br.readLine();
+            br.close();
         }
         catch (IOException ex) {
             Log.e(TAG, "Unable to read sysprop " + propName, ex);
             return null;
         }
         finally {
-            if (input != null) {
+            if (br != null) {
                 try {
-                    input.close();
+                    br.close();
                 }
                 catch (IOException e) {
                     Log.e(TAG, "Exception while closing InputStream", e);
@@ -325,5 +329,10 @@ public class CPUUtils {
     /** @return CPU architecture string */
     public static String getArch() {
         return setArch();
+    }
+
+    /** @return Number of CPU cores */
+    public static int getCoreCount() {
+        return Runtime.getRuntime().availableProcessors();
     }
 }

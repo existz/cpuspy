@@ -28,7 +28,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <TextView
                 android:id="@+id/supportlib_summary"
@@ -39,7 +40,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/pref_license_supportlib_info"
-                android:textColor="@color/primary_text_color"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"/>
 
         </android.support.v7.widget.CardView>
@@ -63,7 +64,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <TextView
                 android:id="@+id/butterknife_summary"
@@ -74,7 +76,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/pref_license_butterknife_info"
-                android:textColor="@color/primary_text_color" />
+                android:textColor="?android:attr/textColorPrimary" />
 
         </android.support.v7.widget.CardView>
 
@@ -97,7 +99,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <TextView
                 android:id="@+id/materialdialog_summary"
@@ -108,7 +111,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/pref_license_materialdialog_info"
-                android:textColor="@color/primary_text_color" />
+                android:textColor="?android:attr/textColorPrimary" />
 
         </android.support.v7.widget.CardView>
 
@@ -131,7 +134,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <TextView
                 android:id="@+id/materialripple_summary"
@@ -142,7 +146,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/pref_license_materialripple_info"
-                android:textColor="@color/primary_text_color" />
+                android:textColor="?android:attr/textColorPrimary" />
 
         </android.support.v7.widget.CardView>
 
@@ -165,7 +169,8 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp">
+            card_view:cardCornerRadius="4dp"
+            card_view:cardBackgroundColor="@color/card_light_background">
 
             <TextView
                 android:id="@+id/snackbar_summary"
@@ -176,7 +181,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:text="@string/pref_license_snackbar_info"
-                android:textColor="@color/primary_text_color" />
+                android:textColor="?android:attr/textColorPrimary" />
 
         </android.support.v7.widget.CardView>
 

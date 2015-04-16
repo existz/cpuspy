@@ -2,12 +2,11 @@ package org.axdev.cpuspy.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
 import org.axdev.cpuspy.R;
@@ -20,10 +19,11 @@ public class ThemeUtils extends ActionBarActivity {
     public final static int LIGHT = 0;
     public final static int DARK = 1;
 
-    public static void changeToTheme(Activity activity, int theme) {
+    public static void changeToTheme(Activity activity, int mTheme) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("theme", theme);
+        Editor editor = sp.edit();
+
+        editor.putInt("theme", mTheme);
         editor.commit();
 
         activity.finish();
@@ -31,10 +31,11 @@ public class ThemeUtils extends ActionBarActivity {
         activity.overridePendingTransition(0, 0);
     }
 
-    public static void changeNavBar(Activity activity, int navbar) {
+    public static void changeNavBar(Activity activity, int mNavBar) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("navbar", navbar);
+        Editor editor = sp.edit();
+
+        editor.putInt("navbar", mNavBar);
         editor.commit();
 
         activity.finish();
@@ -43,24 +44,20 @@ public class ThemeUtils extends ActionBarActivity {
     }
 
     public static void onActivityCreateSetTheme(Activity activity) {
-
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        SharedPreferences.Editor editor = sp.edit();
+        Editor editor = sp.edit();
+
         int mTheme = sp.getInt("theme", 0);
 
         switch (mTheme) {
             default:
             case LIGHT:
                 activity.setTheme(R.style.AppTheme);
-                //actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.color.primary));
-                activity.getWindow().getDecorView().setBackgroundColor(activity.getResources().getColor(R.color.light_background));
                 editor.putBoolean("darkTheme", false);
                 editor.commit();
                 break;
             case DARK:
                 activity.setTheme(R.style.AppThemeDark);
-                //actionBar.setBackgroundDrawable(context.getResources().getDrawable(R.color.primary));
-                activity.getWindow().getDecorView().setBackgroundColor(activity.getResources().getColor(R.color.dark_background));
                 editor.putBoolean("darkTheme", true);
                 editor.commit();
                 break;
@@ -69,8 +66,8 @@ public class ThemeUtils extends ActionBarActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void onActivityCreateSetNavBar(Activity activity) {
-
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+
         int mNavBar = sp.getInt("navbar", 0);
 
         switch (mNavBar) {

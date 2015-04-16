@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,14 +23,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
@@ -81,11 +72,6 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     @Optional @InjectView(R.id.ripple_info) MaterialRippleLayout mMaterialRippleLayout;
 
-    private final String API_LEVEL = "ro.build.version.sdk";
-    private final String BOARD_PLATFORM = "ro.board.platform";
-
-    private Typeface mediumFont;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= 21) {
@@ -103,7 +89,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
         // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT == 19) {
-            SpannableString s = new SpannableString(getResources().getString(R.string.information));
+            final SpannableString s = new SpannableString(getResources().getString(R.string.information));
             s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -122,13 +108,6 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
             if (Build.VERSION.SDK_INT == 19) {
                 mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
             }
-        } else {
-            mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_light_background));
-            if (Build.VERSION.SDK_INT == 19) {
-                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_light));
-            }
         }
 
         mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
@@ -137,16 +116,14 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     /** Set text and fontface for TextViews */
     private void setTextViews() {
-        final String api = CPUUtils.getSystemProperty(API_LEVEL);
-        final String platform = CPUUtils.getSystemProperty(BOARD_PLATFORM);
-
-        final int getNumCores = Runtime.getRuntime().availableProcessors();
+        final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
+        final String platform = CPUUtils.getSystemProperty("ro.board.platform");
 
         mKernelVersion.setText(System.getProperty("os.version"));
         mKernelGovernor.setText(CPUUtils.getGovernor());
         mCpuAbi.setText(Build.CPU_ABI);
         mCpuArch.setText(CPUUtils.getArch());
-        mCpuCore.setText(Integer.toString(getNumCores));
+        mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
         mCpuFreq.setText(CPUUtils.getMinMax());
         mCpuFeatures.setText(CPUUtils.getFeatures());
         mDeviceBuild.setText(Build.ID);
@@ -157,7 +134,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         mDevicePlatform.setText(platform);
 
         // Applying Roboto-Medium font
-        mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
 
         mKernelHeader.setTypeface(mediumFont);
         mKernelGovernorHeader.setTypeface(mediumFont);
@@ -181,7 +158,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.card_view_kernel:
-                CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
+                final CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
                 MaterialDialog dialog = new MaterialDialog.Builder(this)
                         .content(_app.getKernelVersion())
                         .build();
