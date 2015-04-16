@@ -36,6 +36,7 @@ import java.io.InputStreamReader;
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.CPUUtils;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
 
@@ -82,6 +83,8 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     private final String API_LEVEL = "ro.build.version.sdk";
     private final String BOARD_PLATFORM = "ro.board.platform";
+
+    private Typeface mediumFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,11 +137,6 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     /** Set text and fontface for TextViews */
     private void setTextViews() {
-
-        // Loading Font Face
-        final Typeface tf = Typeface.createFromAsset(getAssets(),
-                "fonts/Roboto-Medium.ttf");
-
         final String api = CPUUtils.getSystemProperty(API_LEVEL);
         final String platform = CPUUtils.getSystemProperty(BOARD_PLATFORM);
 
@@ -158,22 +156,25 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         mDeviceBoard.setText(Build.BOARD);
         mDevicePlatform.setText(platform);
 
-        mKernelHeader.setTypeface(tf);
-        mKernelGovernorHeader.setTypeface(tf);
-        mKernelVersionHeader.setTypeface(tf);
-        mCpuHeader.setTypeface(tf);
-        mCpuAbiHeader.setTypeface(tf);
-        mCpuArchHeader.setTypeface(tf);
-        mCpuCoreHeader.setTypeface(tf);
-        mCpuFreqHeader.setTypeface(tf);
-        mCpuFeaturesHeader.setTypeface(tf);
-        mDeviceInfo.setTypeface(tf);
-        mDeviceBuildHeader.setTypeface(tf);
-        mDeviceApiHeader.setTypeface(tf);
-        mDeviceManufHeader.setTypeface(tf);
-        mDeviceModelHeader.setTypeface(tf);
-        mDeviceBoardHeader.setTypeface(tf);
-        mDevicePlatformHeader.setTypeface(tf);
+        // Applying Roboto-Medium font
+        mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
+
+        mKernelHeader.setTypeface(mediumFont);
+        mKernelGovernorHeader.setTypeface(mediumFont);
+        mKernelVersionHeader.setTypeface(mediumFont);
+        mCpuHeader.setTypeface(mediumFont);
+        mCpuAbiHeader.setTypeface(mediumFont);
+        mCpuArchHeader.setTypeface(mediumFont);
+        mCpuCoreHeader.setTypeface(mediumFont);
+        mCpuFreqHeader.setTypeface(mediumFont);
+        mCpuFeaturesHeader.setTypeface(mediumFont);
+        mDeviceInfo.setTypeface(mediumFont);
+        mDeviceBuildHeader.setTypeface(mediumFont);
+        mDeviceApiHeader.setTypeface(mediumFont);
+        mDeviceManufHeader.setTypeface(mediumFont);
+        mDeviceModelHeader.setTypeface(mediumFont);
+        mDeviceBoardHeader.setTypeface(mediumFont);
+        mDevicePlatformHeader.setTypeface(mediumFont);
     }
 
     @Override

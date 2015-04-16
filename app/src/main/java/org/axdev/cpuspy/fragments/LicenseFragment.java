@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
 import butterknife.ButterKnife;
@@ -46,6 +47,8 @@ public class LicenseFragment extends Fragment {
     @InjectView(R.id.materialripple_summary) TextView mMaterialRippleSummary;
     @InjectView(R.id.butterknife) TextView mButterKnife;
     @InjectView(R.id.butterknife_summary) TextView mButterKnifeSummary;
+
+    private Typeface mediumFont;
 
     /** Inflate the license layout */
     @Override
@@ -73,28 +76,26 @@ public class LicenseFragment extends Fragment {
 
         ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/Roboto-Medium.ttf");
-
         // Allow strings to use HTML and hyperlinks
-        mSupportLib.setTypeface(tf);
+        mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
+
+        mSupportLib.setTypeface(mediumFont);
         mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());
         mSupportLib.setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
 
-        mMaterialDialog.setTypeface(tf);
+        mMaterialDialog.setTypeface(mediumFont);
         mMaterialDialog.setMovementMethod(LinkMovementMethod.getInstance());
         mMaterialDialog.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
 
-        mSnackbar.setTypeface(tf);
+        mSnackbar.setTypeface(mediumFont);
         mSnackbar.setMovementMethod(LinkMovementMethod.getInstance());
         mSnackbar.setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
 
-        mMaterialRipple.setTypeface(tf);
+        mMaterialRipple.setTypeface(mediumFont);
         mMaterialRipple.setMovementMethod(LinkMovementMethod.getInstance());
         mMaterialRipple.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialripple)));
 
-        mButterKnife.setTypeface(tf);
+        mButterKnife.setTypeface(mediumFont);
         mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
         mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
 

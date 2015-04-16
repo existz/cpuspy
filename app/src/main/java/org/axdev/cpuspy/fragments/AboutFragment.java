@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
 import butterknife.ButterKnife;
@@ -53,6 +54,8 @@ public class AboutFragment extends Fragment {
     private final String Urlgithub="https://www.github.com/existz/cpuspy";
     private final String Urldonate="http://goo.gl/X2sA4D";
     private final String Urlxda="http://goo.gl/AusQy8";
+
+    private Typeface mediumFont;
 
     /** Inflate the About layout */
     @Override
@@ -81,13 +84,11 @@ public class AboutFragment extends Fragment {
 
         ((ActionBarActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /** Set text typeface and allow hyperlinks */
-        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/Roboto-Medium.ttf");
+        /** Set typeface and allow hyperlinks */
+        mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
 
-        // Applying Roboto-Medium font
-        mHeaderDeveloper.setTypeface(tf);
-        mHeaderContrib.setTypeface(tf);
+        mHeaderDeveloper.setTypeface(mediumFont);
+        mHeaderContrib.setTypeface(mediumFont);
 
         // Allow strings to use hyperlinks
         mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());

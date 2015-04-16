@@ -64,6 +64,7 @@ import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.ThemeUtils;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.R;
 
@@ -113,6 +114,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_cpu_freq1) TextView mCore1;
     @InjectView(R.id.ui_cpu_freq2) TextView mCore2;
     @InjectView(R.id.ui_cpu_freq3) TextView mCore3;
+
+    private Typeface mediumFont;
 
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
@@ -509,18 +512,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
-        // Loading Font Face
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
 
         TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
         TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
 
         // Apply roboto medium typeface
-        mWelcomeSummary.setTypeface(tf);
-        mWelcomeFeatures.setTypeface(tf);
-        mAdditionalStatesShow.setTypeface(tf);
-        mAdditionalStatesHide.setTypeface(tf);
-        mHeaderTotalStateTime.setTypeface(tf);
+        mWelcomeSummary.setTypeface(mediumFont);
+        mWelcomeFeatures.setTypeface(mediumFont);
+        mAdditionalStatesShow.setTypeface(mediumFont);
+        mAdditionalStatesHide.setTypeface(mediumFont);
+        mHeaderTotalStateTime.setTypeface(mediumFont);
     }
 
     /** called when we want to inflate the menu */
