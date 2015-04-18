@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
@@ -687,7 +688,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mDurText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
             mPerText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mBar.setProgressDrawable(getResources().getDrawable(R.drawable.progess_drawable_dark));
+            mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.progess_drawable_dark, null));
         } else {
             mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color));
             mDurText.setTextColor(getResources().getColor(R.color.primary_text_color));
