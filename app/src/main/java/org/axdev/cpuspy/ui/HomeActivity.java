@@ -197,6 +197,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
 
     @Override public void onStart () {
         super.onStart();
+        checkView();
         checkAutoRefresh();
         startCoreMonitor();
     }
@@ -255,7 +256,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             mIsCharged = percent >= 97 && isCharging;
 
             if (sp.getBoolean("autoReset", true) || mIsCharged) {
-                if (!mAutoRefresh) { updateView(); }
+                if (!mAutoRefresh) { checkView(); }
             }
         }
     };
@@ -275,6 +276,42 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
             Editor editor = sp.edit();
             editor.putInt(VERSION_KEY, currentVersionNumber);
             editor.commit();
+        }
+    }
+
+    private void checkView() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
+        final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+
+        // Reset timers and show info when battery is charged
+        if (sp.getBoolean("autoReset", true) && mIsCharged) {
+            mStatesWarning.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.GONE);
+            mTimeCardView.setVisibility(View.GONE);
+            mWelcomeCardView.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.VISIBLE);
+
+            try {
+                _app.getCpuStateMonitor().setOffsets();
+            } catch (CpuStateMonitorException e) {
+                // TODO: something
+            }
+            _app.saveOffsets();
+        } else {
+            mStatesWarning.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.VISIBLE);
+            mTimeCardView.setVisibility(View.VISIBLE);
+        }
+
+        // show warning label if no states found
+        if (timeInState.length() == 0) {
+            mStatesWarning.setVisibility(View.VISIBLE);
+            mTimeCardView.setVisibility(View.GONE);
+            mWelcomeCardView.setVisibility(View.GONE);
+            mStatesCardView.setVisibility(View.GONE);
+            mChargedView.setVisibility(View.GONE);
         }
     }
 
@@ -556,8 +593,6 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-
         final CpuStateMonitor monitor = _app.getCpuStateMonitor();
         mStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
@@ -591,41 +626,11 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         } else {
             mAdditionalStates.setText("Empty");
         }
-
-
-        /** Reset timers and show info when battery is charged */
-        if (sp.getBoolean("autoReset", true) && mIsCharged) {
-            mStatesWarning.setVisibility(View.GONE);
-            mStatesCardView.setVisibility(View.GONE);
-            mTimeCardView.setVisibility(View.GONE);
-            mWelcomeCardView.setVisibility(View.GONE);
-            mChargedView.setVisibility(View.VISIBLE);
-
-            try {
-                _app.getCpuStateMonitor().setOffsets();
-            } catch (CpuStateMonitorException e) {
-                // TODO: something
-            }
-            _app.saveOffsets();
-        } else {
-            mStatesWarning.setVisibility(View.GONE);
-            mChargedView.setVisibility(View.GONE);
-            mStatesCardView.setVisibility(View.VISIBLE);
-            mTimeCardView.setVisibility(View.VISIBLE);
-        }
-
-        /** show warning label if no states found */
-        if (monitor.getStates().size() == 0) {
-            mStatesWarning.setVisibility(View.VISIBLE);
-            mTimeCardView.setVisibility(View.GONE);
-            mWelcomeCardView.setVisibility(View.GONE);
-            mStatesCardView.setVisibility(View.GONE);
-            mChargedView.setVisibility(View.GONE);
-        }
     }
 
     /** Attempt to update the time-in-state info */
     private void refreshData() {
+        checkView();
         new RefreshStateDataTask().execute((Void) null);
     }
 
