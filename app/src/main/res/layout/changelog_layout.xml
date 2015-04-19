@@ -5,6 +5,21 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/changelog_notes_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/changelog_notes_header"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/changelog_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/changelog_notes"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/changelog_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
