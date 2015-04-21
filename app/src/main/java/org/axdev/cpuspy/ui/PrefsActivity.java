@@ -13,7 +13,8 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
@@ -31,7 +32,7 @@ import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
 
-public class PrefsActivity extends ActionBarActivity {
+public class PrefsActivity extends AppCompatActivity {
 
     /** Whether or not the theme has changed */
     public static boolean mThemeChanged = false;
@@ -94,7 +95,7 @@ public class PrefsActivity extends ActionBarActivity {
                 }
             });
 
-            if (Build.VERSION.SDK_INT >= 21) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final CheckBoxPreference coloredNavBar = (CheckBoxPreference) getPreferenceManager().findPreference("coloredNavBar");
 
                 coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -112,36 +113,40 @@ public class PrefsActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onResume() {
-            super.onResume();
+        public void onStart() {
+            super.onStart();
+
             // Use custom Typeface for action bar title on KitKat devices
-            if (Build.VERSION.SDK_INT == 19) {
+            final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (supportActionBar != null) {
+                    supportActionBar.setTitle(R.string.settings);
+                    supportActionBar.setElevation(getResources().getDimension(R.dimen.ab_elevation));
+                }
+            } else {
                 final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Update the action bar title with the TypefaceSpan instance
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s);
-            } else {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.settings);
-
-                int mToolbarElevation = (int) getResources().getDimension(R.dimen.toolbar_elevation);
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(mToolbarElevation);
+                if (supportActionBar != null) {
+                    supportActionBar.setTitle(s);
+                }
             }
+            if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
         }
 
     } /** End PrefsFragment **/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ThemeUtils.onActivityCreateSetNavBar(this);
         }
         ThemeUtils.onActivityCreateSetTheme(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getFragmentManager().beginTransaction().add(R.id.content_wrapper, new PrefsFragment()).commit();
     }
 

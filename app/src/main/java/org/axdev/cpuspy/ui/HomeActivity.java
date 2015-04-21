@@ -26,8 +26,9 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
@@ -80,7 +81,7 @@ import butterknife.Optional;
 import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
-public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
+public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
     public static final String TAG = "CpuSpy";
 
@@ -130,7 +131,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
     {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ThemeUtils.onActivityCreateSetNavBar(this);
         }
         ThemeUtils.onActivityCreateSetTheme(this);
@@ -155,16 +156,22 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         if (!welcomeScreenShown) { removeWelcomeCard(); }
 
         // Use custom Typeface for action bar title on KitKat devices
-        if (Build.VERSION.SDK_INT == 19) {
+        Toolbar cpuToolbar = (Toolbar) findViewById(R.id.cpu_core_toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (getSupportActionBar() != null && cpuToolbar != null) {
+                getSupportActionBar().setTitle(R.string.app_name_long);
+                getSupportActionBar().setElevation(0);
+                cpuToolbar.setElevation(getResources().getDimension(R.dimen.ab_elevation));
+            }
+        } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
             s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
-            getSupportActionBar().setTitle(s);
-        } else {
-            getSupportActionBar().setTitle(R.string.app_name_long);
-            getSupportActionBar().setElevation(0);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(s);
+            }
         }
 
         // Set UI elements for dark and light themes
@@ -178,7 +185,7 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 R.color.drawable_color_dark : R.color.drawable_color_light));
         mInfoButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.drawable_color_dark : R.color.drawable_color_light));
-        if (Build.VERSION.SDK_INT == 19) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
         }

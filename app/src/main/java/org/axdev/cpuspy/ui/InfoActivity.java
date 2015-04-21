@@ -6,12 +6,10 @@
 
 package org.axdev.cpuspy.ui;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -35,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
 
-public class InfoActivity extends ActionBarActivity implements OnClickListener {
+public class InfoActivity extends AppCompatActivity implements OnClickListener {
 
     @InjectView(R.id.card_view_kernel) CardView mKernelCardView;
     @InjectView(R.id.card_view_device) CardView mDeviceCardView;
@@ -74,7 +72,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ThemeUtils.onActivityCreateSetNavBar(this);
         }
         ThemeUtils.onActivityCreateSetTheme(this);
@@ -84,19 +82,24 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         ButterKnife.inject(this);
         setTextViews();
 
+        if (getSupportActionBar() != null) { getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
+
         // Use custom Typeface for action bar title on KitKat devices
-        if (Build.VERSION.SDK_INT == 19) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(R.string.information);
+                getSupportActionBar().setElevation(getResources().getDimension(R.dimen.ab_elevation));
+            }
+        } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.information));
             s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
-            getSupportActionBar().setTitle(s);
-        } else {
-            getSupportActionBar().setTitle(R.string.information);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(s);
+            }
         }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set UI elements for dark and light themes
         mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
@@ -105,7 +108,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
                 R.color.card_dark_background : R.color.card_light_background));
         mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
-        if (Build.VERSION.SDK_INT == 19) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
         }

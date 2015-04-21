@@ -7,12 +7,11 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.Spannable;
@@ -56,19 +55,24 @@ public class LicenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
+
         // Use custom Typeface for action bar title on KitKat devices
-        if (Build.VERSION.SDK_INT == 19) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (supportActionBar != null) {
+                supportActionBar.setTitle(R.string.pref_title_license);
+            }
+        } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
             s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s);
-        } else {
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_title_license);
+            if (supportActionBar != null) {
+                supportActionBar.setTitle(s);
+            }
         }
-
-        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Allow strings to use HTML and hyperlinks
         final Typeface mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");

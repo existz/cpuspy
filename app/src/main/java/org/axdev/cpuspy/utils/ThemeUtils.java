@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import org.axdev.cpuspy.R;
 
-public class ThemeUtils extends ActionBarActivity {
+public class ThemeUtils extends AppCompatActivity {
 
     public final static int NAVBAR_DEFAULT = 0;
     public final static int NAVBAR_COLORED = 1;

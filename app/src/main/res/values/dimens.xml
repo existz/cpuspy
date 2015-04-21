@@ -18,6 +18,6 @@
 */
 -->
 <resources>
-    <!-- Toolbar shadow -->
-    <dimen name="toolbar_elevation">8dp</dimen>
+    <!-- ActionBar shadow -->
+    <dimen name="ab_elevation">4dp</dimen>
 </resources>
