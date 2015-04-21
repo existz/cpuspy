@@ -80,10 +80,7 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
         ThemeUtils.onActivityCreateSetTheme(this);
 
         super.onCreate(savedInstanceState);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-
         setContentView(R.layout.info_layout);
-
         ButterKnife.inject(this);
         setTextViews();
 
@@ -101,15 +98,19 @@ public class InfoActivity extends ActionBarActivity implements OnClickListener {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (sp.getBoolean("darkTheme", true)) {
-            mKernelCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mDeviceCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCpuCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            if (Build.VERSION.SDK_INT == 19) {
-                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
-            }
+        // Set UI elements for dark and light themes
+        mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mDeviceCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        if (Build.VERSION.SDK_INT == 19) {
+            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                    R.color.ripple_material_dark : R.color.ripple_material_light));
         }
 
+        // Set onClickListener for kernel cardview
         mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
         mKernelCardView.setOnClickListener(this);
     }

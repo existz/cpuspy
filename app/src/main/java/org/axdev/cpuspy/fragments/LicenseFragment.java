@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
@@ -92,15 +93,17 @@ public class LicenseFragment extends Fragment {
         mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
         mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
 
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        if (sp.getBoolean("darkTheme", true)) {
-            mCardViewSupport.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCardViewButter.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCardViewDialog.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCardViewRipple.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-        }
+        // Set UI elements for dark and light themes
+        mCardViewSupport.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCardViewButter.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCardViewDialog.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCardViewRipple.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
     }
 
     @Override public void onDestroyView() {

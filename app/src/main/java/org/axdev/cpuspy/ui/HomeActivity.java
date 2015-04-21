@@ -169,15 +169,19 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         }
 
         // Set UI elements for dark and light themes
-        if (sp.getBoolean("darkTheme", true)) {
-            mStatesCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mTimeCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            mAdditionalLayout.setBackgroundColor(getResources().getColor(R.color.layout_dark_background));
-            mShowImage.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-            mInfoButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-            if (Build.VERSION.SDK_INT == 19) {
-                mMaterialRippleLayout.setRippleColor(getResources().getColor(R.color.ripple_material_dark));
-            }
+        mStatesCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mTimeCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mAdditionalLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.layout_dark_background : R.color.layout_light_background));
+        mShowImage.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.drawable_color_dark : R.color.drawable_color_light));
+        mInfoButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.drawable_color_dark : R.color.drawable_color_light));
+        if (Build.VERSION.SDK_INT == 19) {
+            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                    R.color.ripple_material_dark : R.color.ripple_material_light));
         }
 
         // Set colors and listener for SwipeRefreshLayout
@@ -687,17 +691,17 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 R.id.ui_percentage_text);
         final ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        // Set UI elements for dark and light themes
+        mFreqText.setTextColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.primary_text_color_dark : R.color.primary_text_color));
+        mDurText.setTextColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.primary_text_color_dark : R.color.primary_text_color));
+        mPerText.setTextColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.primary_text_color_dark : R.color.primary_text_color));
 
-        if (sp.getBoolean("darkTheme", true)) {
-            mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mDurText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mPerText.setTextColor(getResources().getColor(R.color.primary_text_color_dark));
-            mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.progess_drawable_dark, null));
-        } else {
-            mFreqText.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mDurText.setTextColor(getResources().getColor(R.color.primary_text_color));
-            mPerText.setTextColor(getResources().getColor(R.color.primary_text_color));
+        if (ThemeUtils.DARKTHEME) {
+            mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.progess_drawable_dark, null));
         }
 
         // modify the row

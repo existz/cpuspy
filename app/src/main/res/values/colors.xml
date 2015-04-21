@@ -12,4 +12,5 @@
     <color name="card_dark_background">#313131</color>
     <color name="card_light_background">#fafafa</color>
     <color name="drawable_color_dark">@color/primary_text_color_dark</color>
+    <color name="drawable_color_light">@color/primary_text_color</color>
 </resources>

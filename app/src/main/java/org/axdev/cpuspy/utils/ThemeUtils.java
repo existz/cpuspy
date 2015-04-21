@@ -18,6 +18,7 @@ public class ThemeUtils extends ActionBarActivity {
 
     public final static int LIGHT = 0;
     public final static int DARK = 1;
+    public static boolean DARKTHEME = false;
 
     public static void changeToTheme(Activity activity, int mTheme) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -45,7 +46,6 @@ public class ThemeUtils extends ActionBarActivity {
 
     public static void onActivityCreateSetTheme(Activity activity) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        Editor editor = sp.edit();
 
         int mTheme = sp.getInt("theme", 0);
 
@@ -53,13 +53,11 @@ public class ThemeUtils extends ActionBarActivity {
             default:
             case LIGHT:
                 activity.setTheme(R.style.AppTheme);
-                editor.putBoolean("darkTheme", false);
-                editor.commit();
+                DARKTHEME = false;
                 break;
             case DARK:
                 activity.setTheme(R.style.AppThemeDark);
-                editor.putBoolean("darkTheme", true);
-                editor.commit();
+                DARKTHEME = true;
                 break;
         }
     }

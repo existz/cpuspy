@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
@@ -90,14 +91,15 @@ public class AboutFragment extends Fragment {
         mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
         mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
 
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        if (sp.getBoolean("darkTheme", true)) {
-            mAboutCardView.setCardBackgroundColor(getResources().getColor(R.color.card_dark_background));
-            githubButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-            paypalButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-            xdaButton.setColorFilter(getResources().getColor(R.color.drawable_color_dark));
-        }
+        // Set UI elements for dark and light themes
+        mAboutCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        githubButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.drawable_color_dark : R.color.drawable_color_light));
+        paypalButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.drawable_color_dark : R.color.drawable_color_light));
+        xdaButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.drawable_color_dark : R.color.drawable_color_light));
 
         /** Set OnClickListener for buttons */
         githubButton.setOnClickListener(new OnClickListener() {
