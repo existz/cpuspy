@@ -149,11 +149,10 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         setTypeface();
 
         // second argument is the default to use if the preference can't be found
-        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, false);
+        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
 
-        if (!welcomeScreenShown) {
-            mWelcomeCardView.setVisibility(View.VISIBLE);
-        }
+        // Remove welcome cardview if its already been shown
+        if (!welcomeScreenShown) { removeWelcomeCard(); }
 
         // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT == 19) {
@@ -345,11 +344,19 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
         mTimeCardView.startAnimation(slideUp);
     }
 
+    /** Remove welcome cardview after first launch */
+    private void removeWelcomeCard() {
+        final ViewGroup mViewGroup = (ViewGroup) mWelcomeCardView.getParent();
+        if (mViewGroup != null) {
+            mViewGroup.removeView(mWelcomeCardView);
+        }
+    }
+
     /** Global On click listener for all views */
     @Override
     public void onClick(View v) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        Editor editor = sp.edit();
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        final Editor editor = sp.edit();
 
         switch (v.getId()) {
             case R.id.btn_info:
@@ -357,11 +364,8 @@ public class HomeActivity extends ActionBarActivity implements SwipeRefreshLayou
                 startActivity(intent);
                 break;
             case R.id.btn_welcome:
-                // setVisibility to GONE before removing to allow animations
-                mWelcomeCardView.setVisibility(View.GONE);
-                mWelcomeCardView.removeAllViews();
-
-                editor.putBoolean(WELCOME_SCREEN, true);
+                removeWelcomeCard();
+                editor.putBoolean(WELCOME_SCREEN, false);
                 editor.commit();
                 break;
             case R.id.card_view_states:

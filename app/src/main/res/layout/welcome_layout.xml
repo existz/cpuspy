@@ -11,8 +11,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         card_view:cardCornerRadius="3dp"
-        card_view:cardBackgroundColor="@color/primary"
-        android:visibility="gone">
+        card_view:cardBackgroundColor="@color/primary">
 
         <LinearLayout
             android:id="@+id/welcome"
