@@ -75,7 +75,7 @@ public class LicenseFragment extends Fragment {
         }
 
         // Allow strings to use HTML and hyperlinks
-        final Typeface mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
 
         mSupportLib.setTypeface(mediumFont);
         mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());

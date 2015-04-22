@@ -542,7 +542,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(this, "Roboto-Medium");
 
         final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
         final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);

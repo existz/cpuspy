@@ -85,7 +85,7 @@ public class AboutFragment extends Fragment {
         }
 
         /** Set typeface and allow hyperlinks */
-        final Typeface mediumFont = TypefaceHelper.get(getActivity().getApplicationContext(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
 
         mHeaderDeveloper.setTypeface(mediumFont);
         mHeaderContrib.setTypeface(mediumFont);
