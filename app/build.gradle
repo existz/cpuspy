@@ -1,14 +1,15 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:+'
     }
 }
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -32,7 +33,6 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            shrinkResources true
             zipAlignEnabled true
             proguardFile 'proguard-android.txt'
         }
@@ -41,13 +41,16 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.afollestad:material-dialogs:0.7.2.3'
-    compile 'com.nispok:snackbar:2.10.6'
-    compile 'com.android.support:cardview-v7:22.1.0'
-    compile 'com.android.support:appcompat-v7:22.1.0'
-    compile 'com.android.support:support-v4:22.1.0'
+    compile 'com.android.support:support-v4:22.1.0@aar'
+    compile 'com.android.support:cardview-v7:22.1.0@aar'
+    compile 'com.android.support:appcompat-v7:22.1.0@aar'
+    compile 'com.android.support:recyclerview-v7:22.1.0@aar'
+    compile 'com.android.support:support-annotations:22.1.0@jar'
+
+    compile 'com.afollestad:material-dialogs:0.7.3.1'
     compile 'com.balysv:material-ripple:1.0.1'
     compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.nispok:snackbar:2.10.7'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }
