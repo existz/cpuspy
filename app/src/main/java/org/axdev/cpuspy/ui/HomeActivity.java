@@ -34,7 +34,6 @@ import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,13 +82,14 @@ import io.fabric.sdk.android.Fabric;
 /** main activity class */
 public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
-    public static final String TAG = "CpuSpy";
-
+    private final String TAG = "CpuSpy";
     private final String WELCOME_SCREEN = "welcomeScreenShown";
 
     private final Handler mHandler = new Handler();
 
     private CpuSpyApp _app = null;
+    private Editor editor;
+    private SharedPreferences sp;
 
     // main ui views
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
@@ -138,21 +138,22 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sp.edit();
 
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.home_layout);
         _app = (CpuSpyApp)getApplicationContext();
         ButterKnife.inject(this);
-        checkVersion();
-        cardViewAnimation();
-        setTypeface();
+        this.checkVersion();
+        this.cardViewAnimation();
+        this.setTypeface();
 
         // second argument is the default to use if the preference can't be found
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
 
         // Remove welcome cardview if its already been shown
-        if (!welcomeScreenShown) { removeWelcomeCard(); }
+        if (!welcomeScreenShown) { this.removeWelcomeCard(); }
 
         // Use custom Typeface for action bar title on KitKat devices
         final Toolbar cpuToolbar = (Toolbar) findViewById(R.id.cpu_core_toolbar);
@@ -206,9 +207,9 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override public void onStart () {
         super.onStart();
-        checkView();
-        checkAutoRefresh();
-        startCoreMonitor();
+        this.checkView();
+        this.checkAutoRefresh();
+        this.startCoreMonitor();
     }
 
     /** Disable handler when activity loses focus */
@@ -220,8 +221,6 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** Update the view when the application regains focus */
     @Override public void onResume () {
         super.onResume();
-
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Recreate activity if navigation bar or theme changes
         if (PrefsActivity.mThemeChanged) {
@@ -272,7 +271,6 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Show WhatsNewDialog if versionCode has changed */
     private void checkVersion() {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         final String VERSION_KEY = "version_number";
         int currentVersionNumber = 0;
         int savedVersionNumber = sp.getInt(VERSION_KEY, 0);
@@ -282,16 +280,13 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         } catch (Exception ignored) {}
 
         if (currentVersionNumber > savedVersionNumber) {
-            showWhatsNewDialog();
-            Editor editor = sp.edit();
+            this.showWhatsNewDialog();
             editor.putInt(VERSION_KEY, currentVersionNumber);
             editor.commit();
         }
     }
 
     private void checkView() {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-
         final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 
         // Reset timers and show info when battery is charged
@@ -332,7 +327,6 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Check to see if autoRefresh is enabled or not **/
     private void checkAutoRefresh() {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         if (sp.getBoolean("autoRefresh", true)) {
             mAutoRefresh = true;
@@ -362,16 +356,12 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** Global On click listener for all views */
     @Override
     public void onClick(View v) {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        final Editor editor = sp.edit();
-
         switch (v.getId()) {
             case R.id.btn_info:
-                final Intent intent = new Intent(this, InfoActivity.class);
-                startActivity(intent);
+                this.startActivity(new Intent(this, InfoActivity.class));
                 break;
             case R.id.btn_welcome:
-                removeWelcomeCard();
+                this.removeWelcomeCard();
                 editor.putBoolean(WELCOME_SCREEN, false);
                 editor.commit();
                 break;
@@ -557,9 +547,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** called when we want to inflate the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_menu, menu);
-        inflater.inflate(R.menu.prefs_menu, menu);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        getMenuInflater().inflate(R.menu.prefs_menu, menu);
 
         // made it
         return true;
@@ -577,7 +566,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                     // TODO: something
                 }
                 _app.saveOffsets();
-                updateView();
+                this.updateView();
                 SnackbarManager.show(Snackbar.with(this)
                         .text(R.string.snackbar_text_reset) // text to display
                         .actionLabel(R.string.action_dismiss) // action button label
@@ -587,15 +576,14 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             case R.id.menu_restore:
                 _app.getCpuStateMonitor().removeOffsets();
                 _app.saveOffsets();
-                updateView();
+                this.updateView();
                 SnackbarManager.show(Snackbar.with(this)
                         .text(R.string.snackbar_text_restore) // text to display
                         .actionLabel(R.string.action_dismiss) // action button label
                         .actionColor(Color.parseColor("#f4b400")));
                 break;
             case R.id.menu_settings:
-                final Intent intent = new Intent(this, PrefsActivity.class);
-                startActivity(intent);
+                this.startActivity(new Intent(this, PrefsActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -644,7 +632,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Attempt to update the time-in-state info */
     private void refreshData() {
-        checkView();
+        this.checkView();
         new RefreshStateDataTask().execute((Void) null);
     }
 

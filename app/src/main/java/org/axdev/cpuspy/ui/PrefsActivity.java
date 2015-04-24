@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.nispok.snackbar.Snackbar;
@@ -160,14 +159,13 @@ public class PrefsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        checkBackStack();
+        this.checkBackStack();
     }
 
-    /** called when we want to infalte the menu */
+    /** called when we want to inflate the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.settings_menu, menu);
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
 
         // made it
         return true;
@@ -189,7 +187,7 @@ public class PrefsActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case android.R.id.home:
-                checkBackStack();
+                this.checkBackStack();
                 return true;
         }
         return super.onOptionsItemSelected(item);

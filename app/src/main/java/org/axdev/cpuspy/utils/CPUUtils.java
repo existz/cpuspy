@@ -23,7 +23,8 @@ public class CPUUtils {
     public static final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     public static final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
-    private static final String TAG = "CPUSpyInfo";
+    private static final String TAG = "CPUSpy";
+    private static final String TAG_INFO = "CPUSpy";
 
     private static String mArch;
     private static String mFeatures;
@@ -50,7 +51,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(HomeActivity.TAG, "Unable to read CPU0");
+            Log.e(TAG, "Unable to read CPU0");
         }
 
         final int i = Integer.parseInt(mFreq0) / 1000;
@@ -74,7 +75,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(HomeActivity.TAG, "Unable to read CPU1");
+            Log.e(TAG, "Unable to read CPU1");
         }
 
         final int i = Integer.parseInt(mFreq1) / 1000;
@@ -98,7 +99,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(HomeActivity.TAG, "Unable to read CPU2");
+            Log.e(TAG, "Unable to read CPU2");
         }
 
         // made it
@@ -123,7 +124,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(HomeActivity.TAG, "Unable to read CPU3");
+            Log.e(TAG, "Unable to read CPU3");
         }
 
         final int i = Integer.parseInt(mFreq3) / 1000;
@@ -148,7 +149,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read cpu governor");
+            Log.e(TAG_INFO, "Unable to read cpu governor");
         }
 
         return mGovernor;
@@ -170,7 +171,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read min cpu frequency");
+            Log.e(TAG_INFO, "Unable to read min cpu frequency");
         }
 
         final int i = Integer.parseInt(mMinFreq) / 1000;
@@ -195,7 +196,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read max cpu frequency");
+            Log.e(TAG_INFO, "Unable to read max cpu frequency");
         }
 
         final int i = Integer.parseInt(mMaxFreq) / 1000;
@@ -220,7 +221,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read cpu features");
+            Log.e(TAG_INFO, "Unable to read cpu features");
         }
 
         return mFeatures;
@@ -241,7 +242,7 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read cpu architecture");
+            Log.e(TAG_INFO, "Unable to read cpu architecture");
         }
 
         return mArch;
@@ -275,7 +276,7 @@ public class CPUUtils {
             br.close();
         }
         catch (IOException ex) {
-            Log.e(TAG, "Unable to read sysprop " + propName, ex);
+            Log.e(TAG_INFO, "Unable to read sysprop " + propName, ex);
             return null;
         }
         finally {
@@ -284,7 +285,7 @@ public class CPUUtils {
                     br.close();
                 }
                 catch (IOException e) {
-                    Log.e(TAG, "Exception while closing InputStream", e);
+                    Log.e(TAG_INFO, "Exception while closing InputStream", e);
                 }
             }
         }

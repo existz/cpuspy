@@ -34,6 +34,7 @@ public class CpuSpyApp extends Application {
     private static final String PREF_OFFSETS = "offsets";
 
     private String _kernelVersion;
+    private SharedPreferences sp;
 
     /** the long-living object used to monitor the system frequency states */
     private final CpuStateMonitor _monitor = new CpuStateMonitor();
@@ -43,7 +44,7 @@ public class CpuSpyApp extends Application {
      * current kernel version string
      */
     @Override public void onCreate() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Initialize and start automatic crash reporting
         if(sp.getBoolean("crashReport", true)) {
@@ -69,7 +70,6 @@ public class CpuSpyApp extends Application {
      * the state monitor
      */
     private void loadOffsets() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String prefs = sp.getString (PREF_OFFSETS, "");
 
         if (prefs == null || prefs.length() < 1) {
@@ -93,7 +93,6 @@ public class CpuSpyApp extends Application {
      * e.g. "100 24, 200 251, 500 124 etc
      */
     public void saveOffsets() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         Editor editor = sp.edit();
 
         // build the string by iterating over the freq->duration map

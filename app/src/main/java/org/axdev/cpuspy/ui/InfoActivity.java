@@ -80,7 +80,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
         ButterKnife.inject(this);
-        setTextViews();
+        this.setTextViews();
 
         if (getSupportActionBar() != null) { getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
 
@@ -176,7 +176,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
