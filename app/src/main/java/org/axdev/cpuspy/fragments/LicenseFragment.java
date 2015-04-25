@@ -55,7 +55,7 @@ public class LicenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
 
         // Use custom Typeface for action bar title on KitKat devices

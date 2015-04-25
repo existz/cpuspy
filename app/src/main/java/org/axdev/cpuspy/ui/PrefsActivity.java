@@ -166,7 +166,7 @@ public class PrefsActivity extends AppCompatActivity {
     /** called when we want to infalte the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
-        MenuInflater inflater = getMenuInflater();
+        final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_menu, menu);
 
         // made it

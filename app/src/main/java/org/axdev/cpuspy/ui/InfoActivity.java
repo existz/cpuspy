@@ -163,7 +163,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         switch (v.getId()) {
             case R.id.card_view_kernel:
                 final CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
-                MaterialDialog dialog = new MaterialDialog.Builder(this)
+                final MaterialDialog dialog = new MaterialDialog.Builder(this)
                         .content(_app.getKernelVersion())
                         .build();
 

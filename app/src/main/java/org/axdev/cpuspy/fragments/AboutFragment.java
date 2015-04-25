@@ -64,7 +64,7 @@ public class AboutFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
 
         // Use custom Typeface for action bar title on KitKat devices
@@ -109,7 +109,7 @@ public class AboutFragment extends Fragment {
         githubButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(Urlgithub));
                 startActivity(i);
             }
@@ -118,7 +118,7 @@ public class AboutFragment extends Fragment {
         paypalButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(Urldonate));
                 startActivity(i);
             }
@@ -127,7 +127,7 @@ public class AboutFragment extends Fragment {
         xdaButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(Urlxda));
                 startActivity(i);
             }

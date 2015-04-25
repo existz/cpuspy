@@ -21,8 +21,8 @@ public class ThemeUtils extends AppCompatActivity {
     public static boolean DARKTHEME = false;
 
     public static void changeToTheme(Activity activity, int mTheme) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        Editor editor = sp.edit();
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        final Editor editor = sp.edit();
 
         editor.putInt("theme", mTheme);
         editor.commit();
@@ -33,8 +33,8 @@ public class ThemeUtils extends AppCompatActivity {
     }
 
     public static void changeNavBar(Activity activity, int mNavBar) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        Editor editor = sp.edit();
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        final Editor editor = sp.edit();
 
         editor.putInt("navbar", mNavBar);
         editor.commit();
@@ -45,7 +45,7 @@ public class ThemeUtils extends AppCompatActivity {
     }
 
     public static void onActivityCreateSetTheme(Activity activity) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
 
         int mTheme = sp.getInt("theme", 0);
 
@@ -64,7 +64,7 @@ public class ThemeUtils extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void onActivityCreateSetNavBar(Activity activity) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
 
         int mNavBar = sp.getInt("navbar", 0);
 
