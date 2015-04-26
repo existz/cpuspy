@@ -43,6 +43,7 @@
     <string name="information_cpu_arch_header">Architecture:</string>
     <string name="information_cpu_freq_header">Frequency:</string>
     <string name="information_cpu_core_header">Cores:</string>
+    <string name="information_cpu_temp_header">Temp:</string>
     <string name="information_cpu_features_header">Features:</string>
 
     <!-- Welcome info -->

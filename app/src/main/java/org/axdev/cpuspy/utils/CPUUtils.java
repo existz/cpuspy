@@ -23,6 +23,10 @@ public class CPUUtils {
     public static final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     public static final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
+    private static String TEMP_FILE;
+    private static final String CPU_TEMP_ZONE0 = "/sys/class/thermal/thermal_zone0/temp";
+    private static final String CPU_TEMP_ZONE1 = "/sys/class/thermal/thermal_zone1/temp";
+
     private static final String TAG = "CPUSpy";
     private static final String TAG_INFO = "CPUSpy";
 
@@ -35,6 +39,7 @@ public class CPUUtils {
     private static String mFreq1;
     private static String mFreq2;
     private static String mFreq3;
+    private static String mTemp;
 
     /** Get the current frequency for CPU0 */
     private static String setCpu0() {
@@ -260,6 +265,42 @@ public class CPUUtils {
         return temp[1].trim();
     }
 
+    /** Retrieves the current CPU temperature */
+    private static String setTemp() {
+        try {
+            final File temp = new File(TEMP_FILE);
+            if (temp.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(temp));
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    mTemp = line;
+                }
+
+                br.close();
+            }
+        } catch (IOException e) {
+            Log.e(TAG_INFO, "Unable to read cpu temperature");
+        }
+
+        long temp = Long.parseLong(mTemp);
+        if (temp > 1000) temp /= 1000;
+        else if (temp > 200) temp /= 10;
+        return ((double) temp) + "°C";
+    }
+
+    public static boolean hasTemp() {
+        final File temp0 = new File(CPU_TEMP_ZONE0);
+        final File temp1 = new File(CPU_TEMP_ZONE1);
+
+        if (temp0.exists()) {
+            TEMP_FILE = CPU_TEMP_ZONE1;
+        } else if (temp1.exists()) {
+            TEMP_FILE = CPU_TEMP_ZONE0;
+        }
+        return TEMP_FILE != null;
+    }
+
     /**
      * Returns a SystemProperty
      *
@@ -330,6 +371,11 @@ public class CPUUtils {
     /** @return CPU architecture string */
     public static String getArch() {
         return setArch();
+    }
+
+    /** @return CPU temperature string */
+    public static String getTemp() {
+        return setTemp();
     }
 
     /** @return Number of CPU cores */

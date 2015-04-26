@@ -9,10 +9,12 @@ package org.axdev.cpuspy.ui;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +54,8 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @InjectView(R.id.cpu_core) TextView mCpuCore;
     @InjectView(R.id.cpu_freq_header) TextView mCpuFreqHeader;
     @InjectView(R.id.cpu_freq) TextView mCpuFreq;
+    @InjectView(R.id.cpu_temp_header) TextView mCpuTempHeader;
+    @InjectView(R.id.cpu_temp) TextView mCpuTemp;
     @InjectView(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
     @InjectView(R.id.cpu_features) TextView mCpuFeatures;
     @InjectView(R.id.device_header) TextView mDeviceInfo;
@@ -69,6 +73,8 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
     @Optional @InjectView(R.id.ripple_info) MaterialRippleLayout mMaterialRippleLayout;
+
+    private final Handler mHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,6 +162,15 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDeviceModelHeader.setTypeface(mediumFont);
         mDeviceBoardHeader.setTypeface(mediumFont);
         mDevicePlatformHeader.setTypeface(mediumFont);
+
+        // Check if we should monitor cpu temp
+        if (CPUUtils.hasTemp()) {
+            mHandler.post(monitorTemp);
+            mCpuTempHeader.setTypeface(mediumFont);
+        } else {
+            mCpuTempHeader.setVisibility(View.GONE);
+            mCpuTemp.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -173,6 +188,17 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    /** Monitor CPU temperature */
+    private final Runnable monitorTemp = new Runnable() {
+        public void run() {
+            try {
+                String s = CPUUtils.getTemp();
+                mCpuTemp.setText(s);
+            } catch (NumberFormatException ignored) {}
+            mHandler.postDelayed(monitorTemp, 1000);
+        }
+    };
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -180,5 +206,11 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

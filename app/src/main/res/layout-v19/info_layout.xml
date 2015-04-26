@@ -333,13 +333,34 @@
                     android:layout_alignStart="@+id/cpu_arch" />
 
                 <TextView
-                    android:id="@+id/cpu_freq_header"
+                    android:id="@+id/cpu_temp_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_below="@+id/cpu_core_header"
+                    android:text="@string/information_cpu_temp_header"
+                    android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                    android:id="@+id/cpu_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:paddingLeft="24dp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_alignTop="@+id/cpu_temp_header"
+                    android:layout_alignStart="@+id/cpu_core" />
+
+                <TextView
+                    android:id="@+id/cpu_freq_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_below="@+id/cpu_temp_header"
                     android:text="@string/information_cpu_freq_header"
                     android:textColor="?android:attr/textColorPrimary"/>
 
@@ -351,7 +372,7 @@
                     android:paddingLeft="24dp"
                     android:textColor="?android:attr/textColorPrimary"
                     android:layout_alignTop="@+id/cpu_freq_header"
-                    android:layout_alignStart="@+id/cpu_core" />
+                    android:layout_alignStart="@+id/cpu_temp" />
 
                 <TextView
                     android:id="@+id/cpu_features_header"
