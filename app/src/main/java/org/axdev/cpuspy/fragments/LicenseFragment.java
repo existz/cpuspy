@@ -54,6 +54,8 @@ public class LicenseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.setTypeface();
+        this.setThemeAttributes();
 
         final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
@@ -73,8 +75,10 @@ public class LicenseFragment extends Fragment {
                 supportActionBar.setTitle(s);
             }
         }
+    }
 
-        // Allow strings to use HTML and hyperlinks
+    /** Set typeface and allow hyperlinks */
+    private void setTypeface() {
         final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
 
         mSupportLib.setTypeface(mediumFont);
@@ -96,8 +100,10 @@ public class LicenseFragment extends Fragment {
         mButterKnife.setTypeface(mediumFont);
         mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
         mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
+    }
 
-        // Set UI elements for dark and light themes
+    /** Set UI elements for dark and light themes */
+    private void setThemeAttributes() {
         mCardViewSupport.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
         mCardViewButter.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?

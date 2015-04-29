@@ -16,8 +16,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
@@ -27,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -153,6 +156,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         this.checkVersion();
         this.cardViewAnimation();
         this.setTypeface();
+        this.setThemeAttributes();
 
         // second argument is the default to use if the preference can't be found
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
@@ -177,22 +181,6 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(s);
             }
-        }
-
-        // Set UI elements for dark and light themes
-        mStatesCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mTimeCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mAdditionalLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.layout_dark_background : R.color.layout_light_background));
-        mShowImage.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.drawable_color_dark : R.color.drawable_color_light));
-        mInfoButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.drawable_color_dark : R.color.drawable_color_light));
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                    R.color.ripple_material_dark : R.color.ripple_material_light));
         }
 
         // Set colors and listener for SwipeRefreshLayout
@@ -389,6 +377,51 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
     }
 
+    /** Apply custom typeface to textviews */
+    private void setTypeface() {
+        final Typeface mediumFont = TypefaceHelper.get(this, "Roboto-Medium");
+        final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
+        final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
+
+        // Apply roboto medium typeface
+        mWelcomeSummary.setTypeface(mediumFont);
+        mWelcomeFeatures.setTypeface(mediumFont);
+        mAdditionalStatesShow.setTypeface(mediumFont);
+        mAdditionalStatesHide.setTypeface(mediumFont);
+        mHeaderTotalStateTime.setTypeface(mediumFont);
+    }
+
+    /** Set UI elements for dark and light themes */
+    private void setThemeAttributes() {
+        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
+        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
+
+        // Set background for cards based on selected theme
+        mStatesCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mTimeCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mAdditionalLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.layout_dark_background : R.color.layout_light_background));
+
+        // Set color for drawables based on selected theme
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mShowImage.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            mInfoButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+        } else {
+            final Drawable showDrawable = DrawableCompat.wrap(mShowImage.getDrawable());
+            mShowImage.setImageDrawable(showDrawable);
+            DrawableCompat.setTintList(showDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+
+            final Drawable infoDrawable = DrawableCompat.wrap(mInfoButton.getDrawable());
+            mInfoButton.setImageDrawable(infoDrawable);
+            DrawableCompat.setTintList(infoDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+
+            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                    R.color.ripple_material_dark : R.color.ripple_material_light));
+        }
+    }
+
     /** Global On click listener for all views */
     @Override
     public void onClick(View v) {
@@ -566,20 +599,6 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         mHandler.post(monitorCpu);
     }
 
-    /** Apply custom typeface to textviews */
-    private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(this, "Roboto-Medium");
-        final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
-        final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
-
-        // Apply roboto medium typeface
-        mWelcomeSummary.setTypeface(mediumFont);
-        mWelcomeFeatures.setTypeface(mediumFont);
-        mAdditionalStatesShow.setTypeface(mediumFont);
-        mAdditionalStatesHide.setTypeface(mediumFont);
-        mHeaderTotalStateTime.setTypeface(mediumFont);
-    }
-
     /** called when we want to inflate the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
@@ -719,10 +738,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // map UI elements to objects
         final TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
-        final TextView mDurText = (TextView)theRow.findViewById(
-                R.id.ui_duration_text);
-        final TextView mPerText = (TextView)theRow.findViewById(
-                R.id.ui_percentage_text);
+        final TextView mDurText = (TextView)theRow.findViewById(R.id.ui_duration_text);
+        final TextView mPerText = (TextView)theRow.findViewById(R.id.ui_percentage_text);
         final ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
 
         // Set UI elements for dark and light themes
@@ -732,11 +749,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
                 R.color.primary_text_color_dark : R.color.primary_text_color));
         mPerText.setTextColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.primary_text_color_dark : R.color.primary_text_color));
-
-        if (ThemeUtils.DARKTHEME) {
-            mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(),
-                    R.drawable.progess_drawable_dark, null));
-        }
+        mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                R.drawable.progess_drawable_dark : R.drawable.progess_drawable, null));
 
         // modify the row
         mFreqText.setText(sFreq);

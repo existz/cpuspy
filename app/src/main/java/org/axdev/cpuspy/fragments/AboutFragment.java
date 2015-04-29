@@ -8,10 +8,13 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -63,6 +66,8 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.setThemeAttributes();
+        this.setTypeface();
 
         final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
@@ -83,27 +88,6 @@ public class AboutFragment extends Fragment {
                 supportActionBar.setTitle(s);
             }
         }
-
-        /** Set typeface and allow hyperlinks */
-        final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
-
-        mHeaderDeveloper.setTypeface(mediumFont);
-        mHeaderContrib.setTypeface(mediumFont);
-
-        // Allow strings to use hyperlinks
-        mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
-        mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
-        mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
-
-        // Set UI elements for dark and light themes
-        mAboutCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        githubButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.drawable_color_dark : R.color.drawable_color_light));
-        paypalButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.drawable_color_dark : R.color.drawable_color_light));
-        xdaButton.setColorFilter(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.drawable_color_dark : R.color.drawable_color_light));
 
         /** Set OnClickListener for buttons */
         githubButton.setOnClickListener(new OnClickListener() {
@@ -157,6 +141,46 @@ public class AboutFragment extends Fragment {
         });
 
         mAboutView.startAnimation(slideDown);
+    }
+
+    /** Set typeface and allow hyperlinks */
+    private void setTypeface() {
+        final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
+
+        mHeaderDeveloper.setTypeface(mediumFont);
+        mHeaderContrib.setTypeface(mediumFont);
+
+        // Allow strings to use hyperlinks
+        mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
+        mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
+        mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    /** Set UI elements for dark and light themes */
+    private void setThemeAttributes() {
+        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
+        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
+
+        mAboutCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            githubButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            paypalButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            xdaButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+        } else {
+            final Drawable githubDrawable = DrawableCompat.wrap(githubButton.getDrawable());
+            githubButton.setImageDrawable(githubDrawable);
+            DrawableCompat.setTintList(githubDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+
+            final Drawable paypalDrawable = DrawableCompat.wrap(paypalButton.getDrawable());
+            paypalButton.setImageDrawable(paypalDrawable);
+            DrawableCompat.setTintList(paypalDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+
+            final Drawable xdaDrawable = DrawableCompat.wrap(xdaButton.getDrawable());
+            xdaButton.setImageDrawable(xdaDrawable);
+            DrawableCompat.setTintList(xdaDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+        }
     }
 
     @Override public void onDestroyView() {
