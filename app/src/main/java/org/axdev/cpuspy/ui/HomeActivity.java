@@ -106,6 +106,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
     @InjectView(R.id.btn_info) ImageButton mInfoButton;
     @InjectView(R.id.img_show) ImageView mShowImage;
+    @InjectView(R.id.ui_main_layout) LinearLayout mMainLayout;
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
@@ -321,6 +322,8 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             mWelcomeCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
+            mMainLayout.setBackgroundColor(getResources().getColor(R.color.charged_background));
+
             try {
                 _app.getCpuStateMonitor().setOffsets();
             } catch (CpuStateMonitorException e) {
@@ -332,6 +335,9 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             mChargedView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
+
+            mMainLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                    R.color.dark_background : R.color.light_background));
         }
 
         // show warning label if no states found
