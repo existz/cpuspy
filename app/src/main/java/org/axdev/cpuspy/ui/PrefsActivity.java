@@ -28,6 +28,7 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.AboutFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
 
@@ -124,7 +125,7 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             } else {
                 final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
-                s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
+                s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Update the action bar title with the TypefaceSpan instance

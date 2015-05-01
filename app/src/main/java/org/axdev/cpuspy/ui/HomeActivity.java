@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
-            s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
+            s.setSpan(new TypefaceSpan(this, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
@@ -385,7 +385,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(this, "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
         final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
         final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
 

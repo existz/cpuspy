@@ -26,6 +26,9 @@ import android.support.v4.util.SimpleArrayMap;
 */
 public class TypefaceHelper {
 
+    // Roboto-Medium font
+    public static final String MEDIUM_FONT = "Roboto-Medium";
+
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 
     public static Typeface get(Context c, String name) {

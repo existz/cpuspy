@@ -67,7 +67,7 @@ public class LicenseFragment extends Fragment {
             }
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
-            s.setSpan(new TypefaceSpan(getActivity(), "Roboto-Medium.ttf"), 0, s.length(),
+            s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
@@ -79,7 +79,7 @@ public class LicenseFragment extends Fragment {
 
     /** Set typeface and allow hyperlinks */
     private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(getActivity(), "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
 
         mSupportLib.setTypeface(mediumFont);
         mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());

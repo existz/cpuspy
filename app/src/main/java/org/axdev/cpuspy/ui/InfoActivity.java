@@ -98,7 +98,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             }
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.information));
-            s.setSpan(new TypefaceSpan(this, "Roboto-Medium.ttf"), 0, s.length(),
+            s.setSpan(new TypefaceSpan(this, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
@@ -132,7 +132,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDevicePlatform.setText(platform);
 
         // Applying Roboto-Medium font
-        final Typeface mediumFont = TypefaceHelper.get(this, "Roboto-Medium");
+        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
 
         mKernelHeader.setTypeface(mediumFont);
         mKernelGovernorHeader.setTypeface(mediumFont);
