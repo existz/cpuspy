@@ -4,7 +4,7 @@
 //
 //-----------------------------------------------------------------------------
 
-package org.axdev.cpuspy.ui;
+package org.axdev.cpuspy.activity;
 
 import android.content.Intent;
 import android.net.Uri;

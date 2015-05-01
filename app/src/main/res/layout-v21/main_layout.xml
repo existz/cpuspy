@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ui_main_layout"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -36,8 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:layout_below="@+id/card_view_welcome"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
                     card_view:cardCornerRadius="0dp"
-                    card_view:cardBackgroundColor="@color/card_light_background"
                     android:visibility="gone">
 
                     <RelativeLayout
@@ -82,54 +82,39 @@
 
                 </android.support.v7.widget.CardView>
 
-                <com.balysv.materialripple.MaterialRippleLayout
-                    android:id="@+id/ripple_main"
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_states"
+                    android:layout_gravity="center"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_below="@+id/card_view_time"
-                    app:mrl_rippleDuration="450"
-                    app:mrl_rippleFadeDuration="200"
-                    app:mrl_rippleColor="@color/ripple_material_light"
-                    app:mrl_rippleAlpha="0.1"
-                    app:mrl_rippleDelayClick="false"
-                    app:mrl_rippleOverlay="true"
-                    app:mrl_rippleBackground="@android:color/transparent">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    card_view:cardCornerRadius="0dp"
+                    android:visibility="gone">
 
-                    <android.support.v7.widget.CardView
-                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/card_view_states"
-                        android:layout_gravity="center"
+                    <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="8dp"
-                        android:clickable="true"
-                        card_view:cardCornerRadius="0dp"
-                        card_view:cardBackgroundColor="@color/card_light_background"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/ui_states_view"
+                            android:orientation="vertical"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"/>
 
-                            <LinearLayout
-                                android:id="@+id/ui_states_view"
-                                android:orientation="vertical"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginRight="16dp"/>
+                        <include layout="@layout/unused_states_layout"/>
 
-                            <include layout="@layout/unused_states_layout"/>
+                    </LinearLayout>
 
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                </com.balysv.materialripple.MaterialRippleLayout>
+                </android.support.v7.widget.CardView>
 
             </RelativeLayout>
 

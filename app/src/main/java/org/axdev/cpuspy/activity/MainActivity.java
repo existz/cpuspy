@@ -5,7 +5,7 @@
 //
 //-----------------------------------------------------------------------------
 
-package org.axdev.cpuspy.ui;
+package org.axdev.cpuspy.activity;
 
 // imports
 
@@ -86,7 +86,7 @@ import butterknife.Optional;
 import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
-public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
     private final String TAG = "CpuSpy";
     private final String WELCOME_SCREEN = "welcomeScreenShown";
@@ -94,10 +94,10 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     private final Handler mHandler = new Handler();
 
     private CpuSpyApp _app = null;
-    private Editor editor;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
+    private Editor editor;
 
     // main ui views
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
@@ -151,7 +151,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
         editor = sp.edit();
 
         // inflate the view, stash the app context, and get all UI elements
-        setContentView(R.layout.home_layout);
+        setContentView(R.layout.main_layout);
         _app = (CpuSpyApp)getApplicationContext();
         ButterKnife.inject(this);
         this.checkVersion();
@@ -608,7 +608,7 @@ public class HomeActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** called when we want to inflate the menu */
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
-        getMenuInflater().inflate(R.menu.home_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         getMenuInflater().inflate(R.menu.prefs_menu, menu);
 
         // made it

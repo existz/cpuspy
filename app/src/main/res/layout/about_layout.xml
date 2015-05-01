@@ -26,8 +26,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:visibility="gone"
-            card_view:cardCornerRadius="3dp"
-            card_view:cardBackgroundColor="@color/card_light_background">
+            card_view:cardCornerRadius="3dp">
 
             <LinearLayout
                 android:layout_width="fill_parent"

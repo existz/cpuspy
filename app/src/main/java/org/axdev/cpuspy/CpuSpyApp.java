@@ -93,7 +93,7 @@ public class CpuSpyApp extends Application {
      * e.g. "100 24, 200 251, 500 124 etc
      */
     public void saveOffsets() {
-        Editor editor = sp.edit();
+        final Editor editor = sp.edit();
 
         // build the string by iterating over the freq->duration map
         String str = "";
