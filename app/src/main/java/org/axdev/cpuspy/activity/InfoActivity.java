@@ -179,9 +179,8 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.card_view_kernel:
-                final CpuSpyApp _app = (CpuSpyApp) getApplicationContext();
                 final MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .content(_app.getKernelVersion())
+                        .content(CPUUtils.getKernelVersion())
                         .build();
 
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogInfoAnimation;

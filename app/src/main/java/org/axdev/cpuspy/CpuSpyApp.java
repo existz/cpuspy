@@ -13,14 +13,11 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import org.axdev.cpuspy.utils.CPUUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,11 +26,7 @@ import io.fabric.sdk.android.Fabric;
 /** main application class */
 public class CpuSpyApp extends Application {
 
-    private static final String KERNEL_VERSION_PATH = "/proc/version";
-    private static final String TAG = "CpuSpyApp";
-    private static final String PREF_OFFSETS = "offsets";
-
-    private String _kernelVersion;
+    private final String PREF_OFFSETS = "offsets";
     private SharedPreferences sp;
 
     /** the long-living object used to monitor the system frequency states */
@@ -52,12 +45,7 @@ public class CpuSpyApp extends Application {
         }
 
         loadOffsets();
-        getKernelVersion();
-    }
-
-    /** @return the kernel version string */
-    public String getKernelVersion() {
-        return setKernelVersion();
+        CPUUtils.getKernelVersion();
     }
 
     /** @return the internal CpuStateMonitor object */
@@ -104,26 +92,5 @@ public class CpuSpyApp extends Application {
 
         editor.putString(PREF_OFFSETS, str);
         editor.commit();
-    }
-
-    /** Try to read the kernel version string from the proc fileystem */
-    private String setKernelVersion() {
-        try {
-            final File file = new File(KERNEL_VERSION_PATH);
-            if (file.exists()) {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-
-                String line;
-                while ((line = br.readLine())!= null ) {
-                    _kernelVersion = line;
-                }
-                br.close();
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Problem reading kernel version file");
-            return null;
-        }
-
-        return _kernelVersion;
     }
 }

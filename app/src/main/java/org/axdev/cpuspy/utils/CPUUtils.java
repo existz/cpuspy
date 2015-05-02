@@ -23,13 +23,15 @@ public class CPUUtils {
 
     private static final String MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
     private static final String MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
+    private static final String KERNEL_VERSION = "/proc/version";
 
     private static String TEMP_FILE;
     private static final String CPU_TEMP_ZONE0 = "/sys/class/thermal/thermal_zone0/temp";
     private static final String CPU_TEMP_ZONE1 = "/sys/class/thermal/thermal_zone1/temp";
 
-    private static final String TAG = "CPUSpy";
-    private static final String TAG_INFO = "CPUSpyInfo";
+    private static final String TAG = "CpuSpy";
+    private static final String TAG_APP = "CpuSpyApp";
+    private static final String TAG_INFO = "CpuSpyInfo";
 
     private static String mCore;
     private static String mArch;
@@ -37,6 +39,7 @@ public class CPUUtils {
     private static String mGovernor;
     private static String mFreq;
     private static String mTemp;
+    private static String mKernel;
 
     /** Set the current core frequency */
     private static String setCoreFreq(String PATH) {
@@ -106,6 +109,27 @@ public class CPUUtils {
         mFreq = Integer.toString(i) + "MHz";
 
         return mFreq;
+    }
+
+    /** Try to read the kernel version string from the proc fileystem */
+    private static String setKernelVersion() {
+        try {
+            final File file = new File(KERNEL_VERSION);
+            if (file.exists()) {
+                final BufferedReader br = new BufferedReader(new FileReader(file));
+
+                String line;
+                while ((line = br.readLine())!= null ) {
+                    mKernel = line;
+                }
+                br.close();
+            }
+        } catch (IOException e) {
+            Log.e(TAG_APP, "Problem reading kernel version file");
+            return null;
+        }
+
+        return mKernel;
     }
 
     /** Retrieves information for ARM CPUs. */
@@ -264,6 +288,11 @@ public class CPUUtils {
     /** @return CPU features string */
     public static String getFeatures() {
         return setFeatures();
+    }
+
+    /** @return the kernel version string */
+    public static String getKernelVersion() {
+        return setKernelVersion();
     }
 
     /** @return CPU architecture string */
