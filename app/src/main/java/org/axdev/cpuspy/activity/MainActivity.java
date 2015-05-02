@@ -19,6 +19,7 @@ import android.content.pm.PackageInfo;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
     @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
     @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
+    @InjectView(R.id.cpu_core_toolbar) Toolbar mToolbar;
 
     @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
@@ -164,12 +166,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         if (!welcomeScreenShown) { this.removeWelcomeCard(); }
 
         // Use custom Typeface for action bar title on KitKat devices
-        final Toolbar cpuToolbar = (Toolbar) findViewById(R.id.cpu_core_toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (getSupportActionBar() != null && cpuToolbar != null) {
+            if (getSupportActionBar() != null && mToolbar != null) {
                 getSupportActionBar().setTitle(R.string.app_name_long);
                 getSupportActionBar().setElevation(0);
-                cpuToolbar.setElevation(getResources().getDimension(R.dimen.ab_elevation));
+                mToolbar.setElevation(getResources().getDimension(R.dimen.ab_elevation));
             }
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
@@ -335,11 +336,27 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // show warning label if no states found
         if (timeInState.length() == 0) {
-            mStatesWarning.setVisibility(View.VISIBLE);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary_warning)));
+            }
+
+            // set navigation and status bar colors
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.primary_dark_warning));
+                getWindow().setNavigationBarColor(getResources().getColor(R.color.primary_dark_warning));
+            }
+
+            mMainLayout.setBackgroundColor(getResources().getColor(R.color.primary_warning));
+
+            mToolbar.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
+            mStatesWarning.setVisibility(View.VISIBLE);
+
+            // Disable core monitoring
+            mHandler.removeCallbacks(monitorCpu);
         }
     }
 

@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:text="@string/states_warning"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@android:color/white"
         android:textSize="14sp"/>
 
 </LinearLayout>
