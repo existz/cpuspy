@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private final Handler mHandler = new Handler();
 
-    private CpuSpyApp _app = null;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
@@ -152,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // inflate the view, stash the app context, and get all UI elements
         setContentView(R.layout.main_layout);
-        _app = (CpuSpyApp)getApplicationContext();
         ButterKnife.inject(this);
         this.checkVersion();
         this.cardViewAnimation();
@@ -324,12 +322,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             mMainLayout.setBackgroundColor(getResources().getColor(R.color.charged_background));
 
-            try {
-                _app.getCpuStateMonitor().setOffsets();
-            } catch (CpuStateMonitorException e) {
-                // TODO: something
-            }
-            _app.saveOffsets();
+            resetTimers();
         } else {
             mStatesWarning.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
@@ -426,6 +419,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
         }
+    }
+
+    /** Reset the cpu timers */
+    public static void resetTimers() {
+        try {
+            CpuSpyApp.getCpuStateMonitor().setOffsets();
+        } catch (CpuStateMonitorException e) {
+            // TODO: something
+        }
+        CpuSpyApp.saveOffsets();
+    }
+
+    /** Restore the cpu timers */
+    public static void restoreTimers() {
+        CpuSpyApp.getCpuStateMonitor().removeOffsets();
+        CpuSpyApp.saveOffsets();
     }
 
     /** Global On click listener for all views */
@@ -621,12 +630,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_reset:
-                try {
-                    _app.getCpuStateMonitor().setOffsets();
-                } catch (CpuStateMonitorException e) {
-                    // TODO: something
-                }
-                _app.saveOffsets();
+                resetTimers();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(this)
                         .text(R.string.snackbar_text_reset) // text to display
@@ -635,8 +639,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 mStatesCardView.setVisibility(View.GONE);
                 break;
             case R.id.menu_restore:
-                _app.getCpuStateMonitor().removeOffsets();
-                _app.saveOffsets();
+                restoreTimers();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(this)
                         .text(R.string.snackbar_text_restore) // text to display
@@ -656,7 +659,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
 
-        final CpuStateMonitor monitor = _app.getCpuStateMonitor();
+        final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
         mStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
         for (CpuState state : monitor.getStates()) {
@@ -720,12 +723,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
      */
     private View generateStateRow(CpuState state, ViewGroup parent) {
         // inflate the XML into a view in the parent
-        final LayoutInflater inf = LayoutInflater.from(_app);
+        final LayoutInflater inf = LayoutInflater.from(getApplicationContext());
         final RelativeLayout theRow = (RelativeLayout)inf.inflate(
                 R.layout.state_row, parent, false);
 
         // what percentage we've got
-        final CpuStateMonitor monitor = _app.getCpuStateMonitor();
+        final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
         String sPer = String.format("%.01f", per) + "%";
@@ -774,7 +777,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         /** Stuff to do on a seperate thread */
         @Override protected Void doInBackground(Void... v) {
-            final CpuStateMonitor monitor = _app.getCpuStateMonitor();
+            final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
             try {
                 monitor.updateStates();
             } catch (CpuStateMonitorException e) {
