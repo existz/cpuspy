@@ -58,6 +58,16 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".widget.ResetWidgetProvider" android:label="@string/widget_reset_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="org.axdev.cpuspy.RESET_TIMERS" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_reset" />
+        </receiver>
+
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="e4800ae61bbbd6fe45650c1aac0e812a2fbdab51" />

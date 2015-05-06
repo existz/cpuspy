@@ -26,6 +26,10 @@
 
     <string name="action_dismiss">Dismiss</string>
 
+    <string name="widget_reset_title">CPUSpy - Reset Timers</string>
+    <string name="widget_reset_error">Oops! There was an error, try again</string>
+    <string name="widget_reset_success">Timers reset successfully</string>
+
     <!-- Information -->
     <string name="information">Information</string>
     <string name="information_kernel_info">Kernel Info</string>
