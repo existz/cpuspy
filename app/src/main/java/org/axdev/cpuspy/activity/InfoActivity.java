@@ -23,7 +23,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 
-import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
