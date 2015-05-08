@@ -16,6 +16,8 @@ import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import org.axdev.cpuspy.utils.CPUUtils;
 
 import java.util.HashMap;
@@ -46,6 +48,7 @@ public class CpuSpyApp extends Application {
 
         loadOffsets();
         CPUUtils.getKernelVersion();
+        LeakCanary.install(this);
     }
 
     /** @return the internal CpuStateMonitor object */
