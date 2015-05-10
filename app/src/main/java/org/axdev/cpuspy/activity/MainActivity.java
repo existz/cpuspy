@@ -62,7 +62,6 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.crashlytics.android.Crashlytics;
 
 import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuStateMonitor;
@@ -649,19 +648,21 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             case R.id.menu_reset:
                 resetTimers();
                 this.updateView();
-                SnackbarManager.show(Snackbar.with(this)
+                Snackbar.with(getApplicationContext())
                         .text(R.string.snackbar_text_reset) // text to display
                         .actionLabel(R.string.action_dismiss) // action button label
-                        .actionColor(Color.parseColor("#f4b400")));
+                        .actionColor(Color.parseColor("#f4b400"))
+                        .show(this);
                 mStatesCardView.setVisibility(View.GONE);
                 break;
             case R.id.menu_restore:
                 restoreTimers();
                 this.updateView();
-                SnackbarManager.show(Snackbar.with(this)
+                Snackbar.with(getApplicationContext())
                         .text(R.string.snackbar_text_restore) // text to display
                         .actionLabel(R.string.action_dismiss) // action button label
-                        .actionColor(Color.parseColor("#f4b400")));
+                        .actionColor(Color.parseColor("#f4b400"))
+                        .show(this);
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(this, PrefsActivity.class));

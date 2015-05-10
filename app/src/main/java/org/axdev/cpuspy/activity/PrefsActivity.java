@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
 import org.axdev.cpuspy.R;
@@ -73,9 +72,10 @@ public class PrefsActivity extends AppCompatActivity {
             crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString().equals("false")) {
-                        SnackbarManager.show(Snackbar.with(getActivity())
+                        Snackbar.with(getActivity().getApplicationContext())
                                 .type(SnackbarType.MULTI_LINE)
-                                .text(R.string.snackbar_text_crashreport));
+                                .text(R.string.snackbar_text_crashreport)
+                                .show(getActivity());
                     }
                     return true;
                 }
