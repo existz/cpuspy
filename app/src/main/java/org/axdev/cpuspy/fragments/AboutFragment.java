@@ -6,6 +6,8 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -23,8 +25,10 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
@@ -68,6 +72,7 @@ public class AboutFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.setThemeAttributes();
         this.setTypeface();
+        this.startAnimation();
 
         final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
@@ -116,28 +121,50 @@ public class AboutFragment extends Fragment {
                 startActivity(i);
             }
         });
+    }
 
-        /** Extend background and animate cardview sliding up */
+    /** Extend background and animate cardview */
+    private void startAnimation() {
         final Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.abc_slide_in_top);
 
         slideDown.setDuration(600);
         slideDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation arg0) {}
+            public void onAnimationStart(Animation arg0) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    final View view = getView();
+                    if (view != null) {
+                        int cx = view.getWidth() / 2;
+                        int cy = view.getHeight() / 2;
+                        int radius = view.getWidth();
 
-            @Override
-            public void onAnimationEnd(Animation arg0) {
-                final Animation slideUp = AnimationUtils.loadAnimation(getActivity(),
-                        R.anim.slide_in_up);
+                        Animator anim =
+                                ViewAnimationUtils.createCircularReveal(mAboutCardView, cx, cy, 0, radius);
 
-                slideUp.setDuration(375);
-                mAboutCardView.setVisibility(View.VISIBLE);
-                mAboutCardView.startAnimation(slideUp);
+                        anim.setDuration(500);
+                        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+                        anim.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                mAboutCardView.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        anim.start();
+                    }
+                } else {
+                    mAboutCardView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
-            public void onAnimationRepeat(Animation arg0) {}
+            public void onAnimationEnd(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
         });
 
         mAboutView.startAnimation(slideDown);
