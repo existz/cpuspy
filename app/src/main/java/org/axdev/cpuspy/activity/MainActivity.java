@@ -312,6 +312,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void checkView() {
         final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
 
+        final ImageView mChargedImg = (ImageView)findViewById(R.id.charged_img);
+        final ImageView mWarningImg = (ImageView)findViewById(R.id.warning_img);
+
         // Reset timers and show info when battery is charged
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
             mStatesWarning.setVisibility(View.GONE);
@@ -321,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mChargedView.setVisibility(View.VISIBLE);
 
             mMainLayout.setBackgroundColor(getResources().getColor(R.color.charged_background));
+            mChargedImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_charged_info, null));
 
             resetTimers();
         } else {
@@ -328,6 +332,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mChargedView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
+
+            mChargedImg.setImageDrawable(null);
+            mWarningImg.setImageDrawable(null);
 
             mMainLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.dark_background : R.color.light_background));
@@ -346,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
 
             mMainLayout.setBackgroundColor(getResources().getColor(R.color.primary_warning));
+            mWarningImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_warning, null));
 
             mToolbar.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
