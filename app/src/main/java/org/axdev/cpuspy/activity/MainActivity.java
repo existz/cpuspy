@@ -323,7 +323,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mWelcomeCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
-            mMainLayout.setBackgroundColor(getResources().getColor(R.color.charged_background));
             mChargedImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_charged_info, null));
 
             resetTimers();
@@ -335,9 +334,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             mChargedImg.setImageDrawable(null);
             mWarningImg.setImageDrawable(null);
-
-            mMainLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                    R.color.dark_background : R.color.light_background));
         }
 
         // show warning label if no states found
