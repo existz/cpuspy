@@ -84,12 +84,22 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
         ButterKnife.inject(this);
-        this.setTypeface();
-        this.setThemeAttributes();
+
+        /** Set UI elements for dark and light themes */
+        mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mDeviceCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                    R.color.ripple_material_dark : R.color.ripple_material_light));
+        }
 
         if (getSupportActionBar() != null) { getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
 
-        // Use custom Typeface for action bar title on KitKat devices
+        /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(R.string.information);
@@ -106,13 +116,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             }
         }
 
-        // Set onClickListener for kernel cardview
-        mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
-        mKernelCardView.setOnClickListener(this);
-    }
-
-    /** Set text and fontface for TextViews */
-    private void setTypeface() {
+        /** Set text and fontface for TextViews */
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
 
@@ -150,7 +154,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDeviceBoardHeader.setTypeface(mediumFont);
         mDevicePlatformHeader.setTypeface(mediumFont);
 
-        // Check if we should monitor cpu temp
+        /** Check if we should monitor cpu temp */
         if (CPUUtils.hasTemp()) {
             mHandler.post(monitorTemp);
             mCpuTempHeader.setTypeface(mediumFont);
@@ -158,20 +162,10 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             mCpuTempHeader.setVisibility(View.GONE);
             mCpuTemp.setVisibility(View.GONE);
         }
-    }
 
-    /** Set UI elements for dark and light themes */
-    private void setThemeAttributes() {
-        mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mDeviceCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                    R.color.ripple_material_dark : R.color.ripple_material_light));
-        }
+        /** Set onClickListener for kernel cardview */
+        mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
+        mKernelCardView.setOnClickListener(this);
     }
 
     @Override

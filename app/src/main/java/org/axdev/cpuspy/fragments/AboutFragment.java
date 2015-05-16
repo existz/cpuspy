@@ -70,14 +70,22 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.setThemeAttributes();
-        this.setTypeface();
-        this.startAnimation();
 
+        /** Set typeface and allow hyperlinks */
+        final Typeface mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+
+        mHeaderDeveloper.setTypeface(mediumFont);
+        mHeaderContrib.setTypeface(mediumFont);
+
+        // Allow strings to use hyperlinks
+        mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
+        mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
+        mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
+
+        /** Use custom Typeface for action bar title on KitKat devices */
         final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
 
-        // Use custom Typeface for action bar title on KitKat devices
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (supportActionBar != null) {
                 supportActionBar.setTitle(R.string.pref_title_about);
@@ -94,37 +102,32 @@ public class AboutFragment extends Fragment {
             }
         }
 
-        /** Set OnClickListener for buttons */
-        githubButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(Urlgithub));
-                startActivity(i);
-            }
-        });
+        /** Set UI elements for dark and light themes */
+        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
+        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
 
-        paypalButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(Urldonate));
-                startActivity(i);
-            }
-        });
+        mAboutCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
 
-        xdaButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(Urlxda));
-                startActivity(i);
-            }
-        });
-    }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            githubButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            paypalButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            xdaButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+        } else {
+            final Drawable githubDrawable = DrawableCompat.wrap(githubButton.getDrawable());
+            githubButton.setImageDrawable(githubDrawable);
+            DrawableCompat.setTintList(githubDrawable, (ThemeUtils.DARKTHEME ? dark : light));
 
-    /** Extend background and animate cardview */
-    private void startAnimation() {
+            final Drawable paypalDrawable = DrawableCompat.wrap(paypalButton.getDrawable());
+            paypalButton.setImageDrawable(paypalDrawable);
+            DrawableCompat.setTintList(paypalDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+
+            final Drawable xdaDrawable = DrawableCompat.wrap(xdaButton.getDrawable());
+            xdaButton.setImageDrawable(xdaDrawable);
+            DrawableCompat.setTintList(xdaDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+        }
+
+        /** Extend background and animate cardview */
         final Animation slideDown = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.abc_slide_in_top);
 
@@ -168,46 +171,34 @@ public class AboutFragment extends Fragment {
         });
 
         mAboutView.startAnimation(slideDown);
-    }
 
-    /** Set typeface and allow hyperlinks */
-    private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        /** Set OnClickListener for buttons */
+        githubButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(Urlgithub));
+                startActivity(i);
+            }
+        });
 
-        mHeaderDeveloper.setTypeface(mediumFont);
-        mHeaderContrib.setTypeface(mediumFont);
+        paypalButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(Urldonate));
+                startActivity(i);
+            }
+        });
 
-        // Allow strings to use hyperlinks
-        mIconCreator.setMovementMethod(LinkMovementMethod.getInstance());
-        mDeveloper.setMovementMethod(LinkMovementMethod.getInstance());
-        mOrigDev.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    /** Set UI elements for dark and light themes */
-    private void setThemeAttributes() {
-        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
-        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
-
-        mAboutCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            githubButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
-            paypalButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
-            xdaButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
-        } else {
-            final Drawable githubDrawable = DrawableCompat.wrap(githubButton.getDrawable());
-            githubButton.setImageDrawable(githubDrawable);
-            DrawableCompat.setTintList(githubDrawable, (ThemeUtils.DARKTHEME ? dark : light));
-
-            final Drawable paypalDrawable = DrawableCompat.wrap(paypalButton.getDrawable());
-            paypalButton.setImageDrawable(paypalDrawable);
-            DrawableCompat.setTintList(paypalDrawable, (ThemeUtils.DARKTHEME ? dark : light));
-
-            final Drawable xdaDrawable = DrawableCompat.wrap(xdaButton.getDrawable());
-            xdaButton.setImageDrawable(xdaDrawable);
-            DrawableCompat.setTintList(xdaDrawable, (ThemeUtils.DARKTHEME ? dark : light));
-        }
+        xdaButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(Urlxda));
+                startActivity(i);
+            }
+        });
     }
 
     @Override public void onDestroyView() {

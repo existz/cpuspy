@@ -54,31 +54,8 @@ public class LicenseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.setTypeface();
-        this.setThemeAttributes();
 
-        final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
-
-        // Use custom Typeface for action bar title on KitKat devices
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (supportActionBar != null) {
-                supportActionBar.setTitle(R.string.pref_title_license);
-            }
-        } else {
-            final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
-            s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            // Update the action bar title with the TypefaceSpan instance
-            if (supportActionBar != null) {
-                supportActionBar.setTitle(s);
-            }
-        }
-    }
-
-    /** Set typeface and allow hyperlinks */
-    private void setTypeface() {
+        /** Set typeface and allow hyperlinks */
         final Typeface mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
 
         mSupportLib.setTypeface(mediumFont);
@@ -100,10 +77,27 @@ public class LicenseFragment extends Fragment {
         mButterKnife.setTypeface(mediumFont);
         mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
         mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
-    }
 
-    /** Set UI elements for dark and light themes */
-    private void setThemeAttributes() {
+        /** Use custom Typeface for action bar title on KitKat devices */
+        final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (supportActionBar != null) {
+                supportActionBar.setTitle(R.string.pref_title_license);
+            }
+        } else {
+            final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
+            s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Update the action bar title with the TypefaceSpan instance
+            if (supportActionBar != null) {
+                supportActionBar.setTitle(s);
+            }
+        }
+
+        /** Set UI elements for dark and light themes */
         mCardViewSupport.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
         mCardViewButter.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?

@@ -92,16 +92,6 @@ import io.fabric.sdk.android.Fabric;
 /** main activity class */
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
-    private final String TAG = "CpuSpy";
-    private final String WELCOME_SCREEN = "welcomeScreenShown";
-
-    private final Handler mHandler = new Handler();
-
-    private SensorManager mSensorManager;
-    private ShakeEventListener mSensorListener;
-    private SharedPreferences sp;
-    private Editor editor;
-
     // main ui views
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
     @InjectView(R.id.card_view_states) CardView mStatesCardView;
@@ -130,6 +120,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_cpu_freq2) TextView mCore2;
     @InjectView(R.id.ui_cpu_freq3) TextView mCore3;
 
+    private final String TAG = "CpuSpy";
+    private final String WELCOME_SCREEN = "welcomeScreenShown";
+
+    private final Handler mHandler = new Handler();
+
+    private Editor editor;
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
+    private SharedPreferences sp;
+
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
@@ -150,26 +150,17 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         ThemeUtils.onActivityCreateSetTheme(this);
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_layout);
+        ButterKnife.inject(this);
+        this.setThemeAttributes();
+        this.setTypeface();
+        this.setAnimation();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sp.edit();
 
-        // inflate the view, stash the app context, and get all UI elements
-        setContentView(R.layout.main_layout);
-        ButterKnife.inject(this);
-        this.checkVersion();
-        this.cardViewAnimation();
-        this.setTypeface();
-        this.setThemeAttributes();
-
-        // second argument is the default to use if the preference can't be found
-        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
-
-        // Remove welcome cardview if its already been shown
-        if (!welcomeScreenShown) { this.removeWelcomeCard(); }
-
-        // Use custom Typeface for action bar title on KitKat devices
+        /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (getSupportActionBar() != null && mToolbar != null) {
                 getSupportActionBar().setTitle(R.string.app_name_long);
@@ -187,17 +178,36 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         }
 
-        // Set colors and listener for SwipeRefreshLayout
+        /** Show WhatsNewDialog if versionCode has changed */
+        int currentVersionNumber = 0;
+        int savedVersionNumber = sp.getInt("version_number", 0);
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            currentVersionNumber = pi.versionCode;
+        } catch (Exception ignored) {}
+
+        if (currentVersionNumber > savedVersionNumber) {
+            final WhatsNewDialog newFragment = new WhatsNewDialog();
+            newFragment.show(getFragmentManager(), "whatsnew");
+            editor.putInt("version_number", currentVersionNumber);
+            editor.commit();
+        }
+
+        /** Remove welcome cardview if its already been shown */
+        boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
+        if (!welcomeScreenShown) { this.removeWelcomeCard(); }
+
+        /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
         mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
 
-        // Set onClickListener for all buttons
+        /** Set onClickListener for all buttons */
         mInfoButton.setOnClickListener(this);
         mWelcomeButton.setOnClickListener(this);
         mStatesCardView.setOnClickListener(this);
 
-        // Add listener for shake to refresh
+        /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
             mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -211,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         }
 
-        // Register receiver to check battery status
+        /** Register receiver to check battery status */
         this.registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
@@ -219,8 +229,15 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override public void onStart () {
         super.onStart();
         this.checkView();
-        this.checkAutoRefresh();
         this.startCoreMonitor();
+
+        // Check to see if autoRefresh is enabled or not
+        if (sp.getBoolean("autoRefresh", true)) {
+            mAutoRefresh = true;
+            mHandler.post(refreshAuto);
+        } else {
+            mAutoRefresh = false;
+        }
     }
 
     /** Disable handler when activity loses focus */
@@ -297,28 +314,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
     };
 
-    /** Show WhatsNewDialog if versionCode has changed */
-    private void checkVersion() {
-        final String VERSION_KEY = "version_number";
-        int currentVersionNumber = 0;
-        int savedVersionNumber = sp.getInt(VERSION_KEY, 0);
-        try {
-            PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
-            currentVersionNumber = pi.versionCode;
-        } catch (Exception ignored) {}
-
-        if (currentVersionNumber > savedVersionNumber) {
-            this.showWhatsNewDialog();
-            editor.putInt(VERSION_KEY, currentVersionNumber);
-            editor.commit();
-        }
-    }
-
     private void checkView() {
         final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
-
-        final ImageView mChargedImg = (ImageView)findViewById(R.id.charged_img);
-        final ImageView mWarningImg = (ImageView)findViewById(R.id.warning_img);
 
         // Reset timers and show info when battery is charged
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
@@ -328,8 +325,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mWelcomeCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
-            mChargedImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_charged_info, null));
-
             resetTimers();
         } else {
             mStatesWarning.setVisibility(View.GONE);
@@ -337,9 +332,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mMainReveal.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
-
-            mChargedImg.setImageDrawable(null);
-            mWarningImg.setImageDrawable(null);
         }
 
         // show warning label if no states found
@@ -355,7 +347,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
 
             mMainLayout.setBackgroundColor(getResources().getColor(R.color.primary_warning));
-            mWarningImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_warning, null));
 
             mToolbar.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
@@ -367,53 +358,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             // Disable core monitoring
             mHandler.removeCallbacksAndMessages(monitorCpu);
         }
-    }
-
-    private void showWhatsNewDialog() {
-        final WhatsNewDialog newFragment = new WhatsNewDialog();
-        newFragment.show(getFragmentManager(), "whatsnew");
-    }
-
-    /** Check to see if autoRefresh is enabled or not **/
-    private void checkAutoRefresh() {
-
-        if (sp.getBoolean("autoRefresh", true)) {
-            mAutoRefresh = true;
-            mHandler.post(refreshAuto);
-        } else {
-            mAutoRefresh = false;
-        }
-    }
-
-    /** Animate cardview sliding up from bottom */
-    private void cardViewAnimation() {
-        final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
-
-        slideUp.setDuration(500);
-        mStatesCardView.startAnimation(slideUp);
-        mTimeCardView.startAnimation(slideUp);
-    }
-
-    /** Remove welcome cardview after first launch */
-    private void removeWelcomeCard() {
-        final ViewGroup mViewGroup = (ViewGroup) mWelcomeCardView.getParent();
-        if (mViewGroup != null) {
-            mViewGroup.removeView(mWelcomeCardView);
-        }
-    }
-
-    /** Apply custom typeface to textviews */
-    private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
-        final TextView mWelcomeSummary = (TextView)findViewById(R.id.welcome_summary);
-        final TextView mWelcomeFeatures = (TextView)findViewById(R.id.welcome_features);
-
-        // Apply roboto medium typeface
-        mWelcomeSummary.setTypeface(mediumFont);
-        mWelcomeFeatures.setTypeface(mediumFont);
-        mAdditionalStatesShow.setTypeface(mediumFont);
-        mAdditionalStatesHide.setTypeface(mediumFont);
-        mHeaderTotalStateTime.setTypeface(mediumFont);
     }
 
     /** Set UI elements for dark and light themes */
@@ -444,6 +388,36 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
+        }
+    }
+
+    /** Apply custom typeface to textviews */
+    private void setTypeface() {
+        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        final TextView mWelcomeSummary = (TextView) findViewById(R.id.welcome_summary);
+        final TextView mWelcomeFeatures = (TextView) findViewById(R.id.welcome_features);
+
+        mWelcomeSummary.setTypeface(mediumFont);
+        mWelcomeFeatures.setTypeface(mediumFont);
+        mAdditionalStatesShow.setTypeface(mediumFont);
+        mAdditionalStatesHide.setTypeface(mediumFont);
+        mHeaderTotalStateTime.setTypeface(mediumFont);
+    }
+
+    /** Animate cardview sliding up from bottom */
+    private void setAnimation(){
+        final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
+
+        slideUp.setDuration(500);
+        mStatesCardView.startAnimation(slideUp);
+        mTimeCardView.startAnimation(slideUp);
+    }
+
+    /** Remove welcome cardview after first launch */
+    private void removeWelcomeCard() {
+        final ViewGroup mViewGroup = (ViewGroup) mWelcomeCardView.getParent();
+        if (mViewGroup != null) {
+            mViewGroup.removeView(mWelcomeCardView);
         }
     }
 
@@ -557,12 +531,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private final Runnable monitorCpu = new Runnable() {
-        public void run() {
-            final File cpu0 = new File(CPUUtils.CPU0);
-            final File cpu1 = new File(CPUUtils.CPU1);
-            final File cpu2 = new File(CPUUtils.CPU2);
-            final File cpu3 = new File(CPUUtils.CPU3);
+        final File cpu0 = new File(CPUUtils.CPU0);
+        final File cpu1 = new File(CPUUtils.CPU1);
+        final File cpu2 = new File(CPUUtils.CPU2);
+        final File cpu3 = new File(CPUUtils.CPU3);
 
+        public void run() {
             /** Set the frequency for CPU0 */
             if(mMonitorCpu0) {
                 try {
