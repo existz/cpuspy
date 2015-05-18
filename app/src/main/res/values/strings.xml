@@ -11,7 +11,9 @@
 
     <string name="total_state_time">Total State Time</string>
 
-    <string name="charged_view_message"><b>Charged!</b>\n\nUnplug your charger to automatically reset the CPU timers</string>
+    <string name="charged_view_enabled">Auto Reset enabled</string>
+    <string name="charged_view_status">Battery status: Charged</string>
+    <string name="charged_view_message">Once the device is fully charged, unplug your charger to automatically reset the CPU timers.</string>
 
     <string name="menu_changelog">Changelog</string>
     <string name="menu_donate">Donate</string>
@@ -24,6 +26,7 @@
     <string name="snackbar_text_restore">Timers restored successfully</string>
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
 
+    <string name="action_disable">Disable</string>
     <string name="action_dismiss">Dismiss</string>
 
     <string name="widget_reset_title">CPUSpy - Reset Timers</string>

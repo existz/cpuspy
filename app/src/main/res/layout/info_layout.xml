@@ -15,7 +15,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             card_view:cardCornerRadius="0dp">
 
@@ -23,6 +22,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_kernel_more"
+                    android:src="@drawable/ic_info_menu"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:clickable="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
 
                 <TextView
                     android:id="@+id/kernel_header"

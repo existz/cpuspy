@@ -93,7 +93,9 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
     // main ui views
+    @InjectView(R.id.btn_charged) Button mChargedButton;
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
+    @InjectView(R.id.card_view_charged) CardView mChargedCardView;
     @InjectView(R.id.card_view_states) CardView mStatesCardView;
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
@@ -203,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
 
         /** Set onClickListener for all buttons */
+        mChargedButton.setOnClickListener(this);
         mInfoButton.setOnClickListener(this);
         mWelcomeButton.setOnClickListener(this);
         mStatesCardView.setOnClickListener(this);
@@ -370,6 +373,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 R.color.card_dark_background : R.color.card_light_background));
         mTimeCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
+        mChargedCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+                R.color.card_dark_background : R.color.card_light_background));
         mAdditionalLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.layout_dark_background : R.color.layout_light_background));
 
@@ -485,6 +490,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 this.removeWelcomeCard();
                 editor.putBoolean(WELCOME_SCREEN, false);
                 editor.commit();
+                break;
+            case R.id.btn_charged:
+                editor.putBoolean("autoReset", false);
+                editor.commit();
+                refreshData();
+                resetTimers();
                 break;
             case R.id.card_view_states:
                 if (mAdditionalStatesShow.isShown()) {

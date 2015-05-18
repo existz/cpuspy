@@ -6,10 +6,13 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Spannable;
@@ -17,11 +20,10 @@ import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import com.balysv.materialripple.MaterialRippleLayout;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.CPUUtils;
@@ -31,13 +33,13 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.Optional;
 
 public class InfoActivity extends AppCompatActivity implements OnClickListener {
 
     @InjectView(R.id.card_view_kernel) CardView mKernelCardView;
     @InjectView(R.id.card_view_device) CardView mDeviceCardView;
     @InjectView(R.id.card_view_cpu) CardView mCpuCardView;
+    @InjectView(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
     @InjectView(R.id.kernel_header) TextView mKernelHeader;
     @InjectView(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @InjectView(R.id.kernel_governor) TextView mKernelGovernor;
@@ -70,8 +72,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
-    @Optional @InjectView(R.id.ripple_info) MaterialRippleLayout mMaterialRippleLayout;
-
     private final Handler mHandler = new Handler();
 
     @Override
@@ -92,14 +92,22 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
                 R.color.card_dark_background : R.color.card_light_background));
         mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                    R.color.ripple_material_dark : R.color.ripple_material_light));
+
+        // Set color for drawables based on selected theme
+        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
+        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mKernelMoreButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+        } else {
+            final Drawable kernelMoreButton = DrawableCompat.wrap(mKernelMoreButton.getDrawable());
+            mKernelMoreButton.setImageDrawable(kernelMoreButton);
+            DrawableCompat.setTintList(kernelMoreButton, (ThemeUtils.DARKTHEME ? dark : light));
         }
 
+        /** Use custom Typeface for action bar title on KitKat devices */
         if (getSupportActionBar() != null) { getSupportActionBar().setDisplayHomeAsUpEnabled(true); }
 
-        /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(R.string.information);
@@ -163,15 +171,14 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             mCpuTemp.setVisibility(View.GONE);
         }
 
-        /** Set onClickListener for kernel cardview */
-        mKernelCardView = (CardView)findViewById(R.id.card_view_kernel);
-        mKernelCardView.setOnClickListener(this);
+        /** Set onClickListener for kernel info button */
+        mKernelMoreButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.card_view_kernel:
+            case R.id.btn_kernel_more:
                 final MaterialDialog dialog = new MaterialDialog.Builder(this)
                         .content(CPUUtils.getKernelVersion())
                         .build();
