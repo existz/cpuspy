@@ -12,9 +12,9 @@
             android:id="@+id/supportlib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_license_supportlib"
             android:textSize="17sp"/>
 
@@ -25,9 +25,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -48,8 +48,8 @@
             android:id="@+id/butterknife"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_license_butterknife"
             android:textSize="17sp" />
 
@@ -60,9 +60,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -82,8 +82,8 @@
             android:id="@+id/materialdialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_license_materialdialog"
             android:textSize="17sp" />
 
@@ -94,9 +94,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -116,8 +116,8 @@
             android:id="@+id/materialripple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_license_materialripple"
             android:textSize="17sp" />
 
@@ -128,9 +128,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -150,8 +150,8 @@
             android:id="@+id/snackbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_license_snackbar"
             android:textSize="17sp" />
 
@@ -162,9 +162,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             card_view:cardCornerRadius="4dp">
 
             <TextView

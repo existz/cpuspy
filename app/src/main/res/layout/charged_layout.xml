@@ -5,7 +5,8 @@
         android:id="@+id/ui_charged_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/charged_img"
@@ -20,8 +21,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
             android:padding="6dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
@@ -48,9 +49,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="@dimen/padding_mtrl"
+                    android:layout_marginLeft="@dimen/padding_mtrl"
+                    android:layout_marginRight="@dimen/padding_mtrl"
                     android:text="@string/charged_view_enabled"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textStyle="bold" />
@@ -58,17 +59,20 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
                     android:text="@string/charged_view_message"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="@dimen/padding_mtrl"
+                    android:layout_marginLeft="@dimen/padding_mtrl"
+                    android:layout_marginRight="@dimen/padding_mtrl" />
 
                 <Button
                     android:id="@+id/btn_charged"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="@dimen/padding_mtrl"
+                    android:layout_marginLeft="@dimen/padding_mtrl"
+                    android:layout_marginRight="@dimen/padding_mtrl"
                     android:layout_gravity="right|bottom"
                     android:text="@string/action_disable"
                     android:textColor="@color/primary"
