@@ -24,7 +24,6 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.fragments.AboutFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -38,19 +37,19 @@ public class PrefsActivity extends AppCompatActivity {
 
     public static class PrefsFragment extends PreferenceFragment {
 
+        private final String googleURL = "https://plus.google.com/+RobBeane";
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
 
-            findPreference("about").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    // Create new fragment and transaction
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.content_wrapper, new AboutFragment())
-                            .addToBackStack(null)
-                            .commit();
+                    final Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(googleURL));
+                    startActivity(i);
                     return true;
                 }
             });
@@ -182,9 +181,8 @@ public class PrefsActivity extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "whatsnew");
                 break;
             case R.id.menu_donate:
-                final String Urldonate="http://goo.gl/X2sA4D";
                 final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(Urldonate));
+                i.setData(Uri.parse("http://goo.gl/X2sA4D"));
                 startActivity(i);
                 break;
             case android.R.id.home:
