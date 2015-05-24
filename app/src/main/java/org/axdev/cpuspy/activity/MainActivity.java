@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
     @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
     @InjectView(R.id.cpu_core_toolbar) Toolbar mToolbar;
-    @InjectView(R.id.main_reveal) View mMainReveal;
 
+    @Optional @InjectView(R.id.main_reveal) View mMainReveal;
     @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     @InjectView(R.id.ui_cpu_freq0) TextView mCore0;
@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void checkView() {
         final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
+        boolean mStatesNotFound = !timeInState.exists() || timeInState.length() == 0;
 
         // Reset timers and show info when battery is charged
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
@@ -332,13 +333,15 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         } else {
             mStatesWarning.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
-            mMainReveal.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mMainReveal.setVisibility(View.GONE);
+            }
         }
 
         // show warning label if no states found
-        if (timeInState.length() == 0) {
+        if (mStatesNotFound) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary_warning)));
             }
@@ -557,8 +560,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         Log.e(TAG, "Problem getting CPU cores");
                         return;
                     } else {
-                        String s = CPUUtils.getCpu0() + "MHz";
-                        mCore0.setText(s);
+                        mCore0.setText(CPUUtils.getCpu0() + "MHz");
                     }
                 } catch (NumberFormatException ignored) {
                     //DO SOMETHING
@@ -571,8 +573,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     if (cpu1.length() == 0) {
                         mCore1.setText(R.string.core_offline);
                     } else {
-                        String s = CPUUtils.getCpu1() + "MHz";
-                        mCore1.setText(s);
+                        mCore1.setText(CPUUtils.getCpu1() + "MHz");
                     }
                 } catch (NumberFormatException ignored) {
                     // DO SOMETHING
@@ -585,8 +586,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     if (cpu2.length() == 0) {
                         mCore2.setText(R.string.core_offline);
                     } else {
-                        String s = CPUUtils.getCpu2() + "MHz";
-                        mCore2.setText(s);
+                        mCore2.setText(CPUUtils.getCpu2() + "MHz");
                     }
                 } catch (NumberFormatException ignored) {
                     // DO SOMETHING
@@ -599,8 +599,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     if (cpu3.length() == 0) {
                         mCore3.setText(R.string.core_offline);
                     } else {
-                        String s = CPUUtils.getCpu3() + "MHz";
-                        mCore3.setText(s);
+                        mCore3.setText(CPUUtils.getCpu3() + "MHz");
                     }
                 } catch (NumberFormatException ignored) {
                     //DO SOMETHING
