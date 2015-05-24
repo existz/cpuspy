@@ -3,6 +3,6 @@
     android:minWidth="40dp"
     android:minHeight="40dp"
     android:updatePeriodMillis="86400000"
-    android:previewImage="@drawable/ic_widget_reset"
+    android:previewImage="@mipmap/ic_widget_reset"
     android:initialLayout="@layout/widget_reset_layout">
 </appwidget-provider>
