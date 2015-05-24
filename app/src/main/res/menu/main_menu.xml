@@ -9,4 +9,8 @@
         android:id="@+id/menu_restore"
         android:title="@string/menu_timers_restore" />
 
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/settings" />
+
 </menu>
