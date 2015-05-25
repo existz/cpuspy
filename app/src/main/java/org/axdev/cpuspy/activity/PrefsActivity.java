@@ -43,7 +43,11 @@ public class PrefsActivity extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preferences);
+            if (ThemeUtils.DARKTHEME) {
+                addPreferencesFromResource(R.xml.preferences_dark);
+            } else {
+                addPreferencesFromResource(R.xml.preferences);
+            }
 
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -68,7 +72,6 @@ public class PrefsActivity extends AppCompatActivity {
             });
 
             final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
-
             crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString().equals("false")) {
@@ -81,7 +84,6 @@ public class PrefsActivity extends AppCompatActivity {
             });
 
             final CheckBoxPreference darkTheme = (CheckBoxPreference) getPreferenceManager().findPreference("darkTheme");
-
             darkTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString().equals("true")) {
@@ -96,7 +98,6 @@ public class PrefsActivity extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 final CheckBoxPreference coloredNavBar = (CheckBoxPreference) getPreferenceManager().findPreference("coloredNavBar");
-
                 coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         if (newValue.toString().equals("true")) {

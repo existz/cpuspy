@@ -20,11 +20,6 @@
             android:title="@string/pref_title_darktheme"
             android:summary="@string/pref_summary_darktheme"
             android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="coloredNavBar"
-            android:title="@string/pref_title_navbar"
-            android:summary="@string/pref_summary_navbar"
-            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about" >
@@ -32,27 +27,27 @@
             android:key="developer"
             android:title="@string/pref_about_header_dev"
             android:summary="@string/pref_about_developer"
-            android:icon="@drawable/ic_developer">
+            android:icon="@drawable/ic_developer_dark">
         </Preference>
         <Preference
             android:key="version"
             android:title="@string/pref_title_version"
             android:summary="@string/version_name"
             android:selectable="false"
-            android:icon="@drawable/ic_version">
+            android:icon="@drawable/ic_version_dark">
         </Preference>
         <Preference
             android:key="credit"
             android:title="@string/pref_about_header_credits"
             android:summary="@string/pref_about_credits"
             android:selectable="false"
-            android:icon="@drawable/ic_credits">
+            android:icon="@drawable/ic_credits_dark">
         </Preference>
         <Preference
             android:key="license"
             android:title="@string/pref_title_license"
             android:persistent="false"
-            android:icon="@drawable/ic_opensource">
+            android:icon="@drawable/ic_opensource_dark">
         </Preference>
         <CheckBoxPreference
             android:key="crashReport"
