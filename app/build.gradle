@@ -52,7 +52,7 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.4.2'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.nispok:snackbar:2.10.8'
+    compile 'com.nispok:snackbar:2.10.9'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }
