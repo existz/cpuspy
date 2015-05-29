@@ -247,14 +247,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     /** Disable handler when activity loses focus */
     @Override public void onPause () {
         super.onPause();
-        mHandler.removeCallbacksAndMessages(null);
-
         if (!mAutoRefresh) {
             mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
                 mSensorManager.unregisterListener(mSensorListener);
             }
         }
+
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /** Update the view when the application regains focus */

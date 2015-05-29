@@ -73,6 +73,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
     private int mDialogTextColor;
+    private Typeface mediumFont;
 
     private final Handler mHandler = new Handler();
 
@@ -147,7 +148,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDevicePlatform.setText(platform);
 
         // Applying Roboto-Medium font
-        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
 
         mKernelHeader.setTypeface(mediumFont);
         mKernelGovernorHeader.setTypeface(mediumFont);
@@ -166,7 +167,24 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDeviceBoardHeader.setTypeface(mediumFont);
         mDevicePlatformHeader.setTypeface(mediumFont);
 
-        /** Check if we should monitor cpu temp */
+        /** Set onClickListener for kernel info button */
+        mKernelMoreButton.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkTempMonitor();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+    /** Check if we should monitor cpu temp */
+    private void checkTempMonitor() {
         if (CPUUtils.hasTemp()) {
             mHandler.post(monitorTemp);
             mCpuTempHeader.setTypeface(mediumFont);
@@ -174,10 +192,18 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             mCpuTempHeader.setVisibility(View.GONE);
             mCpuTemp.setVisibility(View.GONE);
         }
-
-        /** Set onClickListener for kernel info button */
-        mKernelMoreButton.setOnClickListener(this);
     }
+
+    /** Monitor CPU temperature */
+    private final Runnable monitorTemp = new Runnable() {
+        public void run() {
+            try {
+                String s = CPUUtils.getTemp();
+                mCpuTemp.setText(s);
+            } catch (NumberFormatException ignored) {}
+            mHandler.postDelayed(monitorTemp, 1000);
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -193,17 +219,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
                 break;
         }
     }
-
-    /** Monitor CPU temperature */
-    private final Runnable monitorTemp = new Runnable() {
-        public void run() {
-            try {
-                String s = CPUUtils.getTemp();
-                mCpuTemp.setText(s);
-            } catch (NumberFormatException ignored) {}
-            mHandler.postDelayed(monitorTemp, 1000);
-        }
-    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
