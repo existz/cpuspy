@@ -148,7 +148,11 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         mDevicePlatform.setText(platform);
 
         // Applying Roboto-Medium font
-        mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            this.mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        }
 
         mKernelHeader.setTypeface(mediumFont);
         mKernelGovernorHeader.setTypeface(mediumFont);

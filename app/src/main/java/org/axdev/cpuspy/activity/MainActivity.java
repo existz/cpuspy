@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
+    private Typeface mediumFont;
 
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
@@ -402,7 +403,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
-        final Typeface mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            this.mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
+        }
         final TextView mWelcomeSummary = (TextView) findViewById(R.id.welcome_summary);
         final TextView mWelcomeFeatures = (TextView) findViewById(R.id.welcome_features);
 

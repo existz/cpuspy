@@ -43,6 +43,8 @@ public class LicenseFragment extends Fragment {
     @InjectView(R.id.materialripple) TextView mMaterialRipple;
     @InjectView(R.id.butterknife) TextView mButterKnife;
 
+    private Typeface mediumFont;
+
     /** Inflate the license layout */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +58,11 @@ public class LicenseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /** Set typeface and allow hyperlinks */
-        final Typeface mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        }
 
         mSupportLib.setTypeface(mediumFont);
         mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());
