@@ -684,19 +684,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             case R.id.menu_reset:
                 resetTimers();
                 this.updateView();
-                SnackbarManager.show(Snackbar.with(this)
-                        .text(R.string.snackbar_text_reset) // text to display
-                        .actionLabel(R.string.action_dismiss) // action button label
-                        .actionColor(Color.parseColor("#f4b400")));
+                SnackbarManager.show(Snackbar.with(MainActivity.this)
+                        .text(R.string.snackbar_text_reset));
                 mStatesCardView.setVisibility(View.GONE);
                 break;
             case R.id.menu_restore:
                 restoreTimers();
                 this.updateView();
-                SnackbarManager.show(Snackbar.with(this)
-                        .text(R.string.snackbar_text_restore) // text to display
-                        .actionLabel(R.string.action_dismiss) // action button label
-                        .actionColor(Color.parseColor("#f4b400")));
+                SnackbarManager.show(Snackbar.with(MainActivity.this)
+                        .text(R.string.snackbar_text_restore));
+                mStatesCardView.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(this, PrefsActivity.class));
