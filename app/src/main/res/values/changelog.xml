@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Fix memory leak setting typeface\n&#8226; Updated internal 3rd party libraries\n&#8226; Removed deprecated getDrawable\n&#8226; Revert using webview for dialogs\n&#8226; Simplify getting/setting cpu freqs\n&#8226; Decrease card animation duration\n&#8226; Random code cleanup and fixes\n&#8226; Improve reading of states file\n&#8226; Improve reading cpu information\n&#8226; Improve theme changing and dark theme\n&#8226; Simplify checking which views to show</string>
+    <string name="whats_new">&#8226; Added Shake to Refresh timers\n&#8226; Added CPU Temp monitoring\n&#8226; Refreshed charged view layout\n&#8226; Added new widget to reset timers\n&#8226; Added indicator to kernel version\n&#8226; Added darker primary text color\n&#8226; Adjusted layout for tablets/TVs\n&#8226; Updated to latest support libraries\n&#8226; Fixed setting Roboto-Medium font\n&#8226; Tons of code cleanup and fixes\n&#8226; Fixed main card animation from being cut off\n&#8226; Improve checking if states file exists\n&#8226; More improvements to theme changing\n&#8226; Simplified getting/setting of cpu frequencies</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 

@@ -134,16 +134,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private SharedPreferences sp;
     private Typeface mediumFont;
 
+    private boolean mAutoRefresh;
+    private boolean mIsCharged;
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
     private boolean mMonitorCpu3;
-
-    /** whether or not auto refresh is enabled */
-    private boolean mAutoRefresh = false;
-
-    /** lets us know if the battery is fully charged or not */
-    private boolean mIsCharged = false;
 
     /** Initialize the Activity */
     @Override public void onCreate(Bundle savedInstanceState)
