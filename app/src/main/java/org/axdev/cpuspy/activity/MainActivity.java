@@ -19,7 +19,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
     @InjectView(R.id.additional_layout) LinearLayout mAdditionalLayout;
+    @InjectView(R.id.card_container) RelativeLayout mCardContainer;
     @InjectView(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
     @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         ButterKnife.inject(this);
         this.setThemeAttributes();
         this.setTypeface();
-        this.setAnimation();
+        this.setCardAnimation();
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -419,12 +419,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     /** Animate cardview sliding up from bottom */
-    private void setAnimation(){
+    private void setCardAnimation(){
         final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_in_up);
 
         slideUp.setDuration(500);
-        mStatesCardView.startAnimation(slideUp);
-        mTimeCardView.startAnimation(slideUp);
+        mCardContainer.startAnimation(slideUp);
     }
 
     /** Remove welcome cardview after first launch */
