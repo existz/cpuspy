@@ -460,8 +460,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     // Prevent circle reveal from being cut off
                     mAutoRefresh = false;
 
-                    int cx = mMainLayout.getRight();
-                    int cy = mMainLayout.getTop();
+                    int cx = mCardContainer.getRight();
+                    int cy = mCardContainer.getTop();
 
                     float finalRadius = (float) Math.hypot(mMainLayout.getWidth(), mMainLayout.getHeight());
 

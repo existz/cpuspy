@@ -44,7 +44,7 @@
     <LinearLayout
         android:id="@+id/additional_layout"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="@dimen/padding_mtrl"
         android:orientation="vertical"

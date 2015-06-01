@@ -3,14 +3,14 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/cpu_core_toolbar"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:background="?attr/colorPrimary">
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:orientation="vertical"

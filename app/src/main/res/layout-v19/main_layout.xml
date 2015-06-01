@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ui_main_layout"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar_cpu_layout"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ScrollView
             android:id="@+id/scroll_container"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/card_container"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:animateLayoutChanges="true">
@@ -33,7 +33,7 @@
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view_time"
                     android:layout_gravity="center"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:layout_below="@+id/card_view_welcome"
@@ -41,7 +41,7 @@
                     android:visibility="gone">
 
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:animateLayoutChanges="true">
@@ -100,7 +100,7 @@
                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/card_view_states"
                         android:layout_gravity="center"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="8dp"
@@ -109,14 +109,14 @@
                         android:visibility="gone">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <LinearLayout
                                 android:id="@+id/ui_states_view"
                                 android:orientation="vertical"
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/padding_mtrl"
                                 android:layout_marginLeft="@dimen/padding_mtrl"
