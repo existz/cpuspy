@@ -113,7 +113,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(R.string.information);
-                getSupportActionBar().setElevation(getResources().getDimension(R.dimen.ab_elevation));
             }
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.information));

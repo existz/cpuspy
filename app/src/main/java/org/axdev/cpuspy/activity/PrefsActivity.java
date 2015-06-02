@@ -121,7 +121,6 @@ public class PrefsActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 if (supportActionBar != null) {
                     supportActionBar.setTitle(R.string.settings);
-                    supportActionBar.setElevation(getResources().getDimension(R.dimen.ab_elevation));
                 }
             } else {
                 final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
