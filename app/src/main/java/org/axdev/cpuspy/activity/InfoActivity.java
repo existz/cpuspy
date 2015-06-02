@@ -72,7 +72,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
-    private int mDialogTextColor;
     private Typeface mediumFont;
 
     private final Handler mHandler = new Handler();
@@ -95,8 +94,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
                 R.color.card_dark_background : R.color.card_light_background));
         mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                 R.color.card_dark_background : R.color.card_light_background));
-        mDialogTextColor = getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.primary_text_color_dark : R.color.primary_text_color);
 
         // Set color for drawables based on selected theme
         final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
@@ -202,8 +199,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     private final Runnable monitorTemp = new Runnable() {
         public void run() {
             try {
-                String s = CPUUtils.getTemp();
-                mCpuTemp.setText(s);
+                mCpuTemp.setText(CPUUtils.getTemp());
             } catch (NumberFormatException ignored) {}
             mHandler.postDelayed(monitorTemp, 1000);
         }
@@ -215,7 +211,6 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             case R.id.btn_kernel_more:
                 final MaterialDialog dialog = new MaterialDialog.Builder(this)
                         .content(CPUUtils.getKernelVersion())
-                        .contentColor(mDialogTextColor)
                         .build();
 
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogInfoAnimation;

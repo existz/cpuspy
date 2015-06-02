@@ -10,6 +10,7 @@
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
         <item name="md_title_color">@android:color/black</item>
+        <item name="md_content_color">@android:color/black</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:colorBackground">@color/light_background</item>
         <item name="android:textColor">#212121</item>
@@ -27,6 +28,7 @@
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
         <item name="md_title_color">@android:color/white</item>
+        <item name="md_content_color">@android:color/white</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:textColor">@android:color/white</item>
