@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="version_name">3.0-BETA6</string>
+
+    <string name="core_offline">Hors ligne</string>
+
+    <string name="unused_states_show">Afficher états inutilisés</string>
+    <string name="unused_states_hide">Masquer états inutilisés</string>
+
+    <string name="total_state_time">Temps Total État</string>
+
+    <string name="charged_view_enabled">Réinitialisation auto activée</string>
+    <string name="charged_view_status">État de la batterie : Chargée</string>
+    <string name="charged_view_message">Dès que l\'appareil est complètement chargé, débranchez votre chargeur pour réinitialiser automatiquement les compteurs CPU.</string>
+
+    <string name="menu_changelog">Changelog</string>
+    <string name="menu_donate">Donation</string>
+    <string name="menu_timers_reset">Réinitialiser compteurs</string>
+    <string name="menu_timers_restore">Restaurer compteurs</string>
+
+    <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>
+
+    <string name="snackbar_text_reset">Compteurs réinitialisés avec succès</string>
+    <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
+    <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>
+
+    <string name="action_changelog">Changelog complet</string>
+    <string name="action_disable">Désactiver</string>
+    <string name="action_dismiss">Annuler</string>
+
+    <string name="widget_reset_title">CPUSpy - Réinitialiser compteurs</string>
+    <string name="widget_reset_error">Oups ! Il y a eu une erreur, réessayez</string>
+    <string name="widget_reset_success">Compteurs réinitialisés avec succès</string>
+
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="information_kernel_info">Kernel Info</string>
+    <string name="information_device_info">Device Info</string>
+    <string name="information_cpu_info">CPU Info</string>
+    <string name="information_kernel_governor">Governor:</string>
+    <string name="information_kernel_version_header">Version:</string>
+    <string name="information_device_build_header">Build ID:</string>
+    <string name="information_device_api_header">API Level:</string>
+    <string name="information_device_manuf_header">Manufacturer:</string>
+    <string name="information_device_model_header">Model:</string>
+    <string name="information_device_board_header">Board:</string>
+    <string name="information_device_platform_header">Platform:</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">Architecture:</string>
+    <string name="information_cpu_freq_header">Frequency:</string>
+    <string name="information_cpu_core_header">Cores:</string>
+    <string name="information_cpu_temp_header">Temp:</string>
+    <string name="information_cpu_features_header">Features:</string>
+
+    <!-- Welcome info -->
+    <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
+    <string name="welcome_features">Features</string>
+    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring</string>
+    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports</string>
+    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time</string>
+    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full</string>
+
+    <!-- Settings info -->
+    <string name="settings">Paramètres</string>
+    <string name="pref_header_general">Général</string>
+    <string name="pref_header_about">À propos</string>
+    <string name="pref_header_ui">Interface</string>
+    <string name="pref_title_version">Version</string>
+    <string name="pref_summary_about">À propos de l\'application et de son développeur</string>
+    <string name="pref_title_autorefresh">Actualisation automatique</string>
+    <string name="pref_summary_autorefresh">Actualiser les compteurs CPU automatiquement</string>
+    <string name="pref_title_autoreset">Réinitialisation automatique</string>
+    <string name="pref_summary_autoreset">Réinitialiser les compteurs CPU lorsque la batterie est chargée</string>
+    <string name="pref_title_darktheme">Thème sombre</string>
+    <string name="pref_summary_darktheme">Si oui ou non le thème sombre est activé</string>
+    <string name="pref_title_navbar">Barre de navigation colorée</string>
+    <string name="pref_summary_navbar">Activer la barre de navigation colorée</string>
+    <string name="pref_title_crashreport">Rapport de bug anonyme</string>
+    <string name="pref_summary_crashreport">Permettre la collecte de bug et les données d\'usage</string>
+
+    <!-- About -->
+    <string name="pref_about_header_dev">Développeur</string>
+    <string name="pref_about_header_credits">Crédits</string>
+    <string name="pref_about_credits">Eduardo Pratti - Icônes\nBrandon Valosek - Créateur</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
+
+</resources>
