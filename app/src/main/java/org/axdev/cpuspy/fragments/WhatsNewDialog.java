@@ -25,17 +25,18 @@ public class WhatsNewDialog extends DialogFragment {
         final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.menu_changelog)
                 .customView(R.layout.changelog_layout, true)
-                .neutralText(R.string.action_changelog)
-                .negativeText(R.string.action_dismiss)
+                .negativeText(R.string.action_changelog)
+                .positiveText(R.string.action_dismiss)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
-                    public void onNeutral(MaterialDialog dialog) {
+                    public void onNegative(MaterialDialog dialog) {
                         final Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(githubURL));
                         startActivity(i);
                     }
+
                     @Override
-                    public void onNegative(MaterialDialog dialog) {
+                    public void onPositive(MaterialDialog dialog) {
                         dialog.dismiss();
                     }
                 })
