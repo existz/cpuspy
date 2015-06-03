@@ -31,28 +31,24 @@
         <Preference
             android:key="developer"
             android:title="@string/pref_about_header_dev"
-            android:summary="@string/pref_about_developer"
-            android:icon="@drawable/ic_developer">
+            android:summary="@string/pref_about_developer">
         </Preference>
         <Preference
             android:key="version"
             android:title="@string/pref_title_version"
             android:summary="@string/version_name"
-            android:selectable="false"
-            android:icon="@drawable/ic_version">
+            android:selectable="false">
         </Preference>
         <Preference
             android:key="credit"
             android:title="@string/pref_about_header_credits"
             android:summary="@string/pref_about_credits"
-            android:selectable="false"
-            android:icon="@drawable/ic_credits">
+            android:selectable="false">
         </Preference>
         <Preference
             android:key="license"
             android:title="@string/pref_title_license"
-            android:persistent="false"
-            android:icon="@drawable/ic_opensource">
+            android:persistent="false">
         </Preference>
         <CheckBoxPreference
             android:key="crashReport"

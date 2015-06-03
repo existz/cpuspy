@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -43,10 +44,18 @@ public class PrefsActivity extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            if (ThemeUtils.DARKTHEME) {
-                addPreferencesFromResource(R.xml.preferences_dark);
-            } else {
-                addPreferencesFromResource(R.xml.preferences);
+            addPreferencesFromResource(R.xml.preferences);
+
+            /** Apply preference icons for Lollipop and above */
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                        R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                        R.drawable.ic_version_dark : R.drawable.ic_version, null));
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                        R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                        R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
 
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
