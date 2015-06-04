@@ -134,7 +134,7 @@
         android:id="@+id/main_reveal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="?attr/colorPrimary"
+        android:background="?android:attr/colorBackground"
         android:visibility="gone"/>
 
 </FrameLayout>

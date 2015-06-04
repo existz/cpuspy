@@ -20,6 +20,8 @@ import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -86,6 +88,17 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_layout);
         ButterKnife.inject(this);
+
+        /** Only animate cardviews on Lollipop and above */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final Animation slideInTop = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
+            final Animation slideInBottom = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
+            final Animation slideInLeft = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+
+            mKernelCardView.setAnimation(slideInTop);
+            mDeviceCardView.setAnimation(slideInLeft);
+            mCpuCardView.setAnimation(slideInBottom);
+        }
 
         /** Set UI elements for dark and light themes */
         mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
