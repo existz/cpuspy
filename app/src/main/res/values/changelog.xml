@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Added Shake to Refresh timers\n&#8226; Added CPU Temp monitoring\n&#8226; Refreshed charged view layout\n&#8226; Added new widget to reset timers\n&#8226; Added indicator to kernel version\n&#8226; Added darker primary text color\n&#8226; Adjusted layout for tablets/TVs\n&#8226; Updated to latest support libraries\n&#8226; Fixed setting Roboto-Medium font\n&#8226; Tons of code cleanup and fixes\n&#8226; Fixed main card animation from being cut off\n&#8226; Improve checking if states file exists\n&#8226; More improvements to theme changing\n&#8226; Simplified getting/setting of cpu frequencies</string>
+    <string name="whats_new">&#8226; Update circle reveal animation\n&#8226; Add widget info to welcome card\n&#8226; Add support for Galaxy S2 CPU temp\n&#8226; Add colored btn_selector to buttons\n&#8226; Update to latest build tools and gradle\n&#8226; Fix Info text overlapping if multiple lines\n&#8226; Fix setting Preference icons based on theme\n&#8226; Add style for setting ActionBar elevation\n&#8226; Apply dialog content color based on theme </string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
