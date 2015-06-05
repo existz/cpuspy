@@ -28,6 +28,8 @@ public class CPUUtils {
     private static String TEMP_FILE;
     private static final String CPU_TEMP_ZONE0 = "/sys/class/thermal/thermal_zone0/temp";
     private static final String CPU_TEMP_ZONE1 = "/sys/class/thermal/thermal_zone1/temp";
+    private static final String CPU_TEMP_APQ8064 = "/sys/devices/platform/apq8064-tmu/curr_temp";
+    private static final String CPU_TEMP_S5P = "/sys/devices/platform/s5p-tmu/curr_temp";
 
     private static final String TAG = "CpuSpy";
     private static final String TAG_APP = "CpuSpyApp";
@@ -212,14 +214,21 @@ public class CPUUtils {
     }
 
     public static boolean hasTemp() {
-        final File temp0 = new File(CPU_TEMP_ZONE0);
-        final File temp1 = new File(CPU_TEMP_ZONE1);
+        final File zone0 = new File(CPU_TEMP_ZONE0);
+        final File zone1 = new File(CPU_TEMP_ZONE1);
+        final File apq8064 = new File(CPU_TEMP_APQ8064);
+        final File s5p = new File(CPU_TEMP_S5P);
 
-        if (temp0.exists()) {
+        if (zone0.exists() && zone0.canRead()) {
             TEMP_FILE = CPU_TEMP_ZONE1;
-        } else if (temp1.exists()) {
+        } else if (zone1.exists() && zone1.canRead()) {
             TEMP_FILE = CPU_TEMP_ZONE0;
+        } else if (apq8064.exists() && apq8064.canRead()) {
+            TEMP_FILE = CPU_TEMP_APQ8064;
+        } else if (s5p.exists() && s5p.canRead()) {
+            TEMP_FILE = CPU_TEMP_S5P;
         }
+
         return TEMP_FILE != null;
     }
 
