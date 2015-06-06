@@ -35,32 +35,32 @@
     <string name="widget_reset_success">Compteurs réinitialisés avec succès</string>
 
     <!-- Information -->
-    <string name="information">Information</string>
-    <string name="information_kernel_info">Kernel Info</string>
-    <string name="information_device_info">Device Info</string>
-    <string name="information_cpu_info">CPU Info</string>
-    <string name="information_kernel_governor">Governor:</string>
-    <string name="information_kernel_version_header">Version:</string>
-    <string name="information_device_build_header">Build ID:</string>
-    <string name="information_device_api_header">API Level:</string>
-    <string name="information_device_manuf_header">Manufacturer:</string>
-    <string name="information_device_model_header">Model:</string>
-    <string name="information_device_board_header">Board:</string>
-    <string name="information_device_platform_header">Platform:</string>
-    <string name="information_cpu_abi_header">ABI:</string>
-    <string name="information_cpu_arch_header">Architecture:</string>
-    <string name="information_cpu_freq_header">Frequency:</string>
-    <string name="information_cpu_core_header">Cores:</string>
-    <string name="information_cpu_temp_header">Temp:</string>
-    <string name="information_cpu_features_header">Features:</string>
+    <string name="information">Informations</string>
+    <string name="information_kernel_info">Kernel</string>
+    <string name="information_device_info">Appareil</string>
+    <string name="information_cpu_info">CPU</string>
+    <string name="information_kernel_governor">Gouverneur :</string>
+    <string name="information_kernel_version_header">Version :</string>
+    <string name="information_device_build_header">ID Build :</string>
+    <string name="information_device_api_header">Niveau API :</string>
+    <string name="information_device_manuf_header">Fabricant :</string>
+    <string name="information_device_model_header">Modèle :</string>
+    <string name="information_device_board_header">Board :</string>
+    <string name="information_device_platform_header">Plateforme :</string>
+    <string name="information_cpu_abi_header">ABI :</string>
+    <string name="information_cpu_arch_header">Architecture :</string>
+    <string name="information_cpu_freq_header">Fréquence :</string>
+    <string name="information_cpu_core_header">Coeurs :</string>
+    <string name="information_cpu_temp_header">Temp :</string>
+    <string name="information_cpu_features_header">Fonctions :</string>
 
     <!-- Welcome info -->
-    <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
-    <string name="welcome_features">Features</string>
-    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring</string>
-    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports</string>
-    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time</string>
-    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full</string>
+    <string name="welcome_summary">Bienvenue sur CPUSpy Material. Utilisez cet outil pour surveiller les fréquences que votre processeur utilise le plus.</string>
+    <string name="welcome_features">Fonctions</string>
+    <string name="welcome_cpuinfo">&#8226; Informations et suivi du CPU + Kernel</string>
+    <string name="welcome_crashreport">&#8226; Envoie automatiquement des rapports de bug et d\'usage </string>
+    <string name="welcome_autorefresh">&#8226; Activez Actualisation automatique pour actualiser les états en temps réel</string>
+    <string name="welcome_autoreset">&#8226; Compteurs automatiquement réinitialisés lorsque la batterie est chargée</string>
 
     <!-- Settings info -->
     <string name="settings">Paramètres</string>
