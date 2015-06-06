@@ -734,7 +734,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
             mAdditionalStates.setText(str);
         } else {
-            mAdditionalStates.setText("Empty");
+            mAdditionalStates.setText(R.string.states_empty);
         }
     }
 
