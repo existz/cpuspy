@@ -26,10 +26,6 @@ public class CPUUtils {
     private static final String KERNEL_VERSION = "/proc/version";
 
     private static String TEMP_FILE;
-    private static final String CPU_TEMP_ZONE0 = "/sys/class/thermal/thermal_zone0/temp";
-    private static final String CPU_TEMP_ZONE1 = "/sys/class/thermal/thermal_zone1/temp";
-    private static final String CPU_TEMP_APQ8064 = "/sys/devices/platform/apq8064-tmu/curr_temp";
-    private static final String CPU_TEMP_S5P = "/sys/devices/platform/s5p-tmu/curr_temp";
 
     private static final String TAG = "CpuSpy";
     private static final String TAG_APP = "CpuSpyApp";
@@ -213,20 +209,25 @@ public class CPUUtils {
         return ((double) temp) + "°C";
     }
 
-    public static boolean hasTemp() {
-        final File zone0 = new File(CPU_TEMP_ZONE0);
-        final File zone1 = new File(CPU_TEMP_ZONE1);
-        final File apq8064 = new File(CPU_TEMP_APQ8064);
-        final File s5p = new File(CPU_TEMP_S5P);
+    private static String[] tempFiles = {
+            "/sys/devices/platform/omap/omap_temp_sensor.0/temperature",
+            "/sys/kernel/debug/tegra_thermal/temp_tj",
+            "/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp",
+            "/sys/class/thermal/thermal_zone0/temp",
+            "/sys/class/thermal/thermal_zone1/temp",
+            "/sys/devices/virtual/thermal/thermal_zone0/temp",
+            "/sys/devices/virtual/thermal/thermal_zone1/temp",
+            "/sys/devices/system/cpu/cpufreq/cput_attributes/cur_temp",
+            "/sys/devices/platform/s5p-tmu/curr_temp",
+            "/sys/devices/platform/s5p-tmu/temperature",
+    };
 
-        if (zone0.exists() && zone0.canRead()) {
-            TEMP_FILE = CPU_TEMP_ZONE1;
-        } else if (zone1.exists() && zone1.canRead()) {
-            TEMP_FILE = CPU_TEMP_ZONE0;
-        } else if (apq8064.exists() && apq8064.canRead()) {
-            TEMP_FILE = CPU_TEMP_APQ8064;
-        } else if (s5p.exists() && s5p.canRead()) {
-            TEMP_FILE = CPU_TEMP_S5P;
+    public static boolean hasTemp() {
+        for (String s : tempFiles) {
+            final File file = new File(s);
+            if (file.exists() && file.canRead()) {
+                TEMP_FILE = s;
+            }
         }
 
         return TEMP_FILE != null;
