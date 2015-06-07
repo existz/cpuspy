@@ -225,9 +225,7 @@ public class CPUUtils {
     public static boolean hasTemp() {
         for (String s : tempFiles) {
             final File file = new File(s);
-            if (file.exists() && file.canRead()) {
-                TEMP_FILE = s;
-            }
+            if (file.canRead()) TEMP_FILE = s;
         }
 
         return TEMP_FILE != null;

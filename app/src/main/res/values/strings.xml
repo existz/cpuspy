@@ -23,6 +23,7 @@
     <string name="states_empty">Empty</string>
     <string name="states_warning"><b>Uh Oh!</b>\n\nNo states file found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
 
+    <string name="temp_unavailable">Unavailable</string>
     <string name="snackbar_text_reset">Timers reset successfully</string>
     <string name="snackbar_text_restore">Timers restored successfully</string>
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>

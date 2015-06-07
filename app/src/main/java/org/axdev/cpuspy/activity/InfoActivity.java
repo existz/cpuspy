@@ -211,7 +211,12 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
     private final Runnable monitorTemp = new Runnable() {
         public void run() {
             try {
-                mCpuTemp.setText(CPUUtils.getTemp());
+                if (CPUUtils.getTemp() != null) {
+                    mCpuTemp.setText(CPUUtils.getTemp());
+                } else {
+                    mCpuTemp.setText(R.string.temp_unavailable);
+                    mCpuTemp.setTypeface(null, Typeface.ITALIC);
+                }
             } catch (NumberFormatException ignored) {}
             mHandler.postDelayed(monitorTemp, 1000);
         }
