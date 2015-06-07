@@ -467,7 +467,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             ViewAnimationUtils.createCircularReveal(mMainReveal, cx, cy, 0, Math.round(finalRadius));
 
                     // Set animation duration
-                    anim.setDuration(325);
+                    anim.setDuration(300);
                     // Set a natural ease-in/ease-out interpolator.
                     anim.setInterpolator(new AccelerateDecelerateInterpolator());
                     // Set a listener for when the animation starts and ends
