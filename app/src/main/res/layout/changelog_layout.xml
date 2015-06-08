@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:text="@string/changelog_notes_header"
         android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/changelog_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/changelog_notes"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/changelog_version"
@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:text="@string/version_name"
         android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/changelog_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/whats_new"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
 </LinearLayout>
