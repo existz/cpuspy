@@ -9,8 +9,6 @@ package org.axdev.cpuspy.activity;
 
 // imports
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -43,9 +41,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
     @InjectView(R.id.cpu_core_toolbar) Toolbar mToolbar;
 
-    @Optional @InjectView(R.id.main_reveal) View mMainReveal;
     @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     @InjectView(R.id.ui_cpu_freq0) TextView mCore0;
@@ -333,9 +328,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             mChargedView.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.VISIBLE);
             mTimeCardView.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mMainReveal.setVisibility(View.GONE);
-            }
         }
 
         // show warning label if no states found
@@ -451,44 +443,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_info:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-                    // Prevent circle reveal from being cut off
-                    mAutoRefresh = false;
-
-                    int cx = mCardContainer.getRight();
-                    int cy = mCardContainer.getTop();
-
-                    float finalRadius = (float) Math.hypot(mMainLayout.getWidth(), mMainLayout.getHeight());
-
-                    // Create a reveal {@link Animator} that starts clipping the view from
-                    // the top right corner until the whole view is covered.
-                    final Animator anim =
-                            ViewAnimationUtils.createCircularReveal(mMainReveal, cx, cy, 0, Math.round(finalRadius));
-
-                    // Set animation duration
-                    anim.setDuration(300);
-                    // Set a natural ease-in/ease-out interpolator.
-                    anim.setInterpolator(new AccelerateDecelerateInterpolator());
-                    // Set a listener for when the animation starts and ends
-                    anim.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            mMainReveal.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            startActivity(new Intent(getApplicationContext(), InfoActivity.class));
-                            overridePendingTransition(0, 0);
-                        }
-                    });
-
-                    // Finally start the animation
-                    anim.start();
-                } else {
-                    startActivity(new Intent(this, InfoActivity.class));
-                }
+                startActivity(new Intent(this, InfoActivity.class));
                 break;
             case R.id.btn_welcome:
                 this.removeWelcomeCard();

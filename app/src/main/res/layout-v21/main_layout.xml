@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ui_main_layout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ui_main_layout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/toolbar_cpu_layout"/>
+    <include layout="@layout/toolbar_cpu_layout"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"
@@ -128,13 +123,4 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/main_reveal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="?android:attr/colorBackground"
-        android:visibility="gone"/>
-
-</FrameLayout>
+</LinearLayout>
