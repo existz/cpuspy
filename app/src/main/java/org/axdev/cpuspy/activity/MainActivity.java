@@ -231,8 +231,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         if (sp.getBoolean("autoRefresh", true)) {
             mAutoRefresh = true;
             mHandler.post(refreshAuto);
+            mSwipeLayout.setEnabled(false);
         } else {
             mAutoRefresh = false;
+            mSwipeLayout.setEnabled(true);
         }
     }
 
@@ -283,7 +285,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mSwipeLayout.setRefreshing(false);
                 refreshData();
             }
         }, 1950);
@@ -353,6 +354,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             // Disable core monitoring
             mHandler.removeCallbacksAndMessages(monitorCpu);
+
+            // Disable swipe to refresh
+            mSwipeLayout.setEnabled(false);
         }
     }
 
@@ -701,6 +705,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void refreshData() {
         this.checkView();
         new RefreshStateDataTask().execute((Void) null);
+        this.mSwipeLayout.setRefreshing(false);
     }
 
     /** @return A nicely formatted String representing tSec seconds */
