@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     // main ui views
     @InjectView(R.id.btn_charged) Button mChargedButton;
     @InjectView(R.id.btn_welcome) Button mWelcomeButton;
-    @InjectView(R.id.card_view_charged) CardView mChargedCardView;
     @InjectView(R.id.card_view_states) CardView mStatesCardView;
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
@@ -101,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
-    @InjectView(R.id.additional_layout) LinearLayout mAdditionalLayout;
     @InjectView(R.id.card_container) RelativeLayout mCardContainer;
     @InjectView(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
@@ -364,16 +362,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void setThemeAttributes() {
         final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
         final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
-
-        // Set background for cards based on selected theme
-        mStatesCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mTimeCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mChargedCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mAdditionalLayout.setBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.layout_dark_background : R.color.layout_light_background));
 
         // Set color for drawables based on selected theme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

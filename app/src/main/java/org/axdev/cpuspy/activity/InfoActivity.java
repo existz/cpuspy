@@ -36,9 +36,6 @@ import butterknife.InjectView;
 
 public class InfoActivity extends AppCompatActivity implements OnClickListener {
 
-    @InjectView(R.id.card_view_kernel) CardView mKernelCardView;
-    @InjectView(R.id.card_view_device) CardView mDeviceCardView;
-    @InjectView(R.id.card_view_cpu) CardView mCpuCardView;
     @InjectView(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
     @InjectView(R.id.kernel_header) TextView mKernelHeader;
     @InjectView(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
@@ -87,15 +84,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.info_layout);
         ButterKnife.inject(this);
 
-        /** Set UI elements for dark and light themes */
-        mKernelCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mDeviceCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCpuCardView.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-
-        // Set color for drawables based on selected theme
+        /** Set color for drawables based on selected theme */
         final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
         final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
 

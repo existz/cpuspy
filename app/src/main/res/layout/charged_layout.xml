@@ -39,6 +39,7 @@
             android:layout_height="175dp"
             android:layout_marginTop="30dp"
             android:clickable="true"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="0dp">
 
             <LinearLayout

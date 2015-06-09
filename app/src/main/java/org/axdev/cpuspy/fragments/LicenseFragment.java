@@ -32,11 +32,6 @@ import butterknife.InjectView;
 
 public class LicenseFragment extends Fragment {
 
-    @InjectView(R.id.card_view_supportlib) CardView mCardViewSupport;
-    @InjectView(R.id.card_view_butterknife) CardView mCardViewButter;
-    @InjectView(R.id.card_view_materialdialog) CardView mCardViewDialog;
-    @InjectView(R.id.card_view_materialripple) CardView mCardViewRipple;
-    @InjectView(R.id.card_view_snackbar) CardView mCardViewSnackbar;
     @InjectView(R.id.supportlib) TextView mSupportLib;
     @InjectView(R.id.materialdialog) TextView mMaterialDialog;
     @InjectView(R.id.snackbar) TextView mSnackbar;
@@ -102,18 +97,6 @@ public class LicenseFragment extends Fragment {
                 supportActionBar.setTitle(s);
             }
         }
-
-        /** Set UI elements for dark and light themes */
-        mCardViewSupport.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCardViewButter.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCardViewDialog.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCardViewRipple.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
-        mCardViewSnackbar.setCardBackgroundColor(getResources().getColor(ThemeUtils.DARKTHEME ?
-                R.color.card_dark_background : R.color.card_light_background));
     }
 
     @Override public void onDestroyView() {

@@ -38,6 +38,7 @@
                         android:layout_below="@+id/card_view_welcome"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
+                        card_view:cardBackgroundColor="?attr/colorCardBackground"
                         card_view:cardCornerRadius="0dp"
                         android:visibility="gone">
 
@@ -55,7 +56,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:gravity="center"
                                 android:text="@string/total_state_time"
-                                android:textColor="@color/accent"/>
+                                android:textColor="?attr/colorAccent"/>
 
                             <TextView
                                 android:id="@+id/ui_total_state_time"
@@ -94,6 +95,7 @@
                         android:layout_below="@+id/card_view_time"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
+                        card_view:cardBackgroundColor="?attr/colorCardBackground"
                         card_view:cardCornerRadius="0dp"
                         android:visibility="gone">
 

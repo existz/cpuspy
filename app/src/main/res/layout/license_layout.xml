@@ -28,6 +28,7 @@
             android:layout_marginBottom="@dimen/padding_mtrl"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_marginRight="@dimen/padding_mtrl"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -63,6 +64,7 @@
             android:layout_marginBottom="@dimen/padding_mtrl"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_marginRight="@dimen/padding_mtrl"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -97,6 +99,7 @@
             android:layout_marginBottom="@dimen/padding_mtrl"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_marginRight="@dimen/padding_mtrl"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -131,6 +134,7 @@
             android:layout_marginBottom="@dimen/padding_mtrl"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_marginRight="@dimen/padding_mtrl"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="4dp">
 
             <TextView
@@ -165,6 +169,7 @@
             android:layout_marginBottom="@dimen/padding_mtrl"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_marginRight="@dimen/padding_mtrl"
+            card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="4dp">
 
             <TextView

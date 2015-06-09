@@ -47,6 +47,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="@dimen/padding_mtrl"
+        android:background="?attr/colorUnusedBackground"
         android:orientation="vertical"
         android:animateLayoutChanges="true">
 

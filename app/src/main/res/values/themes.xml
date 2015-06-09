@@ -9,6 +9,8 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
+        <item name="colorCardBackground">@color/card_light_background</item>
+        <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="md_title_color">@android:color/black</item>
         <item name="md_content_color">@android:color/black</item>
         <item name="md_btn_positive_selector">@drawable/btn_selector_custom</item>
@@ -30,6 +32,8 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/accent</item>
+        <item name="colorCardBackground">@color/card_dark_background</item>
+        <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="md_title_color">@android:color/white</item>
         <item name="md_content_color">@android:color/white</item>
         <item name="md_btn_positive_selector">@drawable/btn_selector_custom</item>

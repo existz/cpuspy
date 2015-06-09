@@ -7,8 +7,8 @@
     <color name="primary_text_color_dark">#eeeeee</color>
     <color name="dark_background">#292929</color>
     <color name="light_background">#eeeeee</color>
-    <color name="layout_dark_background">#292929</color>
-    <color name="layout_light_background">#f5f5f5</color>
+    <color name="unused_dark_background">#292929</color>
+    <color name="unused_light_background">#f5f5f5</color>
     <color name="card_dark_background">#313131</color>
     <color name="card_light_background">#fafafa</color>
     <color name="drawable_color_dark">@color/primary_text_color_dark</color>
