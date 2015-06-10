@@ -8,13 +8,15 @@
     <TextView
         android:id="@+id/ui_freq_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"/>
 
     <TextView
         android:id="@+id/ui_percentage_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/ui_freq_text"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -22,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/ui_freq_text"
+        android:textColor="?android:attr/textColorPrimary"
         android:layout_alignParentRight="true"/>
 
     <ProgressBar

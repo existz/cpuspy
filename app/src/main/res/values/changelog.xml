@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Remove circle reveal animation\n&#8226;  Add widget info to welcome card\n&#8226; Support more devices CPU temp\n&#8226;  Add action button back to snackbars\n&#8226; Merged French translations (Micks29)\n&#8226; Add colored btn_selector to buttons\n&#8226; Update to latest build tools and gradle\n&#8226; Fix Info text overlapping if multiple lines\n&#8226; Fix setting Preference icons based on theme\n&#8226; Add style for setting ActionBar elevation\n&#8226; Apply dialog content color based on theme </string>
+    <string name="whats_new">&#8226; Remove circle reveal animation\n&#8226; Add widget info to welcome card\n&#8226; Support more devices CPU temp\n&#8226; Add action button back to snackbars\n&#8226; Merged French translations (Micks29)\n&#8226; Add colored btn_selector to buttons\n&#8226; Update to latest build tools and gradle\n&#8226; Fix Info text overlapping if multiple lines\n&#8226; Fix setting Preference icons based on theme\n&#8226; Add style for setting ActionBar elevation\n&#8226; Apply dialog content color based on theme </string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 

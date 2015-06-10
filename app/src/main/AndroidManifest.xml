@@ -41,16 +41,6 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
-        <!-- Info Screen -->
-        <activity android:name=".activity.InfoActivity"
-            android:label="@string/information"
-            android:configChanges="orientation|screenSize"
-            android:parentActivityName=".activity.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
-        </activity>
-
         <receiver android:name=".receiver.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>

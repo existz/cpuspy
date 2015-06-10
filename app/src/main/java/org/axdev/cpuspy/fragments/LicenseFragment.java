@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 

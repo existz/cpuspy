@@ -3,6 +3,8 @@
     <color name="primary">#1993e7</color>
     <color name="primary_dark">#1475b8</color>
     <color name="accent">@color/primary</color>
+    <color name="tabsScrollColor">@android:color/white</color>
+    <color name="tabsDisabledTextColor">#b3ffffff</color>
     <color name="primary_text_color">#414141</color>
     <color name="primary_text_color_dark">#eeeeee</color>
     <color name="dark_background">#292929</color>

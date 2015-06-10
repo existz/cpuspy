@@ -5,8 +5,7 @@
         android:id="@+id/ui_charged_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/charged_img"
@@ -36,9 +35,8 @@
             android:id="@+id/card_view_charged"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="170dp"
             android:layout_marginTop="30dp"
-            android:clickable="true"
             card_view:cardBackgroundColor="?attr/colorCardBackground"
             card_view:cardCornerRadius="0dp">
 
