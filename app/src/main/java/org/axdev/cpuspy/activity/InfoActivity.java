@@ -194,7 +194,7 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
                     mCpuTemp.setTypeface(null, Typeface.ITALIC);
                 }
             } catch (NumberFormatException ignored) {}
-            mHandler.postDelayed(monitorTemp, 1000);
+            mHandler.postDelayed(monitorTemp, 3000);
         }
     };
 
