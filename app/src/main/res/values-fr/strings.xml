@@ -23,6 +23,7 @@
     <string name="states_empty">Aucun</string>
     <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>
 
+    <string name="temp_unavailable">Indisponible</string>
     <string name="snackbar_text_reset">Compteurs réinitialisés avec succès</string>
     <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
     <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>
@@ -56,12 +57,13 @@
     <string name="information_cpu_features_header">Fonctions :</string>
 
     <!-- Welcome info -->
-    <string name="welcome_summary">Bienvenue sur CPUSpy Material. Utilisez cet outil pour surveiller les fréquences que votre processeur utilise le plus.</string>
+    <string name="welcome_summary">Bienvenue sur CPUSpy Material. Utilisez cet outil pour surveiller quelles fréquences votre processeur utilise le plus.</string>
     <string name="welcome_features">Fonctions</string>
     <string name="welcome_cpuinfo">&#8226; Informations et suivi du CPU + Kernel</string>
     <string name="welcome_crashreport">&#8226; Envoie automatiquement des rapports de bug et d\'usage</string>
     <string name="welcome_autorefresh">&#8226; Activez Actualisation automatique pour actualiser les états en temps réel</string>
     <string name="welcome_autoreset">&#8226; Compteurs automatiquement réinitialisés lorsque la batterie est chargée</string>
+    <string name="welcome_widget">&#8226; Widget pour réinitialiser les compteurs CPU depuis l\'écran d\'accueil</string>    
 
     <!-- Settings info -->
     <string name="settings">Paramètres</string>
