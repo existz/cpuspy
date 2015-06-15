@@ -11,6 +11,7 @@ package org.axdev.cpuspy;
 
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,24 +68,32 @@ public class CpuStateMonitor {
 
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */
-        try {
-            for (CpuState state : _states) {
-                long duration = state.duration;
-                if (_offsets.containsKey(state.freq)) {
-                    long offset = _offsets.get(state.freq);
-                    if (offset <= duration) {
-                        duration -= offset;
-                    } else {
+        boolean success = false;
+        int count = 0, MAX_TRIES = 5;
+        while (!success && (count++ < MAX_TRIES)) {
+            try {
+                for (CpuState state : _states) {
+                    long duration = state.duration;
+                    if (_offsets.containsKey(state.freq)) {
+                        long offset = _offsets.get(state.freq);
+                        if (offset <= duration) {
+                            duration -= offset;
+                        } else {
                     /* offset > duration implies our offsets are now invalid,
                      * so clear and recall this function */
-                        _offsets.clear();
-                        return getStates();
+                            _offsets.clear();
+                            return getStates();
+                        }
                     }
-                }
 
-                states.add(new CpuState(state.freq, duration));
-            }
-        } catch (ConcurrentModificationException ignored) {}
+                    states.add(new CpuState(state.freq, duration));
+                }
+                success = true;
+            } catch (ConcurrentModificationException ignored) {}
+        }
+        if (!success) {
+            Log.e("CpuSpy", "Unable to get total state time");
+        }
 
         return states;
     }
@@ -96,17 +105,24 @@ public class CpuStateMonitor {
     public long getTotalStateTime() {
         long sum = 0;
         long offset = 0;
+        boolean success = false;
+        int count = 0, MAX_TRIES = 5;
 
-        try {
-            for (CpuState state : _states) {
-                sum += state.duration;
-            }
+        while (!success && (count++ < MAX_TRIES)) {
+            try {
+                for (CpuState state : _states) {
+                    sum += state.duration;
+                }
 
-            for (Map.Entry<Integer, Long> entry : _offsets.entrySet()) {
-                offset += entry.getValue();
-            }
-
-        } catch (ConcurrentModificationException ignored) {}
+                for (Map.Entry<Integer, Long> entry : _offsets.entrySet()) {
+                    offset += entry.getValue();
+                }
+                success = true;
+            } catch (ConcurrentModificationException ignored) {}
+        }
+        if (!success) {
+            Log.e("CpuSpy", "Unable to get total state time");
+        }
 
         return sum - offset;
     }
@@ -128,11 +144,21 @@ public class CpuStateMonitor {
      * current duration, effectively "zeroing out" the timers
      */
     public void setOffsets() throws CpuStateMonitorException {
-        _offsets.clear();
-        updateStates();
+        boolean success = false;
+        int count = 0, MAX_TRIES = 5;
+        while (!success && (count++ < MAX_TRIES)) {
+            try {
+                _offsets.clear();
+                updateStates();
 
-        for (CpuState state : _states) {
-            _offsets.put(state.freq, state.duration);
+                for (CpuState state : _states) {
+                    _offsets.put(state.freq, state.duration);
+                }
+                success = true;
+            } catch (ConcurrentModificationException ignored) {}
+        }
+        if (!success) {
+            throw new CpuStateMonitorException("Problem resetting timers");
         }
     }
 
