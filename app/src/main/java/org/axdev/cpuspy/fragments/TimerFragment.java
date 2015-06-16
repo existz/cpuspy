@@ -219,11 +219,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override public void onResume () {
         super.onResume();
 
-        // Initialize and start automatic crash reporting
-        if(sp.getBoolean("crashReport", true)) {
-            Fabric.with(getActivity(), new Crashlytics());
-        }
-
         // Register listener for shake to refresh
         if (!mAutoRefresh) {
             mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);

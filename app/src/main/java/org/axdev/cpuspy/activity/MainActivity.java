@@ -7,12 +7,16 @@
 package org.axdev.cpuspy.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+
+import com.crashlytics.android.Crashlytics;
 
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuStateMonitor;
@@ -23,10 +27,13 @@ import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.widget.SlidingTabLayout;
 
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager pager;
     private ViewPagerAdapter adapter;
+    private SharedPreferences sp;
     private SlidingTabLayout tabs;
 
     @Override
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         setupTabs();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -102,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
+
+        // Initialize and start automatic crash reporting
+        if(sp.getBoolean("crashReport", true)) {
+            Fabric.with(this, new Crashlytics());
+        }
 
         if (PrefsActivity.mThemeChanged) {
             this.startActivity(new Intent(this, this.getClass()));
