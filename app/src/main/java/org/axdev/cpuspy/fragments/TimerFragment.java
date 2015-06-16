@@ -434,7 +434,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(R.string.snackbar_text_reset)
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
-                mStatesCardView.setVisibility(View.GONE);
+                mAdditionalStatesShow.setVisibility(View.GONE);
+                mAdditionalStatesHide.setVisibility(View.VISIBLE);
+                mAdditionalStates.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu_restore:
                 MainActivity.restoreTimers();
@@ -443,7 +445,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(R.string.snackbar_text_restore)
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
-                mStatesCardView.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(getActivity(), PrefsActivity.class));
