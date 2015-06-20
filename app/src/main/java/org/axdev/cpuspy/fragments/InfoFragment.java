@@ -84,6 +84,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @InjectView(R.id.cpu_freq2) TextView mCore2;
     @InjectView(R.id.cpu_freq3) TextView mCore3;
 
+    private boolean mIsVisible;
     private boolean mMonitorCpu0;
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
@@ -122,16 +123,41 @@ public class InfoFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        checkTempMonitor();
-        checkCoreMonitor();
+    public void onPause() {
+        super.onPause();
+        if (this.mIsVisible) setMonitoring(false);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mHandler.removeCallbacksAndMessages(null);
+    public void onResume() {
+        super.onResume();
+        if (this.mIsVisible) setMonitoring(true);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()) {
+            if (!isVisibleToUser) {
+                mIsVisible = false;
+                setMonitoring(false);
+            }
+
+            if (isVisibleToUser) {
+                mIsVisible = true;
+                setMonitoring(true);
+            }
+        }
+    }
+
+    private void setMonitoring(boolean enabled) {
+        if (enabled) {
+            checkTempMonitor();
+            checkCoreMonitor();
+        } else {
+            mHandler.removeCallbacks(monitorCpu);
+            mHandler.removeCallbacks(monitorTemp);
+        }
     }
 
     private void setTypeface() {
@@ -362,7 +388,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
+        setMonitoring(false);
         ButterKnife.reset(this);
     }
 }

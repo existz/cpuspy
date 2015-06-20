@@ -54,7 +54,6 @@ import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 
-import com.crashlytics.android.Crashlytics;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
@@ -76,8 +75,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.Optional;
-
-import io.fabric.sdk.android.Fabric;
 
 /** main activity class */
 public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
@@ -109,6 +106,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private final Handler mHandler = new Handler();
 
+    private CpuStateMonitor monitor;
     private Editor editor;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
@@ -133,8 +131,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
+        monitor = CpuSpyApp.getCpuStateMonitor();
 
-        this.checkView();
         this.setThemeAttributes();
         this.setTypeface();
         this.setCardAnimation();
@@ -151,7 +149,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             final WhatsNewDialog newFragment = new WhatsNewDialog();
             newFragment.show(getActivity().getFragmentManager(), "whatsnew");
             editor.putInt("version_number", currentVersionNumber);
-            editor.commit();
+            editor.apply();
         }
 
         /** Remove welcome cardview if its already been shown */
@@ -202,7 +200,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 
-    /** Disable handler when activity loses focus */
+    /** Disable handler when fragment loses focus */
     @Override public void onPause () {
         super.onPause();
         if (!mAutoRefresh) {
@@ -212,13 +210,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         }
 
-        mHandler.removeCallbacksAndMessages(null);
+        mAutoRefresh = false;
     }
 
     /** Update the view when the application regains focus */
     @Override public void onResume () {
         super.onResume();
-
         // Register listener for shake to refresh
         if (!mAutoRefresh) {
             mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
@@ -411,7 +408,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Auto-generated method stub
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.timer_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
@@ -453,8 +449,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         /** Get the CpuStateMonitor from the app, and iterate over all states,
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
-
-        final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
         mStatesView.removeAllViews();
         List<String> extraStates = new ArrayList<>();
         for (final CpuState state : monitor.getStates()) {
@@ -524,7 +518,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 R.layout.state_row, parent, false);
 
         // what percentage we've got
-        final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
         float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
         String sPer = String.format("%.01f", per) + "%";
@@ -567,7 +560,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Stuff to do on a seperate thread */
         @Override protected Void doInBackground(Void... v) {
-            final CpuStateMonitor monitor = CpuSpyApp.getCpuStateMonitor();
             try {
                 monitor.updateStates();
             } catch (CpuStateMonitorException e) {
@@ -598,8 +590,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override public void onDestroy() {
         super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
-        getActivity().unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
+        mAutoRefresh = false;
         ButterKnife.reset(this);
+        getActivity().unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
     }
 }
