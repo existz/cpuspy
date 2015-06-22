@@ -154,7 +154,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Remove welcome cardview if its already been shown */
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
-        if (!welcomeScreenShown) { this.removeWelcomeCard(); }
+        if (!welcomeScreenShown) { this.removeView(mWelcomeCardView); }
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
@@ -339,12 +339,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mCardContainer.startAnimation(slideUp);
     }
 
-    /** Remove welcome cardview after first launch */
-    private void removeWelcomeCard() {
-        final ViewGroup mViewGroup = (ViewGroup) mWelcomeCardView.getParent();
-        if (mViewGroup != null) {
-            mViewGroup.removeView(mWelcomeCardView);
-        }
+    /** Remove view from its parent ViewGroup */
+    private void removeView(View v) {
+        final ViewGroup mViewGroup = (ViewGroup) v.getParent();
+        if (mViewGroup != null) mViewGroup.removeView(v);
     }
 
     /** Global On click listener for all views */
@@ -352,7 +350,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_welcome:
-                this.removeWelcomeCard();
+                this.removeView(mWelcomeCardView);
                 editor.putBoolean(WELCOME_SCREEN, false);
                 editor.commit();
                 break;
