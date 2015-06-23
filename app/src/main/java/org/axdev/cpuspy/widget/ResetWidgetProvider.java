@@ -10,7 +10,7 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.MainActivity;
+import org.axdev.cpuspy.fragments.TimerFragment;
 
 public class ResetWidgetProvider extends AppWidgetProvider {
 
@@ -44,7 +44,7 @@ public class ResetWidgetProvider extends AppWidgetProvider {
     public void onReceive(final Context context, final Intent intent) {
         if (intent.getAction().equals(RESET_BUTTON)) {
             try {
-                MainActivity.resetTimers();
+                TimerFragment.resetTimers();
                 Toast.makeText(context, R.string.widget_reset_success, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(context, R.string.widget_reset_error, Toast.LENGTH_SHORT).show();

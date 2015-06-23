@@ -90,22 +90,6 @@ public class MainActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
     }
 
-    /** Reset the cpu timers */
-    public static void resetTimers() {
-        try {
-            CpuSpyApp.getCpuStateMonitor().setOffsets();
-        } catch (CpuStateMonitor.CpuStateMonitorException e) {
-            // TODO: something
-        }
-        CpuSpyApp.saveOffsets();
-    }
-
-    /** Restore the cpu timers */
-    public static void restoreTimers() {
-        CpuSpyApp.getCpuStateMonitor().removeOffsets();
-        CpuSpyApp.saveOffsets();
-    }
-
     protected void onResume() {
         super.onResume();
 
