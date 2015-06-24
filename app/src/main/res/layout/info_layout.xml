@@ -451,7 +451,8 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_below="@+id/cpu_core_header"
                         android:text="@string/information_cpu0_header"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu_freq0"
@@ -460,7 +461,8 @@
                         android:layout_marginBottom="8dp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu0_header"
-                        android:layout_alignStart="@+id/cpu_core" />
+                        android:layout_alignStart="@+id/cpu_core"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu1_header"
@@ -471,7 +473,8 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_below="@+id/cpu0_header"
                         android:text="@string/information_cpu1_header"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu_freq1"
@@ -480,7 +483,8 @@
                         android:layout_marginBottom="8dp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu1_header"
-                        android:layout_alignStart="@+id/cpu_freq0" />
+                        android:layout_alignStart="@+id/cpu_freq0"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu2_header"
@@ -491,7 +495,8 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_below="@+id/cpu1_header"
                         android:text="@string/information_cpu2_header"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu_freq2"
@@ -500,7 +505,8 @@
                         android:layout_marginBottom="8dp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu2_header"
-                        android:layout_alignStart="@+id/cpu_freq1" />
+                        android:layout_alignStart="@+id/cpu_freq1"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu3_header"
@@ -511,7 +517,8 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_below="@+id/cpu2_header"
                         android:text="@string/information_cpu3_header"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/cpu_freq3"
@@ -520,7 +527,8 @@
                         android:layout_marginBottom="16dp"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu3_header"
-                        android:layout_alignStart="@+id/cpu_freq2" />
+                        android:layout_alignStart="@+id/cpu_freq2"
+                        android:visibility="gone"/>
 
                 </RelativeLayout>
 

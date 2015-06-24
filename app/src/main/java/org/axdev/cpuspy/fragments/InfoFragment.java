@@ -74,11 +74,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
     @InjectView(R.id.cpu_usage_header) TextView mCoreHeader;
+
     @InjectView(R.id.cpu0_header) TextView mCpu0Header;
     @InjectView(R.id.cpu1_header) TextView mCpu1Header;
     @InjectView(R.id.cpu2_header) TextView mCpu2Header;
     @InjectView(R.id.cpu3_header) TextView mCpu3Header;
-
     @InjectView(R.id.cpu_freq0) TextView mCore0;
     @InjectView(R.id.cpu_freq1) TextView mCore1;
     @InjectView(R.id.cpu_freq2) TextView mCore2;
@@ -89,6 +89,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private boolean mMonitorCpu1;
     private boolean mMonitorCpu2;
     private boolean mMonitorCpu3;
+
     private Typeface mediumFont;
 
     private final Handler mHandler = new Handler();
@@ -104,7 +105,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setTypeface();
+        setTextViews();
 
         /** Set color for drawables based on selected theme */
         final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
@@ -160,7 +161,18 @@ public class InfoFragment extends Fragment implements OnClickListener {
         }
     }
 
-    private void setTypeface() {
+    private void setMediumTypeface(TextView tv) {
+        // Applying Roboto-Medium font
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        }
+
+        tv.setTypeface(mediumFont);
+    }
+
+    private void setTextViews() {
         /** Set text and typeface for TextViews */
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
@@ -179,34 +191,23 @@ public class InfoFragment extends Fragment implements OnClickListener {
         mDeviceBoard.setText(Build.BOARD);
         mDevicePlatform.setText(platform);
 
-        // Applying Roboto-Medium font
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        mKernelHeader.setTypeface(mediumFont);
-        mKernelGovernorHeader.setTypeface(mediumFont);
-        mKernelVersionHeader.setTypeface(mediumFont);
-        mCpuHeader.setTypeface(mediumFont);
-        mCpuAbiHeader.setTypeface(mediumFont);
-        mCpuArchHeader.setTypeface(mediumFont);
-        mCpuCoreHeader.setTypeface(mediumFont);
-        mCpuFreqHeader.setTypeface(mediumFont);
-        mCpuFeaturesHeader.setTypeface(mediumFont);
-        mDeviceInfo.setTypeface(mediumFont);
-        mDeviceBuildHeader.setTypeface(mediumFont);
-        mDeviceApiHeader.setTypeface(mediumFont);
-        mDeviceManufHeader.setTypeface(mediumFont);
-        mDeviceModelHeader.setTypeface(mediumFont);
-        mDeviceBoardHeader.setTypeface(mediumFont);
-        mDevicePlatformHeader.setTypeface(mediumFont);
-        mCoreHeader.setTypeface(mediumFont);
-        mCpu0Header.setTypeface(mediumFont);
-        mCpu1Header.setTypeface(mediumFont);
-        mCpu2Header.setTypeface(mediumFont);
-        mCpu3Header.setTypeface(mediumFont);
+        setMediumTypeface(mKernelHeader);
+        setMediumTypeface(mKernelGovernorHeader);
+        setMediumTypeface(mKernelVersionHeader);
+        setMediumTypeface(mCpuHeader);
+        setMediumTypeface(mCpuAbiHeader);
+        setMediumTypeface(mCpuArchHeader);
+        setMediumTypeface(mCpuCoreHeader);
+        setMediumTypeface(mCpuFreqHeader);
+        setMediumTypeface(mCpuFeaturesHeader);
+        setMediumTypeface(mDeviceInfo);
+        setMediumTypeface(mDeviceBuildHeader);
+        setMediumTypeface(mDeviceApiHeader);
+        setMediumTypeface(mDeviceManufHeader);
+        setMediumTypeface(mDeviceModelHeader);
+        setMediumTypeface(mDeviceBoardHeader);
+        setMediumTypeface(mDevicePlatformHeader);
+        setMediumTypeface(mCoreHeader);
     }
 
     /** Check if we should monitor cpu temp */
@@ -236,15 +237,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
     };
 
     private final Runnable monitorCpu = new Runnable() {
-        final File cpu0 = new File(CPUUtils.CPU0);
-        final File cpu1 = new File(CPUUtils.CPU1);
-        final File cpu2 = new File(CPUUtils.CPU2);
-        final File cpu3 = new File(CPUUtils.CPU3);
-
         public void run() {
             /** Set the frequency for CPU0 */
             if(mMonitorCpu0) {
                 try {
+                    File cpu0 = new File(CPUUtils.CPU0);
                     if (cpu0.length() == 0) {
                         // CPU0 should never be empty
                         mCore0.setText(null);
@@ -261,6 +258,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
             /** Set the frequency for CPU1 */
             if(mMonitorCpu1) {
                 try {
+                    File cpu1 = new File(CPUUtils.CPU1);
                     if (cpu1.length() == 0) {
                         mCore1.setText(R.string.core_offline);
                     } else {
@@ -274,6 +272,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
             /** Set the frequency for CPU2 */
             if(mMonitorCpu2) {
                 try {
+                    File cpu2 = new File(CPUUtils.CPU2);
                     if (cpu2.length() == 0) {
                         mCore2.setText(R.string.core_offline);
                     } else {
@@ -287,6 +286,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
             /** Set the frequency for CPU3 */
             if(mMonitorCpu3) {
                 try {
+                    File cpu3 = new File(CPUUtils.CPU3);
                     if (cpu3.length() == 0) {
                         mCore3.setText(R.string.core_offline);
                     } else {
@@ -305,48 +305,58 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private void checkCoreMonitor() {
         switch (CPUUtils.getCoreCount()) {
             case 1:
-                mMonitorCpu0 = true;
-                mMonitorCpu1 = false;
-                mMonitorCpu2 = false;
-                mMonitorCpu3 = false;
-
+                setMediumTypeface(mCpu0Header);
+                mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.GONE);
-                mCore2.setVisibility(View.GONE);
-                mCore3.setVisibility(View.GONE);
+                mMonitorCpu0 = true;
                 break;
             case 2:
-                mMonitorCpu0 = true;
-                mMonitorCpu1 = true;
-                mMonitorCpu2 = false;
-                mMonitorCpu3 = false;
-
+                setMediumTypeface(mCpu0Header);
+                mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
+                mMonitorCpu0 = true;
+
+                setMediumTypeface(mCpu1Header);
+                mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
-                mCore2.setVisibility(View.GONE);
-                mCore3.setVisibility(View.GONE);
+                mMonitorCpu1 = true;
                 break;
             case 3:
-                mMonitorCpu0 = true;
-                mMonitorCpu1 = true;
-                mMonitorCpu2 = true;
-                mMonitorCpu3 = false;
-
+                setMediumTypeface(mCpu0Header);
+                mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
+                mMonitorCpu0 = true;
+
+                setMediumTypeface(mCpu1Header);
+                mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
+                mMonitorCpu1 = true;
+
+                setMediumTypeface(mCpu2Header);
+                mCpu2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
-                mCore3.setVisibility(View.GONE);
+                mMonitorCpu2 = true;
                 break;
             case 4:
-                mMonitorCpu0 = true;
-                mMonitorCpu1 = true;
-                mMonitorCpu2 = true;
-                mMonitorCpu3 = true;
-
+                setMediumTypeface(mCpu0Header);
+                mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
+                mMonitorCpu0 = true;
+
+                setMediumTypeface(mCpu1Header);
+                mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
+                mMonitorCpu1 = true;
+
+                setMediumTypeface(mCpu2Header);
+                mCpu2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
+                mMonitorCpu2 = true;
+
+                setMediumTypeface(mCpu3Header);
+                mCpu3Header.setVisibility(View.VISIBLE);
                 mCore3.setVisibility(View.VISIBLE);
+                mMonitorCpu3 = true;
                 break;
         }
         mHandler.post(monitorCpu);
