@@ -202,13 +202,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     /** Disable handler when fragment loses focus */
     @Override public void onPause () {
         super.onPause();
-        if (!mAutoRefresh) {
-            mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-            if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-                mSensorManager.unregisterListener(mSensorListener);
-            }
-        }
-
+        if (!mAutoRefresh) setShakeRefresh(false);
         mAutoRefresh = false;
     }
 
@@ -216,14 +210,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override public void onResume () {
         super.onResume();
         // Register listener for shake to refresh
-        if (!mAutoRefresh) {
-            mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-            if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-                mSensorManager.registerListener(mSensorListener,
-                        mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                        SensorManager.SENSOR_DELAY_UI);
-            }
-        }
+        if (!mAutoRefresh) setShakeRefresh(true);
     }
 
     @Override public void onRefresh() {
@@ -284,11 +271,23 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mChargedView.setVisibility(View.GONE);
             mStatesWarning.setVisibility(View.VISIBLE);
 
-            // Disable swipe to refresh
-            mSwipeLayout.setEnabled(false);
-
-            // Disable Auto Refresh
+            // Disable refreshing methods
+            if (!mAutoRefresh) setShakeRefresh(false);
             mAutoRefresh = false;
+            mSwipeLayout.setEnabled(false);
+        }
+    }
+
+    private void setShakeRefresh(boolean enabled) {
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            if (enabled) {
+                mSensorManager.registerListener(mSensorListener,
+                        mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                        SensorManager.SENSOR_DELAY_UI);
+            } else {
+                mSensorManager.unregisterListener(mSensorListener);
+            }
         }
     }
 
