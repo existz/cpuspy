@@ -58,9 +58,9 @@ public class CPUUtils {
         }
 
         final int i = Integer.parseInt(mCore) / 1000;
-        mCore = String.valueOf(i);
+        mCore = String.valueOf(i) + "MHz";
 
-        return mCore;
+        return mCore ;
     }
 
     /** Get the current cpu governor */

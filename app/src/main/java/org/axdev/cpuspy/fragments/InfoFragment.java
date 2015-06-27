@@ -248,7 +248,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         Log.e("CpuSpyInfo", "Problem getting CPU cores");
                         return;
                     } else {
-                        mCore0.setText(CPUUtils.getCpu0() + "MHz");
+                        mCore0.setText(CPUUtils.getCpu0());
                     }
                 } catch (NumberFormatException ignored) {
                     //DO SOMETHING
@@ -262,7 +262,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     if (cpu1.length() == 0) {
                         mCore1.setText(R.string.core_offline);
                     } else {
-                        mCore1.setText(CPUUtils.getCpu1() + "MHz");
+                        mCore1.setText(CPUUtils.getCpu1());
                     }
                 } catch (NumberFormatException ignored) {
                     // DO SOMETHING
@@ -276,7 +276,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     if (cpu2.length() == 0) {
                         mCore2.setText(R.string.core_offline);
                     } else {
-                        mCore2.setText(CPUUtils.getCpu2() + "MHz");
+                        mCore2.setText(CPUUtils.getCpu2());
                     }
                 } catch (NumberFormatException ignored) {
                     // DO SOMETHING
@@ -290,7 +290,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     if (cpu3.length() == 0) {
                         mCore3.setText(R.string.core_offline);
                     } else {
-                        mCore3.setText(CPUUtils.getCpu3() + "MHz");
+                        mCore3.setText(CPUUtils.getCpu3());
                     }
                 } catch (NumberFormatException ignored) {
                     //DO SOMETHING

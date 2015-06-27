@@ -110,7 +110,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
-    private Typeface mediumFont;
 
     private boolean mAutoRefresh;
     private boolean mIsCharged;
@@ -265,10 +264,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // show warning label if no states found
         if (mStatesNotFound) {
-            mTimeCardView.setVisibility(View.GONE);
-            mWelcomeCardView.setVisibility(View.GONE);
-            mStatesCardView.setVisibility(View.GONE);
-            mChargedView.setVisibility(View.GONE);
+            removeView(mTimeCardView);
+            removeView(mStatesCardView);
+            removeView(mWelcomeCardView);
+            removeView(mChargedView);
             mStatesWarning.setVisibility(View.VISIBLE);
 
             // Disable refreshing methods
@@ -299,7 +298,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         // Set color for drawables based on selected theme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mShowImage.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
-            mWarningImage.setImageTintList(ThemeUtils.DARKTHEME ? dark :light);
+            mWarningImage.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
         } else {
             final Drawable showDrawable = DrawableCompat.wrap(mShowImage.getDrawable());
             mShowImage.setImageDrawable(showDrawable);
@@ -316,10 +315,11 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     /** Apply custom typeface to textviews */
     private void setTypeface() {
+        Typeface mediumFont;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
         } else {
-            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
         }
 
         mWelcomeSummary.setTypeface(mediumFont);
