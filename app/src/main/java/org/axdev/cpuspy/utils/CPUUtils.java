@@ -21,26 +21,15 @@ public class CPUUtils {
     public static final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     public static final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
 
-    private static final String MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
-    private static final String MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-    private static final String KERNEL_VERSION = "/proc/version";
-
-    private static String TEMP_FILE;
-
-    private static final String TAG = "CpuSpy";
-    private static final String TAG_APP = "CpuSpyApp";
     private static final String TAG_INFO = "CpuSpyInfo";
-
-    private static String mCore;
     private static String mArch;
     private static String mFeatures;
-    private static String mGovernor;
     private static String mFreq;
+    private static String mString;
     private static String mTemp;
-    private static String mKernel;
+    private static String mTempFile;
 
-    /** Set the current core frequency */
-    private static String setCoreFreq(String PATH) {
+    private static String readFile(String PATH, String LOG_MSG) {
         try {
             final File file = new File(PATH);
             if (file.exists()) {
@@ -48,45 +37,20 @@ public class CPUUtils {
 
                 String line;
                 while ((line = br.readLine()) != null) {
-                    mCore = line;
+                    mString = line;
                 }
 
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Unable to read core frequency");
+            Log.e(TAG_INFO, LOG_MSG);
         }
 
-        final int i = Integer.parseInt(mCore) / 1000;
-        mCore = String.valueOf(i) + "MHz";
-
-        return mCore ;
-    }
-
-    /** Get the current cpu governor */
-    private static String setGovernor() {
-        final String GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-        try {
-            final File file = new File(GOVERNOR);
-            if (file.exists()) {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-
-                String line;
-                while ((line = br.readLine()) != null) {
-                    mGovernor = line;
-                }
-
-                br.close();
-            }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, "Unable to read cpu governor");
-        }
-
-        return mGovernor;
+        return mString;
     }
 
     /** Set the current min/max CPU frequency */
-    private static String setFreq(String PATH) {
+    private static String setFreq(String PATH, String LOG_MSG) {
         try {
             final File file = new File(PATH);
             if (file.exists()) {
@@ -100,34 +64,13 @@ public class CPUUtils {
                 br.close();
             }
         } catch (IOException e) {
-            Log.e(TAG_INFO, "Unable to read cpu frequency");
+            Log.e(TAG_INFO, LOG_MSG);
         }
 
         final int i = Integer.parseInt(mFreq) / 1000;
         mFreq = Integer.toString(i) + "MHz";
 
         return mFreq;
-    }
-
-    /** Try to read the kernel version string from the proc fileystem */
-    private static String setKernelVersion() {
-        try {
-            final File file = new File(KERNEL_VERSION);
-            if (file.exists()) {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-
-                String line;
-                while ((line = br.readLine())!= null ) {
-                    mKernel = line;
-                }
-                br.close();
-            }
-        } catch (IOException e) {
-            Log.e(TAG_APP, "Problem reading kernel version file");
-            return null;
-        }
-
-        return mKernel;
     }
 
     /** Retrieves information for ARM CPUs. */
@@ -188,7 +131,7 @@ public class CPUUtils {
     /** Retrieves the current CPU temperature */
     private static String setTemp() {
         try {
-            final File file = new File(TEMP_FILE);
+            final File file = new File(mTempFile);
             if (file.exists()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -225,10 +168,10 @@ public class CPUUtils {
     public static boolean hasTemp() {
         for (String s : tempFiles) {
             final File file = new File(s);
-            if (file.canRead()) TEMP_FILE = s;
+            if (file.canRead()) mTempFile = s;
         }
 
-        return TEMP_FILE != null;
+        return mTempFile != null;
     }
 
     /**
@@ -265,32 +208,36 @@ public class CPUUtils {
 
     /** @return the CPU0 string */
     public static String getCpu0() {
-        return setCoreFreq(CPU0);
+        return setFreq(CPU0, "Unable to read CPU0 frequency");
     }
 
     /** @return the CPU1 string */
     public static String getCpu1() {
-        return setCoreFreq(CPU1);
+        return setFreq(CPU1, "Unable to read CPU1 frequency");
     }
 
     /** @return the CPU2 string */
     public static String getCpu2() {
-        return setCoreFreq(CPU2);
+        return setFreq(CPU2, "Unable to read CPU2 frequency");
     }
 
     /** @return the CPU3 string */
     public static String getCpu3() {
-        return setCoreFreq(CPU3);
+        return setFreq(CPU3, "Unable to read CPU3 frequency");
     }
 
     /** @return CPU governor string */
     public static String getGovernor() {
-        return setGovernor();
+        final String governor = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
+        return readFile(governor, "Unable to read CPU governor");
     }
 
     /** @return CPU min/max frequency string */
     public static String getMinMax() {
-        return setFreq(MIN_FREQ) + " - " + setFreq(MAX_FREQ);
+        final String minFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
+        final String maxFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
+        return setFreq(minFreq, "Unable to read min frequency")
+                + " - " + setFreq(maxFreq, "Unable to read max frequency");
     }
 
     /** @return CPU features string */
@@ -300,7 +247,8 @@ public class CPUUtils {
 
     /** @return the kernel version string */
     public static String getKernelVersion() {
-        return setKernelVersion();
+        final String kernelVersion = "/proc/version";
+        return readFile(kernelVersion, "Problem reading kernel version file");
     }
 
     /** @return CPU architecture string */
