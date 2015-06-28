@@ -70,30 +70,25 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent;
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
         switch (position) {
             case 0:
-                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://developer.android.com/tools/support-library/index.html"));
                 startActivity(intent);
                 break;
             case 1:
-                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://github.com/JakeWharton/butterknife"));
                 startActivity(intent);
                 break;
             case 2:
-                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://github.com/afollestad/material-dialogs"));
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://github.com/balysv/material-ripple"));
                 startActivity(intent);
                 break;
             case 4:
-                intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://github.com/nispok/snackbar"));
                 startActivity(intent);
                 break;

@@ -462,7 +462,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
         if (mStatesView != null) mStatesView.removeAllViews();
-        List<String> extraStates = new ArrayList<>();
+        final List<String> extraStates = new ArrayList<>();
         for (final CpuState state : monitor.getStates()) {
             if (state.duration > 0) {
                 generateStateRow(state, mStatesView);
@@ -504,9 +504,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     /** @return A nicely formatted String representing tSec seconds */
     private static String sToString(long tSec) {
-        long h = (long)Math.floor(tSec / (60*60));
-        long m = (long)Math.floor((tSec - h*60*60) / 60);
-        long s = tSec % 60;
+        final long h = (long)Math.floor(tSec / (60*60));
+        final long m = (long)Math.floor((tSec - h*60*60) / 60);
+        final long s = tSec % 60;
         String sDur;
         sDur = h + ":";
         if (m < 10)
@@ -530,9 +530,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 R.layout.state_row, parent, false);
 
         // what percentage we've got
-        float per = (float)state.duration * 100 /
+        final float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
-        String sPer = String.format("%.01f", per) + "%";
+        final String sPer = String.format("%.01f", per) + "%";
 
         // state name
         String sFreq;
@@ -543,8 +543,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         // duration
-        long tSec = state.duration / 100;
-        String sDur = sToString(tSec);
+        final long tSec = state.duration / 100;
+        final String sDur = sToString(tSec);
 
         // map UI elements to objects
         final TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
