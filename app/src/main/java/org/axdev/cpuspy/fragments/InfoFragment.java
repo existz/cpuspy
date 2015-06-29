@@ -73,7 +73,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @InjectView(R.id.device_board) TextView mDeviceBoard;
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
-    @InjectView(R.id.cpu_usage_header) TextView mCoreHeader;
 
     @InjectView(R.id.cpu0_header) TextView mCpu0Header;
     @InjectView(R.id.cpu1_header) TextView mCpu1Header;
@@ -206,7 +205,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
         setMediumTypeface(mDeviceModelHeader);
         setMediumTypeface(mDeviceBoardHeader);
         setMediumTypeface(mDevicePlatformHeader);
-        setMediumTypeface(mCoreHeader);
     }
 
     /** Check if we should monitor cpu temp */
@@ -304,55 +302,45 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private void checkCoreMonitor() {
         switch (CPUUtils.getCoreCount()) {
             case 1:
-                setMediumTypeface(mCpu0Header);
                 mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
                 mMonitorCpu0 = true;
                 break;
             case 2:
-                setMediumTypeface(mCpu0Header);
                 mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
                 mMonitorCpu0 = true;
 
-                setMediumTypeface(mCpu1Header);
                 mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
                 mMonitorCpu1 = true;
                 break;
             case 3:
-                setMediumTypeface(mCpu0Header);
                 mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
                 mMonitorCpu0 = true;
 
-                setMediumTypeface(mCpu1Header);
                 mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
                 mMonitorCpu1 = true;
 
-                setMediumTypeface(mCpu2Header);
                 mCpu2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
                 mMonitorCpu2 = true;
                 break;
             case 4:
-                setMediumTypeface(mCpu0Header);
                 mCpu0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
                 mMonitorCpu0 = true;
 
-                setMediumTypeface(mCpu1Header);
                 mCpu1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
                 mMonitorCpu1 = true;
 
-                setMediumTypeface(mCpu2Header);
                 mCpu2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
                 mMonitorCpu2 = true;
 
-                setMediumTypeface(mCpu3Header);
                 mCpu3Header.setVisibility(View.VISIBLE);
                 mCore3.setVisibility(View.VISIBLE);
                 mMonitorCpu3 = true;
