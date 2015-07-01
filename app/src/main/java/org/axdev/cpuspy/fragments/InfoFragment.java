@@ -90,8 +90,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private boolean mMonitorCpu2;
     private boolean mMonitorCpu3;
 
-    private Typeface mediumFont;
-
     private final Handler mHandler = new Handler();
 
     @Override
@@ -163,10 +161,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
 
     private void setMediumTypeface(TextView tv) {
         // Applying Roboto-Medium font
+        Typeface mediumFont;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
         } else {
-            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
         }
 
         tv.setTypeface(mediumFont);
@@ -214,7 +213,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private void checkTempMonitor() {
         if (CPUUtils.hasTemp()) {
             mHandler.post(monitorTemp);
-            mCpuTempHeader.setTypeface(mediumFont);
+            setMediumTypeface(mCpuTempHeader);
         } else {
             mCpuTempHeader.setVisibility(View.GONE);
             mCpuTemp.setVisibility(View.GONE);
@@ -228,7 +227,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 if (CPUUtils.getTemp() != null) {
                     mCpuTemp.setText(CPUUtils.getTemp());
                 } else {
-                    mCpuTemp.setText(R.string.temp_unavailable);
+                    mCpuTemp.setText(R.string.unavailable);
                     mCpuTemp.setTypeface(null, Typeface.ITALIC);
                 }
             } catch (NumberFormatException ignored) {}

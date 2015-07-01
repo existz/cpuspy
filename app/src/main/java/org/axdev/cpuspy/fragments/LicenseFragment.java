@@ -6,76 +6,44 @@
 
 package org.axdev.cpuspy.fragments;
 
-import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.app.ListFragment;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+public class LicenseFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
-public class LicenseFragment extends Fragment {
-
-    @InjectView(R.id.supportlib) TextView mSupportLib;
-    @InjectView(R.id.materialdialog) TextView mMaterialDialog;
-    @InjectView(R.id.snackbar) TextView mSnackbar;
-    @InjectView(R.id.materialripple) TextView mMaterialRipple;
-    @InjectView(R.id.butterknife) TextView mButterKnife;
-
-    private Typeface mediumFont;
-
-    /** Inflate the license layout */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.license_layout, container, false);
-        ButterKnife.inject(this, view);
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.license_layout, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        /** Set typeface and allow hyperlinks */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            this.mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            this.mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.licenses, android.R.layout.simple_list_item_1);
 
-        mSupportLib.setTypeface(mediumFont);
-        mSupportLib.setMovementMethod(LinkMovementMethod.getInstance());
-        mSupportLib.setText(Html.fromHtml(getResources().getString(R.string.pref_license_supportlib)));
-
-        mMaterialDialog.setTypeface(mediumFont);
-        mMaterialDialog.setMovementMethod(LinkMovementMethod.getInstance());
-        mMaterialDialog.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialdialog)));
-
-        mSnackbar.setTypeface(mediumFont);
-        mSnackbar.setMovementMethod(LinkMovementMethod.getInstance());
-        mSnackbar.setText(Html.fromHtml(getResources().getString(R.string.pref_license_snackbar)));
-
-        mMaterialRipple.setTypeface(mediumFont);
-        mMaterialRipple.setMovementMethod(LinkMovementMethod.getInstance());
-        mMaterialRipple.setText(Html.fromHtml(getResources().getString(R.string.pref_license_materialripple)));
-
-        mButterKnife.setTypeface(mediumFont);
-        mButterKnife.setMovementMethod(LinkMovementMethod.getInstance());
-        mButterKnife.setText(Html.fromHtml(getResources().getString(R.string.pref_license_butterknife)));
+        setListAdapter(adapter);
+        getListView().setOnItemClickListener(this);
 
         /** Use custom Typeface for action bar title on KitKat devices */
         final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
@@ -95,10 +63,52 @@ public class LicenseFragment extends Fragment {
                 supportActionBar.setTitle(s);
             }
         }
+
+        TextView mLicenseHeader = (TextView) getActivity().findViewById(R.id.license_header);
+        setMediumTypeface(mLicenseHeader);
     }
 
-    @Override public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.reset(this);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent;
+        switch (position) {
+            case 0:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://developer.android.com/tools/support-library/index.html"));
+                startActivity(intent);
+                break;
+            case 1:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://github.com/JakeWharton/butterknife"));
+                startActivity(intent);
+                break;
+            case 2:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://github.com/afollestad/material-dialogs"));
+                startActivity(intent);
+                break;
+            case 3:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://github.com/balysv/material-ripple"));
+                startActivity(intent);
+                break;
+            case 4:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://github.com/nispok/snackbar"));
+                startActivity(intent);
+                break;
+        }
+    }
+
+    private void setMediumTypeface(TextView tv) {
+        // Applying Roboto-Medium font
+        Typeface mediumFont;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        }
+
+        tv.setTypeface(mediumFont);
     }
 }

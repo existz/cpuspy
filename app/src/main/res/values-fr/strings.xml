@@ -23,7 +23,8 @@
     <string name="states_empty">Aucun</string>
     <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>
 
-    <string name="temp_unavailable">Indisponible</string>
+    <string name="unavailable">Indisponible</string>
+
     <string name="snackbar_text_reset">Compteurs réinitialisés avec succès</string>
     <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
     <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>
@@ -82,6 +83,7 @@
     <string name="pref_summary_navbar">Activer la barre de navigation colorée</string>
     <string name="pref_title_crashreport">Rapport de bug anonyme</string>
     <string name="pref_summary_crashreport">Permettre la collecte de bug et les données d\'usage</string>
+    <string name="pref_title_license">Licences Open Source</string>
 
     <!-- About -->
     <string name="pref_about_header_dev">Développeur</string>
