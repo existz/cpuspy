@@ -13,7 +13,6 @@
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="md_title_color">@android:color/black</item>
         <item name="md_content_color">@android:color/black</item>
-        <item name="md_btn_positive_selector">@drawable/btn_selector_custom</item>
         <item name="md_positive_color">@android:color/white</item>
         <item name="md_negative_color">@color/primary</item>
         <item name="actionBarStyle">@style/Widget.Material.ActionBar</item>
@@ -36,7 +35,6 @@
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="md_title_color">@android:color/white</item>
         <item name="md_content_color">@android:color/white</item>
-        <item name="md_btn_positive_selector">@drawable/btn_selector_custom</item>
         <item name="md_positive_color">@android:color/white</item>
         <item name="md_negative_color">@color/primary</item>
         <item name="actionBarStyle">@style/Widget.Material.ActionBar</item>

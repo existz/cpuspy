@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.axdev.cpuspy.R;
 
+import java.util.Calendar;
+
 public class ThemeUtils extends AppCompatActivity {
 
     public final static int NAVBAR_DEFAULT = 0;
@@ -18,14 +20,14 @@ public class ThemeUtils extends AppCompatActivity {
 
     public final static int LIGHT = 0;
     public final static int DARK = 1;
+    public final static int AUTO = 2;
     public static boolean DARKTHEME = false;
 
     public static void changeToTheme(Activity activity, int mTheme) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         final Editor editor = sp.edit();
 
-        editor.putInt("theme", mTheme);
-        editor.commit();
+        editor.putInt("theme", mTheme).apply();
 
         activity.finish();
         activity.startActivity(new Intent(activity, activity.getClass()));
@@ -36,8 +38,7 @@ public class ThemeUtils extends AppCompatActivity {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         final Editor editor = sp.edit();
 
-        editor.putInt("navbar", mNavBar);
-        editor.commit();
+        editor.putInt("navbar", mNavBar).apply();
 
         activity.finish();
         activity.startActivity(new Intent(activity, activity.getClass()));
@@ -59,6 +60,17 @@ public class ThemeUtils extends AppCompatActivity {
                 activity.setTheme(R.style.AppThemeDark);
                 DARKTHEME = true;
                 break;
+            case AUTO:
+                Calendar c = Calendar.getInstance();
+                int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+                if (timeOfDay >= 6 && timeOfDay < 20) {
+                    activity.setTheme(R.style.AppTheme);
+                    DARKTHEME = false;
+                } else {
+                    activity.setTheme(R.style.AppThemeDark);
+                    DARKTHEME = true;
+                }
         }
     }
 

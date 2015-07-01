@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.R;
@@ -27,6 +28,7 @@ public class WhatsNewDialog extends DialogFragment {
                 .customView(R.layout.changelog_layout, true)
                 .negativeText(R.string.action_changelog)
                 .positiveText(R.string.action_dismiss)
+                .btnSelector(R.drawable.btn_selector_custom, DialogAction.POSITIVE)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onNegative(MaterialDialog dialog) {

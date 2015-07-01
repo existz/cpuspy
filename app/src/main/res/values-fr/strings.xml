@@ -77,8 +77,6 @@
     <string name="pref_summary_autorefresh">Actualiser les compteurs CPU automatiquement</string>
     <string name="pref_title_autoreset">Réinitialisation automatique</string>
     <string name="pref_summary_autoreset">Réinitialiser les compteurs CPU lorsque la batterie est chargée</string>
-    <string name="pref_title_darktheme">Thème sombre</string>
-    <string name="pref_summary_darktheme">Si oui ou non le thème sombre est activé</string>
     <string name="pref_title_navbar">Barre de navigation colorée</string>
     <string name="pref_summary_navbar">Activer la barre de navigation colorée</string>
     <string name="pref_title_crashreport">Rapport de bug anonyme</string>

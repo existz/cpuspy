@@ -7,12 +7,15 @@
 package org.axdev.cpuspy.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +23,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -41,10 +46,16 @@ public class PrefsActivity extends AppCompatActivity {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
 
+        private SharedPreferences sp;
+        private Editor editor;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+            sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            editor = sp.edit();
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -80,6 +91,38 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             });
 
+            findPreference("themes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    int selected = sp.getInt("theme", 0);
+                    new MaterialDialog.Builder(getActivity())
+                            .title(R.string.pref_title_themes)
+                            .items(R.array.themes)
+                            .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
+                                @Override
+                                public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
+                                    switch (position) {
+                                        case 0:
+                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.LIGHT);
+                                            break;
+                                        case 1:
+                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.DARK);
+                                            break;
+                                        case 2:
+                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.AUTO);
+                                    }
+                                    editor.putInt("theme", position).apply();
+                                    mThemeChanged = true;
+                                    return true; // allow selection
+                                }
+                            })
+                            .positiveText(android.R.string.ok)
+                            .positiveColorRes(R.color.primary)
+                            .show();
+                    return true;
+                }
+            });
+
             final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
             crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -88,19 +131,6 @@ public class PrefsActivity extends AppCompatActivity {
                                 .type(SnackbarType.MULTI_LINE)
                                 .text(R.string.snackbar_text_crashreport));
                     }
-                    return true;
-                }
-            });
-
-            final CheckBoxPreference darkTheme = (CheckBoxPreference) getPreferenceManager().findPreference("darkTheme");
-            darkTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue.toString().equals("true")) {
-                        ThemeUtils.changeToTheme(getActivity(), ThemeUtils.DARK);
-                    } else {
-                        ThemeUtils.changeToTheme(getActivity(), ThemeUtils.LIGHT);
-                    }
-                    mThemeChanged = true;
                     return true;
                 }
             });
