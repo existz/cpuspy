@@ -74,20 +74,22 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @InjectView(R.id.device_platform) TextView mDevicePlatform;
 
-    @InjectView(R.id.cpu0_header) TextView mCpu0Header;
-    @InjectView(R.id.cpu1_header) TextView mCpu1Header;
-    @InjectView(R.id.cpu2_header) TextView mCpu2Header;
-    @InjectView(R.id.cpu3_header) TextView mCpu3Header;
+    @InjectView(R.id.cpu0_header) TextView mCore0Header;
+    @InjectView(R.id.cpu1_header) TextView mCore1Header;
+    @InjectView(R.id.cpu2_header) TextView mCore2Header;
+    @InjectView(R.id.cpu3_header) TextView mCore3Header;
     @InjectView(R.id.cpu_freq0) TextView mCore0;
     @InjectView(R.id.cpu_freq1) TextView mCore1;
     @InjectView(R.id.cpu_freq2) TextView mCore2;
     @InjectView(R.id.cpu_freq3) TextView mCore3;
 
     private boolean mIsVisible;
-    private boolean mMonitorCpu0;
-    private boolean mMonitorCpu1;
-    private boolean mMonitorCpu2;
-    private boolean mMonitorCpu3;
+    private boolean mIsMonitoringTemp;
+    private boolean mIsMonitoringCpu;
+    private boolean mHasCpu0;
+    private boolean mHasCpu1;
+    private boolean mHasCpu2;
+    private boolean mHasCpu3;
 
     private final Handler mHandler = new Handler();
 
@@ -153,8 +155,8 @@ public class InfoFragment extends Fragment implements OnClickListener {
             checkTempMonitor();
             checkCoreMonitor();
         } else {
-            mHandler.removeCallbacks(monitorCpu);
-            mHandler.removeCallbacks(monitorTemp);
+            mIsMonitoringCpu = false;
+            mIsMonitoringTemp = false;
         }
     }
 
@@ -210,9 +212,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
     /** Check if we should monitor cpu temp */
     private void checkTempMonitor() {
         if (CPUUtils.hasTemp()) {
+            mIsMonitoringTemp = true;
             mHandler.post(monitorTemp);
             setMediumTypeface(mCpuTempHeader);
         } else {
+            mIsMonitoringTemp = false;
             mCpuTempHeader.setVisibility(View.GONE);
             mCpuTemp.setVisibility(View.GONE);
         }
@@ -221,80 +225,85 @@ public class InfoFragment extends Fragment implements OnClickListener {
     /** Monitor CPU temperature */
     private final Runnable monitorTemp = new Runnable() {
         public void run() {
-            try {
-                if (CPUUtils.getTemp() != null) {
-                    mCpuTemp.setText(CPUUtils.getTemp());
-                } else {
-                    mCpuTemp.setText(R.string.unavailable);
-                    mCpuTemp.setTypeface(null, Typeface.ITALIC);
+            if (mIsMonitoringTemp) {
+                try {
+                    if (CPUUtils.getTemp() != null) {
+                        mCpuTemp.setText(CPUUtils.getTemp());
+                    } else {
+                        mCpuTemp.setText(R.string.unavailable);
+                        mCpuTemp.setTypeface(null, Typeface.ITALIC);
+                    }
+                } catch (NumberFormatException ignored) {
                 }
-            } catch (NumberFormatException ignored) {}
-            mHandler.postDelayed(monitorTemp, 3000);
+                mHandler.postDelayed(monitorTemp, 3000);
+            }
         }
     };
 
     private final Runnable monitorCpu = new Runnable() {
         public void run() {
-            /** Set the frequency for CPU0 */
-            if(mMonitorCpu0) {
-                try {
-                    File cpu0 = new File(CPUUtils.CPU0);
-                    if (cpu0.length() == 0) {
-                        // CPU0 should never be empty
-                        mCore0.setText(null);
-                        Log.e("CpuSpyInfo", "Problem getting CPU cores");
-                        return;
-                    } else {
-                        mCore0.setText(CPUUtils.getCpu0());
+            if (mIsMonitoringCpu) {
+                /** Set the frequency for CPU0 */
+                if (mHasCpu0) {
+                    try {
+                        File cpu0 = new File(CPUUtils.CPU0);
+                        if (cpu0.length() == 0) {
+                            // CPU0 should never be empty
+                            mCore0.setText(null);
+                            Log.e("CpuSpyInfo", "Problem getting CPU cores");
+                            return;
+                        } else {
+                            mCore0.setText(CPUUtils.getCpu0());
+                        }
+                    } catch (NumberFormatException ignored) {
+                        //DO SOMETHING
                     }
-                } catch (NumberFormatException ignored) {
-                    //DO SOMETHING
                 }
-            }
 
-            /** Set the frequency for CPU1 */
-            if(mMonitorCpu1) {
-                try {
-                    File cpu1 = new File(CPUUtils.CPU1);
-                    if (cpu1.length() == 0) {
-                        mCore1.setText(R.string.core_offline);
-                    } else {
-                        mCore1.setText(CPUUtils.getCpu1());
+                /** Set the frequency for CPU1 */
+                if (mHasCpu1) {
+                    try {
+                        File cpu1 = new File(CPUUtils.CPU1);
+                        if (cpu1.length() == 0) {
+                            mCore1.setText(R.string.core_offline);
+                        } else {
+                            mCore1.setText(CPUUtils.getCpu1());
+                        }
+                    } catch (NumberFormatException ignored) {
+                        // DO SOMETHING
                     }
-                } catch (NumberFormatException ignored) {
-                    // DO SOMETHING
                 }
-            }
 
-            /** Set the frequency for CPU2 */
-            if(mMonitorCpu2) {
-                try {
-                    File cpu2 = new File(CPUUtils.CPU2);
-                    if (cpu2.length() == 0) {
-                        mCore2.setText(R.string.core_offline);
-                    } else {
-                        mCore2.setText(CPUUtils.getCpu2());
+                /** Set the frequency for CPU2 */
+                if (mHasCpu2) {
+                    try {
+                        File cpu2 = new File(CPUUtils.CPU2);
+                        if (cpu2.length() == 0) {
+                            mCore2.setText(R.string.core_offline);
+                        } else {
+                            mCore2.setText(CPUUtils.getCpu2());
+                        }
+                    } catch (NumberFormatException ignored) {
+                        // DO SOMETHING
                     }
-                } catch (NumberFormatException ignored) {
-                    // DO SOMETHING
                 }
-            }
 
-            /** Set the frequency for CPU3 */
-            if(mMonitorCpu3) {
-                try {
-                    File cpu3 = new File(CPUUtils.CPU3);
-                    if (cpu3.length() == 0) {
-                        mCore3.setText(R.string.core_offline);
-                    } else {
-                        mCore3.setText(CPUUtils.getCpu3());
+                /** Set the frequency for CPU3 */
+                if (mHasCpu3) {
+                    try {
+                        File cpu3 = new File(CPUUtils.CPU3);
+                        if (cpu3.length() == 0) {
+                            mCore3.setText(R.string.core_offline);
+                        } else {
+                            mCore3.setText(CPUUtils.getCpu3());
+                        }
+                    } catch (NumberFormatException ignored) {
+                        //DO SOMETHING
                     }
-                } catch (NumberFormatException ignored) {
-                    //DO SOMETHING
                 }
-            }
 
-            mHandler.postDelayed(monitorCpu, 1000); // 1 second
+                mHandler.postDelayed(monitorCpu, 1000); // 1 second
+            }
         }
     };
 
@@ -302,50 +311,51 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private void checkCoreMonitor() {
         switch (CPUUtils.getCoreCount()) {
             case 1:
-                mCpu0Header.setVisibility(View.VISIBLE);
+                mCore0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
-                mMonitorCpu0 = true;
+                mHasCpu0 = true;
                 break;
             case 2:
-                mCpu0Header.setVisibility(View.VISIBLE);
+                mCore0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
-                mMonitorCpu0 = true;
+                mHasCpu0 = true;
 
-                mCpu1Header.setVisibility(View.VISIBLE);
+                mCore1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
-                mMonitorCpu1 = true;
+                mHasCpu1 = true;
                 break;
             case 3:
-                mCpu0Header.setVisibility(View.VISIBLE);
+                mCore0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
-                mMonitorCpu0 = true;
+                mHasCpu0 = true;
 
-                mCpu1Header.setVisibility(View.VISIBLE);
+                mCore1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
-                mMonitorCpu1 = true;
+                mHasCpu1 = true;
 
-                mCpu2Header.setVisibility(View.VISIBLE);
+                mCore2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
-                mMonitorCpu2 = true;
+                mHasCpu2 = true;
                 break;
             case 4:
-                mCpu0Header.setVisibility(View.VISIBLE);
+                mCore0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);
-                mMonitorCpu0 = true;
+                mHasCpu0 = true;
 
-                mCpu1Header.setVisibility(View.VISIBLE);
+                mCore1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
-                mMonitorCpu1 = true;
+                mHasCpu1 = true;
 
-                mCpu2Header.setVisibility(View.VISIBLE);
+                mCore2Header.setVisibility(View.VISIBLE);
                 mCore2.setVisibility(View.VISIBLE);
-                mMonitorCpu2 = true;
+                mHasCpu2 = true;
 
-                mCpu3Header.setVisibility(View.VISIBLE);
+                mCore3Header.setVisibility(View.VISIBLE);
                 mCore3.setVisibility(View.VISIBLE);
-                mMonitorCpu3 = true;
+                mHasCpu3 = true;
                 break;
         }
+        mIsMonitoringCpu = true;
         mHandler.post(monitorCpu);
     }
 
