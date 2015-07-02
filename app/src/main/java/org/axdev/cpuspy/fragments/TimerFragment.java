@@ -146,8 +146,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         if (currentVersionNumber > savedVersionNumber) {
             final WhatsNewDialog newFragment = new WhatsNewDialog();
             newFragment.show(getActivity().getFragmentManager(), "whatsnew");
-            editor.putInt("version_number", currentVersionNumber);
-            editor.apply();
+            editor.putInt("version_number", currentVersionNumber).apply();
         }
 
         /** Remove welcome cardview if its already been shown */
@@ -365,12 +364,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         switch (v.getId()) {
             case R.id.btn_welcome:
                 this.removeView(mWelcomeCardView);
-                editor.putBoolean(WELCOME_SCREEN, false);
-                editor.commit();
+                editor.putBoolean(WELCOME_SCREEN, false).apply();
                 break;
             case R.id.btn_charged:
-                editor.putBoolean("autoReset", false);
-                editor.commit();
+                editor.putBoolean("autoReset", false).apply();
                 refreshData();
                 resetTimers();
                 break;
