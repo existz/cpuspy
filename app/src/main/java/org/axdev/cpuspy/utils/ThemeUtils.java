@@ -21,7 +21,7 @@ public class ThemeUtils extends AppCompatActivity {
     public final static int LIGHT = 0;
     public final static int DARK = 1;
     public final static int AUTO = 2;
-    public static boolean DARKTHEME = false;
+    public static boolean DARKTHEME;
 
     public static void changeToTheme(Activity activity, int mTheme) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);

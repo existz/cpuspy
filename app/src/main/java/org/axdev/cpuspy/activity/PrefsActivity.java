@@ -110,6 +110,7 @@ public class PrefsActivity extends AppCompatActivity {
                                             break;
                                         case 2:
                                             ThemeUtils.changeToTheme(getActivity(), ThemeUtils.AUTO);
+                                            break;
                                     }
                                     editor.putInt("theme", position).apply();
                                     mThemeChanged = true;

@@ -233,8 +233,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCpuTemp.setText(R.string.unavailable);
                         mCpuTemp.setTypeface(null, Typeface.ITALIC);
                     }
-                } catch (NumberFormatException ignored) {
-                }
+                } catch (NumberFormatException ignored) {}
                 mHandler.postDelayed(monitorTemp, 3000);
             }
         }
@@ -255,9 +254,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         } else {
                             mCore0.setText(CPUUtils.getCpu0());
                         }
-                    } catch (NumberFormatException ignored) {
-                        //DO SOMETHING
-                    }
+                    } catch (NumberFormatException ignored) {}
                 }
 
                 /** Set the frequency for CPU1 */
@@ -269,9 +266,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         } else {
                             mCore1.setText(CPUUtils.getCpu1());
                         }
-                    } catch (NumberFormatException ignored) {
-                        // DO SOMETHING
-                    }
+                    } catch (NumberFormatException ignored) {}
                 }
 
                 /** Set the frequency for CPU2 */
@@ -283,9 +278,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         } else {
                             mCore2.setText(CPUUtils.getCpu2());
                         }
-                    } catch (NumberFormatException ignored) {
-                        // DO SOMETHING
-                    }
+                    } catch (NumberFormatException ignored) {}
                 }
 
                 /** Set the frequency for CPU3 */
@@ -297,9 +290,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         } else {
                             mCore3.setText(CPUUtils.getCpu3());
                         }
-                    } catch (NumberFormatException ignored) {
-                        //DO SOMETHING
-                    }
+                    } catch (NumberFormatException ignored) {}
                 }
 
                 mHandler.postDelayed(monitorCpu, 1000); // 1 second
