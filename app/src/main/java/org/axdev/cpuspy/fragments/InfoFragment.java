@@ -233,7 +233,9 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCpuTemp.setText(R.string.unavailable);
                         mCpuTemp.setTypeface(null, Typeface.ITALIC);
                     }
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException e) {
+                    mCpuTemp = null;
+                }
                 mHandler.postDelayed(monitorTemp, 3000);
             }
         }
@@ -245,7 +247,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 /** Set the frequency for CPU0 */
                 if (mHasCpu0) {
                     try {
-                        File cpu0 = new File(CPUUtils.CPU0);
+                        final File cpu0 = new File(CPUUtils.CPU0);
                         if (cpu0.length() == 0) {
                             // CPU0 should never be empty
                             mCore0.setText(null);
@@ -254,43 +256,51 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         } else {
                             mCore0.setText(CPUUtils.getCpu0());
                         }
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException e) {
+                        mCore0 = null;
+                    }
                 }
 
                 /** Set the frequency for CPU1 */
                 if (mHasCpu1) {
                     try {
-                        File cpu1 = new File(CPUUtils.CPU1);
+                        final File cpu1 = new File(CPUUtils.CPU1);
                         if (cpu1.length() == 0) {
                             mCore1.setText(R.string.core_offline);
                         } else {
                             mCore1.setText(CPUUtils.getCpu1());
                         }
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException e) {
+                        mCore1 = null;
+                    }
                 }
 
                 /** Set the frequency for CPU2 */
                 if (mHasCpu2) {
                     try {
-                        File cpu2 = new File(CPUUtils.CPU2);
+                        final File cpu2 = new File(CPUUtils.CPU2);
                         if (cpu2.length() == 0) {
                             mCore2.setText(R.string.core_offline);
                         } else {
                             mCore2.setText(CPUUtils.getCpu2());
                         }
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException e) {
+                        mCore2 = null;
+                    }
                 }
 
                 /** Set the frequency for CPU3 */
                 if (mHasCpu3) {
                     try {
-                        File cpu3 = new File(CPUUtils.CPU3);
+                        final File cpu3 = new File(CPUUtils.CPU3);
                         if (cpu3.length() == 0) {
                             mCore3.setText(R.string.core_offline);
                         } else {
                             mCore3.setText(CPUUtils.getCpu3());
                         }
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException e) {
+                        mCore3 = null;
+                    }
                 }
 
                 mHandler.postDelayed(monitorCpu, 1000); // 1 second
@@ -314,19 +324,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 mCore1Header.setVisibility(View.VISIBLE);
                 mCore1.setVisibility(View.VISIBLE);
                 mHasCpu1 = true;
-                break;
-            case 3:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
-                mHasCpu0 = true;
-
-                mCore1Header.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.VISIBLE);
-                mHasCpu1 = true;
-
-                mCore2Header.setVisibility(View.VISIBLE);
-                mCore2.setVisibility(View.VISIBLE);
-                mHasCpu2 = true;
                 break;
             case 4:
                 mCore0Header.setVisibility(View.VISIBLE);
