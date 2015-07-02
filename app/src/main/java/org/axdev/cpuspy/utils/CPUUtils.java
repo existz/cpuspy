@@ -20,6 +20,10 @@ public class CPUUtils {
     public static final String CPU1 = "/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq";
     public static final String CPU2 = "/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq";
     public static final String CPU3 = "/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq";
+    public static final String CPU4 = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_cur_freq";
+    public static final String CPU5 = "/sys/devices/system/cpu/cpu5/cpufreq/scaling_cur_freq";
+    public static final String CPU6 = "/sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq";
+    public static final String CPU7 = "/sys/devices/system/cpu/cpu7/cpufreq/scaling_cur_freq";
 
     private static final String TAG_INFO = "CpuSpyInfo";
     private static String mArch;
@@ -224,6 +228,26 @@ public class CPUUtils {
     /** @return the CPU3 string */
     public static String getCpu3() {
         return setFreq(CPU3, "Unable to read CPU3 frequency");
+    }
+
+    /** @return the CPU4 string */
+    public static String getCpu4() {
+        return setFreq(CPU4, "Unable to read CPU4 frequency");
+    }
+
+    /** @return the CPU5 string */
+    public static String getCpu5() {
+        return setFreq(CPU5, "Unable to read CPU5 frequency");
+    }
+
+    /** @return the CPU6 string */
+    public static String getCpu6() {
+        return setFreq(CPU6, "Unable to read CPU6 frequency");
+    }
+
+    /** @return the CPU7 string */
+    public static String getCpu7() {
+        return setFreq(CPU7, "Unable to read CPU7 frequency");
     }
 
     /** @return CPU governor string */

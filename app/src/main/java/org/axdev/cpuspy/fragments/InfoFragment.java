@@ -78,10 +78,18 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @InjectView(R.id.cpu1_header) TextView mCore1Header;
     @InjectView(R.id.cpu2_header) TextView mCore2Header;
     @InjectView(R.id.cpu3_header) TextView mCore3Header;
+    @InjectView(R.id.cpu4_header) TextView mCore4Header;
+    @InjectView(R.id.cpu5_header) TextView mCore5Header;
+    @InjectView(R.id.cpu6_header) TextView mCore6Header;
+    @InjectView(R.id.cpu7_header) TextView mCore7Header;
     @InjectView(R.id.cpu_freq0) TextView mCore0;
     @InjectView(R.id.cpu_freq1) TextView mCore1;
     @InjectView(R.id.cpu_freq2) TextView mCore2;
     @InjectView(R.id.cpu_freq3) TextView mCore3;
+    @InjectView(R.id.cpu_freq4) TextView mCore4;
+    @InjectView(R.id.cpu_freq5) TextView mCore5;
+    @InjectView(R.id.cpu_freq6) TextView mCore6;
+    @InjectView(R.id.cpu_freq7) TextView mCore7;
 
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
@@ -90,6 +98,10 @@ public class InfoFragment extends Fragment implements OnClickListener {
     private boolean mHasCpu1;
     private boolean mHasCpu2;
     private boolean mHasCpu3;
+    private boolean mHasCpu4;
+    private boolean mHasCpu5;
+    private boolean mHasCpu6;
+    private boolean mHasCpu7;
 
     private final Handler mHandler = new Handler();
 
@@ -260,7 +272,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCore0 = null;
                     }
                 }
-
                 /** Set the frequency for CPU1 */
                 if (mHasCpu1) {
                     try {
@@ -274,7 +285,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCore1 = null;
                     }
                 }
-
                 /** Set the frequency for CPU2 */
                 if (mHasCpu2) {
                     try {
@@ -288,7 +298,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCore2 = null;
                     }
                 }
-
                 /** Set the frequency for CPU3 */
                 if (mHasCpu3) {
                     try {
@@ -300,6 +309,58 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore3 = null;
+                    }
+                }
+                /** Set the frequency for CPU4 */
+                if (mHasCpu4) {
+                    try {
+                        final File cpu4 = new File(CPUUtils.CPU4);
+                        if (cpu4.length() == 0) {
+                            mCore4.setText(R.string.core_offline);
+                        } else {
+                            mCore4.setText(CPUUtils.getCpu4());
+                        }
+                    } catch (NumberFormatException e) {
+                        mCore4 = null;
+                    }
+                }
+                /** Set the frequency for CPU5 */
+                if (mHasCpu5) {
+                    try {
+                        final File cpu5 = new File(CPUUtils.CPU5);
+                        if (cpu5.length() == 0) {
+                            mCore5.setText(R.string.core_offline);
+                        } else {
+                            mCore5.setText(CPUUtils.getCpu5());
+                        }
+                    } catch (NumberFormatException e) {
+                        mCore5 = null;
+                    }
+                }
+                /** Set the frequency for CPU6 */
+                if (mHasCpu6) {
+                    try {
+                        final File cpu6 = new File(CPUUtils.CPU6);
+                        if (cpu6.length() == 0) {
+                            mCore6.setText(R.string.core_offline);
+                        } else {
+                            mCore6.setText(CPUUtils.getCpu6());
+                        }
+                    } catch (NumberFormatException e) {
+                        mCore6 = null;
+                    }
+                }
+                /** Set the frequency for CPU7 */
+                if (mHasCpu7) {
+                    try {
+                        final File cpu7 = new File(CPUUtils.CPU7);
+                        if (cpu7.length() == 0) {
+                            mCore7.setText(R.string.core_offline);
+                        } else {
+                            mCore7.setText(CPUUtils.getCpu7());
+                        }
+                    } catch (NumberFormatException e) {
+                        mCore7 = null;
                     }
                 }
 
@@ -341,6 +402,64 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 mCore3Header.setVisibility(View.VISIBLE);
                 mCore3.setVisibility(View.VISIBLE);
                 mHasCpu3 = true;
+                break;
+            case 6:
+                mCore0Header.setVisibility(View.VISIBLE);
+                mCore0.setVisibility(View.VISIBLE);
+                mHasCpu0 = true;
+
+                mCore1Header.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.VISIBLE);
+                mHasCpu1 = true;
+
+                mCore2Header.setVisibility(View.VISIBLE);
+                mCore2.setVisibility(View.VISIBLE);
+                mHasCpu2 = true;
+
+                mCore3Header.setVisibility(View.VISIBLE);
+                mCore3.setVisibility(View.VISIBLE);
+                mHasCpu3 = true;
+
+                mCore4Header.setVisibility(View.VISIBLE);
+                mCore4.setVisibility(View.VISIBLE);
+                mHasCpu4 = true;
+
+                mCore5Header.setVisibility(View.VISIBLE);
+                mCore5.setVisibility(View.VISIBLE);
+                mHasCpu5 = true;
+                break;
+            case 8:
+                mCore0Header.setVisibility(View.VISIBLE);
+                mCore0.setVisibility(View.VISIBLE);
+                mHasCpu0 = true;
+
+                mCore1Header.setVisibility(View.VISIBLE);
+                mCore1.setVisibility(View.VISIBLE);
+                mHasCpu1 = true;
+
+                mCore2Header.setVisibility(View.VISIBLE);
+                mCore2.setVisibility(View.VISIBLE);
+                mHasCpu2 = true;
+
+                mCore3Header.setVisibility(View.VISIBLE);
+                mCore3.setVisibility(View.VISIBLE);
+                mHasCpu3 = true;
+
+                mCore4Header.setVisibility(View.VISIBLE);
+                mCore4.setVisibility(View.VISIBLE);
+                mHasCpu4 = true;
+
+                mCore5Header.setVisibility(View.VISIBLE);
+                mCore5.setVisibility(View.VISIBLE);
+                mHasCpu5 = true;
+
+                mCore6Header.setVisibility(View.VISIBLE);
+                mCore6.setVisibility(View.VISIBLE);
+                mHasCpu6 = true;
+
+                mCore7Header.setVisibility(View.VISIBLE);
+                mCore7.setVisibility(View.VISIBLE);
+                mHasCpu7 = true;
                 break;
         }
         mIsMonitoringCpu = true;

@@ -63,6 +63,10 @@
     <string name="information_cpu1_header">CPU 1:</string>
     <string name="information_cpu2_header">CPU 2:</string>
     <string name="information_cpu3_header">CPU 3:</string>
+    <string name="information_cpu4_header">CPU 4:</string>
+    <string name="information_cpu5_header">CPU 5:</string>
+    <string name="information_cpu6_header">CPU 6:</string>
+    <string name="information_cpu7_header">CPU 7:</string>
 
     <!-- Welcome info -->
     <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>

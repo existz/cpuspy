@@ -487,13 +487,109 @@
                         android:visibility="gone"/>
 
                     <TextView
+                        android:id="@+id/cpu4_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="@dimen/padding_mtrl_cpu"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:layout_below="@+id/cpu3_header"
+                        android:text="@string/information_cpu4_header"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu_freq4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:paddingLeft="24dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_alignTop="@+id/cpu4_header"
+                        android:layout_alignStart="@+id/cpu_freq3"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu5_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="@dimen/padding_mtrl_cpu"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:layout_below="@+id/cpu4_header"
+                        android:text="@string/information_cpu5_header"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu_freq5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:paddingLeft="24dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_alignTop="@+id/cpu5_header"
+                        android:layout_alignStart="@+id/cpu_freq4"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu6_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="@dimen/padding_mtrl_cpu"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:layout_below="@+id/cpu5_header"
+                        android:text="@string/information_cpu6_header"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu_freq6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:paddingLeft="24dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_alignTop="@+id/cpu6_header"
+                        android:layout_alignStart="@+id/cpu_freq5"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu7_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="@dimen/padding_mtrl_cpu"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:layout_below="@+id/cpu6_header"
+                        android:text="@string/information_cpu7_header"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/cpu_freq7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:paddingLeft="24dp"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_alignTop="@+id/cpu7_header"
+                        android:layout_alignStart="@+id/cpu_freq6"
+                        android:visibility="gone"/>
+
+                    <TextView
                         android:id="@+id/cpu_features_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
-                        android:layout_below="@+id/cpu3_header"
+                        android:layout_below="@+id/cpu7_header"
                         android:text="@string/information_cpu_features_header"
                         android:textColor="?android:attr/textColorPrimary"/>
 
