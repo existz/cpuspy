@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; More variables can be final\n&#8226; Switch to new sliding tab layout\n&#8226; Fix Auto Refresh causing crash\n&#8226; Add reusable method for reading files\n&#8226; Move core monitoring to CPU Info card\n&#8226; Show unused states when resetting timers\n&#8226; Use simple listview for open source licenses\n&#8226; Enable monitoring only if fragment is visible\n&#8226; Update material-dialogs library to v0.7.6.0\n&#8226; New Auto theme based on the time of day\n&#8226; Disable swipe to refresh if auto is enabled\n&#8226; Add null pointer check when removing all views </string>
+    <string name="whats_new">&#8226; Handle NFE instead of ignoring it\n&#8226; Fix lint warning by using apply()\n&#8226; Random code clean up and fixes\n&#8226; Add support for monitoring 6/8 CPU cores\n&#8226; Fix some padding issues on KitKat devices\n&#8226; PrefsActivity: Add missing switch break</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
