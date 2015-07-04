@@ -347,9 +347,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     /** Restore the cpu timers */
-    public static void restoreTimers() {
+    private void restoreTimers() {
         CpuSpyApp.getCpuStateMonitor().removeOffsets();
         CpuSpyApp.saveOffsets();
+        editor.remove("offsets").apply();
     }
 
     /** Remove view from its parent ViewGroup */

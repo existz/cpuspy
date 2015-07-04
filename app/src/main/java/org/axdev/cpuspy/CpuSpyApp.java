@@ -8,7 +8,6 @@
 package org.axdev.cpuspy;
 
 // imports
-
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -27,7 +26,7 @@ import io.fabric.sdk.android.Fabric;
 public class CpuSpyApp extends Application {
 
     public static final String PREF_OFFSETS = "offsets";
-    public static SharedPreferences sp;
+    private static SharedPreferences sp;
 
     /** the long-living object used to monitor the system frequency states */
     public static final CpuStateMonitor _monitor = new CpuStateMonitor();
@@ -58,11 +57,9 @@ public class CpuSpyApp extends Application {
      * the state monitor
      */
     private void loadOffsets() {
-        String prefs = sp.getString (PREF_OFFSETS, "");
+        String prefs = sp.getString(PREF_OFFSETS, "");
 
-        if (prefs == null || prefs.length() < 1) {
-            return;
-        }
+        if (prefs.length() < 1) { return; }
 
         // split the string by peroids and then the info by commas and load
         Map<Integer, Long> offsets = new HashMap<>();
@@ -81,8 +78,6 @@ public class CpuSpyApp extends Application {
      * e.g. "100 24, 200 251, 500 124 etc
      */
     public static void saveOffsets() {
-        final Editor editor = sp.edit();
-
         // build the string by iterating over the freq->duration map
         String str = "";
         for (Map.Entry<Integer, Long> entry :
@@ -90,7 +85,7 @@ public class CpuSpyApp extends Application {
             str += entry.getKey() + " " + entry.getValue() + ",";
         }
 
-        editor.putString(PREF_OFFSETS, str);
-        editor.commit();
+        final Editor editor = sp.edit();
+        editor.putString(PREF_OFFSETS, str).apply();
     }
 }
