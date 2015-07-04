@@ -336,6 +336,43 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mCardContainer.startAnimation(slideUp);
     }
 
+    /** Animate hiding and showing unused states */
+    private void showUnusedStates(boolean enabled) {
+        int duration;
+        RotateAnimation animRotate;
+        final AnimationSet animSet = new AnimationSet(true);
+
+        if (enabled) {
+            duration = 300;
+            animRotate = new RotateAnimation(0.0f, 180.0f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+            mAdditionalStatesShow.setVisibility(View.GONE);
+            mAdditionalStatesHide.setVisibility(View.VISIBLE);
+            mAdditionalStates.setVisibility(View.VISIBLE);
+        } else {
+            duration = 500;
+            animRotate = new RotateAnimation(-180.0f, 0f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+            mAdditionalStatesShow.setVisibility(View.VISIBLE);
+            mAdditionalStatesHide.setVisibility(View.GONE);
+            mAdditionalStates.setVisibility(View.GONE);
+        }
+
+        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.setFillAfter(true);
+        animSet.setFillEnabled(true);
+
+        animRotate.setDuration(duration);
+        animRotate.setFillAfter(true);
+        animSet.addAnimation(animRotate);
+
+        mShowImage.startAnimation(animSet);
+    }
+
     /** Reset the cpu timers */
     public static void resetTimers() {
         try {
@@ -374,43 +411,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 break;
             case R.id.card_view_states:
                 if (mAdditionalStatesShow.isShown()) {
-                    final AnimationSet animSet = new AnimationSet(true);
-                    animSet.setInterpolator(new DecelerateInterpolator());
-                    animSet.setFillAfter(true);
-                    animSet.setFillEnabled(true);
-
-                    final RotateAnimation animRotate = new RotateAnimation(0.0f, 180.0f,
-                            RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                            RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-
-                    animRotate.setDuration(300);
-                    animRotate.setFillAfter(true);
-                    animSet.addAnimation(animRotate);
-
-                    mShowImage.startAnimation(animSet);
-
-                    mAdditionalStatesShow.setVisibility(View.GONE);
-                    mAdditionalStatesHide.setVisibility(View.VISIBLE);
-                    mAdditionalStates.setVisibility(View.VISIBLE);
+                    showUnusedStates(true);
                 } else {
-                    final AnimationSet animSet = new AnimationSet(true);
-                    animSet.setInterpolator(new DecelerateInterpolator());
-                    animSet.setFillAfter(true);
-                    animSet.setFillEnabled(true);
-
-                    final RotateAnimation animRotate = new RotateAnimation(-180.0f, 0f,
-                            RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                            RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-
-                    animRotate.setDuration(500);
-                    animRotate.setFillAfter(true);
-                    animSet.addAnimation(animRotate);
-
-                    mShowImage.startAnimation(animSet);
-
-                    mAdditionalStatesShow.setVisibility(View.VISIBLE);
-                    mAdditionalStatesHide.setVisibility(View.GONE);
-                    mAdditionalStates.setVisibility(View.GONE);
+                    showUnusedStates(false);
                 }
                 break;
         }
@@ -431,13 +434,11 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             case R.id.menu_reset:
                 resetTimers();
                 this.updateView();
+                if (!mAdditionalStates.isShown()) showUnusedStates(true);
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(R.string.snackbar_text_reset)
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
-                mAdditionalStatesShow.setVisibility(View.GONE);
-                mAdditionalStatesHide.setVisibility(View.VISIBLE);
-                mAdditionalStates.setVisibility(View.VISIBLE);
                 break;
             case R.id.menu_restore:
                 restoreTimers();
