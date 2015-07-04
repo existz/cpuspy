@@ -15,8 +15,6 @@ import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 
-import org.axdev.cpuspy.utils.CPUUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +42,6 @@ public class CpuSpyApp extends Application {
         }
 
         loadOffsets();
-        CPUUtils.getKernelVersion();
     }
 
     /** @return the internal CpuStateMonitor object */
