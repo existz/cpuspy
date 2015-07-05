@@ -16,6 +16,5 @@
     <color name="drawable_color_dark">@color/primary_text_color_dark</color>
     <color name="drawable_color_light">@color/primary_text_color</color>
 
-    <color name="primary_warning">#db4437</color>
-    <color name="primary_dark_warning">#c53929</color>
+    <color name="primary_text_color_error">#db4437</color>
 </resources>

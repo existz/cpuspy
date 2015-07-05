@@ -23,8 +23,6 @@
     <string name="states_empty">Aucun</string>
     <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>
 
-    <string name="unavailable">Indisponible</string>
-
     <string name="snackbar_text_reset">Compteurs réinitialisés avec succès</string>
     <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
     <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>

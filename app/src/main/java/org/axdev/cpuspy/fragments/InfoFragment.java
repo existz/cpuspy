@@ -242,8 +242,10 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     if (CPUUtils.getTemp() != null) {
                         mCpuTemp.setText(CPUUtils.getTemp());
                     } else {
-                        mCpuTemp.setText(R.string.unavailable);
-                        mCpuTemp.setTypeface(null, Typeface.ITALIC);
+                        mIsMonitoringTemp = false;
+                        mCpuTemp.setText(R.string.error);
+                        mCpuTemp.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
                     mCpuTemp = null;
@@ -262,9 +264,10 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         final File cpu0 = new File(CPUUtils.CPU0);
                         if (cpu0.length() == 0) {
                             // CPU0 should never be empty
-                            mCore0.setText(null);
-                            Log.e("CpuSpyInfo", "Problem getting CPU cores");
-                            return;
+                            mIsMonitoringCpu = false;
+                            mCore0.setText(R.string.error);
+                            mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                            Log.e("CpuSpyInfo", "Error reading cpu0: null");
                         } else {
                             mCore0.setText(CPUUtils.getCpu0());
                         }

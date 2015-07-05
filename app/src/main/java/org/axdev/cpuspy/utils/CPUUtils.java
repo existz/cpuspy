@@ -36,7 +36,7 @@ public class CPUUtils {
     private static String readFile(String PATH, String LOG_MSG) {
         try {
             final File file = new File(PATH);
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
@@ -45,6 +45,9 @@ public class CPUUtils {
                 }
 
                 br.close();
+            } else {
+                Log.e(TAG_INFO, "Error reading file: " + PATH);
+                return null;
             }
         } catch (IOException e) {
             Log.e(TAG_INFO, LOG_MSG);
@@ -57,7 +60,7 @@ public class CPUUtils {
     private static String setFreq(String PATH, String LOG_MSG) {
         try {
             final File file = new File(PATH);
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
@@ -66,6 +69,9 @@ public class CPUUtils {
                 }
 
                 br.close();
+            } else {
+                Log.e(TAG_INFO, "Error reading file: " + PATH);
+                return null;
             }
         } catch (IOException e) {
             Log.e(TAG_INFO, LOG_MSG);
@@ -81,7 +87,7 @@ public class CPUUtils {
     private static String setFeatures() {
         try {
             final File file = new File("/proc/cpuinfo");
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
@@ -102,7 +108,7 @@ public class CPUUtils {
     private static String setArch() {
         try {
             File file = new File("/proc/cpuinfo");
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
@@ -136,7 +142,7 @@ public class CPUUtils {
     private static String setTemp() {
         try {
             final File file = new File(mTempFile);
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
@@ -145,6 +151,9 @@ public class CPUUtils {
                 }
 
                 br.close();
+            } else {
+                Log.e(TAG_INFO, "Error reading file: " + mTempFile);
+                return null;
             }
         } catch (IOException e) {
             Log.e(TAG_INFO, "Unable to read cpu temperature");
@@ -153,6 +162,7 @@ public class CPUUtils {
         long temp = Long.parseLong(mTemp);
         if (temp > 1000) temp /= 1000;
         else if (temp > 200) temp /= 10;
+
         return ((double) temp) + "°C";
     }
 
