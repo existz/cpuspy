@@ -69,8 +69,8 @@ public class CpuStateMonitor {
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */
         boolean success = false;
-        int count = 0, MAX_TRIES = 5;
-        while (!success && (count++ < MAX_TRIES)) {
+        int count = 0, MAX_TRIES = 10;
+        while (!success && count++ < MAX_TRIES) {
             try {
                 for (CpuState state : _states) {
                     long duration = state.duration;
@@ -89,10 +89,13 @@ public class CpuStateMonitor {
                     states.add(new CpuState(state.freq, duration));
                 }
                 success = true;
-            } catch (ConcurrentModificationException ignored) {}
+            } catch (ConcurrentModificationException e) {
+                Log.e("CpuSpy", "Getting cpu states is busy, retrying..");
+                return getStates();
+            }
         }
         if (!success) {
-            Log.e("CpuSpy", "Unable to get total state time");
+            Log.e("CpuSpy", "Unable to get cpu states");
         }
 
         return states;
@@ -106,9 +109,9 @@ public class CpuStateMonitor {
         long sum = 0;
         long offset = 0;
         boolean success = false;
-        int count = 0, MAX_TRIES = 5;
+        int count = 0, MAX_TRIES = 10;
 
-        while (!success && (count++ < MAX_TRIES)) {
+        while (!success && count++ < MAX_TRIES) {
             try {
                 for (CpuState state : _states) {
                     sum += state.duration;
@@ -118,7 +121,10 @@ public class CpuStateMonitor {
                     offset += entry.getValue();
                 }
                 success = true;
-            } catch (ConcurrentModificationException ignored) {}
+            } catch (ConcurrentModificationException e) {
+                Log.e("CpuSpy", "Getting total state time is busy, retrying..");
+                return getTotalStateTime();
+            }
         }
         if (!success) {
             Log.e("CpuSpy", "Unable to get total state time");
@@ -145,8 +151,8 @@ public class CpuStateMonitor {
      */
     public void setOffsets() throws CpuStateMonitorException {
         boolean success = false;
-        int count = 0, MAX_TRIES = 5;
-        while (!success && (count++ < MAX_TRIES)) {
+        int count = 0, MAX_TRIES = 10;
+        while (!success && count++ < MAX_TRIES) {
             try {
                 _offsets.clear();
                 updateStates();
