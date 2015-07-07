@@ -156,23 +156,21 @@ public class PrefsActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            // Use custom Typeface for action bar title on KitKat devices
-            final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            final ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            assert mActionBar != null;
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+
+            /** Use custom Typeface for action bar title on KitKat devices */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (supportActionBar != null) {
-                    supportActionBar.setTitle(R.string.settings);
-                }
+                mActionBar.setTitle(R.string.settings);
             } else {
                 final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Update the action bar title with the TypefaceSpan instance
-                if (supportActionBar != null) {
-                    supportActionBar.setTitle(s);
-                }
+                mActionBar.setTitle(s);
             }
-            if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
         }
 
     } /** End PrefsFragment **/

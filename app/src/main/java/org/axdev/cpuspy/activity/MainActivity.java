@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -51,21 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
+        final ActionBar mActionBar = getSupportActionBar();
+        assert mActionBar != null;
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(R.string.app_name_long);
-                getSupportActionBar().setElevation(0);
-            }
+            mActionBar.setTitle(R.string.app_name_long);
+            mActionBar.setElevation(0);
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
             s.setSpan(new TypefaceSpan(this, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(s);
-            }
+            mActionBar.setTitle(s);
         }
     }
 

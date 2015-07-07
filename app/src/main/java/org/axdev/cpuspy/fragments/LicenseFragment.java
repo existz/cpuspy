@@ -45,23 +45,20 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
 
-        /** Use custom Typeface for action bar title on KitKat devices */
-        final ActionBar supportActionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (supportActionBar != null) { supportActionBar.setDisplayHomeAsUpEnabled(true); }
+        final ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        assert mActionBar != null;
+        mActionBar.setDisplayHomeAsUpEnabled(true);
 
+        /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (supportActionBar != null) {
-                supportActionBar.setTitle(R.string.pref_title_license);
-            }
+            mActionBar.setTitle(R.string.pref_title_license);
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
             s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
-            if (supportActionBar != null) {
-                supportActionBar.setTitle(s);
-            }
+            mActionBar.setTitle(s);
         }
 
         TextView mLicenseHeader = (TextView) getActivity().findViewById(R.id.license_header);
