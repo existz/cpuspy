@@ -41,7 +41,6 @@
         <Preference
             android:key="version"
             android:title="@string/pref_title_version"
-            android:summary="@string/version_name"
             android:selectable="false">
         </Preference>
         <Preference

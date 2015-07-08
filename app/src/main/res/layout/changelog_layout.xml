@@ -23,7 +23,6 @@
         android:id="@+id/changelog_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/version_name"
         android:textStyle="bold"
         android:textSize="15sp" />
 

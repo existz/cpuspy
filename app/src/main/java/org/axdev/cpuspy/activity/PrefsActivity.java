@@ -30,6 +30,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 
+import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
@@ -68,6 +69,9 @@ public class PrefsActivity extends AppCompatActivity {
                 findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
                         R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
+
+            /** Get versionName and set as summary */
+            findPreference("version").setSummary(BuildConfig.VERSION_NAME);
 
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override

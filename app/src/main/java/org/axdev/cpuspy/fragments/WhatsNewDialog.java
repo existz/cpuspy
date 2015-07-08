@@ -11,10 +11,13 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 
 public class WhatsNewDialog extends DialogFragment {
@@ -43,6 +46,13 @@ public class WhatsNewDialog extends DialogFragment {
                     }
                 })
                 .build();
+
+        // Get versionName from gradle
+        final View view = dialog.getCustomView();
+        if (view != null) {
+            final TextView version = (TextView) view.findViewById(R.id.changelog_version);
+            version.setText("v" + BuildConfig.VERSION_NAME);
+        }
 
         // Override dialog enter/exit animation
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;

@@ -15,11 +15,19 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+// build version
+def versionMajor = 3
+def versionMinor = 1
+def versionPatch = 1
+
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.0 rc2"
 
     defaultConfig {
+        applicationId "org.axdev.cpuspy"
+        versionCode 100010
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         minSdkVersion 19
         targetSdkVersion 22
     }
