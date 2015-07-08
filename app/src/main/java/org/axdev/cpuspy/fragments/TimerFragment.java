@@ -58,8 +58,8 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
 import org.axdev.cpuspy.CpuSpyApp;
+import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
-import org.axdev.cpuspy.CpuStateMonitor.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
@@ -464,7 +464,15 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final List<String> extraStates = new ArrayList<>();
         for (final CpuState state : monitor.getStates()) {
             if (state.duration > 0) {
-                generateStateRow(state, mStatesView);
+                final CpuState cpuState = new CpuState(-99, 0);
+                final int hiddenPercent = sp.getInt("hidePercent", 0);
+                final float percent = (float) state.duration * 100 / monitor.getTotalStateTime();
+                if (percent <= hiddenPercent) {
+                    cpuState.duration += state.duration;
+                    extraStates.add(state.freq / 1000 + "MHz");
+                } else {
+                    generateStateRow(state, mStatesView);
+                }
             } else {
                 if (state.freq == 0) {
                     extraStates.add(getResources().getString(R.string.states_deep_sleep));

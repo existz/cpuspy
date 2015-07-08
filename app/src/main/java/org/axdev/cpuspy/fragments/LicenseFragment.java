@@ -86,6 +86,10 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
                 startActivity(intent);
                 break;
             case 4:
+                intent.setData(Uri.parse("https://github.com/MrBIMC/MaterialSeekBarPreference"));
+                startActivity(intent);
+                break;
+            case 5:
                 intent.setData(Uri.parse("https://github.com/nispok/snackbar"));
                 startActivity(intent);
                 break;

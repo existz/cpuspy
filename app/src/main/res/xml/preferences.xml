@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sample="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/pref_header_general" >
         <CheckBoxPreference
@@ -13,6 +14,15 @@
             android:summary="@string/pref_summary_autoreset"
             android:defaultValue="true" />
     </PreferenceCategory>
+
+    <com.pavelsikun.seekbarpreference.SeekBarPreference
+        android:key="hidePercent"
+        android:title="@string/pref_title_hidestates"
+        android:summary="@string/pref_summary_hidestates"
+        android:defaultValue="0"
+        sample:minValue="0"
+        sample:maxValue="10"
+        sample:measurementUnit="%"/>
 
     <PreferenceCategory android:title="@string/pref_header_ui" >
         <Preference

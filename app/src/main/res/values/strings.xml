@@ -88,6 +88,8 @@
     <string name="pref_summary_autorefresh">Refresh the CPU timers automatically</string>
     <string name="pref_title_autoreset">Automatic Reset</string>
     <string name="pref_summary_autoreset">Reset CPU timers when fully charged</string>
+    <string name="pref_title_hidestates">Hide States Below Percentage</string>
+    <string name="pref_summary_hidestates">States below % will not be used</string>
     <string name="pref_title_themes">Base Theme</string>
     <string name="pref_summary_themes">Choose between light, dark and auto</string>
     <string name="pref_title_navbar">Colored Navigation Bar</string>
@@ -109,6 +111,7 @@
         <item>Butter Knife</item>
         <item>Material Dialogs</item>
         <item>Material Ripple</item>
+        <item>Material SeekBarPreference</item>
         <item>Snackbar</item>
     </string-array>
 

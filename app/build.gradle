@@ -52,6 +52,7 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.nispok:snackbar:2.10.10'
+    compile 'com.pavelsikun:material-seekbar-preference:0.7+'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }
