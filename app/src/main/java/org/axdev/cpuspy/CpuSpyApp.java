@@ -12,11 +12,9 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.SparseArray;
 
 import com.crashlytics.android.Crashlytics;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -59,12 +57,12 @@ public class CpuSpyApp extends Application {
         if (prefs.length() < 1) { return; }
 
         // split the string by peroids and then the info by commas and load
-        Map<Integer, Long> offsets = new HashMap<>();
-        String[] sOffsets = prefs.split(",");
+        final SparseArray<Long> offsets = new SparseArray<>();
+        final String[] sOffsets = prefs.split(",");
         for (String offset : sOffsets) {
-            String[] parts = offset.split(" ");
+            final String[] parts = offset.split(" ");
             offsets.put (Integer.parseInt(parts[0]),
-                    Long.parseLong(parts[1]));
+                    Long.valueOf(parts[1]));
         }
 
         _monitor.setOffsets(offsets);
@@ -77,9 +75,10 @@ public class CpuSpyApp extends Application {
     public static void saveOffsets() {
         // build the string by iterating over the freq->duration map
         String str = "";
-        for (Map.Entry<Integer, Long> entry :
-                _monitor.getOffsets().entrySet()) {
-            str += entry.getKey() + " " + entry.getValue() + ",";
+        final SparseArray<Long> offsets = _monitor.getOffsets();
+        int count = offsets.size();
+        for (int i = 0; i < count; i++) {
+            str += offsets.keyAt(i) + " " + offsets.valueAt(i) + ",";
         }
 
         final Editor editor = sp.edit();

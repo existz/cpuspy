@@ -12,6 +12,7 @@ package org.axdev.cpuspy;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.util.SparseArray;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,9 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * CpuStateMonitor is a class responsible for querying the system and getting
@@ -35,7 +34,7 @@ public class CpuStateMonitor {
             "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
 
     private final List<CpuState>      _states = new ArrayList<>();
-    private Map<Integer, Long>  _offsets = new HashMap<>();
+    private SparseArray<Long>  _offsets = new SparseArray<>();
 
     /** exception class */
     public class CpuStateMonitorException extends Exception {
@@ -74,8 +73,9 @@ public class CpuStateMonitor {
             try {
                 for (CpuState state : _states) {
                     long duration = state.duration;
-                    if (_offsets.containsKey(state.freq)) {
-                        long offset = _offsets.get(state.freq);
+                    final Long value = _offsets.get(state.freq);
+                    if (value != null) {
+                        long offset = value;
                         if (offset <= duration) {
                             duration -= offset;
                         } else {
@@ -85,7 +85,6 @@ public class CpuStateMonitor {
                             return getStates();
                         }
                     }
-
                     states.add(new CpuState(state.freq, duration));
                 }
                 success = true;
@@ -116,9 +115,8 @@ public class CpuStateMonitor {
                 for (CpuState state : _states) {
                     sum += state.duration;
                 }
-
-                for (Map.Entry<Integer, Long> entry : _offsets.entrySet()) {
-                    offset += entry.getValue();
+                for(int i = 0; i < _offsets.size(); i++) {
+                    offset += _offsets.valueAt(i);
                 }
                 success = true;
             } catch (ConcurrentModificationException e) {
@@ -136,12 +134,12 @@ public class CpuStateMonitor {
     /**
      * @return Map of freq->duration of all the offsets
      */
-    public Map<Integer, Long> getOffsets() {
+    public SparseArray<Long> getOffsets() {
         return _offsets;
     }
 
     /** Sets the offset map (freq->duration offset) */
-    public void setOffsets(Map<Integer, Long> offsets) {
+    public void setOffsets(SparseArray<Long> offsets) {
         _offsets = offsets;
     }
 
