@@ -71,6 +71,7 @@ public class ThemeUtils extends AppCompatActivity {
                     activity.setTheme(R.style.AppThemeDark);
                     DARKTHEME = true;
                 }
+                break;
         }
     }
 
