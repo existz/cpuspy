@@ -75,6 +75,7 @@
     <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time</string>
     <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full</string>
     <string name="welcome_widget">&#8226; Widget to reset CPU timers from home screen</string>
+    <string name="welcome_hidepercent">&#8226; Option to hide state below certain percentage</string>
 
     <!-- Settings info -->
     <string name="settings">Settings</string>
