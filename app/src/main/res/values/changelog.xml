@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Handle NFE instead of ignoring it\n&#8226; Fix lint warning by using apply()\n&#8226; Random code clean up and fixes\n&#8226; Add support for monitoring 6/8 CPU cores\n&#8226; Fix some padding issues on KitKat devices\n&#8226; PrefsActivity: Add missing switch break</string>
+    <string name="whats_new">&#8226; assert mActionBar != null\n&#8226; Move app version to build.gradle\n&#8226; Update Snackbar library to v2.10.10\n&#8226; Add function to show/hide unused states\n&#8226; Clean up SharedPreferences in CpuSpyApp\n&#8226; MainActivity: Add missing @Override to onResume()\n&#8226; Add option to hide states below certain percentage\n&#8226; CpuSpyApp: Use SparseArray instead of HashMap\n&#8226; CpuStateMonitor: Fix logging and handle exception\n&#8226; Stop monitoring temperature if getTemp() returns null\n&#8226; Remove usesless call to CPUUtils.getKernelVersion()\n</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
