@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -21,6 +22,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,9 +78,13 @@ public class PrefsActivity extends AppCompatActivity {
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    final Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(googleURL));
-                    startActivity(i);
+                    try {
+                        final Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(googleURL));
+                        startActivity(i);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e("CpuSpy", "Error opening: " + googleURL);
+                    }
                     return true;
                 }
             });
@@ -223,9 +229,14 @@ public class PrefsActivity extends AppCompatActivity {
                 newFragment.show(getFragmentManager(), "whatsnew");
                 break;
             case R.id.menu_donate:
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("http://goo.gl/X2sA4D"));
-                startActivity(i);
+                final String donateURL = "http://goo.gl/X2sA4D";
+                try {
+                    final Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(donateURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException e) {
+                    Log.e("CpuSpy", "Error opening: " + donateURL);
+                }
                 break;
             case android.R.id.home:
                 this.checkBackStack();

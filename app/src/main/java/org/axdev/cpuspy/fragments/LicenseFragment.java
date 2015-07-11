@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,37 +69,40 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Intent intent = new Intent(Intent.ACTION_VIEW);
         switch (position) {
             case 0:
-                intent.setData(Uri.parse("http://developer.android.com/tools/support-library/index.html"));
-                startActivity(intent);
+                openURL("http://developer.android.com/tools/support-library/index.html");
                 break;
             case 1:
-                intent.setData(Uri.parse("https://github.com/JakeWharton/butterknife"));
-                startActivity(intent);
+                openURL("https://github.com/JakeWharton/butterknife");
                 break;
             case 2:
-                intent.setData(Uri.parse("https://github.com/afollestad/material-dialogs"));
-                startActivity(intent);
+                openURL("https://github.com/afollestad/material-dialogs");
                 break;
             case 3:
-                intent.setData(Uri.parse("https://github.com/balysv/material-ripple"));
-                startActivity(intent);
+                openURL("https://github.com/balysv/material-ripple");
                 break;
             case 4:
-                intent.setData(Uri.parse("https://github.com/MrBIMC/MaterialSeekBarPreference"));
-                startActivity(intent);
+                openURL("https://github.com/MrBIMC/MaterialSeekBarPreference");
                 break;
             case 5:
-                intent.setData(Uri.parse("https://github.com/nispok/snackbar"));
-                startActivity(intent);
+                openURL("https://github.com/nispok/snackbar");
                 break;
         }
     }
 
+    private void openURL(String s) {
+        try {
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(s));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.e("CpuSpy", "Error opening: " + s);
+        }
+    }
+
+    /** Apply Roboto-Medium typeface */
     private void setMediumTypeface(TextView tv) {
-        // Applying Roboto-Medium font
         Typeface mediumFont;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
