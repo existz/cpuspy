@@ -36,6 +36,7 @@ import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
@@ -130,6 +131,18 @@ public class PrefsActivity extends AppCompatActivity {
                             .positiveText(android.R.string.ok)
                             .positiveColorRes(R.color.primary)
                             .show();
+                    return true;
+                }
+            });
+
+            final CheckBoxPreference sleepDetection = (CheckBoxPreference) getPreferenceManager().findPreference("sleepDetection");
+            sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue.toString().equals("true")) {
+                        getActivity().startService(new Intent(getActivity(), SleepService.class));
+                    } else {
+                        getActivity().stopService(new Intent(getActivity(), SleepService.class));
+                    }
                     return true;
                 }
             });

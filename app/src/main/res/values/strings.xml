@@ -10,8 +10,8 @@
 
     <string name="total_state_time">Total State Time</string>
 
-    <string name="charged_view_enabled">Auto Reset enabled</string>
-    <string name="charged_view_status">Battery status: Charged</string>
+    <string name="charged_view_enabled">Auto Reset Enabled</string>
+    <string name="charged_view_status">Battery Status: Charged</string>
     <string name="charged_view_message">Once the device is fully charged, unplug your charger to automatically reset the CPU timers.</string>
 
     <string name="menu_changelog">Changelog</string>
@@ -88,6 +88,8 @@
     <string name="pref_summary_autorefresh">Refresh the CPU timers automatically</string>
     <string name="pref_title_autoreset">Automatic Reset</string>
     <string name="pref_summary_autoreset">Reset CPU timers when fully charged</string>
+    <string name="pref_title_sleepdetection">Deep Sleep Detection</string>
+    <string name="pref_summary_sleepdetection">Notify if device doesn\'t enter deep sleep</string>
     <string name="pref_title_hidestates">Hide States Below Percentage</string>
     <string name="pref_summary_hidestates">States below % will not be used</string>
     <string name="pref_title_themes">Base Theme</string>
@@ -124,5 +126,12 @@
     <!-- Tab Title -->
     <string name="tab_title_timers">Timers</string>
     <string name="tab_title_info">Info</string>
+
+    <string name="notification_warning">Warning</string>
+    <string name="notification_disable">Disable sleep detection</string>
+    <string name="notification_deep_sleep">Device is not entering Deep Sleep</string>
+
+    <string name="new_feature_title">Deep Sleep Detection</string>
+    <string name="new_feature_summary">A new background monitoring service that alerts you when the device does not enter deep sleep.</string>
 
 </resources>

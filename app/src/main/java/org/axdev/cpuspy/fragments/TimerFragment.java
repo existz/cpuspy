@@ -80,28 +80,32 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 {
     // main ui views
     @InjectView(R.id.btn_charged) Button mChargedButton;
-    @InjectView(R.id.btn_welcome) Button mWelcomeButton;
+    @InjectView(R.id.btn_welcome) Button mWelcomeCardButton;
+    @InjectView(R.id.btn_feature) Button mFeatureCardButton;
     @InjectView(R.id.card_view_states) CardView mStatesCardView;
     @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
+    @InjectView(R.id.card_view_feature) CardView mFeatureCardView;
     @InjectView(R.id.card_view_time) CardView mTimeCardView;
     @InjectView(R.id.img_show) ImageView mShowImage;
     @InjectView(R.id.warning_img) ImageView mWarningImage;
     @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
     @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
     @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
-    @InjectView(R.id.card_container) RelativeLayout mCardContainer;
+    @InjectView(R.id.card_container) LinearLayout mCardContainer;
     @InjectView(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
     @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
     @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
     @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
     @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
-    @InjectView(R.id.welcome_summary) TextView mWelcomeSummary;
-    @InjectView(R.id.welcome_features) TextView mWelcomeFeatures;
+    @InjectView(R.id.welcome_summary) TextView mWelcomeCardSummary;
+    @InjectView(R.id.welcome_features) TextView mWelcomeCardFeatures;
+    @InjectView(R.id.feature_title) TextView mFeatureCardTitle;
 
     @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     private final String WELCOME_SCREEN = "welcomeScreenShown";
+    private final String NEW_FEATURE = "newFeatureShown";
 
     private final Handler mHandler = new Handler();
 
@@ -153,6 +157,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
         if (!welcomeScreenShown) { this.removeView(mWelcomeCardView); }
 
+        /** Remove new feature cardview if its already been shown */
+        boolean newFeatureShown = sp.getBoolean(NEW_FEATURE, true);
+        if (!newFeatureShown) { this.removeView(mFeatureCardView); }
+
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
@@ -160,8 +168,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set onClickListener for all buttons */
         mChargedButton.setOnClickListener(this);
-        mWelcomeButton.setOnClickListener(this);
+        mWelcomeCardButton.setOnClickListener(this);
         mStatesCardView.setOnClickListener(this);
+        mFeatureCardButton.setOnClickListener(this);
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -321,8 +330,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
         }
 
-        mWelcomeSummary.setTypeface(mediumFont);
-        mWelcomeFeatures.setTypeface(mediumFont);
+        mWelcomeCardSummary.setTypeface(mediumFont);
+        mWelcomeCardFeatures.setTypeface(mediumFont);
+        mFeatureCardTitle.setTypeface(mediumFont);
         mAdditionalStatesShow.setTypeface(mediumFont);
         mAdditionalStatesHide.setTypeface(mediumFont);
         mHeaderTotalStateTime.setTypeface(mediumFont);
@@ -403,6 +413,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             case R.id.btn_welcome:
                 this.removeView(mWelcomeCardView);
                 editor.putBoolean(WELCOME_SCREEN, false).apply();
+                break;
+            case R.id.btn_feature:
+                this.removeView(mFeatureCardView);
+                editor.putBoolean(NEW_FEATURE, false).apply();
                 break;
             case R.id.btn_charged:
                 editor.putBoolean("autoReset", false).apply();

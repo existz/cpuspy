@@ -6,6 +6,8 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -25,6 +27,7 @@ import com.crashlytics.android.Crashlytics;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
+import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
@@ -66,6 +69,23 @@ public class MainActivity extends AppCompatActivity {
             // Update the action bar title with the TypefaceSpan instance
             mActionBar.setTitle(s);
         }
+
+        // Start service if its not automatically started on boot
+        if (sp.getBoolean("sleepDetection", true)) {
+            if (!isServiceRunning(SleepService.class)) {
+                startService(new Intent(this, SleepService.class));
+            }
+        }
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void setupTabs() {

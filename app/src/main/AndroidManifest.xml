@@ -7,6 +7,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:hardwareAccelerated="true"
@@ -40,6 +41,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
+        <!-- Receiver to check charger state -->
         <receiver android:name=".receiver.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
@@ -47,6 +49,7 @@
             </intent-filter>
         </receiver>
 
+        <!-- Widget to reset CPU timers -->
         <receiver android:name=".widget.ResetWidgetProvider" android:label="@string/widget_reset_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -56,6 +59,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_reset" />
         </receiver>
+
+        <!-- Receiver to start SleepService once boot completes -->
+        <receiver android:name=".receiver.SleepReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Service that monitors if deep sleep increases -->
+        <service android:name=".services.SleepService" />
 
         <meta-data
             android:name="com.crashlytics.ApiKey"

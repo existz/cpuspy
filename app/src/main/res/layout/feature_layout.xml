@@ -1,0 +1,71 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_feature"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardBackgroundColor="?attr/colorPrimary">
+
+        <LinearLayout
+            android:id="@+id/new_feature"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_deep_sleep" />
+
+            <TextView
+                android:id="@+id/feature_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_mtrl"
+                android:layout_marginLeft="@dimen/padding_mtrl"
+                android:layout_marginRight="@dimen/padding_mtrl"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/new_feature_title"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <TextView
+                android:id="@+id/feature_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="@dimen/padding_mtrl"
+                android:layout_marginRight="@dimen/padding_mtrl"
+                android:text="@string/new_feature_summary"
+                android:textColor="@android:color/primary_text_dark" />
+
+            <View
+                android:id="@+id/feature_blankspace"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp" />
+
+            <Button
+                android:id="@+id/btn_feature"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/padding_mtrl"
+                android:layout_marginEnd="@dimen/padding_mtrl"
+                android:text="@string/action_dismiss"
+                android:textColor="@color/btn_text_color"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:background="@drawable/welcome_btn" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</merge>

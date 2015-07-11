@@ -13,6 +13,11 @@
             android:title="@string/pref_title_autoreset"
             android:summary="@string/pref_summary_autoreset"
             android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="sleepDetection"
+            android:title="@string/pref_title_sleepdetection"
+            android:summary="@string/pref_summary_sleepdetection"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
     <com.pavelsikun.seekbarpreference.SeekBarPreference

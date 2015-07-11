@@ -7,10 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        card_view:cardCornerRadius="3dp"
+        card_view:cardCornerRadius="2dp"
         card_view:cardBackgroundColor="?attr/colorPrimary">
 
         <LinearLayout

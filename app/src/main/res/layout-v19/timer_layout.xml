@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/card_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
                 android:animateLayoutChanges="true">
 
                 <include layout="@layout/welcome_layout"/>
+                <include layout="@layout/feature_layout"/>
                 <include layout="@layout/charged_layout"/>
                 <include layout="@layout/states_warning_layout"/>
 
@@ -34,7 +35,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:layout_below="@+id/card_view_welcome"
                     card_view:cardBackgroundColor="?attr/colorCardBackground"
                     card_view:cardCornerRadius="0dp"
                     android:visibility="gone">
@@ -75,7 +75,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_below="@+id/card_view_time"
                     app:mrl_rippleDuration="450"
                     app:mrl_rippleFadeDuration="200"
                     app:mrl_rippleColor="@color/ripple_material_light"
@@ -119,7 +118,7 @@
 
                 </com.balysv.materialripple.MaterialRippleLayout>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </ScrollView>
 
