@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        final ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -90,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabs() {
         // Assigning ViewPager View and setting the adapter
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
 
         // Assiging the Sliding Tab Layout View
-        SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        final SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
+        final Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new TimerFragment(), getResources().getString(R.string.tab_title_timers));
         adapter.addFragment(new InfoFragment(), getResources().getString(R.string.tab_title_info));
         viewPager.setAdapter(adapter);
