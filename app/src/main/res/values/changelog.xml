@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; assert mActionBar != null\n&#8226; Move app version to build.gradle\n&#8226; Update Snackbar library to v2.10.10\n&#8226; Add function to show/hide unused states\n&#8226; Clean up SharedPreferences in CpuSpyApp\n&#8226; MainActivity: Add missing @Override to onResume()\n&#8226; Add option to hide states below certain percentage\n&#8226; CpuSpyApp: Use SparseArray instead of HashMap\n&#8226; CpuStateMonitor: Fix logging and handle exception\n&#8226; Stop monitoring temperature if getTemp() returns null\n&#8226; Remove usesless call to CPUUtils.getKernelVersion()\n</string>
+    <string name="whats_new">&#8226; More variables can be final\n&#8226; Update Butter Knife library\n&#8226; Update Android Support Library\n&#8226; Add checking runtime to Device Info\n&#8226; Make hasTemp() return false if file length is 0\n&#8226; Update to latest gradle and android build tools\n&#8226; Add service to check if device is entering deep sleep\n&#8226; Catch ActivityNotFoundException if unable to open links\n</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
