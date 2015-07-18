@@ -30,11 +30,15 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 
+import butterknife.ButterKnife;
+
 public class LicenseFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.license_layout, container, false);
+        final View view = inflater.inflate(R.layout.license_layout, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
             mActionBar.setTitle(s);
         }
 
-        TextView mLicenseHeader = (TextView) getActivity().findViewById(R.id.license_header);
+        final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
         setMediumTypeface(mLicenseHeader);
     }
 
@@ -111,5 +115,11 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         }
 
         tv.setTypeface(mediumFont);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

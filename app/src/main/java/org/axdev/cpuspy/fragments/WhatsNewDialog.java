@@ -22,6 +22,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 
+import butterknife.ButterKnife;
+
 public class WhatsNewDialog extends DialogFragment {
 
     private final String githubURL = "https://github.com/existz/cpuspy/commits/staging";
@@ -58,7 +60,7 @@ public class WhatsNewDialog extends DialogFragment {
         // Get versionName from gradle
         final View view = dialog.getCustomView();
         if (view != null) {
-            final TextView version = (TextView) view.findViewById(R.id.changelog_version);
+            final TextView version = ButterKnife.findById(view, R.id.changelog_version);
             version.setText("v" + BuildConfig.VERSION_NAME);
         }
 
@@ -66,5 +68,11 @@ public class WhatsNewDialog extends DialogFragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         return dialog;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

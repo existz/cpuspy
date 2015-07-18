@@ -36,60 +36,60 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 
 import java.io.File;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class InfoFragment extends Fragment implements OnClickListener {
 
-    @InjectView(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
-    @InjectView(R.id.kernel_header) TextView mKernelHeader;
-    @InjectView(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
-    @InjectView(R.id.kernel_governor) TextView mKernelGovernor;
-    @InjectView(R.id.kernel_version_header) TextView mKernelVersionHeader;
-    @InjectView(R.id.kernel_version) TextView mKernelVersion;
-    @InjectView(R.id.cpu_header) TextView mCpuHeader;
-    @InjectView(R.id.cpu_abi_header) TextView mCpuAbiHeader;
-    @InjectView(R.id.cpu_abi) TextView mCpuAbi;
-    @InjectView(R.id.cpu_arch_header) TextView mCpuArchHeader;
-    @InjectView(R.id.cpu_arch) TextView mCpuArch;
-    @InjectView(R.id.cpu_core_header) TextView mCpuCoreHeader;
-    @InjectView(R.id.cpu_core) TextView mCpuCore;
-    @InjectView(R.id.cpu_freq_header) TextView mCpuFreqHeader;
-    @InjectView(R.id.cpu_freq) TextView mCpuFreq;
-    @InjectView(R.id.cpu_temp_header) TextView mCpuTempHeader;
-    @InjectView(R.id.cpu_temp) TextView mCpuTemp;
-    @InjectView(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
-    @InjectView(R.id.cpu_features) TextView mCpuFeatures;
-    @InjectView(R.id.device_header) TextView mDeviceInfo;
-    @InjectView(R.id.device_build_header) TextView mDeviceBuildHeader;
-    @InjectView(R.id.device_build) TextView mDeviceBuild;
-    @InjectView(R.id.device_api_header) TextView mDeviceApiHeader;
-    @InjectView(R.id.device_api) TextView mDeviceApi;
-    @InjectView(R.id.device_manuf_header) TextView mDeviceManufHeader;
-    @InjectView(R.id.device_manuf) TextView mDeviceManuf;
-    @InjectView(R.id.device_model_header) TextView mDeviceModelHeader;
-    @InjectView(R.id.device_model) TextView mDeviceModel;
-    @InjectView(R.id.device_board_header) TextView mDeviceBoardHeader;
-    @InjectView(R.id.device_board) TextView mDeviceBoard;
-    @InjectView(R.id.device_platform_header) TextView mDevicePlatformHeader;
-    @InjectView(R.id.device_platform) TextView mDevicePlatform;
+    @Bind(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
+    @Bind(R.id.kernel_header) TextView mKernelHeader;
+    @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
+    @Bind(R.id.kernel_governor) TextView mKernelGovernor;
+    @Bind(R.id.kernel_version_header) TextView mKernelVersionHeader;
+    @Bind(R.id.kernel_version) TextView mKernelVersion;
+    @Bind(R.id.cpu_header) TextView mCpuHeader;
+    @Bind(R.id.cpu_abi_header) TextView mCpuAbiHeader;
+    @Bind(R.id.cpu_abi) TextView mCpuAbi;
+    @Bind(R.id.cpu_arch_header) TextView mCpuArchHeader;
+    @Bind(R.id.cpu_arch) TextView mCpuArch;
+    @Bind(R.id.cpu_core_header) TextView mCpuCoreHeader;
+    @Bind(R.id.cpu_core) TextView mCpuCore;
+    @Bind(R.id.cpu_freq_header) TextView mCpuFreqHeader;
+    @Bind(R.id.cpu_freq) TextView mCpuFreq;
+    @Bind(R.id.cpu_temp_header) TextView mCpuTempHeader;
+    @Bind(R.id.cpu_temp) TextView mCpuTemp;
+    @Bind(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
+    @Bind(R.id.cpu_features) TextView mCpuFeatures;
+    @Bind(R.id.device_header) TextView mDeviceInfo;
+    @Bind(R.id.device_build_header) TextView mDeviceBuildHeader;
+    @Bind(R.id.device_build) TextView mDeviceBuild;
+    @Bind(R.id.device_api_header) TextView mDeviceApiHeader;
+    @Bind(R.id.device_api) TextView mDeviceApi;
+    @Bind(R.id.device_manuf_header) TextView mDeviceManufHeader;
+    @Bind(R.id.device_manuf) TextView mDeviceManuf;
+    @Bind(R.id.device_model_header) TextView mDeviceModelHeader;
+    @Bind(R.id.device_model) TextView mDeviceModel;
+    @Bind(R.id.device_board_header) TextView mDeviceBoardHeader;
+    @Bind(R.id.device_board) TextView mDeviceBoard;
+    @Bind(R.id.device_platform_header) TextView mDevicePlatformHeader;
+    @Bind(R.id.device_platform) TextView mDevicePlatform;
 
-    @InjectView(R.id.cpu0_header) TextView mCore0Header;
-    @InjectView(R.id.cpu1_header) TextView mCore1Header;
-    @InjectView(R.id.cpu2_header) TextView mCore2Header;
-    @InjectView(R.id.cpu3_header) TextView mCore3Header;
-    @InjectView(R.id.cpu4_header) TextView mCore4Header;
-    @InjectView(R.id.cpu5_header) TextView mCore5Header;
-    @InjectView(R.id.cpu6_header) TextView mCore6Header;
-    @InjectView(R.id.cpu7_header) TextView mCore7Header;
-    @InjectView(R.id.cpu_freq0) TextView mCore0;
-    @InjectView(R.id.cpu_freq1) TextView mCore1;
-    @InjectView(R.id.cpu_freq2) TextView mCore2;
-    @InjectView(R.id.cpu_freq3) TextView mCore3;
-    @InjectView(R.id.cpu_freq4) TextView mCore4;
-    @InjectView(R.id.cpu_freq5) TextView mCore5;
-    @InjectView(R.id.cpu_freq6) TextView mCore6;
-    @InjectView(R.id.cpu_freq7) TextView mCore7;
+    @Bind(R.id.cpu0_header) TextView mCore0Header;
+    @Bind(R.id.cpu1_header) TextView mCore1Header;
+    @Bind(R.id.cpu2_header) TextView mCore2Header;
+    @Bind(R.id.cpu3_header) TextView mCore3Header;
+    @Bind(R.id.cpu4_header) TextView mCore4Header;
+    @Bind(R.id.cpu5_header) TextView mCore5Header;
+    @Bind(R.id.cpu6_header) TextView mCore6Header;
+    @Bind(R.id.cpu7_header) TextView mCore7Header;
+    @Bind(R.id.cpu_freq0) TextView mCore0;
+    @Bind(R.id.cpu_freq1) TextView mCore1;
+    @Bind(R.id.cpu_freq2) TextView mCore2;
+    @Bind(R.id.cpu_freq3) TextView mCore3;
+    @Bind(R.id.cpu_freq4) TextView mCore4;
+    @Bind(R.id.cpu_freq5) TextView mCore5;
+    @Bind(R.id.cpu_freq6) TextView mCore6;
+    @Bind(R.id.cpu_freq7) TextView mCore7;
 
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
@@ -109,7 +109,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.info_layout, container, false);
         setHasOptionsMenu(true);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -506,6 +506,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         setMonitoring(false);
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
     }
 }

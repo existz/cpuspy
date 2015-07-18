@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -72,37 +73,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
+import butterknife.Bind;
 
 /** main activity class */
 public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
 {
     // main ui views
-    @InjectView(R.id.btn_charged) Button mChargedButton;
-    @InjectView(R.id.btn_welcome) Button mWelcomeCardButton;
-    @InjectView(R.id.btn_feature) Button mFeatureCardButton;
-    @InjectView(R.id.card_view_states) CardView mStatesCardView;
-    @InjectView(R.id.card_view_welcome) CardView mWelcomeCardView;
-    @InjectView(R.id.card_view_feature) CardView mFeatureCardView;
-    @InjectView(R.id.card_view_time) CardView mTimeCardView;
-    @InjectView(R.id.img_show) ImageView mShowImage;
-    @InjectView(R.id.warning_img) ImageView mWarningImage;
-    @InjectView(R.id.ui_states_view) LinearLayout mStatesView;
-    @InjectView(R.id.ui_charged_view) LinearLayout mChargedView;
-    @InjectView(R.id.ui_states_warning) LinearLayout mStatesWarning;
-    @InjectView(R.id.card_container) LinearLayout mCardContainer;
-    @InjectView(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
-    @InjectView(R.id.ui_additional_states) TextView mAdditionalStates;
-    @InjectView(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
-    @InjectView(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
-    @InjectView(R.id.ui_total_state_time) TextView mTotalStateTime;
-    @InjectView(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
-    @InjectView(R.id.welcome_summary) TextView mWelcomeCardSummary;
-    @InjectView(R.id.welcome_features) TextView mWelcomeCardFeatures;
-    @InjectView(R.id.feature_title) TextView mFeatureCardTitle;
+    @Bind(R.id.btn_charged) Button mChargedButton;
+    @Bind(R.id.btn_welcome) Button mWelcomeCardButton;
+    @Bind(R.id.btn_feature) Button mFeatureCardButton;
+    @Bind(R.id.card_view_states) CardView mStatesCardView;
+    @Bind(R.id.card_view_welcome) CardView mWelcomeCardView;
+    @Bind(R.id.card_view_feature) CardView mFeatureCardView;
+    @Bind(R.id.card_view_time) CardView mTimeCardView;
+    @Bind(R.id.img_show) ImageView mShowImage;
+    @Bind(R.id.warning_img) ImageView mWarningImage;
+    @Bind(R.id.ui_states_view) LinearLayout mStatesView;
+    @Bind(R.id.ui_charged_view) LinearLayout mChargedView;
+    @Bind(R.id.ui_states_warning) LinearLayout mStatesWarning;
+    @Bind(R.id.card_container) LinearLayout mCardContainer;
+    @Bind(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
+    @Bind(R.id.ui_additional_states) TextView mAdditionalStates;
+    @Bind(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
+    @Bind(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
+    @Bind(R.id.ui_total_state_time) TextView mTotalStateTime;
+    @Bind(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
+    @Bind(R.id.welcome_summary) TextView mWelcomeCardSummary;
+    @Bind(R.id.welcome_features) TextView mWelcomeCardFeatures;
+    @Bind(R.id.feature_title) TextView mFeatureCardTitle;
 
-    @Optional @InjectView(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
+    @Nullable @Bind(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
@@ -122,7 +122,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_layout, container, false);
         setHasOptionsMenu(true);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -316,6 +316,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mWarningImage.setImageDrawable(warningDrawable);
             DrawableCompat.setTintList(warningDrawable, (ThemeUtils.DARKTHEME ? dark : light));
 
+            assert mMaterialRippleLayout != null;
             mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
         }
@@ -568,10 +569,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final String sDur = sToString(tSec);
 
         // map UI elements to objects
-        final TextView mFreqText = (TextView)theRow.findViewById(R.id.ui_freq_text);
-        final TextView mDurText = (TextView)theRow.findViewById(R.id.ui_duration_text);
-        final TextView mPerText = (TextView)theRow.findViewById(R.id.ui_percentage_text);
-        final ProgressBar mBar = (ProgressBar)theRow.findViewById(R.id.ui_bar);
+        final TextView mFreqText = ButterKnife.findById(theRow, R.id.ui_freq_text);
+        final TextView mDurText = ButterKnife.findById(theRow, R.id.ui_duration_text);
+        final TextView mPerText = ButterKnife.findById(theRow, R.id.ui_percentage_text);
+        final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
 
         // Set UI elements for dark and light themes
         mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
@@ -624,7 +625,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override public void onDestroy() {
         super.onDestroy();
         mAutoRefresh = false;
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
         getActivity().unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
     }
 }
