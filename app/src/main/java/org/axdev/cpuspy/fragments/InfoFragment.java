@@ -73,6 +73,8 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Bind(R.id.device_board) TextView mDeviceBoard;
     @Bind(R.id.device_platform_header) TextView mDevicePlatformHeader;
     @Bind(R.id.device_platform) TextView mDevicePlatform;
+    @Bind(R.id.device_runtime_header) TextView mDeviceRuntimeHeader;
+    @Bind(R.id.device_runtime) TextView mDeviceRuntime;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
     @Bind(R.id.cpu1_header) TextView mCore1Header;
@@ -202,6 +204,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
         mDeviceModel.setText(Build.MODEL);
         mDeviceBoard.setText(Build.BOARD);
         mDevicePlatform.setText(platform);
+        mDeviceRuntime.setText(getRuntime());
 
         setMediumTypeface(mKernelHeader);
         setMediumTypeface(mKernelGovernorHeader);
@@ -219,6 +222,28 @@ public class InfoFragment extends Fragment implements OnClickListener {
         setMediumTypeface(mDeviceModelHeader);
         setMediumTypeface(mDeviceBoardHeader);
         setMediumTypeface(mDevicePlatformHeader);
+        setMediumTypeface(mDeviceRuntimeHeader);
+    }
+
+    /** @return the current runtime: ART or Dalvik */
+    private String getRuntime() {
+        String runtime;
+        final String vmVersion = System.getProperty("java.vm.version");
+
+        if (vmVersion != null) {
+            if (vmVersion.startsWith("2")) {
+                runtime = getResources().getString(R.string.information_device_runtime_art)
+                        + " v" + vmVersion.substring(0, 5);
+            } else {
+                runtime = getResources().getString(R.string.information_device_runtime_dalvik)
+                        + " v" + vmVersion.substring(0, 5);
+            }
+        } else {
+            runtime = null;
+            mDeviceRuntimeHeader.setVisibility(View.GONE);
+            mDeviceRuntime.setVisibility(View.GONE);
+        }
+        return runtime;
     }
 
     /** Check if we should monitor cpu temp */

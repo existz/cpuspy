@@ -50,6 +50,9 @@
     <string name="information_device_model_header">Model:</string>
     <string name="information_device_board_header">Board:</string>
     <string name="information_device_platform_header">Platform:</string>
+    <string name="information_device_runtime_header">Runtime:</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
     <string name="information_cpu_abi_header">ABI:</string>
     <string name="information_cpu_arch_header">Architecture:</string>
     <string name="information_cpu_freq_header">Frequency:</string>
