@@ -20,7 +20,7 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 
-    <com.pavelsikun.seekbarpreference.SeekBarPreference
+    <org.axdev.cpuspy.widget.SeekBarPreference
         android:key="hidePercent"
         android:title="@string/pref_title_hidestates"
         android:summary="@string/pref_summary_hidestates"
