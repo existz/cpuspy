@@ -286,18 +286,23 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 /** Set the frequency for CPU0 */
                 if (mHasCpu0) {
                     try {
-                        final File cpu0 = new File(CPUUtils.CPU0);
-                        if (cpu0.length() == 0) {
-                            // CPU0 should never be empty
+                        // CPU0 should never be null
+                        if (CPUUtils.getCpu0() == null) {
                             mIsMonitoringCpu = false;
                             mCore0.setText(R.string.error);
                             mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
+                            return;
                         } else {
                             mCore0.setText(CPUUtils.getCpu0());
                         }
                     } catch (NumberFormatException e) {
                         mCore0 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu0 = false;
+                        mCore0.setText(R.string.error);
+                        mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -311,6 +316,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore1 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu1 = false;
+                        mCore1.setText(R.string.error);
+                        mCore1.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -324,6 +334,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore2 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu2 = false;
+                        mCore2.setText(R.string.error);
+                        mCore2.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -337,6 +352,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore3 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu3 = false;
+                        mCore3.setText(R.string.error);
+                        mCore3.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -350,6 +370,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore4 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu4 = false;
+                        mCore4.setText(R.string.error);
+                        mCore4.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -363,6 +388,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore5 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu5 = false;
+                        mCore5.setText(R.string.error);
+                        mCore5.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -376,6 +406,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore6 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu6 = false;
+                        mCore6.setText(R.string.error);
+                        mCore6.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -389,6 +424,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         }
                     } catch (NumberFormatException e) {
                         mCore7 = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mHasCpu7 = false;
+                        mCore7.setText(R.string.error);
+                        mCore7.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
 
