@@ -135,6 +135,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         editor = sp.edit();
         monitor = CpuSpyApp.getCpuStateMonitor();
 
+        this.checkView();
         this.setThemeAttributes();
         this.setTypeface();
         this.setCardAnimation();
@@ -519,9 +520,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     /** Attempt to update the time-in-state info */
     private void refreshData() {
-        this.checkView();
         new RefreshStateDataTask().execute((Void) null);
-        this.mSwipeLayout.setRefreshing(false);
+        if (mSwipeLayout != null) mSwipeLayout.setRefreshing(false);
     }
 
     /** @return A nicely formatted String representing tSec seconds */
@@ -608,7 +608,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Executed on UI thread after task */
         @Override protected void onPostExecute(Void v) {
-            updateView();
+            if (getActivity() != null) {
+                updateView();
+                checkView();
+            }
         }
     }
 
