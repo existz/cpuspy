@@ -69,10 +69,4 @@ public class WhatsNewDialog extends DialogFragment {
 
         return dialog;
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 }

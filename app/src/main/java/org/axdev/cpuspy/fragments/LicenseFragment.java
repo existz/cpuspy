@@ -36,9 +36,7 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.license_layout, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.license_layout, container, false);
     }
 
     @Override
@@ -115,11 +113,5 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         }
 
         tv.setTypeface(mediumFont);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
     }
 }
