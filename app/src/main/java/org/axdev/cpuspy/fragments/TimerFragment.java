@@ -181,7 +181,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
                     @Override
                     public void onShake() {
-                        refreshData();
+                        if (!mSwipeLayout.isRefreshing()) refreshData();
                     }
                 });
             }
