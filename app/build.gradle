@@ -18,7 +18,7 @@ repositories {
 // build version
 def versionMajor = 3
 def versionMinor = 1
-def versionPatch = 3
+def versionPatch = 4
 
 android {
     compileSdkVersion 22
@@ -26,7 +26,7 @@ android {
 
     defaultConfig {
         applicationId "org.axdev.cpuspy"
-        versionCode 100012
+        versionCode 100014
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         minSdkVersion 19
         targetSdkVersion 22
