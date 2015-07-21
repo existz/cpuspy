@@ -520,7 +520,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     /** Attempt to update the time-in-state info */
     private void refreshData() {
-        new RefreshStateDataTask().execute((Void) null);
+        new RefreshStateDataTask().execute();
         if (mSwipeLayout != null) mSwipeLayout.setRefreshing(false);
     }
 
@@ -545,10 +545,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
      * @return a View that correpsonds to a CPU freq state row as specified
      * by the state parameter
      */
-    private View generateStateRow(CpuState state, ViewGroup parent) {
+    private void generateStateRow(CpuState state, ViewGroup parent) {
         // inflate the XML into a view in the parent
-        final LayoutInflater inf = LayoutInflater.from(getActivity());
-        final RelativeLayout theRow = (RelativeLayout)inf.inflate(
+        final RelativeLayout theRow = (RelativeLayout) getActivity().getLayoutInflater().inflate(
                 R.layout.state_row, parent, false);
 
         // what percentage we've got
@@ -586,7 +585,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // add it to parent and return
         parent.addView(theRow);
-        return theRow;
     }
 
     /** Keep updating the state data off the UI thread for slow devices */

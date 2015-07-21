@@ -156,8 +156,7 @@ public class CpuStateMonitor {
      * @return a list of all the CPU frequency states, which contains
      * both a frequency and a duration (time spent in that state
      */
-    public List<CpuState> updateStates()
-            throws CpuStateMonitorException {
+    public void updateStates() throws CpuStateMonitorException {
         /* attempt to create a buffered reader to the time in state
          * file and read in the states to the class */
         try {
@@ -180,8 +179,6 @@ public class CpuStateMonitor {
         _states.add(new CpuState(0, sleepTime));
 
         Collections.sort(_states, Collections.reverseOrder());
-
-        return _states;
     }
 
     /** read from a provided BufferedReader the state lines into the
@@ -194,9 +191,9 @@ public class CpuStateMonitor {
             while ((line = br.readLine()) != null) {
                 // split open line and convert to Integers
                 String[] nums = line.split(" ");
-                _states.add(new CpuState(
-                        Integer.parseInt(nums[0]),
-                        Long.parseLong(nums[1])));
+                if (nums.length > 0) {
+                    _states.add(new CpuState(Integer.parseInt(nums[0]), Long.parseLong(nums[1])));
+                }
             }
         } catch (IOException e) {
             throw new CpuStateMonitorException(
