@@ -27,6 +27,7 @@ import com.crashlytics.android.Crashlytics;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
+import org.axdev.cpuspy.services.CheckUpdateService;
 import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -69,11 +70,21 @@ public class MainActivity extends AppCompatActivity {
             // Update the action bar title with the TypefaceSpan instance
             mActionBar.setTitle(s);
         }
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         // Start service if its not automatically started on boot
         if (sp.getBoolean("sleepDetection", true)) {
             if (!isServiceRunning(SleepService.class)) {
                 startService(new Intent(this, SleepService.class));
+            }
+        }
+
+        if (sp.getBoolean("checkUpdates", true)) {
+            if (!isServiceRunning(CheckUpdateService.class)) {
+                startService(new Intent(this, CheckUpdateService.class));
             }
         }
     }

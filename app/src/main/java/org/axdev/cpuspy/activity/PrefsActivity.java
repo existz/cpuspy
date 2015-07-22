@@ -6,7 +6,9 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -36,6 +38,7 @@ import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
+import org.axdev.cpuspy.services.CheckUpdateService;
 import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
@@ -50,8 +53,8 @@ public class PrefsActivity extends AppCompatActivity {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
 
-        private SharedPreferences sp;
         private Editor editor;
+        private SharedPreferences sp;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -146,6 +149,28 @@ public class PrefsActivity extends AppCompatActivity {
                     return true;
                 }
             });
+
+            final CheckBoxPreference checkUpdates = (CheckBoxPreference) getPreferenceManager().findPreference("checkUpdates");
+            checkUpdates.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue.toString().equals("true")) {
+                        getActivity().startService(new Intent(getActivity(), CheckUpdateService.class));
+                    } else {
+                        getActivity().stopService(new Intent(getActivity(), CheckUpdateService.class));
+
+                        final int notificationID = 2;
+                        final NotificationManager mNotifyManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        if (mNotifyManager != null) {
+                            mNotifyManager.cancel(notificationID);
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            // Set the last time we checked for an update
+            final String timeStamp = sp.getString("lastChecked", null);
+            findPreference("checkUpdates").setSummary(getResources().getString(R.string.pref_summary_checkupdates) + timeStamp);
 
             final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
             crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
