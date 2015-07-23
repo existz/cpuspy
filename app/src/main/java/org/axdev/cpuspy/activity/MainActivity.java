@@ -41,6 +41,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean mLastTheme;
+    private boolean mLastNavBar;
     private SharedPreferences sp;
 
     @Override
@@ -75,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        mLastTheme = ThemeUtils.darkTheme;
+        mLastNavBar = ThemeUtils.coloredNavBar;
+
         // Start service if its not automatically started on boot
         if (sp.getBoolean("sleepDetection", true)) {
             if (!isServiceRunning(SleepService.class)) {
@@ -166,11 +171,12 @@ public class MainActivity extends AppCompatActivity {
             Fabric.with(this, new Crashlytics());
         }
 
-        if (PrefsActivity.mThemeChanged) {
+        // Restart activity if theme or navbar changed
+        if (mLastTheme != ThemeUtils.darkTheme
+                || mLastNavBar != ThemeUtils.coloredNavBar) {
             this.startActivity(new Intent(this, this.getClass()));
             this.finish();
             this.overridePendingTransition(0, 0);
-            PrefsActivity.mThemeChanged = false;
         }
     }
 }

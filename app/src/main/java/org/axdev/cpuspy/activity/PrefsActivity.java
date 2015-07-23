@@ -46,9 +46,6 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 
 public class PrefsActivity extends AppCompatActivity {
 
-    /** Whether or not the theme has changed */
-    public static boolean mThemeChanged = false;
-
     public static class PrefsFragment extends PreferenceFragment {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
@@ -66,13 +63,13 @@ public class PrefsActivity extends AppCompatActivity {
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
                         R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
                         R.drawable.ic_version_dark : R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
                         R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
                         R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
 
@@ -127,7 +124,6 @@ public class PrefsActivity extends AppCompatActivity {
                                             break;
                                     }
                                     editor.putInt("theme", position).apply();
-                                    mThemeChanged = true;
                                     return true; // allow selection
                                 }
                             })
@@ -193,7 +189,6 @@ public class PrefsActivity extends AppCompatActivity {
                         } else {
                             ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_DEFAULT);
                         }
-                        mThemeChanged = true;
                         return true;
                     }
                 });

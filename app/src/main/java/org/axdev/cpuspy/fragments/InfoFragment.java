@@ -125,11 +125,11 @@ public class InfoFragment extends Fragment implements OnClickListener {
         final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mKernelMoreButton.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            mKernelMoreButton.setImageTintList(ThemeUtils.darkTheme ? dark : light);
         } else {
             final Drawable kernelMoreButton = DrawableCompat.wrap(mKernelMoreButton.getDrawable());
             mKernelMoreButton.setImageDrawable(kernelMoreButton);
-            DrawableCompat.setTintList(kernelMoreButton, (ThemeUtils.DARKTHEME ? dark : light));
+            DrawableCompat.setTintList(kernelMoreButton, (ThemeUtils.darkTheme ? dark : light));
         }
 
         /** Set onClickListener for kernel info button */

@@ -21,7 +21,8 @@ public class ThemeUtils extends AppCompatActivity {
     public final static int LIGHT = 0;
     public final static int DARK = 1;
     public final static int AUTO = 2;
-    public static boolean DARKTHEME;
+    public static boolean darkTheme;
+    public static boolean coloredNavBar;
 
     public static void changeToTheme(Activity activity, int mTheme) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -54,11 +55,11 @@ public class ThemeUtils extends AppCompatActivity {
             default:
             case LIGHT:
                 activity.setTheme(R.style.AppTheme);
-                DARKTHEME = false;
+                darkTheme = false;
                 break;
             case DARK:
                 activity.setTheme(R.style.AppThemeDark);
-                DARKTHEME = true;
+                darkTheme = true;
                 break;
             case AUTO:
                 Calendar c = Calendar.getInstance();
@@ -66,10 +67,10 @@ public class ThemeUtils extends AppCompatActivity {
 
                 if (timeOfDay >= 6 && timeOfDay < 20) {
                     activity.setTheme(R.style.AppTheme);
-                    DARKTHEME = false;
+                    darkTheme = false;
                 } else {
                     activity.setTheme(R.style.AppThemeDark);
-                    DARKTHEME = true;
+                    darkTheme = true;
                 }
                 break;
         }
@@ -85,9 +86,11 @@ public class ThemeUtils extends AppCompatActivity {
             default:
             case NAVBAR_DEFAULT:
                 activity.getWindow().setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
+                coloredNavBar = false;
                 break;
             case NAVBAR_COLORED:
                 activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.primary_dark));
+                coloredNavBar = true;
                 break;
         }
     }

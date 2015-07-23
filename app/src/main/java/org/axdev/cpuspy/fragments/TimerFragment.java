@@ -306,19 +306,19 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // Set color for drawables based on selected theme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mShowImage.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
-            mWarningImage.setImageTintList(ThemeUtils.DARKTHEME ? dark : light);
+            mShowImage.setImageTintList(ThemeUtils.darkTheme ? dark : light);
+            mWarningImage.setImageTintList(ThemeUtils.darkTheme ? dark : light);
         } else {
             final Drawable showDrawable = DrawableCompat.wrap(mShowImage.getDrawable());
             mShowImage.setImageDrawable(showDrawable);
-            DrawableCompat.setTintList(showDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+            DrawableCompat.setTintList(showDrawable, (ThemeUtils.darkTheme ? dark : light));
 
             final Drawable warningDrawable = DrawableCompat.wrap(mWarningImage.getDrawable());
             mWarningImage.setImageDrawable(warningDrawable);
-            DrawableCompat.setTintList(warningDrawable, (ThemeUtils.DARKTHEME ? dark : light));
+            DrawableCompat.setTintList(warningDrawable, (ThemeUtils.darkTheme ? dark : light));
 
             assert mMaterialRippleLayout != null;
-            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.DARKTHEME ?
+            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.darkTheme ?
                     R.color.ripple_material_dark : R.color.ripple_material_light));
         }
     }
@@ -574,7 +574,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
 
         // Set UI elements for dark and light themes
-        mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), ThemeUtils.DARKTHEME ?
+        mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
                 R.drawable.progess_drawable_dark : R.drawable.progess_drawable, null));
 
         // modify the row
