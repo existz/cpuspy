@@ -191,11 +191,20 @@ public class InfoFragment extends Fragment implements OnClickListener {
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
 
+        /** @return the current number of CPU cores */
+        final int coreCount = CPUUtils.getCoreCount();
+        if (coreCount != 0) {
+            setMediumTypeface(mCpuCoreHeader);
+            mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
+        } else {
+            mCpuCoreHeader.setVisibility(View.GONE);
+            mCpuCore.setVisibility(View.GONE);
+        }
+
         mKernelVersion.setText(System.getProperty("os.version"));
         mKernelGovernor.setText(CPUUtils.getGovernor());
         mCpuAbi.setText(Build.CPU_ABI);
         mCpuArch.setText(CPUUtils.getArch());
-        mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
         mCpuFreq.setText(CPUUtils.getMinMax());
         mCpuFeatures.setText(CPUUtils.getFeatures());
         mDeviceBuild.setText(Build.ID);
@@ -212,7 +221,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
         setMediumTypeface(mCpuHeader);
         setMediumTypeface(mCpuAbiHeader);
         setMediumTypeface(mCpuArchHeader);
-        setMediumTypeface(mCpuCoreHeader);
         setMediumTypeface(mCpuFreqHeader);
         setMediumTypeface(mCpuFeaturesHeader);
         setMediumTypeface(mDeviceInfo);
@@ -440,6 +448,8 @@ public class InfoFragment extends Fragment implements OnClickListener {
     /** Check which CPU cores to start monitoring */
     private void checkCoreMonitor() {
         switch (CPUUtils.getCoreCount()) {
+            default:
+                return;
             case 1:
                 mCore0Header.setVisibility(View.VISIBLE);
                 mCore0.setVisibility(View.VISIBLE);

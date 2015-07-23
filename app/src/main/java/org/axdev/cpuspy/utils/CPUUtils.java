@@ -11,7 +11,6 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CPUUtils {
@@ -26,14 +25,13 @@ public class CPUUtils {
     public static final String CPU7 = "/sys/devices/system/cpu/cpu7/cpufreq/scaling_cur_freq";
 
     private static final String TAG_INFO = "CpuSpyInfo";
-    private static String mArch;
-    private static String mFeatures;
+    private static String mCpuInfo;
     private static String mFreq;
     private static String mString;
     private static String mTemp;
     private static String mTempFile;
 
-    private static String readFile(String PATH, String LOG_MSG) {
+    private static String readFile(String PATH) {
         try {
             final File file = new File(PATH);
             if (file.canRead()) {
@@ -49,15 +47,16 @@ public class CPUUtils {
                 Log.e(TAG_INFO, "Error reading file: " + PATH);
                 return null;
             }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, LOG_MSG);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
         return mString;
     }
 
     /** Set the current min/max CPU frequency */
-    private static String setFreq(String PATH, String LOG_MSG) {
+    private static String setFreq(String PATH) {
         try {
             final File file = new File(PATH);
             if (file.canRead()) {
@@ -73,8 +72,9 @@ public class CPUUtils {
                 Log.e(TAG_INFO, "Error reading file: " + PATH);
                 return null;
             }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, LOG_MSG);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
         final int i = Integer.parseInt(mFreq) / 1000;
@@ -84,7 +84,7 @@ public class CPUUtils {
     }
 
     /** Retrieves information for ARM CPUs. */
-    private static String setFeatures() {
+    private static String readCpuInfo(String INFO) {
         try {
             final File file = new File("/proc/cpuinfo");
             if (file.canRead()) {
@@ -92,38 +92,21 @@ public class CPUUtils {
 
                 String line;
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("Features\t:")) {
-                        mFeatures = parseLine(line);
+                    if (line.contains(INFO)) {
+                        mCpuInfo = parseLine(line);
                     }
                 }
                 br.close();
+            } else {
+                Log.e(TAG_INFO, "Error reading from /proc/cpuinfo");
+                return null;
             }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, "Unable to read cpu features");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
-        return mFeatures;
-    }
-
-    private static String setArch() {
-        try {
-            File file = new File("/proc/cpuinfo");
-            if (file.canRead()) {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.contains("Processor\t:")) {
-                        mArch = parseLine(line);
-                    }
-                }
-                br.close();
-            }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, "Unable to read cpu architecture");
-        }
-
-        return mArch;
+        return mCpuInfo;
     }
 
     // Basic function for parsing cpuinfo format strings.
@@ -155,8 +138,9 @@ public class CPUUtils {
                 Log.e(TAG_INFO, "Error reading file: " + mTempFile);
                 return null;
             }
-        } catch (IOException e) {
-            Log.e(TAG_INFO, "Unable to read cpu temperature");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
         long temp = Long.parseLong(mTemp);
@@ -203,7 +187,7 @@ public class CPUUtils {
             line = br.readLine();
             br.close();
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Log.e(TAG_INFO, "Unable to read sysprop " + propName, ex);
             return null;
         }
@@ -212,7 +196,7 @@ public class CPUUtils {
                 try {
                     br.close();
                 }
-                catch (IOException e) {
+                catch (Exception e) {
                     Log.e(TAG_INFO, "Exception while closing InputStream", e);
                 }
             }
@@ -222,72 +206,71 @@ public class CPUUtils {
 
     /** @return the CPU0 string */
     public static String getCpu0() {
-        return setFreq(CPU0, "Unable to read CPU0 frequency");
+        return setFreq(CPU0);
     }
 
     /** @return the CPU1 string */
     public static String getCpu1() {
-        return setFreq(CPU1, "Unable to read CPU1 frequency");
+        return setFreq(CPU1);
     }
 
     /** @return the CPU2 string */
     public static String getCpu2() {
-        return setFreq(CPU2, "Unable to read CPU2 frequency");
+        return setFreq(CPU2);
     }
 
     /** @return the CPU3 string */
     public static String getCpu3() {
-        return setFreq(CPU3, "Unable to read CPU3 frequency");
+        return setFreq(CPU3);
     }
 
     /** @return the CPU4 string */
     public static String getCpu4() {
-        return setFreq(CPU4, "Unable to read CPU4 frequency");
+        return setFreq(CPU4);
     }
 
     /** @return the CPU5 string */
     public static String getCpu5() {
-        return setFreq(CPU5, "Unable to read CPU5 frequency");
+        return setFreq(CPU5);
     }
 
     /** @return the CPU6 string */
     public static String getCpu6() {
-        return setFreq(CPU6, "Unable to read CPU6 frequency");
+        return setFreq(CPU6);
     }
 
     /** @return the CPU7 string */
     public static String getCpu7() {
-        return setFreq(CPU7, "Unable to read CPU7 frequency");
+        return setFreq(CPU7);
     }
 
     /** @return CPU governor string */
     public static String getGovernor() {
         final String governor = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-        return readFile(governor, "Unable to read CPU governor");
+        return readFile(governor);
     }
 
     /** @return CPU min/max frequency string */
     public static String getMinMax() {
         final String minFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
         final String maxFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-        return setFreq(minFreq, "Unable to read min frequency")
-                + " - " + setFreq(maxFreq, "Unable to read max frequency");
+        return setFreq(minFreq) + " - " + setFreq(maxFreq);
     }
 
     /** @return CPU features string */
     public static String getFeatures() {
-        return setFeatures();
+        return readCpuInfo("Features\t:");
+    }
+
+    /** @return CPU architecture string */
+    public static String getArch() {
+        return readCpuInfo("Processor\t:");
     }
 
     /** @return the kernel version string */
     public static String getKernelVersion() {
         final String kernelVersion = "/proc/version";
-        return readFile(kernelVersion, "Problem reading kernel version file");
-    }
-
-    /** @return CPU architecture string */
-    public static String getArch() {
-        return setArch();
+        return readFile(kernelVersion);
     }
 
     /** @return CPU temperature string */
