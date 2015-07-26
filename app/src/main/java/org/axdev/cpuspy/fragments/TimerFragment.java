@@ -505,14 +505,14 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         // for all the 0 duration states, add the the Unused State area
         if (extraStates.size() > 0) {
             int n = 0;
-            String str = "";
+            final StringBuilder stringBuilder = new StringBuilder();
 
-            for (final String s : extraStates) {
-                if (n++ > 0)
-                    str += ", ";
-                str += s;
+            for (String s : extraStates) {
+                if (n++ > 0) stringBuilder.append(",").append(" ");
+                stringBuilder.append(s);
             }
-            mAdditionalStates.setText(str);
+
+            mAdditionalStates.setText(stringBuilder.toString());
         } else {
             mAdditionalStates.setText(R.string.states_empty);
         }
