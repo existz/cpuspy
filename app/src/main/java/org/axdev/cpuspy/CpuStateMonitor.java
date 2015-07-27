@@ -37,6 +37,7 @@ public class CpuStateMonitor {
 
     /** exception class */
     public class CpuStateMonitorException extends Exception {
+        private static final long serialVersionUID = 1L;
         public CpuStateMonitorException(String s) {
             super(s);
         }

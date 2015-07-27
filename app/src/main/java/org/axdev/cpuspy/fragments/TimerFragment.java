@@ -138,7 +138,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         this.checkView();
         this.setThemeAttributes();
         this.setTypeface();
-        this.setCardAnimation();
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -338,14 +337,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mAdditionalStatesShow.setTypeface(mediumFont);
         mAdditionalStatesHide.setTypeface(mediumFont);
         mHeaderTotalStateTime.setTypeface(mediumFont);
-    }
-
-    /** Animate cardview sliding up from bottom */
-    private void setCardAnimation(){
-        final Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_up);
-
-        slideUp.setDuration(500);
-        mCardContainer.startAnimation(slideUp);
     }
 
     /** Animate hiding and showing unused states */
@@ -555,13 +546,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 monitor.getTotalStateTime();
         final String sPer = String.format("%.01f", per) + "%";
 
-        // state name
-        String sFreq;
-        if (state.freq == 0) {
-            sFreq = getResources().getString(R.string.states_deep_sleep);
-        } else {
-            sFreq = state.freq / 1000 + "MHz";
-        }
+        String sFreq = state.freq == 0 ? getResources().getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
 
         // duration
         final long tSec = state.duration / 100;
