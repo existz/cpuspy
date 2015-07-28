@@ -206,80 +206,96 @@ public class CPUUtils {
 
     /** @return the CPU0 string */
     public static String getCpu0() {
-        return setFreq(CPU0);
+        if (setFreq(CPU0) != null) return setFreq(CPU0);
+        return null;
     }
 
     /** @return the CPU1 string */
     public static String getCpu1() {
-        return setFreq(CPU1);
+        if (setFreq(CPU1) != null) return setFreq(CPU1);
+        return null;
     }
 
     /** @return the CPU2 string */
     public static String getCpu2() {
-        return setFreq(CPU2);
+        if (setFreq(CPU2) != null) return setFreq(CPU2);
+        return null;
     }
 
     /** @return the CPU3 string */
     public static String getCpu3() {
-        return setFreq(CPU3);
+        if (setFreq(CPU3) != null) return setFreq(CPU3);
+        return null;
     }
 
     /** @return the CPU4 string */
     public static String getCpu4() {
-        return setFreq(CPU4);
+        if (setFreq(CPU4) != null) return setFreq(CPU4);
+        return null;
     }
 
     /** @return the CPU5 string */
     public static String getCpu5() {
-        return setFreq(CPU5);
+        if (setFreq(CPU5) != null) return setFreq(CPU5);
+        return null;
     }
 
     /** @return the CPU6 string */
     public static String getCpu6() {
-        return setFreq(CPU6);
+        if (setFreq(CPU6) != null) return setFreq(CPU6);
+        return null;
     }
 
     /** @return the CPU7 string */
     public static String getCpu7() {
-        return setFreq(CPU7);
+        if (setFreq(CPU7) != null) return setFreq(CPU7);
+        return null;
     }
 
     /** @return CPU governor string */
     public static String getGovernor() {
         final String governor = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-        return readFile(governor);
+        if (readFile(governor) != null) return readFile(governor);
+        return null;
     }
 
     /** @return CPU min/max frequency string */
     public static String getMinMax() {
         final String minFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq";
         final String maxFreq = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
-        return setFreq(minFreq) + " - " + setFreq(maxFreq);
+        if (setFreq(minFreq) != null && setFreq(maxFreq) != null) return setFreq(minFreq) + " - " + setFreq(maxFreq);
+        return null;
     }
 
     /** @return CPU features string */
     public static String getFeatures() {
-        return readCpuInfo("Features\t:");
+        if (readCpuInfo("Features\t:") != null) return readCpuInfo("Features\t:");
+        return null;
     }
 
     /** @return CPU architecture string */
     public static String getArch() {
-        return readCpuInfo("Processor\t:");
+        if (readCpuInfo("Processor\t:") !=null) return readCpuInfo("Processor\t:");
+        return null;
     }
 
     /** @return the kernel version string */
     public static String getKernelVersion() {
         final String kernelVersion = "/proc/version";
-        return readFile(kernelVersion);
+        if (readFile(kernelVersion) != null) return readFile(kernelVersion);
+        return null;
     }
 
     /** @return CPU temperature string */
     public static String getTemp() {
-        return setTemp();
+        if (setTemp() != null) return setTemp();
+        return null;
     }
 
     /** @return Number of CPU cores */
     public static int getCoreCount() {
-        return Runtime.getRuntime().availableProcessors();
+        final int availableProcessors = Runtime.getRuntime().availableProcessors();
+        if (availableProcessors != 0) return availableProcessors;
+        return 0;
     }
 }

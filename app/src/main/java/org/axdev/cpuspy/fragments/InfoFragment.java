@@ -190,6 +190,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
         /** Set text and typeface for TextViews */
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
+        final String kernelVersion = System.getProperty("os.version");
 
         /** @return the current number of CPU cores */
         final int coreCount = CPUUtils.getCoreCount();
@@ -201,19 +202,19 @@ public class InfoFragment extends Fragment implements OnClickListener {
             mCpuCore.setVisibility(View.GONE);
         }
 
-        mKernelVersion.setText(System.getProperty("os.version"));
-        mKernelGovernor.setText(CPUUtils.getGovernor());
-        mCpuAbi.setText(Build.CPU_ABI);
-        mCpuArch.setText(CPUUtils.getArch());
-        mCpuFreq.setText(CPUUtils.getMinMax());
-        mCpuFeatures.setText(CPUUtils.getFeatures());
-        mDeviceBuild.setText(Build.ID);
-        mDeviceApi.setText(api);
-        mDeviceManuf.setText(Build.MANUFACTURER);
-        mDeviceModel.setText(Build.MODEL);
-        mDeviceBoard.setText(Build.BOARD);
-        mDevicePlatform.setText(platform);
-        mDeviceRuntime.setText(getRuntime());
+        if (kernelVersion != null) mKernelVersion.setText(kernelVersion);
+        if (CPUUtils.getGovernor() != null) mKernelGovernor.setText(CPUUtils.getGovernor());
+        if (Build.CPU_ABI != null) mCpuAbi.setText(Build.CPU_ABI);
+        if (CPUUtils.getArch() != null) mCpuArch.setText(CPUUtils.getArch());
+        if (CPUUtils.getMinMax() != null) mCpuFreq.setText(CPUUtils.getMinMax());
+        if (CPUUtils.getFeatures() != null) mCpuFeatures.setText(CPUUtils.getFeatures());
+        if (Build.ID != null) mDeviceBuild.setText(Build.ID);
+        if (api != null) mDeviceApi.setText(api);
+        if (Build.MANUFACTURER != null) mDeviceManuf.setText(Build.MANUFACTURER);
+        if (Build.MODEL != null) mDeviceModel.setText(Build.MODEL);
+        if (Build.BOARD != null) mDeviceBoard.setText(Build.BOARD);
+        if (platform != null) mDevicePlatform.setText(platform);
+        if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
 
         setMediumTypeface(mKernelHeader);
         setMediumTypeface(mKernelGovernorHeader);
@@ -295,14 +296,14 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 if (mHasCpu0) {
                     try {
                         // CPU0 should never be null
-                        if (CPUUtils.getCpu0() == null) {
+                        if (CPUUtils.getCpu0() != null) {
+                            mCore0.setText(CPUUtils.getCpu0());
+                        } else {
                             mIsMonitoringCpu = false;
                             mCore0.setText(R.string.error);
                             mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
-                        } else {
-                            mCore0.setText(CPUUtils.getCpu0());
                         }
                     } catch (NumberFormatException e) {
                         mCore0 = null;

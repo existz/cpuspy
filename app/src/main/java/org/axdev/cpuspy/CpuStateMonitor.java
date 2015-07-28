@@ -73,10 +73,13 @@ public class CpuStateMonitor {
             } catch (ConcurrentModificationException e) {
                 Log.e("CpuSpy", "Getting cpu states is busy, retrying..");
                 return getStates();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
             }
         }
         if (!success) {
-            Log.e("CpuSpy", "Unable to get cpu states");
+            Log.e("CpuSpy", "Unable to get cpu states: retry limit reached");
         }
 
         return states;
@@ -104,10 +107,13 @@ public class CpuStateMonitor {
             } catch (ConcurrentModificationException e) {
                 Log.e("CpuSpy", "Getting total state time is busy, retrying..");
                 return getTotalStateTime();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0;
             }
         }
         if (!success) {
-            Log.e("CpuSpy", "Unable to get total state time");
+            Log.e("CpuSpy", "Unable to get total state time: retry limit reached");
         }
 
         return sum - offset;
@@ -141,10 +147,12 @@ public class CpuStateMonitor {
                     _offsets.put(state.freq, state.duration);
                 }
                 success = true;
-            } catch (ConcurrentModificationException ignored) {}
+            } catch (ConcurrentModificationException e) {
+                e.printStackTrace();
+            }
         }
         if (!success) {
-            throw new CpuStateMonitorException("Problem resetting timers");
+            throw new CpuStateMonitorException("Problem resetting timers: retry limit reached");
         }
     }
 
@@ -162,15 +170,17 @@ public class CpuStateMonitor {
          * file and read in the states to the class */
         try {
             final File file = new File(TIME_IN_STATE_PATH);
-            if (file.exists()) {
+            if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
                 _states.clear();
                 readInStates(br);
                 br.close();
+            } else {
+                Log.e("CpuSpy", "Unable to read file: " + TIME_IN_STATE_PATH);
             }
-        } catch (IOException e) {
-            throw new CpuStateMonitorException(
-                    "Problem opening time-in-states file");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CpuStateMonitorException("Problem opening time-in-states file");
         }
 
         /* deep sleep time determined by difference between elapsed
@@ -196,7 +206,7 @@ public class CpuStateMonitor {
                     _states.add(new CpuState(Integer.parseInt(nums[0]), Long.parseLong(nums[1])));
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new CpuStateMonitorException(
                     "Problem processing time-in-states file");
         }

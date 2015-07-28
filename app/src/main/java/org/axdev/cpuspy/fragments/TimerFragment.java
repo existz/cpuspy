@@ -252,7 +252,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private void checkView() {
         final File timeInState = new File("/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state");
-        boolean mStatesNotFound = !timeInState.exists() || timeInState.length() == 0;
+        final boolean mStatesNotFound = !timeInState.exists() || timeInState.length() == 0;
 
         // Reset timers and show info when battery is charged
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
