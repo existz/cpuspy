@@ -40,9 +40,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -91,7 +89,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.ui_states_view) LinearLayout mStatesView;
     @Bind(R.id.ui_charged_view) LinearLayout mChargedView;
     @Bind(R.id.ui_states_warning) LinearLayout mStatesWarning;
-    @Bind(R.id.card_container) LinearLayout mCardContainer;
     @Bind(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @Bind(R.id.ui_additional_states) TextView mAdditionalStates;
     @Bind(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
@@ -490,7 +487,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         // update the total state time
-        long totTime = monitor.getTotalStateTime() / 100;
+        final long totTime = monitor.getTotalStateTime() / 100;
         mTotalStateTime.setText(sToString(totTime));
 
         // for all the 0 duration states, add the the Unused State area
@@ -498,7 +495,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             int n = 0;
             final StringBuilder stringBuilder = new StringBuilder();
 
-            for (String s : extraStates) {
+            for (final String s : extraStates) {
                 if (n++ > 0) stringBuilder.append(",").append(" ");
                 stringBuilder.append(s);
             }
@@ -546,7 +543,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 monitor.getTotalStateTime();
         final String sPer = String.format("%.01f", per) + "%";
 
-        String sFreq = state.freq == 0 ? getResources().getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
+        final String sFreq = state.freq == 0 ? getResources().getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
 
         // duration
         final long tSec = state.duration / 100;

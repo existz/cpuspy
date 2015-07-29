@@ -16,7 +16,6 @@ import android.util.SparseArray;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -45,7 +44,7 @@ public class CpuStateMonitor {
 
     /** @return List of CpuState with the offsets applied */
     public List<CpuState> getStates() {
-        List<CpuState> states = new ArrayList<>();
+        final List<CpuState> states = new ArrayList<>();
 
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */
@@ -53,7 +52,7 @@ public class CpuStateMonitor {
         int count = 0, MAX_TRIES = 10;
         while (!success && count++ < MAX_TRIES) {
             try {
-                for (CpuState state : _states) {
+                for (final CpuState state : _states) {
                     long duration = state.duration;
                     final Long value = _offsets.get(state.freq);
                     if (value != null) {
@@ -97,10 +96,10 @@ public class CpuStateMonitor {
 
         while (!success && count++ < MAX_TRIES) {
             try {
-                for (CpuState state : _states) {
+                for (final CpuState state : _states) {
                     sum += state.duration;
                 }
-                for(int i = 0; i < _offsets.size(); i++) {
+                for (int i = 0; i < _offsets.size(); i++) {
                     offset += _offsets.valueAt(i);
                 }
                 success = true;
@@ -143,7 +142,7 @@ public class CpuStateMonitor {
                 _offsets.clear();
                 updateStates();
 
-                for (CpuState state : _states) {
+                for (final CpuState state : _states) {
                     _offsets.put(state.freq, state.duration);
                 }
                 success = true;
@@ -185,7 +184,7 @@ public class CpuStateMonitor {
 
         /* deep sleep time determined by difference between elapsed
          * (total) boot time and the system uptime (awake) */
-        long sleepTime = (SystemClock.elapsedRealtime()
+        final long sleepTime = (SystemClock.elapsedRealtime()
                 - SystemClock.uptimeMillis()) / 10;
         _states.add(new CpuState(0, sleepTime));
 
@@ -201,7 +200,7 @@ public class CpuStateMonitor {
             String line;
             while ((line = br.readLine()) != null) {
                 // split open line and convert to Integers
-                String[] nums = line.split(" ");
+                final String[] nums = line.split(" ");
                 if (nums.length > 0) {
                     _states.add(new CpuState(Integer.parseInt(nums[0]), Long.parseLong(nums[1])));
                 }

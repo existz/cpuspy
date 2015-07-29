@@ -44,6 +44,7 @@
     <string name="information_cpu_info">CPU Info</string>
     <string name="information_kernel_governor">Governor:</string>
     <string name="information_kernel_version_header">Version:</string>
+    <string name="information_kernel_version_unavailable">Kernel version unavailable</string>
     <string name="information_device_build_header">Build ID:</string>
     <string name="information_device_api_header">API Level:</string>
     <string name="information_device_manuf_header">Manufacturer:</string>

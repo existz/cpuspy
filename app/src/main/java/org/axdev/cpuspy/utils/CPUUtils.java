@@ -115,9 +115,7 @@ public class CPUUtils {
     // them using ':' as a delimeter.
     private static String parseLine(String line)  {
         String[] temp = line.split(":");
-        if (temp.length != 2)
-            return "N/A";
-
+        if (temp.length != 2) return "N/A";
         return temp[1].trim();
     }
 
@@ -164,7 +162,7 @@ public class CPUUtils {
     };
 
     public static boolean hasTemp() {
-        for (String s : tempFiles) {
+        for (final String s : tempFiles) {
             final File file = new File(s);
             if (file.canRead() && file.length() != 0) mTempFile = s;
         }
@@ -182,7 +180,7 @@ public class CPUUtils {
         String line;
         BufferedReader br = null;
         try {
-            Process p = Runtime.getRuntime().exec("getprop " + propName);
+            final Process p = Runtime.getRuntime().exec("getprop " + propName);
             br = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
             line = br.readLine();
             br.close();

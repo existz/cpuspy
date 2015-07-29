@@ -54,7 +54,7 @@ public class CpuSpyApp extends Application {
     private void loadOffsets() {
         String prefs = sp.getString(PREF_OFFSETS, "");
 
-        if (prefs.length() < 1) { return; }
+        if (prefs.length() < 1) return;
 
         // split the string by peroids and then the info by commas and load
         final SparseArray<Long> offsets = new SparseArray<>();

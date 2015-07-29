@@ -549,9 +549,14 @@ public class InfoFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_kernel_more:
-                final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                        .content(CPUUtils.getKernelVersion())
-                        .build();
+                final MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+                final String version = CPUUtils.getKernelVersion();
+                if (version != null) {
+                    builder.content(version);
+                } else {
+                    builder.content(getResources().getString(R.string.information_kernel_version_unavailable));
+                }
+                final MaterialDialog dialog = builder.build();
 
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogInfoAnimation;
                 dialog.show();
