@@ -142,4 +142,6 @@
     <string name="new_feature_title">Deep Sleep Detection</string>
     <string name="new_feature_summary">A new background monitoring service that alerts you when the device does not enter deep sleep.</string>
 
+    <string name="xposed_warning_title">Xposed Detected</string>
+    <string name="xposed_warning_content">Unfortunately we are unable to support devices running Xposed. Automatic crash reporting will be disabled.</string>
 </resources>

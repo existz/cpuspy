@@ -16,6 +16,8 @@ import android.util.SparseArray;
 
 import com.crashlytics.android.Crashlytics;
 
+import org.axdev.cpuspy.utils.Utils;
+
 import io.fabric.sdk.android.Fabric;
 
 /** main application class */
@@ -35,8 +37,10 @@ public class CpuSpyApp extends Application {
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Initialize and start automatic crash reporting
-        if(sp.getBoolean("crashReport", true)) {
+        if (sp.getBoolean("crashReport", true) && !Utils.isXposedInstalled(this)) {
             Fabric.with(this, new Crashlytics());
+        } else {
+            sp.edit().putBoolean("crashReport", false).apply();
         }
 
         loadOffsets();

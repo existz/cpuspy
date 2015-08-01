@@ -6,8 +6,7 @@
 
 package org.axdev.cpuspy.activity;
 
-import android.app.ActivityManager;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -23,6 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
 import org.axdev.cpuspy.R;
@@ -33,6 +34,7 @@ import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
+import org.axdev.cpuspy.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,28 +83,49 @@ public class MainActivity extends AppCompatActivity {
         mLastTheme = ThemeUtils.darkTheme;
         mLastNavBar = ThemeUtils.coloredNavBar;
 
+        // Show warning dialog if Xposed is installed
+        if (Utils.isXposedInstalled(this)) {
+            final boolean showXposedWarning = sp.getBoolean("showXposedWarning", true);
+
+            if (showXposedWarning) {
+                final MaterialDialog dialog = new MaterialDialog.Builder(this)
+                        .title(R.string.xposed_warning_title)
+                        .content(R.string.xposed_warning_content)
+                        .positiveText(R.string.action_dismiss)
+                        .btnSelector(R.drawable.btn_selector_custom, DialogAction.POSITIVE)
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                sp.edit().putBoolean("crashReport", false).apply();
+                                sp.edit().putBoolean("showXposedWarning", false).apply();
+                            }
+                        })
+                        .build();
+
+                // Override dialog enter/exit animation
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.show();
+            }
+        }
+
         // Start service if its not automatically started on boot
         if (sp.getBoolean("sleepDetection", true)) {
-            if (!isServiceRunning(SleepService.class)) {
+            if (!Utils.isServiceRunning(this, SleepService.class)) {
                 startService(new Intent(this, SleepService.class));
             }
         }
 
         if (sp.getBoolean("checkUpdates", true)) {
-            if (!isServiceRunning(CheckUpdateService.class)) {
+            if (!Utils.isServiceRunning(this, CheckUpdateService.class)) {
                 startService(new Intent(this, CheckUpdateService.class));
             }
         }
-    }
-
-    private boolean isServiceRunning(Class<?> serviceClass) {
-        final ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void setupTabs() {
@@ -156,8 +179,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         // Initialize and start automatic crash reporting
-        if(sp.getBoolean("crashReport", true)) {
+        if (sp.getBoolean("crashReport", true) && !Utils.isXposedInstalled(this)) {
             Fabric.with(this, new Crashlytics());
+        } else {
+            sp.edit().putBoolean("crashReport", false).apply();
         }
 
         // Restart activity if theme or navbar changed
