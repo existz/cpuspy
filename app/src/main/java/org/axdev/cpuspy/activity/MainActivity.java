@@ -9,10 +9,10 @@ package org.axdev.cpuspy.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.ImageSpan;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -35,11 +36,11 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
+import org.axdev.cpuspy.widget.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -130,32 +131,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabs() {
         // Assigning ViewPager View and setting the adapter
-        final ViewPager viewPager = ButterKnife.findById(this, R.id.pager);
-        setupViewPager(viewPager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        if (viewPager != null) {
+            setupViewPager(viewPager);
+        }
 
-        // Assigning the Sliding Tab Layout View
-        final TabLayout tabs = ButterKnife.findById(this, R.id.tabLayout);
-        tabs.setupWithViewPager(viewPager);
+        // Assiging the Sliding Tab Layout View
+        final SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setCustomTabView(R.layout.tab_layout, 0);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+
+        tabs.setViewPager(viewPager);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         final Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new TimerFragment(), getResources().getString(R.string.tab_title_timers));
-        adapter.addFragment(new InfoFragment(), getResources().getString(R.string.tab_title_info));
+        adapter.addFragment(new TimerFragment());
+        adapter.addFragment(new InfoFragment());
         viewPager.setAdapter(adapter);
     }
 
-    static class Adapter extends FragmentPagerAdapter {
+    public class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
-        private final List<String> mFragmentTitles = new ArrayList<>();
 
         public Adapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        public void addFragment(Fragment fragment) {
             mFragments.add(fragment);
-            mFragmentTitles.add(title);
         }
 
         @Override
@@ -168,9 +180,20 @@ public class MainActivity extends AppCompatActivity {
             return mFragments.size();
         }
 
+        private int[] imageResId = {
+                R.drawable.ic_tab_timers,
+                R.drawable.ic_tab_info
+        };
+
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitles.get(position);
+            final Drawable image = getResources().getDrawable(imageResId[position]);
+            assert image != null;
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            final SpannableString sb = new SpannableString(" ");
+            final ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
         }
     }
 
