@@ -32,6 +32,7 @@
                     <ImageButton
                         android:id="@+id/btn_kernel_more"
                         android:src="@drawable/ic_menu_more"
+                        android:tint="?attr/colorDrawableTint"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_marginRight="@dimen/btn_padding_mtrl"

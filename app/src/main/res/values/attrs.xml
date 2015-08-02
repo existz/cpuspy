@@ -27,10 +27,16 @@
         <!-- ============== -->
         <eat-comment />
 
-        <!-- Default color of cardview background. -->
+        <!-- Default color for cardview background. -->
         <attr name="colorCardBackground" format="color" />
-        <!-- Default color of unused states background. -->
+        <!-- Default color for unused states background. -->
         <attr name="colorUnusedBackground" format="color" />
+        <!-- Default drawable tint color -->
+        <attr name="colorDrawableTint" format="color" />
+        <!-- Default ripple color on KitKat -->
+        <attr name="colorMaterialRipple" format="color" />
+        <!-- Color for progress drawable background -->
+        <attr name="drawableProgressBackground" format="reference" />
 
     </declare-styleable>
 

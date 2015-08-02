@@ -7,14 +7,11 @@
 package org.axdev.cpuspy.fragments;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,7 +29,6 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
-import org.axdev.cpuspy.utils.ThemeUtils;
 
 import java.io.File;
 
@@ -118,19 +114,51 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setTextViews();
+        /** Set text and typeface for TextViews */
+        final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
+        final String platform = CPUUtils.getSystemProperty("ro.board.platform");
+        final String kernelVersion = System.getProperty("os.version");
 
-        /** Set color for drawables based on selected theme */
-        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
-        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mKernelMoreButton.setImageTintList(ThemeUtils.darkTheme ? dark : light);
+        /** @return the current number of CPU cores */
+        final int coreCount = CPUUtils.getCoreCount();
+        if (coreCount != 0) {
+            setMediumTypeface(mCpuCoreHeader);
+            mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
         } else {
-            final Drawable kernelMoreButton = DrawableCompat.wrap(mKernelMoreButton.getDrawable());
-            mKernelMoreButton.setImageDrawable(kernelMoreButton);
-            DrawableCompat.setTintList(kernelMoreButton, (ThemeUtils.darkTheme ? dark : light));
+            mCpuCoreHeader.setVisibility(View.GONE);
+            mCpuCore.setVisibility(View.GONE);
         }
+
+        if (kernelVersion != null) mKernelVersion.setText(kernelVersion);
+        if (CPUUtils.getGovernor() != null) mKernelGovernor.setText(CPUUtils.getGovernor());
+        if (Build.CPU_ABI != null) mCpuAbi.setText(Build.CPU_ABI);
+        if (CPUUtils.getArch() != null) mCpuArch.setText(CPUUtils.getArch());
+        if (CPUUtils.getMinMax() != null) mCpuFreq.setText(CPUUtils.getMinMax());
+        if (CPUUtils.getFeatures() != null) mCpuFeatures.setText(CPUUtils.getFeatures());
+        if (Build.ID != null) mDeviceBuild.setText(Build.ID);
+        if (api != null) mDeviceApi.setText(api);
+        if (Build.MANUFACTURER != null) mDeviceManuf.setText(Build.MANUFACTURER);
+        if (Build.MODEL != null) mDeviceModel.setText(Build.MODEL);
+        if (Build.BOARD != null) mDeviceBoard.setText(Build.BOARD);
+        if (platform != null) mDevicePlatform.setText(platform);
+        if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
+
+        setMediumTypeface(mKernelHeader);
+        setMediumTypeface(mKernelGovernorHeader);
+        setMediumTypeface(mKernelVersionHeader);
+        setMediumTypeface(mCpuHeader);
+        setMediumTypeface(mCpuAbiHeader);
+        setMediumTypeface(mCpuArchHeader);
+        setMediumTypeface(mCpuFreqHeader);
+        setMediumTypeface(mCpuFeaturesHeader);
+        setMediumTypeface(mDeviceInfo);
+        setMediumTypeface(mDeviceBuildHeader);
+        setMediumTypeface(mDeviceApiHeader);
+        setMediumTypeface(mDeviceManufHeader);
+        setMediumTypeface(mDeviceModelHeader);
+        setMediumTypeface(mDeviceBoardHeader);
+        setMediumTypeface(mDevicePlatformHeader);
+        setMediumTypeface(mDeviceRuntimeHeader);
 
         /** Set onClickListener for kernel info button */
         mKernelMoreButton.setOnClickListener(this);
@@ -184,54 +212,6 @@ public class InfoFragment extends Fragment implements OnClickListener {
         }
 
         tv.setTypeface(mediumFont);
-    }
-
-    private void setTextViews() {
-        /** Set text and typeface for TextViews */
-        final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
-        final String platform = CPUUtils.getSystemProperty("ro.board.platform");
-        final String kernelVersion = System.getProperty("os.version");
-
-        /** @return the current number of CPU cores */
-        final int coreCount = CPUUtils.getCoreCount();
-        if (coreCount != 0) {
-            setMediumTypeface(mCpuCoreHeader);
-            mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
-        } else {
-            mCpuCoreHeader.setVisibility(View.GONE);
-            mCpuCore.setVisibility(View.GONE);
-        }
-
-        if (kernelVersion != null) mKernelVersion.setText(kernelVersion);
-        if (CPUUtils.getGovernor() != null) mKernelGovernor.setText(CPUUtils.getGovernor());
-        if (Build.CPU_ABI != null) mCpuAbi.setText(Build.CPU_ABI);
-        if (CPUUtils.getArch() != null) mCpuArch.setText(CPUUtils.getArch());
-        if (CPUUtils.getMinMax() != null) mCpuFreq.setText(CPUUtils.getMinMax());
-        if (CPUUtils.getFeatures() != null) mCpuFeatures.setText(CPUUtils.getFeatures());
-        if (Build.ID != null) mDeviceBuild.setText(Build.ID);
-        if (api != null) mDeviceApi.setText(api);
-        if (Build.MANUFACTURER != null) mDeviceManuf.setText(Build.MANUFACTURER);
-        if (Build.MODEL != null) mDeviceModel.setText(Build.MODEL);
-        if (Build.BOARD != null) mDeviceBoard.setText(Build.BOARD);
-        if (platform != null) mDevicePlatform.setText(platform);
-        if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
-
-        setMediumTypeface(mKernelHeader);
-        setMediumTypeface(mKernelGovernorHeader);
-        setMediumTypeface(mKernelVersionHeader);
-        setMediumTypeface(mCpuHeader);
-        setMediumTypeface(mCpuAbiHeader);
-        setMediumTypeface(mCpuArchHeader);
-        setMediumTypeface(mCpuFreqHeader);
-        setMediumTypeface(mCpuFeaturesHeader);
-        setMediumTypeface(mDeviceInfo);
-        setMediumTypeface(mDeviceBuildHeader);
-        setMediumTypeface(mDeviceApiHeader);
-        setMediumTypeface(mDeviceManufHeader);
-        setMediumTypeface(mDeviceModelHeader);
-        setMediumTypeface(mDeviceBoardHeader);
-        setMediumTypeface(mDevicePlatformHeader);
-        setMediumTypeface(mDeviceRuntimeHeader);
     }
 
     /** @return the current runtime: ART or Dalvik */

@@ -14,6 +14,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_warning"
+        android:tint="?attr/colorDrawableTint"
         android:gravity="center"
         android:scaleType="fitXY"/>
 

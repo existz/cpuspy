@@ -77,7 +77,7 @@
                     android:layout_marginTop="2dp"
                     app:mrl_rippleDuration="450"
                     app:mrl_rippleFadeDuration="200"
-                    app:mrl_rippleColor="@color/ripple_material_light"
+                    app:mrl_rippleColor="?attr/colorMaterialRipple"
                     app:mrl_rippleAlpha="0.1"
                     app:mrl_rippleDelayClick="false"
                     app:mrl_rippleOverlay="true"

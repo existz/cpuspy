@@ -16,9 +16,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
@@ -27,10 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -51,8 +46,6 @@ import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.balysv.materialripple.MaterialRippleLayout;
-
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
@@ -62,7 +55,6 @@ import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
-import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.R;
 
@@ -85,7 +77,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.card_view_feature) CardView mFeatureCardView;
     @Bind(R.id.card_view_time) CardView mTimeCardView;
     @Bind(R.id.img_show) ImageView mShowImage;
-    @Bind(R.id.warning_img) ImageView mWarningImage;
     @Bind(R.id.ui_states_view) LinearLayout mStatesView;
     @Bind(R.id.ui_charged_view) LinearLayout mChargedView;
     @Bind(R.id.ui_states_warning) LinearLayout mStatesWarning;
@@ -98,8 +89,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.welcome_summary) TextView mWelcomeCardSummary;
     @Bind(R.id.welcome_features) TextView mWelcomeCardFeatures;
     @Bind(R.id.feature_title) TextView mFeatureCardTitle;
-
-    @Nullable @Bind(R.id.ripple_main) MaterialRippleLayout mMaterialRippleLayout;
 
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
@@ -131,10 +120,15 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
         monitor = CpuSpyApp.getCpuStateMonitor();
-
         this.checkView();
-        this.setThemeAttributes();
-        this.setTypeface();
+
+        /** Apply Roboto-Medium typeface to textviews */
+        setMediumTypeface(mWelcomeCardSummary);
+        setMediumTypeface(mWelcomeCardFeatures);
+        setMediumTypeface(mFeatureCardTitle);
+        setMediumTypeface(mAdditionalStatesShow);
+        setMediumTypeface(mAdditionalStatesHide);
+        setMediumTypeface(mHeaderTotalStateTime);
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -295,32 +289,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 
-    /** Set UI elements for dark and light themes */
-    private void setThemeAttributes() {
-        final ColorStateList dark = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_dark));
-        final ColorStateList light = ColorStateList.valueOf(getResources().getColor(R.color.drawable_color_light));
-
-        // Set color for drawables based on selected theme
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mShowImage.setImageTintList(ThemeUtils.darkTheme ? dark : light);
-            mWarningImage.setImageTintList(ThemeUtils.darkTheme ? dark : light);
-        } else {
-            final Drawable showDrawable = DrawableCompat.wrap(mShowImage.getDrawable());
-            mShowImage.setImageDrawable(showDrawable);
-            DrawableCompat.setTintList(showDrawable, (ThemeUtils.darkTheme ? dark : light));
-
-            final Drawable warningDrawable = DrawableCompat.wrap(mWarningImage.getDrawable());
-            mWarningImage.setImageDrawable(warningDrawable);
-            DrawableCompat.setTintList(warningDrawable, (ThemeUtils.darkTheme ? dark : light));
-
-            assert mMaterialRippleLayout != null;
-            mMaterialRippleLayout.setRippleColor(getResources().getColor(ThemeUtils.darkTheme ?
-                    R.color.ripple_material_dark : R.color.ripple_material_light));
-        }
-    }
-
-    /** Apply custom typeface to textviews */
-    private void setTypeface() {
+    private void setMediumTypeface(TextView tv) {
         Typeface mediumFont;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
@@ -328,12 +297,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
         }
 
-        mWelcomeCardSummary.setTypeface(mediumFont);
-        mWelcomeCardFeatures.setTypeface(mediumFont);
-        mFeatureCardTitle.setTypeface(mediumFont);
-        mAdditionalStatesShow.setTypeface(mediumFont);
-        mAdditionalStatesHide.setTypeface(mediumFont);
-        mHeaderTotalStateTime.setTypeface(mediumFont);
+        tv.setTypeface(mediumFont);
     }
 
     /** Animate hiding and showing unused states */
@@ -554,10 +518,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final TextView mDurText = ButterKnife.findById(theRow, R.id.ui_duration_text);
         final TextView mPerText = ButterKnife.findById(theRow, R.id.ui_percentage_text);
         final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
-
-        // Set UI elements for dark and light themes
-        mBar.setProgressDrawable(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
-                R.drawable.progess_drawable_dark : R.drawable.progess_drawable, null));
 
         // modify the row
         mFreqText.setText(sFreq);
