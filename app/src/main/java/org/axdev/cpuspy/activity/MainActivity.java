@@ -188,9 +188,7 @@ public class MainActivity extends AppCompatActivity {
         // Restart activity if theme or navbar changed
         if (mLastTheme != ThemeUtils.darkTheme
                 || mLastNavBar != ThemeUtils.coloredNavBar) {
-            this.startActivity(new Intent(this, this.getClass()));
-            this.finish();
-            this.overridePendingTransition(0, 0);
+            this.recreate();
         }
     }
 }
