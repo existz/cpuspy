@@ -107,8 +107,8 @@ public class PrefsActivity extends AppCompatActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     int selected = sp.getInt("theme", 0);
                     new MaterialDialog.Builder(getActivity())
-                            .title(R.string.pref_title_themes)
-                            .items(R.array.themes)
+                            .title(getResources().getString(R.string.pref_title_themes))
+                            .items(getResources().getStringArray(R.array.themes))
                             .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
@@ -127,8 +127,8 @@ public class PrefsActivity extends AppCompatActivity {
                                     return true; // allow selection
                                 }
                             })
-                            .positiveText(android.R.string.ok)
-                            .positiveColorRes(R.color.primary)
+                            .positiveText(getResources().getString(android.R.string.ok))
+                            .positiveColor(getResources().getColor(R.color.primary))
                             .show();
                     return true;
                 }
@@ -174,7 +174,7 @@ public class PrefsActivity extends AppCompatActivity {
                     if (newValue.toString().equals("false")) {
                         SnackbarManager.show(Snackbar.with(getActivity())
                                 .type(SnackbarType.MULTI_LINE)
-                                .text(R.string.snackbar_text_crashreport));
+                                .text(getResources().getString(R.string.snackbar_text_crashreport)));
                     }
                     return true;
                 }
@@ -205,7 +205,7 @@ public class PrefsActivity extends AppCompatActivity {
 
             /** Use custom Typeface for action bar title on KitKat devices */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mActionBar.setTitle(R.string.settings);
+                mActionBar.setTitle(getResources().getString(R.string.settings));
             } else {
                 final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),

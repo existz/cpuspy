@@ -404,7 +404,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 this.updateView();
                 if (!mAdditionalStates.isShown()) showUnusedStates(true);
                 SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(R.string.snackbar_text_reset)
+                        .text(getResources().getString(R.string.snackbar_text_reset))
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
@@ -412,7 +412,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 restoreTimers();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(R.string.snackbar_text_restore)
+                        .text(getResources().getString(R.string.snackbar_text_restore))
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
@@ -466,7 +466,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             mAdditionalStates.setText(stringBuilder.toString());
         } else {
-            mAdditionalStates.setText(R.string.states_empty);
+            mAdditionalStates.setText(getResources().getString(R.string.states_empty));
         }
     }
 

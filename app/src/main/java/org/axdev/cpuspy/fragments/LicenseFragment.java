@@ -55,7 +55,7 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(R.string.pref_title_license);
+            mActionBar.setTitle(getResources().getString(R.string.pref_title_license));
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
             s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),

@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         assert mActionBar != null;
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(R.string.app_name_long);
+            mActionBar.setTitle(getResources().getString(R.string.app_name_long));
             mActionBar.setElevation(0);
         } else {
             final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
@@ -90,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (showXposedWarning) {
                 final MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .title(R.string.xposed_warning_title)
-                        .content(R.string.xposed_warning_content)
-                        .positiveText(R.string.action_dismiss)
-                        .btnSelector(R.drawable.btn_selector_custom, DialogAction.POSITIVE)
+                        .title(getResources().getString(R.string.xposed_warning_title))
+                        .content(getResources().getString(R.string.xposed_warning_content))
+                        .positiveText(getResources().getString(R.string.action_dismiss))
+                        .positiveColor(getResources().getColor(R.color.primary))
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            final Drawable image = getResources().getDrawable(imageResId[position]);
+            final Drawable image = ResourcesCompat.getDrawable(getResources(), imageResId[position], null);
             assert image != null;
             image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
             final SpannableString sb = new SpannableString(" ");

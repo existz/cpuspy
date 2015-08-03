@@ -31,10 +31,10 @@ public class WhatsNewDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title(R.string.menu_changelog)
+                .title(getResources().getString(R.string.menu_changelog))
                 .customView(R.layout.changelog_layout, true)
-                .negativeText(R.string.action_changelog)
-                .positiveText(R.string.action_dismiss)
+                .negativeText(getResources().getString(R.string.action_changelog))
+                .positiveText(getResources().getString(R.string.action_dismiss))
                 .btnSelector(R.drawable.btn_selector_custom, DialogAction.POSITIVE)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override

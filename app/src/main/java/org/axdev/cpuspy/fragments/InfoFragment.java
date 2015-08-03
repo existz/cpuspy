@@ -257,7 +257,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                         mCpuTemp.setText(CPUUtils.getTemp());
                     } else {
                         mIsMonitoringTemp = false;
-                        mCpuTemp.setText(R.string.error);
+                        mCpuTemp.setText(getResources().getString(R.string.error));
                         mCpuTemp.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
@@ -280,7 +280,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                             mCore0.setText(CPUUtils.getCpu0());
                         } else {
                             mIsMonitoringCpu = false;
-                            mCore0.setText(R.string.error);
+                            mCore0.setText(getResources().getString(R.string.error));
                             mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
@@ -290,7 +290,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu0 = false;
-                        mCore0.setText(R.string.error);
+                        mCore0.setText(getResources().getString(R.string.error));
                         mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -299,7 +299,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu1 = new File(CPUUtils.CPU1);
                         if (cpu1.length() == 0) {
-                            mCore1.setText(R.string.core_offline);
+                            mCore1.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore1.setText(CPUUtils.getCpu1());
                         }
@@ -308,7 +308,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu1 = false;
-                        mCore1.setText(R.string.error);
+                        mCore1.setText(getResources().getString(R.string.error));
                         mCore1.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -317,7 +317,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu2 = new File(CPUUtils.CPU2);
                         if (cpu2.length() == 0) {
-                            mCore2.setText(R.string.core_offline);
+                            mCore2.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore2.setText(CPUUtils.getCpu2());
                         }
@@ -326,7 +326,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu2 = false;
-                        mCore2.setText(R.string.error);
+                        mCore2.setText(getResources().getString(R.string.error));
                         mCore2.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -335,7 +335,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu3 = new File(CPUUtils.CPU3);
                         if (cpu3.length() == 0) {
-                            mCore3.setText(R.string.core_offline);
+                            mCore3.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore3.setText(CPUUtils.getCpu3());
                         }
@@ -344,7 +344,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu3 = false;
-                        mCore3.setText(R.string.error);
+                        mCore3.setText(getResources().getString(R.string.error));
                         mCore3.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -353,7 +353,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu4 = new File(CPUUtils.CPU4);
                         if (cpu4.length() == 0) {
-                            mCore4.setText(R.string.core_offline);
+                            mCore4.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore4.setText(CPUUtils.getCpu4());
                         }
@@ -362,7 +362,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu4 = false;
-                        mCore4.setText(R.string.error);
+                        mCore4.setText(getResources().getString(R.string.error));
                         mCore4.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -371,7 +371,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu5 = new File(CPUUtils.CPU5);
                         if (cpu5.length() == 0) {
-                            mCore5.setText(R.string.core_offline);
+                            mCore5.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore5.setText(CPUUtils.getCpu5());
                         }
@@ -380,7 +380,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu5 = false;
-                        mCore5.setText(R.string.error);
+                        mCore5.setText(getResources().getString(R.string.error));
                         mCore5.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -389,7 +389,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu6 = new File(CPUUtils.CPU6);
                         if (cpu6.length() == 0) {
-                            mCore6.setText(R.string.core_offline);
+                            mCore6.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore6.setText(CPUUtils.getCpu6());
                         }
@@ -398,7 +398,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu6 = false;
-                        mCore6.setText(R.string.error);
+                        mCore6.setText(getResources().getString(R.string.error));
                         mCore6.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
@@ -407,7 +407,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     try {
                         final File cpu7 = new File(CPUUtils.CPU7);
                         if (cpu7.length() == 0) {
-                            mCore7.setText(R.string.core_offline);
+                            mCore7.setText(getResources().getString(R.string.core_offline));
                         } else {
                             mCore7.setText(CPUUtils.getCpu7());
                         }
@@ -416,7 +416,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu7 = false;
-                        mCore7.setText(R.string.error);
+                        mCore7.setText(getResources().getString(R.string.error));
                         mCore7.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
