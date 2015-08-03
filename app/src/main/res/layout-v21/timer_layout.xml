@@ -65,7 +65,7 @@
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
                             android:textColor="?android:attr/textColorPrimary"
-                            android:textSize="42sp"/>
+                            android:textSize="36sp"/>
 
                     </RelativeLayout>
 
