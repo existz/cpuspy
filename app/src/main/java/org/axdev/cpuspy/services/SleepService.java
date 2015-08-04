@@ -20,7 +20,6 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
@@ -29,6 +28,7 @@ import android.view.Display;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.MainActivity;
+import org.axdev.cpuspy.utils.Utils;
 
 public class SleepService extends Service {
 
@@ -51,7 +51,7 @@ public class SleepService extends Service {
     public void onCreate() {
         this.isRunning = false;
         this.backgroundThread = new Thread(monitorDeepSleep);
-        this.lastDeepSleep = getDeepSleep();
+        this.lastDeepSleep = Utils.getDeepSleep();
 
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -85,7 +85,7 @@ public class SleepService extends Service {
                             && !isMusicPlaying(context)) {
 
                         notificationID = 1;
-                        final long currentDeepSleep = getDeepSleep();
+                        final long currentDeepSleep = Utils.getDeepSleep();
 
                         if (currentDeepSleep <= lastDeepSleep) {
                             // PendingIntent to launch app when notification is clicked
@@ -127,14 +127,6 @@ public class SleepService extends Service {
             }
         }
     };
-
-    /**
-     * deep sleep time determined by difference between elapsed (total) boot
-     * time and the system uptime (awake)
-     */
-    private long getDeepSleep() {
-        return (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
-    }
 
     /** @return true if music is playing */
     private boolean isMusicPlaying(Context context) {

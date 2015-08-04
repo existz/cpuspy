@@ -8,10 +8,10 @@
 package org.axdev.cpuspy;
 
 // imports
-
-import android.os.SystemClock;
 import android.util.Log;
 import android.util.SparseArray;
+
+import org.axdev.cpuspy.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,15 +28,14 @@ import java.util.List;
  */
 public class CpuStateMonitor {
 
-    private static final String TIME_IN_STATE_PATH =
-            "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-
     private final List<CpuState>      _states = new ArrayList<>();
     private SparseArray<Long>  _offsets = new SparseArray<>();
 
     /** exception class */
     public class CpuStateMonitorException extends Exception {
+
         private static final long serialVersionUID = 1L;
+
         public CpuStateMonitorException(String s) {
             super(s);
         }
@@ -168,6 +167,7 @@ public class CpuStateMonitor {
         /* attempt to create a buffered reader to the time in state
          * file and read in the states to the class */
         try {
+            final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
             final File file = new File(TIME_IN_STATE_PATH);
             if (file.canRead()) {
                 final BufferedReader br = new BufferedReader(new FileReader(file));
@@ -184,8 +184,7 @@ public class CpuStateMonitor {
 
         /* deep sleep time determined by difference between elapsed
          * (total) boot time and the system uptime (awake) */
-        final long sleepTime = (SystemClock.elapsedRealtime()
-                - SystemClock.uptimeMillis()) / 10;
+        final long sleepTime = Utils.getDeepSleep();
         _states.add(new CpuState(0, sleepTime));
 
         Collections.sort(_states, Collections.reverseOrder());

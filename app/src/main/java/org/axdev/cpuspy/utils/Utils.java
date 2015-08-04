@@ -3,6 +3,7 @@ package org.axdev.cpuspy.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 
 public class Utils {
 
@@ -25,5 +26,13 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    /**
+     * deep sleep time determined by difference between elapsed (total) boot
+     * time and the system uptime (awake)
+     */
+    public static long getDeepSleep() {
+        return (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
     }
 }
