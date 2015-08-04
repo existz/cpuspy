@@ -56,11 +56,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1@aar'
     compile 'com.android.support:support-annotations:22.2.1@jar'
 
-    compile 'com.afollestad:material-dialogs:0.7.7.0'
+    compile 'com.afollestad:material-dialogs:0.7.8.0'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nispok:snackbar:2.10.10'
-    compile 'com.pavelsikun:material-seekbar-preference:0.7+'
     compile('com.crashlytics.sdk.android:crashlytics:+') {
         transitive = true;
     }
