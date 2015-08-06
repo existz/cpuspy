@@ -12,18 +12,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.PrefsActivity;
@@ -37,12 +40,16 @@ import butterknife.ButterKnife;
 
 public class InfoFragment extends Fragment implements OnClickListener {
 
+    @Bind(R.id.btn_kernel_close) ImageButton mKernelCloseButton;
     @Bind(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
+    @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @Bind(R.id.kernel_governor) TextView mKernelGovernor;
     @Bind(R.id.kernel_version_header) TextView mKernelVersionHeader;
     @Bind(R.id.kernel_version) TextView mKernelVersion;
+    @Bind(R.id.kernel_version_full_header) TextView mKernelVersionFullHeader;
+    @Bind(R.id.kernel_version_full) TextView mKernelVersionFull;
     @Bind(R.id.cpu_header) TextView mCpuHeader;
     @Bind(R.id.cpu_abi_header) TextView mCpuAbiHeader;
     @Bind(R.id.cpu_abi) TextView mCpuAbi;
@@ -71,6 +78,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Bind(R.id.device_platform) TextView mDevicePlatform;
     @Bind(R.id.device_runtime_header) TextView mDeviceRuntimeHeader;
     @Bind(R.id.device_runtime) TextView mDeviceRuntime;
+    @Bind(R.id.scroll_container) ScrollView mScrollView;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
     @Bind(R.id.cpu1_header) TextView mCore1Header;
@@ -89,6 +97,7 @@ public class InfoFragment extends Fragment implements OnClickListener {
     @Bind(R.id.cpu_freq6) TextView mCore6;
     @Bind(R.id.cpu_freq7) TextView mCore7;
 
+    private boolean mDisableScrolling;
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
     private boolean mIsMonitoringCpu;
@@ -159,9 +168,18 @@ public class InfoFragment extends Fragment implements OnClickListener {
         setMediumTypeface(mDeviceBoardHeader);
         setMediumTypeface(mDevicePlatformHeader);
         setMediumTypeface(mDeviceRuntimeHeader);
+        setMediumTypeface(mKernelVersionFullHeader);
 
         /** Set onClickListener for kernel info button */
         mKernelMoreButton.setOnClickListener(this);
+        mKernelCloseButton.setOnClickListener(this);
+
+        mScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return mDisableScrolling;
+            }
+        });
     }
 
     @Override
@@ -527,19 +545,38 @@ public class InfoFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        final View mContentOverlay = ButterKnife.findById(getActivity(), R.id.content_overlay);
         switch (v.getId()) {
-            case R.id.btn_kernel_more:
-                final MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
-                final String version = CPUUtils.getKernelVersion();
-                if (version != null) {
-                    builder.content(version);
-                } else {
-                    builder.content(getResources().getString(R.string.information_kernel_version_unavailable));
-                }
-                final MaterialDialog dialog = builder.build();
+            case R.id.btn_kernel_close:
+                final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+                mContentOverlay.startAnimation(fadeOut);
+                mContentOverlay.setVisibility(View.GONE);
 
-                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogInfoAnimation;
-                dialog.show();
+                final Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+                slideDown.setDuration(450);
+                mCardKernelFull.startAnimation(slideDown);
+                mCardKernelFull.setVisibility(View.GONE);
+
+                mDisableScrolling = false;
+                break;
+            case R.id.btn_kernel_more:
+                if (!mCardKernelFull.isShown()) {
+                    final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                    mContentOverlay.startAnimation(fadeIn);
+                    mContentOverlay.setVisibility(View.VISIBLE);
+
+                    final Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+                    mCardKernelFull.startAnimation(slideUp);
+                    mCardKernelFull.setVisibility(View.VISIBLE);
+                    slideUp.setDuration(350);
+
+                    mDisableScrolling = true;
+                    if (CPUUtils.getKernelVersion() != null) {
+                        mKernelVersionFull.setText(CPUUtils.getKernelVersion());
+                    } else {
+                        mKernelVersionFull.setText(getResources().getString(R.string.information_kernel_version_unavailable));
+                    }
+                }
                 break;
         }
     }
