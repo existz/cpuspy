@@ -11,7 +11,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +37,7 @@ import java.io.File;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class InfoFragment extends Fragment implements OnClickListener {
+public class InfoFragment extends BackHandledFragment implements OnClickListener {
 
     @Bind(R.id.btn_kernel_close) ImageButton mKernelCloseButton;
     @Bind(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
@@ -180,6 +179,16 @@ public class InfoFragment extends Fragment implements OnClickListener {
                 return mDisableScrolling;
             }
         });
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mCardKernelFull.isShown()) {
+            showFullKernelVersion(false);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -545,39 +554,48 @@ public class InfoFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        final View mContentOverlay = ButterKnife.findById(getActivity(), R.id.content_overlay);
         switch (v.getId()) {
             case R.id.btn_kernel_close:
-                final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-                mContentOverlay.startAnimation(fadeOut);
-                mContentOverlay.setVisibility(View.GONE);
-
-                final Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
-                slideDown.setDuration(450);
-                mCardKernelFull.startAnimation(slideDown);
-                mCardKernelFull.setVisibility(View.GONE);
-
-                mDisableScrolling = false;
+                showFullKernelVersion(false);
                 break;
             case R.id.btn_kernel_more:
-                if (!mCardKernelFull.isShown()) {
-                    final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-                    mContentOverlay.startAnimation(fadeIn);
-                    mContentOverlay.setVisibility(View.VISIBLE);
-
-                    final Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
-                    mCardKernelFull.startAnimation(slideUp);
-                    mCardKernelFull.setVisibility(View.VISIBLE);
-                    slideUp.setDuration(350);
-
-                    mDisableScrolling = true;
-                    if (CPUUtils.getKernelVersion() != null) {
-                        mKernelVersionFull.setText(CPUUtils.getKernelVersion());
-                    } else {
-                        mKernelVersionFull.setText(getResources().getString(R.string.information_kernel_version_unavailable));
-                    }
-                }
+                showFullKernelVersion(true);
                 break;
+        }
+    }
+
+    private boolean showFullKernelVersion(boolean enabled) {
+        final View mContentOverlay = ButterKnife.findById(getActivity(), R.id.content_overlay);
+        if (enabled) {
+            if (!mCardKernelFull.isShown()) {
+                final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                mContentOverlay.startAnimation(fadeIn);
+                mContentOverlay.setVisibility(View.VISIBLE);
+
+                final Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+                mCardKernelFull.startAnimation(slideUp);
+                mCardKernelFull.setVisibility(View.VISIBLE);
+
+                mDisableScrolling = true;
+                if (CPUUtils.getKernelVersion() != null) {
+                    mKernelVersionFull.setText(CPUUtils.getKernelVersion());
+                } else {
+                    mKernelVersionFull.setText(getResources().getString(R.string.information_kernel_version_unavailable));
+                }
+            }
+            return true;
+        } else {
+            final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+            mContentOverlay.startAnimation(fadeOut);
+            mContentOverlay.setVisibility(View.GONE);
+
+            final Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+            mCardKernelFull.startAnimation(slideDown);
+            mCardKernelFull.setVisibility(View.GONE);
+
+            mDisableScrolling = false;
+
+            return false;
         }
     }
 

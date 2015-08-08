@@ -28,6 +28,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.fragments.BackHandledFragment;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
 import org.axdev.cpuspy.services.CheckUpdateService;
@@ -43,10 +44,11 @@ import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BackHandledFragment.BackHandlerInterface {
 
     private boolean mLastTheme;
     private boolean mLastNavBar;
+    private BackHandledFragment selectedFragment;
     private SharedPreferences sp;
 
     @Override
@@ -195,6 +197,19 @@ public class MainActivity extends AppCompatActivity {
             sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return sb;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(selectedFragment == null || !selectedFragment.onBackPressed()) {
+            // Selected fragment did not consume the back press event.
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void setSelectedFragment(BackHandledFragment selectedFragment) {
+        this.selectedFragment = selectedFragment;
     }
 
     @Override
