@@ -7,7 +7,7 @@ import android.os.SystemClock;
 
 public class Utils {
 
-    public static boolean isXposedInstalled(Context context) {
+    public static boolean isXposedInstalled(final Context context) {
         try {
             final String XPOSED_INSTALLER_PACKAGE = "de.robv.android.xposed.installer";
             final PackageManager pm = context.getPackageManager();
@@ -18,9 +18,9 @@ public class Utils {
         }
     }
 
-    public static boolean isServiceRunning(Context context, Class<?> serviceClass) {
+    public static boolean isServiceRunning(final Context context, final Class<?> serviceClass) {
         final ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+        for (final ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
             }

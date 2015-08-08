@@ -83,12 +83,12 @@ public class CheckUpdateService extends Service {
         }
     };
 
-    private boolean urlExists(String URLName){
+    private boolean urlExists(final String URLName){
         try {
             //HttpURLConnection.setFollowRedirects(false);
             // note : you may also need
             //        HttpURLConnection.setInstanceFollowRedirects(false)
-            HttpURLConnection con =
+            final HttpURLConnection con =
                     (HttpURLConnection) new URL(URLName).openConnection();
             con.setRequestMethod("HEAD");
             return (con.getResponseCode() == HttpURLConnection.HTTP_OK);

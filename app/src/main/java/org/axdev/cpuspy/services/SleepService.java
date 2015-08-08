@@ -129,20 +129,20 @@ public class SleepService extends Service {
     };
 
     /** @return true if music is playing */
-    private boolean isMusicPlaying(Context context) {
+    private boolean isMusicPlaying(final Context context) {
         final AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         return am.isMusicActive();
     }
 
     /** @return true if connected to AC/USB charger */
-    private boolean isPluggedIn(Context context) {
+    private boolean isPluggedIn(final Context context) {
         final Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         final int plugged = intent != null ? intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) : 0;
         return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
     }
 
     /** @return true if device call state: off-hook (in call) */
-    private boolean isUserInCall(Context context) {
+    private boolean isUserInCall(final Context context) {
         final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK;
     }
@@ -152,11 +152,11 @@ public class SleepService extends Service {
      * @param context the context
      * @return true when (at least one) screen is on
      */
-    private boolean isScreenOn(Context context) {
+    private boolean isScreenOn(final Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final DisplayManager dm = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
             boolean screenOn = false;
-            for (Display display : dm.getDisplays()) {
+            for (final Display display : dm.getDisplays()) {
                 if (display.getState() != Display.STATE_OFF) {
                     screenOn = true;
                 }

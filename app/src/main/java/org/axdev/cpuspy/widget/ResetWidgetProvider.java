@@ -19,18 +19,18 @@ public class ResetWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        ComponentName thisWidget = new ComponentName(context, ResetWidgetProvider.class);
+        final ComponentName thisWidget = new ComponentName(context, ResetWidgetProvider.class);
 
-        int[] allWidgetInstancesIds = appWidgetManager.getAppWidgetIds(thisWidget);
-        for (int widgetId : allWidgetInstancesIds) {
+        final int[] allWidgetInstancesIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        for (final int widgetId : allWidgetInstancesIds) {
 
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+            final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget_reset_layout);
 
-            Intent intent = new Intent(context, ResetWidgetProvider.class);
+            final Intent intent = new Intent(context, ResetWidgetProvider.class);
             intent.setAction(RESET_BUTTON);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             remoteViews.setOnClickPendingIntent(R.id.widget_reset_img, pendingIntent);
