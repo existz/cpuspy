@@ -253,7 +253,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mWelcomeCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
-            resetTimers();
+            CpuSpyApp.resetTimers();
         } else {
             mStatesWarning.setVisibility(View.GONE);
             mChargedView.setVisibility(View.GONE);
@@ -337,23 +337,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mShowImage.startAnimation(animSet);
     }
 
-    /** Reset the cpu timers */
-    public static void resetTimers() {
-        try {
-            CpuSpyApp.getCpuStateMonitor().setOffsets();
-        } catch (CpuStateMonitorException e) {
-            // TODO: something
-        }
-        CpuSpyApp.saveOffsets();
-    }
-
-    /** Restore the cpu timers */
-    private void restoreTimers() {
-        CpuSpyApp.getCpuStateMonitor().removeOffsets();
-        CpuSpyApp.saveOffsets();
-        editor.remove("offsets").apply();
-    }
-
     /** Remove view from its parent ViewGroup */
     private void removeView(View v) {
         final ViewGroup mViewGroup = (ViewGroup) v.getParent();
@@ -375,7 +358,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             case R.id.btn_charged:
                 editor.putBoolean("autoReset", false).apply();
                 refreshData();
-                resetTimers();
+                CpuSpyApp.resetTimers();
                 break;
             case R.id.card_view_states:
                 if (mAdditionalStatesShow.isShown()) {
@@ -400,7 +383,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_reset:
-                resetTimers();
+                CpuSpyApp.resetTimers();
                 this.updateView();
                 if (!mAdditionalStates.isShown()) showUnusedStates(true);
                 SnackbarManager.show(Snackbar.with(getActivity())
@@ -409,7 +392,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
             case R.id.menu_restore:
-                restoreTimers();
+                CpuSpyApp.restoreTimers();
+                editor.remove("offsets").apply();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_restore))

@@ -6,11 +6,12 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.fragments.TimerFragment;
 
 public class ResetWidgetProvider extends AppWidgetProvider {
 
@@ -41,10 +42,10 @@ public class ResetWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
         if (intent.getAction().equals(RESET_BUTTON)) {
             try {
-                TimerFragment.resetTimers();
+                CpuSpyApp.resetTimers();
                 Toast.makeText(context, R.string.widget_reset_success, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(context, R.string.widget_reset_error, Toast.LENGTH_SHORT).show();

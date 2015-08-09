@@ -23,7 +23,7 @@ import io.fabric.sdk.android.Fabric;
 /** main application class */
 public class CpuSpyApp extends Application {
 
-    public static final String PREF_OFFSETS = "offsets";
+    private static final String PREF_OFFSETS = "offsets";
     private static SharedPreferences sp;
 
     /** the long-living object used to monitor the system frequency states */
@@ -76,7 +76,7 @@ public class CpuSpyApp extends Application {
      * Save the state-time offsets as a string
      * e.g. "100 24, 200 251, 500 124 etc
      */
-    public static void saveOffsets() {
+    private static void saveOffsets() {
         // build the string by iterating over the freq->duration map
         String str = "";
         final SparseArray<Long> offsets = _monitor.getOffsets();
@@ -87,5 +87,21 @@ public class CpuSpyApp extends Application {
 
         final Editor editor = sp.edit();
         editor.putString(PREF_OFFSETS, str).apply();
+    }
+
+    /** Reset the cpu timers */
+    public static void resetTimers() {
+        try {
+            getCpuStateMonitor().setOffsets();
+        } catch (CpuStateMonitor.CpuStateMonitorException e) {
+            // TODO: something
+        }
+        saveOffsets();
+    }
+
+    /** Restore the cpu timers */
+    public static void restoreTimers() {
+        getCpuStateMonitor().removeOffsets();
+        saveOffsets();
     }
 }

@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.preference.PreferenceManager;
 
-import org.axdev.cpuspy.fragments.TimerFragment;
+import org.axdev.cpuspy.CpuSpyApp;
 
 public class PowerConnectionReceiver extends BroadcastReceiver {
 
@@ -27,7 +27,7 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         if (sp.getBoolean("autoReset", true)) {
             /** Reset timers if battery is above 97% AND charger is unplugged */
             if (percent >= 97 && action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
-                TimerFragment.resetTimers();
+                CpuSpyApp.resetTimers();
             }
         }
     }
