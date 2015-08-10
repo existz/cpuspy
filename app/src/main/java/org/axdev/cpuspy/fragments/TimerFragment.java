@@ -54,6 +54,7 @@ import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.activity.PrefsActivity;
+import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.R;
@@ -102,6 +103,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private SharedPreferences sp;
 
     private boolean mAutoRefresh;
+    private boolean mIsAnimating;
     private boolean mIsCharged;
 
     @Override
@@ -119,6 +121,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
+        mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         this.checkView();
 
@@ -307,7 +310,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final AnimationSet animSet = new AnimationSet(true);
 
         if (enabled) {
-            duration = 300;
+            duration = getResources().getInteger(R.integer.animationShort);
             animRotate = new RotateAnimation(0.0f, 180.0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -316,7 +319,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mAdditionalStatesHide.setVisibility(View.VISIBLE);
             mAdditionalStates.setVisibility(View.VISIBLE);
         } else {
-            duration = 500;
+            duration = getResources().getInteger(R.integer.animationMedium);
             animRotate = new RotateAnimation(-180.0f, 0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -507,7 +510,25 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mFreqText.setText(sFreq);
         mPerText.setText(sPer);
         mDurText.setText(sDur);
-        mBar.setProgress(Math.round(per));
+
+        // animate progress bar
+        if (mIsAnimating) {
+            final Runnable progressAnimation = new Runnable() {
+                @Override
+                public void run() {
+                    final ProgressBarAnimation anim = new ProgressBarAnimation(mBar, 1000);
+                    mBar.setMax(100 * 100);
+                    anim.setInterpolator(new DecelerateInterpolator());
+                    anim.setProgress((Math.round(per)) * 100);
+                    anim.setDuration(getResources().getInteger(R.integer.progressAnimationDuration));
+                    mBar.startAnimation(anim);
+                }
+            };
+            mHandler.post(progressAnimation);
+        } else {
+            mBar.setMax(100);
+            mBar.setProgress((Math.round(per)));
+        }
 
         // add it to parent and return
         parent.addView(theRow);
@@ -535,6 +556,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             if (getActivity() != null) {
                 updateView();
                 checkView();
+                mIsAnimating = false;
             }
         }
     }
