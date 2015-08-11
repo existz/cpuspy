@@ -110,6 +110,7 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
     private boolean mHasCpu7;
 
     private final Handler mHandler = new Handler();
+    private final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,7 +131,7 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         /** @return the current number of CPU cores */
         final int coreCount = CPUUtils.getCoreCount();
         if (coreCount != 0) {
-            setMediumTypeface(mCpuCoreHeader);
+            mCpuCoreHeader.setTypeface(robotoMedium);
             mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
         } else {
             mCpuCoreHeader.setVisibility(View.GONE);
@@ -151,23 +152,23 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         if (platform != null) mDevicePlatform.setText(platform);
         if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
 
-        setMediumTypeface(mKernelHeader);
-        setMediumTypeface(mKernelGovernorHeader);
-        setMediumTypeface(mKernelVersionHeader);
-        setMediumTypeface(mCpuHeader);
-        setMediumTypeface(mCpuAbiHeader);
-        setMediumTypeface(mCpuArchHeader);
-        setMediumTypeface(mCpuFreqHeader);
-        setMediumTypeface(mCpuFeaturesHeader);
-        setMediumTypeface(mDeviceInfo);
-        setMediumTypeface(mDeviceBuildHeader);
-        setMediumTypeface(mDeviceApiHeader);
-        setMediumTypeface(mDeviceManufHeader);
-        setMediumTypeface(mDeviceModelHeader);
-        setMediumTypeface(mDeviceBoardHeader);
-        setMediumTypeface(mDevicePlatformHeader);
-        setMediumTypeface(mDeviceRuntimeHeader);
-        setMediumTypeface(mKernelVersionFullHeader);
+        mKernelHeader.setTypeface(robotoMedium);
+        mKernelGovernorHeader.setTypeface(robotoMedium);
+        mKernelVersionHeader.setTypeface(robotoMedium);
+        mCpuHeader.setTypeface(robotoMedium);
+        mCpuAbiHeader.setTypeface(robotoMedium);
+        mCpuArchHeader.setTypeface(robotoMedium);
+        mCpuFreqHeader.setTypeface(robotoMedium);
+        mCpuFeaturesHeader.setTypeface(robotoMedium);
+        mDeviceInfo.setTypeface(robotoMedium);
+        mDeviceBuildHeader.setTypeface(robotoMedium);
+        mDeviceApiHeader.setTypeface(robotoMedium);
+        mDeviceManufHeader.setTypeface(robotoMedium);
+        mDeviceModelHeader.setTypeface(robotoMedium);
+        mDeviceBoardHeader.setTypeface(robotoMedium);
+        mDevicePlatformHeader.setTypeface(robotoMedium);
+        mDeviceRuntimeHeader.setTypeface(robotoMedium);
+        mKernelVersionFullHeader.setTypeface(robotoMedium);
 
         /** Set onClickListener for kernel info button */
         mKernelMoreButton.setOnClickListener(this);
@@ -229,18 +230,6 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         }
     }
 
-    private void setMediumTypeface(TextView tv) {
-        // Applying Roboto-Medium font
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        tv.setTypeface(mediumFont);
-    }
-
     /** @return the current runtime: ART or Dalvik */
     private String getRuntime() {
         String runtime;
@@ -267,7 +256,7 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         if (CPUUtils.hasTemp()) {
             mIsMonitoringTemp = true;
             mHandler.post(monitorTemp);
-            setMediumTypeface(mCpuTempHeader);
+            mCpuTempHeader.setTypeface(robotoMedium);
         } else {
             mIsMonitoringTemp = false;
             mCpuTempHeader.setVisibility(View.GONE);

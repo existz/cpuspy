@@ -2,6 +2,7 @@ package org.axdev.cpuspy.utils;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.util.SimpleArrayMap;
 
 /*
@@ -31,7 +32,7 @@ public class TypefaceHelper {
 
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 
-    public static Typeface get(Context c, String name) {
+    private static Typeface get(Context c, String name) {
         synchronized (cache) {
             if (!cache.containsKey(name)) {
                 Typeface t = Typeface.createFromAsset(
@@ -41,5 +42,16 @@ public class TypefaceHelper {
             }
             return cache.get(name);
         }
+    }
+
+    public static Typeface mediumTypeface(Context c) {
+        Typeface mediumFont;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            mediumFont = TypefaceHelper.get(c, TypefaceHelper.MEDIUM_FONT);
+        }
+
+        return mediumFont;
     }
 }

@@ -95,6 +95,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private final String NEW_FEATURE = "newFeatureShown";
 
     private final Handler mHandler = new Handler();
+    private final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
 
     private CpuStateMonitor monitor;
     private Editor editor;
@@ -126,12 +127,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
-        setMediumTypeface(mWelcomeCardSummary);
-        setMediumTypeface(mWelcomeCardFeatures);
-        setMediumTypeface(mFeatureCardTitle);
-        setMediumTypeface(mAdditionalStatesShow);
-        setMediumTypeface(mAdditionalStatesHide);
-        setMediumTypeface(mHeaderTotalStateTime);
+        mWelcomeCardSummary.setTypeface(robotoMedium);
+        mWelcomeCardFeatures.setTypeface(robotoMedium);
+        mFeatureCardTitle.setTypeface(robotoMedium);
+        mAdditionalStatesShow.setTypeface(robotoMedium);
+        mAdditionalStatesHide.setTypeface(robotoMedium);
+        mHeaderTotalStateTime.setTypeface(robotoMedium);
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -292,17 +293,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 
-    private void setMediumTypeface(TextView tv) {
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        tv.setTypeface(mediumFont);
-    }
-
     /** Animate hiding and showing unused states */
     private void showUnusedStates(boolean enabled) {
         int duration;
@@ -392,6 +382,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_reset))
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
+                        .actionLabelTypeface(robotoMedium)
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
             case R.id.menu_restore:
@@ -400,6 +391,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_restore))
+                        .actionLabelTypeface(robotoMedium)
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;

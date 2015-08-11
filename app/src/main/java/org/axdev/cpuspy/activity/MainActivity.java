@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
             return mFragments.size();
         }
 
-        private int[] imageResId = {
+        private final int[] imageResId = {
                 R.drawable.ic_tab_timers,
                 R.drawable.ic_tab_info
         };

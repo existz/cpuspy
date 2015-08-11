@@ -66,7 +66,8 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         }
 
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
-        setMediumTypeface(mLicenseHeader);
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        mLicenseHeader.setTypeface(robotoMedium);
     }
 
     @Override
@@ -101,17 +102,5 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         } catch (ActivityNotFoundException e) {
             Log.e("CpuSpy", "Error opening: " + s);
         }
-    }
-
-    /** Apply Roboto-Medium typeface */
-    private void setMediumTypeface(TextView tv) {
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        tv.setTypeface(mediumFont);
     }
 }
