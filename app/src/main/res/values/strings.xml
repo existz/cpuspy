@@ -28,10 +28,12 @@
     <string name="snackbar_text_reset">Timers reset successfully</string>
     <string name="snackbar_text_restore">Timers restored successfully</string>
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
+    <string name="snackbar_text_update">A newer version is available!</string>
 
     <string name="action_changelog">Full Changelog</string>
     <string name="action_disable">Disable</string>
     <string name="action_dismiss">Dismiss</string>
+    <string name="action_view">View</string>
 
     <string name="widget_reset_title">CPUSpy - Reset Timers</string>
     <string name="widget_reset_error">Oops! There was an error, try again</string>
@@ -137,8 +139,6 @@
     <string name="notification_warning">Warning</string>
     <string name="notification_disable">Disable sleep detection</string>
     <string name="notification_deep_sleep">Device is not entering Deep Sleep</string>
-    <string name="notification_update_title">CPUSpy Material Update</string>
-    <string name="notification_update_summary">v3.1.5 now available</string>
 
     <string name="new_feature_title">Deep Sleep Detection</string>
     <string name="new_feature_summary">A new background monitoring service that alerts you when the device does not enter deep sleep.</string>

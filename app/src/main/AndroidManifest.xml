@@ -70,16 +70,6 @@
         <!-- Service that monitors if deep sleep increases -->
         <service android:name=".services.SleepService" />
 
-        <!-- Receiver to start CheckUpdateReceiver once boot completes -->
-        <receiver android:name=".receiver.CheckUpdateReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Service checks if an update is available -->
-        <service android:name=".services.CheckUpdateService" />
-
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="e4800ae61bbbd6fe45650c1aac0e812a2fbdab51" />

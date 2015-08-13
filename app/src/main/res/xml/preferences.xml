@@ -60,10 +60,6 @@
             android:persistent="false">
         </Preference>
         <CheckBoxPreference
-            android:key="checkUpdates"
-            android:title="@string/pref_title_checkupdates"
-            android:defaultValue="true" />
-        <CheckBoxPreference
             android:key="crashReport"
             android:title="@string/pref_title_crashreport"
             android:summary="@string/pref_summary_crashreport"

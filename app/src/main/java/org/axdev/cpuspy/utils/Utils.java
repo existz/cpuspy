@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.SystemClock;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class Utils {
 
+    /** Check if Xposed is installed or not */
     public static boolean isXposedInstalled(final Context context) {
         try {
             final String XPOSED_INSTALLER_PACKAGE = "de.robv.android.xposed.installer";
@@ -18,6 +22,7 @@ public class Utils {
         }
     }
 
+    /** Check if a service is running or not */
     public static boolean isServiceRunning(final Context context, final Class<?> serviceClass) {
         final ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (final ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -26,6 +31,23 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    /** Checks if a URL exists or not */
+    public static boolean urlExists(final String URLName){
+        try {
+            //HttpURLConnection.setFollowRedirects(false);
+            // note : you may also need
+            //        HttpURLConnection.setInstanceFollowRedirects(false)
+            final HttpURLConnection con =
+                    (HttpURLConnection) new URL(URLName).openConnection();
+            con.setRequestMethod("HEAD");
+            return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

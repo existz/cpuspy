@@ -6,10 +6,13 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,15 +26,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.BackHandledFragment;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
-import org.axdev.cpuspy.services.CheckUpdateService;
 import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -117,16 +123,44 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
             }
         }
 
+        // This must always be updated to reflect the upcoming version
+        final String upcomingVersionURL = "https://app.box.com/cpuspy-v315";
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(this);
+
+        // Check if an update is available
+        final Thread t = new Thread(new Runnable() {
+            public void run() {
+                if (Utils.urlExists(upcomingVersionURL)) {
+                    SnackbarManager.show(
+                            Snackbar.with(MainActivity.this)
+                                    .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
+                                    .text(getResources().getString(R.string.snackbar_text_update))
+                                    .actionLabel(getResources().getString(R.string.action_view))
+                                    .actionLabelTypeface(robotoMedium)
+                                    .actionColor(getResources().getColor(R.color.primary))
+                                    .actionListener(new ActionClickListener() {
+                                        @Override
+                                        public void onActionClicked(Snackbar snackbar) {
+                                            final String xdaURL = "http://goo.gl/AusQy8";
+                                            try {
+                                                final Intent i = new Intent(Intent.ACTION_VIEW);
+                                                i.setData(Uri.parse(xdaURL));
+                                                startActivity(i);
+                                            } catch (ActivityNotFoundException e) {
+                                                Log.e("CpuSpy", "Error opening: " + xdaURL);
+                                            }
+                                        }
+                                    })
+                    );
+                }
+            }
+        });
+        t.start();
+
         // Start service if its not automatically started on boot
         if (sp.getBoolean("sleepDetection", true)) {
             if (!Utils.isServiceRunning(this, SleepService.class)) {
                 startService(new Intent(this, SleepService.class));
-            }
-        }
-
-        if (sp.getBoolean("checkUpdates", true)) {
-            if (!Utils.isServiceRunning(this, CheckUpdateService.class)) {
-                startService(new Intent(this, CheckUpdateService.class));
             }
         }
     }
