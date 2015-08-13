@@ -21,7 +21,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -36,10 +35,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationSet;
-import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -65,14 +62,12 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /** main activity class */
-public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, OnClickListener
+public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
 {
     // main ui views
-    @Bind(R.id.btn_charged) Button mChargedButton;
-    @Bind(R.id.btn_welcome) Button mWelcomeCardButton;
-    @Bind(R.id.btn_feature) Button mFeatureCardButton;
     @Bind(R.id.card_view_states) CardView mStatesCardView;
     @Bind(R.id.card_view_welcome) CardView mWelcomeCardView;
     @Bind(R.id.card_view_feature) CardView mFeatureCardView;
@@ -116,8 +111,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -160,12 +155,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
         mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
-
-        /** Set onClickListener for all buttons */
-        mChargedButton.setOnClickListener(this);
-        mWelcomeCardButton.setOnClickListener(this);
-        mStatesCardView.setOnClickListener(this);
-        mFeatureCardButton.setOnClickListener(this);
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -336,30 +325,32 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         if (mViewGroup != null) mViewGroup.removeView(v);
     }
 
-    /** Global On click listener for all views */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_welcome:
-                this.removeView(mWelcomeCardView);
-                editor.putBoolean(WELCOME_SCREEN, false).apply();
-                break;
-            case R.id.btn_feature:
-                this.removeView(mFeatureCardView);
-                editor.putBoolean(NEW_FEATURE, false).apply();
-                break;
-            case R.id.btn_charged:
-                editor.putBoolean("autoReset", false).apply();
-                refreshData();
-                CpuSpyApp.resetTimers();
-                break;
-            case R.id.card_view_states:
-                if (mAdditionalStatesShow.isShown()) {
-                    showUnusedStates(true);
-                } else {
-                    showUnusedStates(false);
-                }
-                break;
+    /** Bind button listeners */
+    @OnClick(R.id.btn_welcome)
+    void welcomeButton() {
+        this.removeView(mWelcomeCardView);
+        editor.putBoolean(WELCOME_SCREEN, false).apply();
+    }
+
+    @OnClick(R.id.btn_feature)
+    void featureButton() {
+        this.removeView(mFeatureCardView);
+        editor.putBoolean(NEW_FEATURE, false).apply();
+    }
+
+    @OnClick(R.id.btn_charged)
+    void chargedButton() {
+        editor.putBoolean("autoReset", false).apply();
+        refreshData();
+        CpuSpyApp.resetTimers();
+    }
+
+    @OnClick(R.id.card_view_states)
+    void unusedStatesButton() {
+        if (mAdditionalStatesShow.isShown()) {
+            showUnusedStates(true);
+        } else {
+            showUnusedStates(false);
         }
     }
 

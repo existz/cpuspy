@@ -19,11 +19,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -36,11 +34,10 @@ import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class InfoFragment extends BackHandledFragment implements OnClickListener {
+public class InfoFragment extends BackHandledFragment {
 
-    @Bind(R.id.btn_kernel_close) ImageButton mKernelCloseButton;
-    @Bind(R.id.btn_kernel_more) ImageButton mKernelMoreButton;
     @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
@@ -121,8 +118,8 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         /** Set text and typeface for TextViews */
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
@@ -169,10 +166,6 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         mDevicePlatformHeader.setTypeface(robotoMedium);
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
-
-        /** Set onClickListener for kernel info button */
-        mKernelMoreButton.setOnClickListener(this);
-        mKernelCloseButton.setOnClickListener(this);
 
         mScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -541,15 +534,13 @@ public class InfoFragment extends BackHandledFragment implements OnClickListener
         mHandler.post(monitorCpu);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_kernel_close:
-                showFullKernelVersion(false);
-                break;
-            case R.id.btn_kernel_more:
-                showFullKernelVersion(true);
-                break;
+    /** Bind button listeners */
+    @OnClick({R.id.btn_kernel_more, R.id.btn_kernel_close})
+    void kernelMoreButton() {
+        if (!mCardKernelFull.isShown()) {
+            showFullKernelVersion(true);
+        } else {
+            showFullKernelVersion(false);
         }
     }
 
