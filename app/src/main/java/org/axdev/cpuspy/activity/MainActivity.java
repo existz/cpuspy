@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         }
 
         // This must always be updated to reflect the upcoming version
-        final String upcomingVersionURL = "https://app.box.com/cpuspy-v315";
+        final String upcomingVersionURL = "https://app.box.com/cpuspy-v316";
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(this);
 
         // Check if an update is available
