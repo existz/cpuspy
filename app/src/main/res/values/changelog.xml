@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Check if new update is available\n&#8226; Reduce total state time text size\n&#8226; Update libraries to latest versions\n&#8226; Animate progress bars on app launch\n&#8226; Use icons instead for sliding tabs\n&#8226; Updates and fixes to theme changing\n&#8226; Use Roboto-Medium for snackbar actions\n&#8226; Fix crash if checkCoreMonitor returns zero\n&#8226; Use Butter Knife to bind button listeners\n&#8226; Show warning dialog if Xposed is installed\n&#8226; Use sliding cardview for full kernel version\n&#8226; Return null if unable to retrieve cpu info\n</string>
+    <string name="whats_new">&#8226; Fix crash on KitKat devices\n&#8226; Check if new update is available\n&#8226; Reduce total state time text size\n&#8226; Update libraries to latest versions\n&#8226; Animate progress bars on app launch\n&#8226; Use icons instead for sliding tabs\n&#8226; Updates and fixes to theme changing\n&#8226; Use Roboto-Medium for snackbar actions\n&#8226; Fix crash if checkCoreMonitor returns zero\n&#8226; Use Butter Knife to bind button listeners\n&#8226; Show warning dialog if Xposed is installed\n&#8226; Use sliding cardview for full kernel version\n&#8226; Return null if unable to retrieve cpu info\n</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 

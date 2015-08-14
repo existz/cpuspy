@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         }
 
         // This must always be updated to reflect the upcoming version
-        final String upcomingVersionURL = "https://app.box.com/cpuspy-v316";
+        final String upcomingVersionURL = "https://app.box.com/cpuspy-v317";
 
         // Check if an update is available
         final Thread t = new Thread(new Runnable() {
