@@ -152,10 +152,10 @@ public class CPUUtils {
             "/sys/devices/platform/omap/omap_temp_sensor.0/temperature",
             "/sys/kernel/debug/tegra_thermal/temp_tj",
             "/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp",
-            "/sys/class/thermal/thermal_zone0/temp",
             "/sys/class/thermal/thermal_zone1/temp",
-            "/sys/devices/virtual/thermal/thermal_zone0/temp",
+            "/sys/class/thermal/thermal_zone0/temp",
             "/sys/devices/virtual/thermal/thermal_zone1/temp",
+            "/sys/devices/virtual/thermal/thermal_zone0/temp",
             "/sys/devices/system/cpu/cpufreq/cput_attributes/cur_temp",
             "/sys/devices/platform/s5p-tmu/curr_temp",
             "/sys/devices/platform/s5p-tmu/temperature",
@@ -164,7 +164,13 @@ public class CPUUtils {
     public static boolean hasTemp() {
         for (final String s : tempFiles) {
             final File file = new File(s);
-            if (file.canRead() && file.length() != 0) mTempFile = s;
+            if (file.canRead() && file.length() != 0) {
+                if (s.equals("/sys/devices/virtual/thermal/thermal_zone1/temp")) {
+                    mTempFile = "/sys/devices/virtual/thermal/thermal_zone0/temp";
+                } else {
+                    mTempFile = s;
+                }
+            }
         }
 
         return mTempFile != null;

@@ -134,7 +134,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         int currentVersionNumber = 0;
         int savedVersionNumber = sp.getInt("version_number", 0);
         try {
-            PackageInfo pi = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            final PackageInfo pi = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
             currentVersionNumber = pi.versionCode;
         } catch (Exception ignored) {}
 
