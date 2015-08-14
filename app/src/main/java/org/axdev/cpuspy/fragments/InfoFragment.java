@@ -107,6 +107,7 @@ public class InfoFragment extends BackHandledFragment {
     private boolean mHasCpu7;
 
     private final Handler mHandler = new Handler();
+    private Typeface robotoMedium;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,6 +121,7 @@ public class InfoFragment extends BackHandledFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         /** Set text and typeface for TextViews */
+        robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
         final String kernelVersion = System.getProperty("os.version");
@@ -127,7 +129,7 @@ public class InfoFragment extends BackHandledFragment {
         /** @return the current number of CPU cores */
         final int coreCount = CPUUtils.getCoreCount();
         if (coreCount != 0) {
-            mCpuCoreHeader.setTypeface(mediumTypeface());
+            mCpuCoreHeader.setTypeface(robotoMedium);
             mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
         } else {
             mCpuCoreHeader.setVisibility(View.GONE);
@@ -148,23 +150,23 @@ public class InfoFragment extends BackHandledFragment {
         if (platform != null) mDevicePlatform.setText(platform);
         if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
 
-        mKernelHeader.setTypeface(mediumTypeface());
-        mKernelGovernorHeader.setTypeface(mediumTypeface());
-        mKernelVersionHeader.setTypeface(mediumTypeface());
-        mCpuHeader.setTypeface(mediumTypeface());
-        mCpuAbiHeader.setTypeface(mediumTypeface());
-        mCpuArchHeader.setTypeface(mediumTypeface());
-        mCpuFreqHeader.setTypeface(mediumTypeface());
-        mCpuFeaturesHeader.setTypeface(mediumTypeface());
-        mDeviceInfo.setTypeface(mediumTypeface());
-        mDeviceBuildHeader.setTypeface(mediumTypeface());
-        mDeviceApiHeader.setTypeface(mediumTypeface());
-        mDeviceManufHeader.setTypeface(mediumTypeface());
-        mDeviceModelHeader.setTypeface(mediumTypeface());
-        mDeviceBoardHeader.setTypeface(mediumTypeface());
-        mDevicePlatformHeader.setTypeface(mediumTypeface());
-        mDeviceRuntimeHeader.setTypeface(mediumTypeface());
-        mKernelVersionFullHeader.setTypeface(mediumTypeface());
+        mKernelHeader.setTypeface(robotoMedium);
+        mKernelGovernorHeader.setTypeface(robotoMedium);
+        mKernelVersionHeader.setTypeface(robotoMedium);
+        mCpuHeader.setTypeface(robotoMedium);
+        mCpuAbiHeader.setTypeface(robotoMedium);
+        mCpuArchHeader.setTypeface(robotoMedium);
+        mCpuFreqHeader.setTypeface(robotoMedium);
+        mCpuFeaturesHeader.setTypeface(robotoMedium);
+        mDeviceInfo.setTypeface(robotoMedium);
+        mDeviceBuildHeader.setTypeface(robotoMedium);
+        mDeviceApiHeader.setTypeface(robotoMedium);
+        mDeviceManufHeader.setTypeface(robotoMedium);
+        mDeviceModelHeader.setTypeface(robotoMedium);
+        mDeviceBoardHeader.setTypeface(robotoMedium);
+        mDevicePlatformHeader.setTypeface(robotoMedium);
+        mDeviceRuntimeHeader.setTypeface(robotoMedium);
+        mKernelVersionFullHeader.setTypeface(robotoMedium);
 
         mScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -248,7 +250,7 @@ public class InfoFragment extends BackHandledFragment {
         if (CPUUtils.hasTemp()) {
             mIsMonitoringTemp = true;
             mHandler.post(monitorTemp);
-            mCpuTempHeader.setTypeface(mediumTypeface());
+            mCpuTempHeader.setTypeface(robotoMedium);
         } else {
             mIsMonitoringTemp = false;
             mCpuTempHeader.setVisibility(View.GONE);
@@ -576,17 +578,6 @@ public class InfoFragment extends BackHandledFragment {
 
             return false;
         }
-    }
-
-    private Typeface mediumTypeface() {
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        return mediumFont;
     }
 
     @Override

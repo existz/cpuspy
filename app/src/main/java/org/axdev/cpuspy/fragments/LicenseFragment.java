@@ -66,7 +66,8 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         }
 
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
-        mLicenseHeader.setTypeface(mediumTypeface());
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        mLicenseHeader.setTypeface(robotoMedium);
     }
 
     @Override
@@ -91,17 +92,6 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
                 openURL("https://github.com/nispok/snackbar");
                 break;
         }
-    }
-
-    private Typeface mediumTypeface() {
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
-        }
-
-        return mediumFont;
     }
 
     private void openURL(String s) {

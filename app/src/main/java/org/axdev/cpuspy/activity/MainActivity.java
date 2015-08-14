@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
 
         // This must always be updated to reflect the upcoming version
         final String upcomingVersionURL = "https://app.box.com/cpuspy-v317";
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getApplicationContext());
 
         // Check if an update is available
         final Thread t = new Thread(new Runnable() {
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
                                     .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
                                     .text(getResources().getString(R.string.snackbar_text_update))
                                     .actionLabel(getResources().getString(R.string.action_view))
-                                    .actionLabelTypeface(mediumTypeface())
+                                    .actionLabelTypeface(robotoMedium)
                                     .actionColor(getResources().getColor(R.color.primary))
                                     .actionListener(new ActionClickListener() {
                                         @Override
@@ -243,17 +244,6 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
     @Override
     public void setSelectedFragment(BackHandledFragment selectedFragment) {
         this.selectedFragment = selectedFragment;
-    }
-
-    private Typeface mediumTypeface() {
-        Typeface mediumFont;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-        } else {
-            mediumFont = TypefaceHelper.get(this, TypefaceHelper.MEDIUM_FONT);
-        }
-
-        return mediumFont;
     }
 
     @Override

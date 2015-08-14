@@ -32,15 +32,19 @@ public class TypefaceHelper {
 
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 
-    public static Typeface get(Context c, String name) {
-        synchronized (cache) {
-            if (!cache.containsKey(name)) {
-                Typeface t = Typeface.createFromAsset(
-                        c.getAssets(), String.format("fonts/%s.ttf", name));
-                cache.put(name, t);
-                return t;
+    public static Typeface mediumTypeface(Context c) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            synchronized (cache) {
+                if (!cache.containsKey(MEDIUM_FONT)) {
+                    final Typeface t = Typeface.createFromAsset(
+                            c.getAssets(), String.format("fonts/%s.ttf", MEDIUM_FONT));
+                    cache.put(MEDIUM_FONT, t);
+                    return t;
+                }
+                return cache.get(MEDIUM_FONT);
             }
-            return cache.get(name);
         }
     }
 }
