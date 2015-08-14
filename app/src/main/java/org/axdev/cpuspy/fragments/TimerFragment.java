@@ -21,6 +21,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -90,7 +91,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private final String NEW_FEATURE = "newFeatureShown";
 
     private final Handler mHandler = new Handler();
-    private final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
 
     private CpuStateMonitor monitor;
     private Editor editor;
@@ -122,12 +122,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
-        mWelcomeCardSummary.setTypeface(robotoMedium);
-        mWelcomeCardFeatures.setTypeface(robotoMedium);
-        mFeatureCardTitle.setTypeface(robotoMedium);
-        mAdditionalStatesShow.setTypeface(robotoMedium);
-        mAdditionalStatesHide.setTypeface(robotoMedium);
-        mHeaderTotalStateTime.setTypeface(robotoMedium);
+        mWelcomeCardSummary.setTypeface(mediumTypeface());
+        mWelcomeCardFeatures.setTypeface(mediumTypeface());
+        mFeatureCardTitle.setTypeface(mediumTypeface());
+        mAdditionalStatesShow.setTypeface(mediumTypeface());
+        mAdditionalStatesHide.setTypeface(mediumTypeface());
+        mHeaderTotalStateTime.setTypeface(mediumTypeface());
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -319,6 +319,17 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mShowImage.startAnimation(animSet);
     }
 
+    private Typeface mediumTypeface() {
+        Typeface mediumFont;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mediumFont = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        } else {
+            mediumFont = TypefaceHelper.get(getActivity(), TypefaceHelper.MEDIUM_FONT);
+        }
+
+        return mediumFont;
+    }
+
     /** Remove view from its parent ViewGroup */
     private void removeView(View v) {
         final ViewGroup mViewGroup = (ViewGroup) v.getParent();
@@ -373,7 +384,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_reset))
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
-                        .actionLabelTypeface(robotoMedium)
+                        .actionLabelTypeface(mediumTypeface())
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
             case R.id.menu_restore:
@@ -382,7 +393,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_restore))
-                        .actionLabelTypeface(robotoMedium)
+                        .actionLabelTypeface(mediumTypeface())
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionColor(getResources().getColor(R.color.primary)));
                 break;
