@@ -371,7 +371,9 @@
                             android:paddingLeft="24dp"
                             android:textColor="?android:attr/textColorPrimary"
                             android:layout_alignTop="@+id/cpu_temp_header"
-                            android:layout_alignStart="@+id/cpu_arch" />
+                            android:layout_alignStart="@+id/cpu_arch"
+                            android:clickable="true"
+                            android:focusable="true"/>
 
                         <TextView
                             android:id="@+id/cpu_freq_header"

@@ -25,6 +25,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
@@ -251,6 +253,14 @@ public class InfoFragment extends BackHandledFragment {
             mIsMonitoringTemp = true;
             mHandler.post(monitorTemp);
             mCpuTempHeader.setTypeface(robotoMedium);
+            mCpuTemp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(getActivity())
+                            .content(CPUUtils.getTempFile())
+                            .show();
+                }
+            });
         } else {
             mIsMonitoringTemp = false;
             mCpuTempHeader.setVisibility(View.GONE);

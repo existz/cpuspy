@@ -290,6 +290,10 @@ public class CPUUtils {
         return null;
     }
 
+    public static String getTempFile() {
+        return mTempFile;
+    }
+
     /** @return Number of CPU cores */
     public static int getCoreCount() {
         final int availableProcessors = Runtime.getRuntime().availableProcessors();
