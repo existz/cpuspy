@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="core_offline">Оффлайн</string>
+    <string name="unused_states_show">См. неиспользуемую статистику</string>
+    <string name="unused_states_hide">Скрыть неиспользуемую статистику</string>
+    <string name="total_state_time">Общее время статистики</string>
+    <string name="charged_view_enabled">Включен автосброс</string>
+    <string name="charged_view_status">Батарея: заряжена</string>
+    <string name="charged_view_message">Когда устройство полностью зарядилось, отключите ЗУ для автоматического сброса таймеров CPU.</string>
+    <string name="menu_changelog">Изменения</string>
+    <string name="menu_donate">Пожертвовать</string>
+    <string name="menu_timers_reset">Сброс таймеров</string>
+    <string name="menu_timers_restore">Восстановление таймеров</string>
+    <string name="states_empty">Пусто</string>
+    <string name="states_deep_sleep">Глубокий сон</string>
+    <string name="states_warning"><b>Увы!</b>\n\nФайла статистики не найдено. Уверены, что Ваш телефон это поддерживает?\n\nЕсли у Вас сторонняя прошивка или ядро, попробуйте связаться с разработчиком и сообщить ему, что файл статистики не читается.</string>
+    <string name="error">ОШИБКА</string>
+    <string name="snackbar_text_reset">Таймеры сброшены</string>
+    <string name="snackbar_text_restore">Таймеры восстановлены</string>
+    <string name="snackbar_text_crashreport">Сообщения о сбоях отключены. Изменения вступят в силу после перезапуска приложения.</string>
+    <string name="snackbar_text_update">Доступна более новая версия!</string>
+    <string name="action_changelog">Полная история изменений</string>
+    <string name="action_disable">Отключить</string>
+    <string name="action_dismiss">Отмена</string>
+    <string name="action_view">Просмотр</string>
+    <string name="widget_reset_title">CPUSpy - сброс таймеров</string>
+    <string name="widget_reset_error">Увы! Произошла ошибка, попробуйте снова</string>
+    <string name="widget_reset_success">Таймеры сброшены</string>
+    <!-- Information -->
+    <string name="information">Информация</string>
+    <string name="information_kernel_info">Ядро</string>
+    <string name="information_device_info">Устройство</string>
+    <string name="information_cpu_info">Процессор</string>
+    <string name="information_kernel_governor">Говернор:</string>
+    <string name="information_kernel_version_header">Версия:</string>
+    <string name="information_kernel_version_full_header">Полная версия ядра</string>
+    <string name="information_kernel_version_unavailable">Версия ядра недоступна</string>
+    <string name="information_device_build_header">ID сборки:</string>
+    <string name="information_device_api_header">Уровень API:</string>
+    <string name="information_device_manuf_header">Производитель:</string>
+    <string name="information_device_model_header">Модель:</string>
+    <string name="information_device_board_header">Чип:</string>
+    <string name="information_device_platform_header">Платформа:</string>
+    <string name="information_device_runtime_header">Время работы:</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">Архитектура:</string>
+    <string name="information_cpu_freq_header">Частота:</string>
+    <string name="information_cpu_temp_header">Температура:</string>
+    <string name="information_cpu_features_header">Особенности:</string>
+    <string name="information_usage_header">Использование CPU</string>
+    <string name="information_core_header">Ядра:</string>
+    <string name="information_cpu0_header">CPU 0:</string>
+    <string name="information_cpu1_header">CPU 1:</string>
+    <string name="information_cpu2_header">CPU 2:</string>
+    <string name="information_cpu3_header">CPU 3:</string>
+    <string name="information_cpu4_header">CPU 4:</string>
+    <string name="information_cpu5_header">CPU 5:</string>
+    <string name="information_cpu6_header">CPU 6:</string>
+    <string name="information_cpu7_header">CPU 7:</string>
+    <!-- Welcome info -->
+    <string name="welcome_summary">Добро пожаловать в CPUSpy Material. Используйте этот инструмент для мониторинга частот, на которых чаще всего работает Ваш процессор.</string>
+    <string name="welcome_features">Особенности</string>
+    <string name="welcome_cpuinfo">&#8226; Информация и мониторинг CPU + ядра</string>
+    <string name="welcome_crashreport">&#8226; Автоматическая отправка сообщений о сбоях и отчетов о использовании</string>
+    <string name="welcome_autorefresh">&#8226; Включение автообновления для получения статистики в реальном времени</string>
+    <string name="welcome_autoreset">&#8226; Таймеры автоматически сбрасываются при полной заряде батареи</string>
+    <string name="welcome_widget">&#8226; Виджет для сброса таймеров CPU с домашнего экрана</string>
+    <string name="welcome_hidepercent">&#8226; Опция скрытия статистики ниже определенного процента</string>
+    <!-- Settings info -->
+    <string name="settings">Настройки</string>
+    <string name="pref_header_general">Общее</string>
+    <string name="pref_header_about">О приложении</string>
+    <string name="pref_header_ui">Интерфейс</string>
+    <string name="pref_title_version">Версия</string>
+    <string name="pref_summary_about">О приложении и разработчике</string>
+    <string name="pref_title_autorefresh">Автообновление</string>
+    <string name="pref_summary_autorefresh">Автоматическое обновление таймеров CPU</string>
+    <string name="pref_title_autoreset">Автоматический сброс</string>
+    <string name="pref_summary_autoreset">Сброс таймеров CPU при полной зарядке</string>
+    <string name="pref_title_sleepdetection">Обнаружение глубокого сна</string>
+    <string name="pref_summary_sleepdetection">Уведомление при отсутствии перехода устройства в глубокий сон</string>
+    <string name="pref_title_hidestates">Процент скрытия статистики</string>
+    <string name="pref_summary_hidestates">Статистика ниже % не будет использоваться</string>
+    <string name="pref_title_themes">Основная тема</string>
+    <string name="pref_summary_themes">Выбор между светлой, тёмной и авто</string>
+    <string name="pref_title_navbar">Цветная панель навигации</string>
+    <string name="pref_summary_navbar">Включение цветной панели навигации</string>
+    <string name="pref_title_checkupdates">Проверка обновлений</string>
+    <string name="pref_summary_checkupdates">Последняя проверка:&#160;</string>
+    <string name="pref_title_crashreport">Анонимные отчёты о сбоях</string>
+    <string name="pref_summary_crashreport">Сбор данных о сбоях и использовании</string>
+    <string name="pref_title_license">Лицензии открытого исх. кода</string>
+    <string-array name="themes">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+        <item>Авто</item>
+    </string-array>
+    <!-- Open Source Licenses -->
+    <string name="license_header">Библиотеки</string>
+    <string-array name="licenses">
+        <item>Android Support Library</item>
+        <item>Butter Knife</item>
+        <item>Material Dialogs</item>
+        <item>Material Ripple</item>
+        <item>Material SeekBarPreference</item>
+        <item>Snackbar</item>
+    </string-array>
+    <!-- About -->
+    <string name="pref_about_header_dev">Разработчик</string>
+    <string name="pref_about_header_credits">Авторство</string>
+    <string name="pref_about_credits">Eduardo Pratti - значки\nBrandon Valosek - создатель</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
+    <!-- Tab Title -->
+    <string name="tab_title_timers">Таймеры</string>
+    <string name="tab_title_info">Информация</string>
+    <string name="notification_warning">Предупреждение</string>
+    <string name="notification_disable">Откл обнаружение сна</string>
+    <string name="notification_deep_sleep">Устройство не переходит в глубокий сон</string>
+    <string name="new_feature_title">Обнаружение глубокого сна</string>
+    <string name="new_feature_summary">Новая служба фонового мониторинга, предупреждающая, когда устройство не переходит в глубокий сон.</string>
+    <string name="xposed_warning_title">Обнаружен Xposed</string>
+    <string name="xposed_warning_content">К сожалению, мы не можем поддерживать устройства с Xposed. Автоматический отчёт о сбоях будет отключен.</string>
+</resources>

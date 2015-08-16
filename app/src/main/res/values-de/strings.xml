@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="core_offline">Offline</string>
+    <string name="unused_states_show">Nicht verwendete Zustände anzeigen</string>
+    <string name="unused_states_hide">Nicht verwendete Zustände verbergen</string>
+    <string name="total_state_time">Gesamtzeit</string>
+    <string name="charged_view_enabled">Auto-Reset aktiviert</string>
+    <string name="charged_view_status">Batteriezustand: Aufgeladen</string>
+    <string name="charged_view_message">Sobald das Gerät vollständig geladen ist, ziehen Sie es aus, um die CPU-Timer automatisch zurückzusetzen.</string>
+    <string name="menu_changelog">Changelog</string>
+    <string name="menu_donate">Spenden</string>
+    <string name="menu_timers_reset">Timer zurücksetzen</string>
+    <string name="menu_timers_restore">Timer wiederherstellen</string>
+    <string name="states_empty">Leer</string>
+    <string name="states_deep_sleep">Deep Sleep</string>
+    <string name="states_warning"><b>Ups!</b>\n\nKeine Zustandsinformationen gefunden. Sind Sie sicher, dass Ihr Telefon kompatibel ist?\n\nFalls Sie ein Custom-ROM verwenden, versuchen Sie, dessen Entwickler darüber zu informieren, dass die Zustandsinformationen nicht lesbar sind.</string>
+    <string name="error">FEHLER</string>
+    <string name="snackbar_text_reset">Timer erfolgreich zurückgesetzt</string>
+    <string name="snackbar_text_restore">Timer erfolgreich wiederhergestellt</string>
+    <string name="snackbar_text_crashreport">Absturzberichte deaktiviert. Änderung wird aktiv, wenn die App neu gestartet wird.</string>
+    <string name="snackbar_text_update">Eine neuere Version ist verfügbar!</string>
+    <string name="action_changelog">Vollständiger Changelog</string>
+    <string name="action_disable">Deaktivieren</string>
+    <string name="action_dismiss">Schliessen</string>
+    <string name="action_view">Ansehen</string>
+    <string name="widget_reset_title">CPUSpy - Timer zurücksetzen</string>
+    <string name="widget_reset_error">Ups! Ein Fehler ist aufgetreten, versuchen Sie es noch einmal</string>
+    <string name="widget_reset_success">Timer erfolgreich zurückgesetzt</string>
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="information_kernel_info">Kernel-Information</string>
+    <string name="information_device_info">Geräteinformation</string>
+    <string name="information_cpu_info">CPU-Information</string>
+    <string name="information_kernel_governor">Governor:</string>
+    <string name="information_kernel_version_header">Version</string>
+    <string name="information_kernel_version_full_header">Gesamte Kernel-Version</string>
+    <string name="information_kernel_version_unavailable">Kernel-Version nicht verfügbar</string>
+    <string name="information_device_build_header">Build-ID:</string>
+    <string name="information_device_api_header">API-Level:</string>
+    <string name="information_device_manuf_header">Hersteller:</string>
+    <string name="information_device_model_header">Modell:</string>
+    <string name="information_device_board_header">Board:</string>
+    <string name="information_device_platform_header">Plattform:</string>
+    <string name="information_device_runtime_header">Laufzeitumgebung:</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">Architektur:</string>
+    <string name="information_cpu_freq_header">Frequenz:</string>
+    <string name="information_cpu_temp_header">Temp:</string>
+    <string name="information_cpu_features_header">Funktionen:</string>
+    <string name="information_usage_header">CPU-Auslastung</string>
+    <string name="information_core_header">Kerne:</string>
+    <string name="information_cpu0_header">CPU 0:</string>
+    <string name="information_cpu1_header">CPU 1:</string>
+    <string name="information_cpu2_header">CPU 2:</string>
+    <string name="information_cpu3_header">CPU 3:</string>
+    <string name="information_cpu4_header">CPU 4:</string>
+    <string name="information_cpu5_header">CPU 5:</string>
+    <string name="information_cpu6_header">CPU 6:</string>
+    <string name="information_cpu7_header">CPU 7:</string>
+    <!-- Welcome info -->
+    <string name="welcome_summary">Wilkommen bei CPUSpy Material. Mit diesem Tool können Sie überprüfen mit welchen Frequenzen Ihr CPU am meisten arbeitet.</string>
+    <string name="welcome_features">Funktionen</string>
+    <string name="welcome_cpuinfo">&#8226; CPU- &amp; Kernel-Informationen überprüfen</string>
+    <string name="welcome_crashreport">&#8226; Automatische Absturz- und Verwendungsberichte</string>
+    <string name="welcome_autorefresh">&#8226; Automatische Aktualisierung für Überwachung in Echtzeit</string>
+    <string name="welcome_autoreset">&#8226; Timer werden automatisch zurückgestzt, wenn das Gerät voll geladen ist</string>
+    <string name="welcome_widget">&#8226; Widget, um CPU-Timer vom Homescreen aus zurückzusetzen</string>
+    <string name="welcome_hidepercent">&#8226; Möglichkeit, weniger verwendete Zustände zu verstecken</string>
+    <!-- Settings info -->
+    <string name="settings">Einstellungen</string>
+    <string name="pref_header_general">Allgemein</string>
+    <string name="pref_header_about">Über CPUSpy</string>
+    <string name="pref_header_ui">Benutzeroberfläche</string>
+    <string name="pref_title_version">Version</string>
+    <string name="pref_summary_about">Über die App und den Entwickler</string>
+    <string name="pref_title_autorefresh">Automatische Aktualisierung</string>
+    <string name="pref_summary_autorefresh">CPU-Timer automatisch aktualisieren</string>
+    <string name="pref_title_autoreset">Automatisches Zurücksetzen</string>
+    <string name="pref_summary_autoreset">CPU-Timer automatisch zurücksetzen, wenn voll geladen</string>
+    <string name="pref_title_sleepdetection">Deep-Sleep-Erkennung</string>
+    <string name="pref_summary_sleepdetection">Benachrichtigen, wenn das Gerät nicht in Deep-Sleep geht</string>
+    <string name="pref_title_hidestates">Zustände unter % verbergen</string>
+    <string name="pref_summary_hidestates">Zustände unter dieser dieser %-Angabe werden nicht verwendet</string>
+    <string name="pref_title_themes">Grund-Design</string>
+    <string name="pref_summary_themes">Wählen Sie zwischen hell, dunkel und automatisch</string>
+    <string name="pref_title_navbar">Farbige Navigation-Bar</string>
+    <string name="pref_summary_navbar">Farbige Navigation-Bar aktivieren</string>
+    <string name="pref_title_checkupdates">Auf Updates überprüfen</string>
+    <string name="pref_summary_checkupdates">Zuletzt überprüft:&#160;</string>
+    <string name="pref_title_crashreport">Anonyme Absturzberichte</string>
+    <string name="pref_summary_crashreport">Sammeln von Absturz- und Verwendungsberichten erlauben</string>
+    <string name="pref_title_license">Open-Source-Lizenzen</string>
+    <string-array name="themes">
+        <item>Dunkel</item>
+        <item>Auto</item>
+    </string-array>
+    <!-- Open Source Licenses -->
+    <string name="license_header">Bibliotheken</string>
+    <string-array name="licenses">
+        <item>Android Support Library</item>
+        <item>Butter Knife</item>
+        <item>Material Dialogs</item>
+        <item>Material Ripple</item>
+        <item>Material SeekBarPreference</item>
+        <item>Snackbar</item>
+    </string-array>
+    <!-- About -->
+    <string name="pref_about_header_dev">Entwickler</string>
+    <string name="pref_about_header_credits">Credits</string>
+    <string name="pref_about_credits">Eduardo Pratti - Icons\nBrandon Valosek - Creator</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
+    <!-- Tab Title -->
+    <string name="tab_title_timers">Timer</string>
+    <string name="tab_title_info">Info</string>
+    <string name="notification_warning">Warnung</string>
+    <string name="notification_disable">Sleep-Erkennung deaktivieren</string>
+    <string name="notification_deep_sleep">Gerät geht nicht in Deep-Sleep</string>
+    <string name="new_feature_title">Deep-Sleep-Erkennung</string>
+    <string name="new_feature_summary">Ein neuer Hintergrund-Überwachungsdienst, der Sie benachrichtigt, falls das Gerät nicht in Deep-Sleep geht.</string>
+    <string name="xposed_warning_title">Xposed erkannt</string>
+    <string name="xposed_warning_content">Leider können wir Geräte mit Xposed nicht ünterstützen. Automatische Absturzberichte werden deaktiviert.</string>
+</resources>

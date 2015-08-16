@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">সিপিইউ স্পাই</string>
+    <string name="app_name_long">সিপিইউ স্পাই উপকরণ</string>
+    <string name="core_offline">অফলাইন</string>
+    <string name="charged_view_status">ব্যাটারি অবস্থাঃ পূর্ণ</string>
+    <string name="menu_donate">অনুদান</string>
+    <string name="states_empty">খালি</string>
+    <!-- Information -->
+    <string name="information_cpu_arch_header">স্থাপত্য</string>
+    <string name="information_cpu_freq_header">কম্পাঙ্ক</string>
+    <string name="information_cpu_temp_header">তাপমাত্রা</string>
+    <string name="information_cpu_features_header">বৈশিষ্ট্যসমূহ</string>
+    <!-- Welcome info -->
+    <!-- Settings info -->
+    <!-- Open Source Licenses -->
+    <!-- About -->
+    <!-- Tab Title -->
+</resources>
