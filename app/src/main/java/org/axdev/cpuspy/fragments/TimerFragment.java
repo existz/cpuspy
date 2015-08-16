@@ -518,6 +518,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     anim.setProgress((Math.round(per)) * 100);
                     anim.setDuration(getResources().getInteger(R.integer.progressAnimationDuration));
                     mBar.startAnimation(anim);
+                    mIsAnimating = false;
                 }
             };
             mHandler.post(progressAnimation);
@@ -552,7 +553,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             if (getActivity() != null) {
                 updateView();
                 checkView();
-                mIsAnimating = false;
             }
         }
     }
