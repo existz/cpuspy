@@ -30,6 +30,8 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.MainActivity;
 import org.axdev.cpuspy.utils.Utils;
 
+import java.util.concurrent.TimeUnit;
+
 public class SleepService extends Service {
 
     private boolean isRunning;
@@ -84,6 +86,9 @@ public class SleepService extends Service {
                             && !isUserInCall(context)
                             && !isMusicPlaying(context)) {
 
+                        // Wait 10 minutes before checking deep sleep
+                        TimeUnit.MINUTES.sleep(10);
+
                         notificationID = 1;
                         final long currentDeepSleep = Utils.getDeepSleep();
 
@@ -120,7 +125,7 @@ public class SleepService extends Service {
                             if (mBuilder != null) mNotifyManager.cancel(notificationID);
                         }
                     }
-                    Thread.sleep(900000); // 15 minutes
+                    Thread.sleep(300000); // 5 minutes
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
