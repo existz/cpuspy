@@ -34,7 +34,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -288,6 +290,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         int duration;
         RotateAnimation animRotate;
         final AnimationSet animSet = new AnimationSet(true);
+        final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
+        final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
 
         if (enabled) {
             duration = getResources().getInteger(R.integer.animationShort);
@@ -295,7 +299,11 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
+            fadeOut.setDuration(200);
+            mAdditionalStatesShow.startAnimation(fadeOut);
             mAdditionalStatesShow.setVisibility(View.GONE);
+            fadeIn.setDuration(650);
+            mAdditionalStatesHide.startAnimation(fadeIn);
             mAdditionalStatesHide.setVisibility(View.VISIBLE);
             mAdditionalStates.setVisibility(View.VISIBLE);
         } else {
@@ -304,8 +312,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
-            mAdditionalStatesShow.setVisibility(View.VISIBLE);
+            fadeOut.setDuration(200);
+            mAdditionalStatesHide.startAnimation(fadeOut);
             mAdditionalStatesHide.setVisibility(View.GONE);
+            fadeIn.setDuration(650);
+            mAdditionalStatesShow.startAnimation(fadeIn);
+            mAdditionalStatesShow.setVisibility(View.VISIBLE);
             mAdditionalStates.setVisibility(View.GONE);
         }
 
