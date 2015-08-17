@@ -46,6 +46,7 @@
     <string name="information_device_runtime_header">Время работы:</string>
     <string name="information_device_runtime_art">ART</string>
     <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Загрузчик:</string>
     <string name="information_cpu_abi_header">ABI:</string>
     <string name="information_cpu_arch_header">Архитектура:</string>
     <string name="information_cpu_freq_header">Частота:</string>

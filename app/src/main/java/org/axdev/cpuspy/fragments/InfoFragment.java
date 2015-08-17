@@ -76,6 +76,8 @@ public class InfoFragment extends BackHandledFragment {
     @Bind(R.id.device_platform) TextView mDevicePlatform;
     @Bind(R.id.device_runtime_header) TextView mDeviceRuntimeHeader;
     @Bind(R.id.device_runtime) TextView mDeviceRuntime;
+    @Bind(R.id.device_bootloader_header) TextView mDeviceBootloaderHeader;
+    @Bind(R.id.device_bootloader) TextView mDeviceBootloader;
     @Bind(R.id.scroll_container) ScrollView mScrollView;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
@@ -149,6 +151,7 @@ public class InfoFragment extends BackHandledFragment {
         if (Build.MANUFACTURER != null) mDeviceManuf.setText(Build.MANUFACTURER);
         if (Build.MODEL != null) mDeviceModel.setText(Build.MODEL);
         if (Build.BOARD != null) mDeviceBoard.setText(Build.BOARD);
+        if (Build.BOOTLOADER != null) mDeviceBootloader.setText(Build.BOOTLOADER);
         if (platform != null) mDevicePlatform.setText(platform);
         if (getRuntime() != null) mDeviceRuntime.setText(getRuntime());
 
@@ -168,6 +171,7 @@ public class InfoFragment extends BackHandledFragment {
         mDeviceBoardHeader.setTypeface(robotoMedium);
         mDevicePlatformHeader.setTypeface(robotoMedium);
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
+        mDeviceBootloaderHeader.setTypeface(robotoMedium);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
 
         mScrollView.setOnTouchListener(new View.OnTouchListener() {

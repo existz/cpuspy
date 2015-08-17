@@ -272,6 +272,26 @@
                         android:layout_alignTop="@+id/device_runtime_header"
                         android:layout_alignStart="@+id/device_platform" />
 
+                    <TextView
+                        android:id="@+id/device_bootloader_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="@dimen/padding_mtrl"
+                        android:layout_marginRight="@dimen/padding_mtrl"
+                        android:layout_below="@+id/device_runtime_header"
+                        android:text="@string/information_device_bootloader_header"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                    <TextView
+                        android:id="@+id/device_bootloader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_mtrl"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_alignTop="@+id/device_bootloader_header"
+                        android:layout_alignStart="@+id/device_runtime" />
+
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
