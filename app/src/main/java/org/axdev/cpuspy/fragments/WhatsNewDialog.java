@@ -34,8 +34,7 @@ public class WhatsNewDialog extends DialogFragment {
                 .title(getResources().getString(R.string.menu_changelog))
                 .customView(R.layout.changelog_layout, true)
                 .negativeText(getResources().getString(R.string.action_changelog))
-                .positiveText(getResources().getString(R.string.action_dismiss))
-                .btnSelector(R.drawable.btn_selector_custom, DialogAction.POSITIVE)
+                .neutralText(getResources().getString(R.string.action_dismiss))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
@@ -51,7 +50,7 @@ public class WhatsNewDialog extends DialogFragment {
                     }
 
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
+                    public void onNeutral(MaterialDialog dialog) {
                         dialog.dismiss();
                     }
                 })

@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
                         .title(getResources().getString(R.string.xposed_warning_title))
                         .content(getResources().getString(R.string.xposed_warning_content))
                         .positiveText(getResources().getString(R.string.action_dismiss))
-                        .positiveColor(getResources().getColor(R.color.primary))
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {

@@ -16,8 +16,9 @@
         <item name="drawableProgressBackground">@drawable/progess_drawable</item>
         <item name="md_title_color">@android:color/black</item>
         <item name="md_content_color">@android:color/black</item>
-        <item name="md_positive_color">@android:color/white</item>
+        <item name="md_positive_color">?attr/colorPrimary</item>
         <item name="md_negative_color">?attr/colorPrimary</item>
+        <item name="md_neutral_color">?attr/colorPrimary</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="android:colorBackground">@color/light_background</item>
@@ -42,8 +43,9 @@
         <item name="drawableProgressBackground">@drawable/progess_drawable_dark</item>
         <item name="md_title_color">@android:color/white</item>
         <item name="md_content_color">@android:color/white</item>
-        <item name="md_positive_color">@android:color/white</item>
+        <item name="md_positive_color">?attr/colorPrimary</item>
         <item name="md_negative_color">?attr/colorPrimary</item>
+        <item name="md_neutral_color">?attr/colorPrimary</item>
         <item name="android:colorBackground">@color/dark_background</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
