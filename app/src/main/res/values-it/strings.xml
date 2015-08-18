@@ -46,6 +46,7 @@
     <string name="information_device_runtime_header">Runtime:</string>
     <string name="information_device_runtime_art">ART</string>
     <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Bootloader:</string>
     <string name="information_cpu_abi_header">ABI:</string>
     <string name="information_cpu_arch_header">Architettura:</string>
     <string name="information_cpu_freq_header">Frequenze:</string>

@@ -46,6 +46,7 @@
     <string name="information_device_runtime_header">Laufzeitumgebung:</string>
     <string name="information_device_runtime_art">ART</string>
     <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Bootloader:</string>
     <string name="information_cpu_abi_header">ABI:</string>
     <string name="information_cpu_arch_header">Architektur:</string>
     <string name="information_cpu_freq_header">Frequenz:</string>
@@ -95,6 +96,7 @@
     <string name="pref_summary_crashreport">Sammeln von Absturz- und Verwendungsberichten erlauben</string>
     <string name="pref_title_license">Open-Source-Lizenzen</string>
     <string-array name="themes">
+        <item>Hell</item>
         <item>Dunkel</item>
         <item>Auto</item>
     </string-array>
