@@ -17,6 +17,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -131,32 +132,60 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             });
 
-            final CheckBoxPreference sleepDetection = (CheckBoxPreference) getPreferenceManager().findPreference("sleepDetection");
-            sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue.toString().equals("true")) {
-                        getActivity().startService(new Intent(getActivity(), SleepService.class));
-                    } else {
-                        getActivity().stopService(new Intent(getActivity(), SleepService.class));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final SwitchPreference sleepDetection = (SwitchPreference) getPreferenceManager().findPreference("sleepDetection");
+                sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue.toString().equals("true")) {
+                            getActivity().startService(new Intent(getActivity(), SleepService.class));
+                        } else {
+                            getActivity().stopService(new Intent(getActivity(), SleepService.class));
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-
-            final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
-            crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue.toString().equals("false")) {
-                        SnackbarManager.show(Snackbar.with(getActivity())
-                                .type(SnackbarType.MULTI_LINE)
-                                .text(getResources().getString(R.string.snackbar_text_crashreport)));
+                });
+            } else {
+                final CheckBoxPreference sleepDetection = (CheckBoxPreference) getPreferenceManager().findPreference("sleepDetection");
+                sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue.toString().equals("true")) {
+                            getActivity().startService(new Intent(getActivity(), SleepService.class));
+                        } else {
+                            getActivity().stopService(new Intent(getActivity(), SleepService.class));
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final CheckBoxPreference coloredNavBar = (CheckBoxPreference) getPreferenceManager().findPreference("coloredNavBar");
+                final SwitchPreference crashReport = (SwitchPreference) getPreferenceManager().findPreference("crashReport");
+                crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue.toString().equals("false")) {
+                            SnackbarManager.show(Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(getResources().getString(R.string.snackbar_text_crashreport)));
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
+                crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        if (newValue.toString().equals("false")) {
+                            SnackbarManager.show(Snackbar.with(getActivity())
+                                    .type(SnackbarType.MULTI_LINE)
+                                    .text(getResources().getString(R.string.snackbar_text_crashreport)));
+                        }
+                        return true;
+                    }
+                });
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final SwitchPreference coloredNavBar = (SwitchPreference) getPreferenceManager().findPreference("coloredNavBar");
                 coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         if (newValue.toString().equals("true")) {
