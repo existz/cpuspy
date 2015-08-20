@@ -57,6 +57,7 @@ import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -156,8 +157,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
-        mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
+        mSwipeLayout.setColorSchemeColors(Utils.getColor(getResources(), android.R.color.white, getContext().getTheme()));
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(Utils.getColor(getResources(), R.color.primary, getContext().getTheme()));
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -387,7 +388,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(getResources().getString(R.string.snackbar_text_reset))
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
                         .actionLabelTypeface(robotoMedium)
-                        .actionColor(getResources().getColor(R.color.primary)));
+                        .actionColor(Utils.getColor(getResources(), R.color.primary, getContext().getTheme())));
                 break;
             case R.id.menu_restore:
                 CpuSpyApp.restoreTimers();
@@ -397,7 +398,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(getResources().getString(R.string.snackbar_text_restore))
                         .actionLabelTypeface(robotoMedium)
                         .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
-                        .actionColor(getResources().getColor(R.color.primary)));
+                        .actionColor(Utils.getColor(getResources(), R.color.primary, getContext().getTheme())));
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(getActivity(), PrefsActivity.class));
@@ -477,7 +478,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     /**
-     * @return a View that correpsonds to a CPU freq state row as specified
+     * Returns a View that correpsonds to a CPU freq state row as specified
      * by the state parameter
      */
     private void generateStateRow(CpuState state, ViewGroup parent) {
