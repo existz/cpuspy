@@ -232,9 +232,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             mIsCharged = percent >= 97 && isCharging;
 
-            if (sp.getBoolean("autoReset", true) || mIsCharged) {
-                if (!mAutoRefresh) { checkView(); }
-            }
+            if (sp.getBoolean("autoReset", true) && !mAutoRefresh) checkView();
         }
     };
 
