@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="core_offline">Offline</string>
+    <string name="unused_states_show">Visa oanvända lägen</string>
+    <string name="unused_states_hide">Göm oanvända lägen</string>
+    <string name="total_state_time">Total tid i läge</string>
+    <string name="charged_view_enabled">Auto nollställning aktiverad</string>
+    <string name="charged_view_status">Batteristatus: Laddad</string>
+    <string name="charged_view_message">När enheten är helt laddad, dra ur laddaren för att nollställa CPU räknare.</string>
+    <string name="menu_changelog">Ändringar</string>
+    <string name="menu_donate">Donera</string>
+    <string name="menu_timers_reset">Nollställ räknare</string>
+    <string name="menu_timers_restore">Återställ räknare</string>
+    <string name="states_empty">Tom</string>
+    <string name="states_deep_sleep">Ljud sömn</string>
+    <string name="states_warning"><b>Ojdå!</b>\n\nInga läges filer kunde hittas. Säker att din enhet är kompatibel?\n\nOm du använder ett ROM eller kernel, försök kontakta utvecklaren för att informera honom om problemet.</string>
+    <string name="error">ERROR</string>
+    <string name="snackbar_text_reset">Räknare nollställd</string>
+    <string name="snackbar_text_restore">Räknare återställda</string>
+    <string name="snackbar_text_crashreport">Crash rapportering inaktiverat. Ändringar tar effekt vid omstart av appen.</string>
+    <string name="snackbar_text_update">En nyare version finns tillgänglig!</string>
+    <string name="action_changelog">Fulla ändringar</string>
+    <string name="action_disable">Inaktivera</string>
+    <string name="action_dismiss">Avslå</string>
+    <string name="action_view">Granska</string>
+    <string name="widget_reset_title">CPUSpy - Nollställ räknare</string>
+    <string name="widget_reset_error">Ojdå! Ett fel uppstod, försök igen</string>
+    <string name="widget_reset_success">Räknare nollställda</string>
+    <!-- Information -->
+    <string name="information">Information</string>
+    <string name="information_kernel_info">Kernel information</string>
+    <string name="information_device_info">Enhetsinformation</string>
+    <string name="information_cpu_info">CPU info</string>
+    <string name="information_kernel_governor">Guvernör:</string>
+    <string name="information_kernel_version_header">Version:</string>
+    <string name="information_kernel_version_full_header">Full Kernel Version</string>
+    <string name="information_kernel_version_unavailable">Kunde inte läsa kernel version</string>
+    <string name="information_device_build_header">Build ID:</string>
+    <string name="information_device_api_header">API Level:</string>
+    <string name="information_device_manuf_header">Fabrikör:</string>
+    <string name="information_device_model_header">Modell:</string>
+    <string name="information_device_board_header">Kort:</string>
+    <string name="information_device_platform_header">Platform:</string>
+    <string name="information_device_runtime_header">Runtime:</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Bootloader:</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">Struktur:</string>
+    <string name="information_cpu_freq_header">Frekvens:</string>
+    <string name="information_cpu_temp_header">Temp:</string>
+    <string name="information_cpu_features_header">Funktioner:</string>
+    <string name="information_usage_header">CPU användning</string>
+    <string name="information_core_header">Kärnor:</string>
+    <string name="information_cpu0_header">CPU 0:</string>
+    <string name="information_cpu1_header">CPU 1:</string>
+    <string name="information_cpu2_header">CPU 2:</string>
+    <string name="information_cpu3_header">CPU 3:</string>
+    <string name="information_cpu4_header">CPU 4:</string>
+    <string name="information_cpu5_header">CPU 5:</string>
+    <string name="information_cpu6_header">CPU 6:</string>
+    <string name="information_cpu7_header">CPU 7:</string>
+    <!-- Welcome info -->
+    <string name="welcome_summary">Välkommen till CPUSpy Material. Använd detta verktyg för att se vilka frekvenser din CPU använder mest.</string>
+    <string name="welcome_features">Funktioner</string>
+    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information och övervakning</string>
+    <string name="welcome_crashreport">&#8226; Skicka automatiskt crash och användningsmeddelanden</string>
+    <string name="welcome_autorefresh">&#8226; Aktivera Automatisk uppdatering för att uppdatera lägen i realtid</string>
+    <string name="welcome_autoreset">&#8226; Räknare återställs automatiskt när batteriet är fulladdat</string>
+    <string name="welcome_widget">&#8226; Widget för manuell nollställning av CPU räknare från hemskärmen</string>
+    <string name="welcome_hidepercent">&#8226; Alternativ att gömma lägen under en viss procent</string>
+    <!-- Settings info -->
+    <string name="settings">Inställningar</string>
+    <string name="pref_header_general">Generellt</string>
+    <string name="pref_header_about">Om</string>
+    <string name="pref_header_ui">UI</string>
+    <string name="pref_title_version">Version</string>
+    <string name="pref_summary_about">Om appen och dens utvecklare</string>
+    <string name="pref_title_autorefresh">Automatisk uppdatering</string>
+    <string name="pref_summary_autorefresh">Uppdatera CPU räknare automatiskt</string>
+    <string name="pref_title_autoreset">Automatisk nollställning</string>
+    <string name="pref_summary_autoreset">Nollställ CPU räknare vid fulladdning</string>
+    <string name="pref_title_sleepdetection">Ljud sömn</string>
+    <string name="pref_summary_sleepdetection">Notifiera om enheten inte går i djup sömn</string>
+    <string name="pref_title_hidestates">Göm lägen under en viss procent</string>
+    <string name="pref_summary_hidestates">Lägen under % visas inte</string>
+    <string name="pref_title_themes">Bastema</string>
+    <string name="pref_summary_themes">Välj mellan ljust, mörkt och auto</string>
+    <string name="pref_title_navbar">Färgad Nav.Bar</string>
+    <string name="pref_summary_navbar">Aktivera primär färg på navigeringsfältet</string>
+    <string name="pref_title_checkupdates">Kolla efter uppdateringar</string>
+    <string name="pref_summary_checkupdates">Senast kollad:&#160;</string>
+    <string name="pref_title_crashreport">Anonym Crash Rapportering</string>
+    <string name="pref_summary_crashreport">Tillåt insamlande av crash och användningsdata</string>
+    <string name="pref_title_license">Open Source licenser</string>
+    <string-array name="themes">
+        <item>Ljust</item>
+        <item>Mörkt</item>
+        <item>Auto</item>
+    </string-array>
+    <!-- Open Source Licenses -->
+    <string name="license_header">Licenser</string>
+    <string-array name="licenses">
+        <item>Android Support Library</item>
+        <item>Butter Knife</item>
+        <item>Material Dialogs</item>
+        <item>Material Ripple</item>
+        <item>Material SeekBarPreference</item>
+        <item>Snackbar</item>
+    </string-array>
+    <!-- About -->
+    <string name="pref_about_header_dev">Utvecklare</string>
+    <string name="pref_about_header_credits">Tack till</string>
+    <string name="pref_about_credits">Eduardo Pratti - Ikoner\nBrandon Valosek - Skapare</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
+    <!-- Tab Title -->
+    <string name="tab_title_timers">Räknare</string>
+    <string name="tab_title_info">Info</string>
+    <string name="notification_warning">Varning</string>
+    <string name="notification_disable">Inaktivera identifiering av ljud sömn</string>
+    <string name="notification_deep_sleep">Enheten går inte i djup sömn</string>
+    <string name="new_feature_title">Ljud sömn</string>
+    <string name="new_feature_summary">En ny bakgrundstjänst som gör att din enhet meddelar dig när den inte går i djup sömn.</string>
+    <string name="xposed_warning_title">Xposed Upptäckt</string>
+    <string name="xposed_warning_content">Tyvärr stödjer vi inte enheter med Xposed. Automatiska crashmeddelanden inaktiveras.</string>
+</resources>
