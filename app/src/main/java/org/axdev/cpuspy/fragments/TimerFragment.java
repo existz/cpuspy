@@ -76,6 +76,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.card_view_feature) CardView mFeatureCardView;
     @Bind(R.id.card_view_time) CardView mTimeCardView;
     @Bind(R.id.img_show) ImageView mShowImage;
+    @Bind(R.id.card_container) LinearLayout mCardContainer;
     @Bind(R.id.ui_states_view) LinearLayout mStatesView;
     @Bind(R.id.ui_charged_view) LinearLayout mChargedView;
     @Bind(R.id.ui_states_warning) LinearLayout mStatesWarning;
@@ -242,6 +243,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // Reset timers and show info when battery is charged
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
+            // Disable layout transitions
+            mCardContainer.setLayoutTransition(null);
+
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
@@ -258,6 +262,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // show warning label if no states found
         if (mStatesNotFound) {
+            // Disable layout transitions
+            mCardContainer.setLayoutTransition(null);
+
             removeView(mTimeCardView);
             removeView(mStatesCardView);
             removeView(mWelcomeCardView);
