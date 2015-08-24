@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
@@ -96,7 +95,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private final Handler mHandler = new Handler();
 
     private CpuStateMonitor monitor;
-    private Editor editor;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
@@ -120,7 +118,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        editor = sp.edit();
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
@@ -145,7 +142,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         if (currentVersionNumber > savedVersionNumber) {
             final WhatsNewDialog newFragment = new WhatsNewDialog();
             newFragment.show(getActivity().getFragmentManager(), "whatsnew");
-            editor.putInt("version_number", currentVersionNumber).apply();
+            sp.edit().putInt("version_number", currentVersionNumber).apply();
         }
 
         /** Remove welcome cardview if its already been shown */
@@ -229,10 +226,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
 
-            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            sp = PreferenceManager.getDefaultSharedPreferences(context);
 
             mIsCharged = percent >= 97 && isCharging;
-
             if (sp.getBoolean("autoReset", true) && !mAutoRefresh) checkView();
         }
     };
@@ -301,7 +297,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         if (enabled) {
             duration = getResources().getInteger(R.integer.animationShort);
-            animRotate = new RotateAnimation(0.0f, 180.0f,
+            animRotate = new RotateAnimation(0.0f, -180.0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
@@ -348,18 +344,18 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @OnClick(R.id.btn_welcome)
     void welcomeButton() {
         this.removeView(mWelcomeCardView);
-        editor.putBoolean(WELCOME_SCREEN, false).apply();
+        sp.edit().putBoolean(WELCOME_SCREEN, false).apply();
     }
 
     @OnClick(R.id.btn_feature)
     void featureButton() {
         this.removeView(mFeatureCardView);
-        editor.putBoolean(NEW_FEATURE, false).apply();
+        sp.edit().putBoolean(NEW_FEATURE, false).apply();
     }
 
     @OnClick(R.id.btn_charged)
     void chargedButton() {
-        editor.putBoolean("autoReset", false).apply();
+        sp.edit().putBoolean("autoReset", false).apply();
         refreshData();
         CpuSpyApp.resetTimers();
     }
@@ -397,7 +393,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 break;
             case R.id.menu_restore:
                 CpuSpyApp.restoreTimers();
-                editor.remove("offsets").apply();
+                sp.edit().remove("offsets").apply();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
                         .text(getResources().getString(R.string.snackbar_text_restore))

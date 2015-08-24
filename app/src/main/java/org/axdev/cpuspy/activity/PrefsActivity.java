@@ -49,7 +49,6 @@ public class PrefsActivity extends AppCompatActivity {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
 
-        private Editor editor;
         private SharedPreferences sp;
 
         @Override
@@ -58,7 +57,6 @@ public class PrefsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.preferences);
 
             sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            editor = sp.edit();
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -122,7 +120,7 @@ public class PrefsActivity extends AppCompatActivity {
                                             ThemeUtils.changeToTheme(getActivity(), ThemeUtils.AUTO);
                                             break;
                                     }
-                                    editor.putInt("theme", position).apply();
+                                    sp.edit().putInt("theme", position).apply();
                                     return true; // allow selection
                                 }
                             })
