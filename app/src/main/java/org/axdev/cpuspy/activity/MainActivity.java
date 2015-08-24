@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mLastTheme = ThemeUtils.darkTheme;
-        mLastNavBar = ThemeUtils.coloredNavBar;
+        mLastTheme = ThemeUtils.isDarkTheme;
+        mLastNavBar = ThemeUtils.isColoredNav;
 
         // Show warning dialog if Xposed is installed
         if (Utils.isXposedInstalled(this)) {
@@ -257,8 +257,8 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         }
 
         // Restart activity if theme or navbar changed
-        if (mLastTheme != ThemeUtils.darkTheme
-                || mLastNavBar != ThemeUtils.coloredNavBar) {
+        if (mLastTheme != ThemeUtils.isDarkTheme
+                || mLastNavBar != ThemeUtils.isColoredNav) {
             this.recreate();
         }
     }

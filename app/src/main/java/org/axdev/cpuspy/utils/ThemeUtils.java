@@ -21,8 +21,8 @@ public class ThemeUtils extends AppCompatActivity {
     public final static int LIGHT = 0;
     public final static int DARK = 1;
     public final static int AUTO = 2;
-    public static boolean darkTheme;
-    public static boolean coloredNavBar;
+    public static boolean isDarkTheme;
+    public static boolean isColoredNav;
 
     public static void changeToTheme(Activity activity, int mTheme) {
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -55,11 +55,11 @@ public class ThemeUtils extends AppCompatActivity {
             default:
             case LIGHT:
                 activity.setTheme(R.style.AppTheme);
-                darkTheme = false;
+                isDarkTheme = false;
                 break;
             case DARK:
                 activity.setTheme(R.style.AppThemeDark);
-                darkTheme = true;
+                isDarkTheme = true;
                 break;
             case AUTO:
                 Calendar c = Calendar.getInstance();
@@ -67,10 +67,10 @@ public class ThemeUtils extends AppCompatActivity {
 
                 if (timeOfDay >= 6 && timeOfDay < 20) {
                     activity.setTheme(R.style.AppTheme);
-                    darkTheme = false;
+                    isDarkTheme = false;
                 } else {
                     activity.setTheme(R.style.AppThemeDark);
-                    darkTheme = true;
+                    isDarkTheme = true;
                 }
                 break;
         }
@@ -85,12 +85,12 @@ public class ThemeUtils extends AppCompatActivity {
         switch (mNavBar) {
             default:
             case NAVBAR_DEFAULT:
-                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
-                coloredNavBar = false;
+                activity.getWindow().setNavigationBarColor(Utils.getColor(activity.getResources(), android.R.color.black, activity.getTheme()));
+                isColoredNav = false;
                 break;
             case NAVBAR_COLORED:
-                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.primary_dark));
-                coloredNavBar = true;
+                activity.getWindow().setNavigationBarColor(Utils.getColor(activity.getResources(), R.color.primary_dark, activity.getTheme()));
+                isColoredNav = true;
                 break;
         }
     }

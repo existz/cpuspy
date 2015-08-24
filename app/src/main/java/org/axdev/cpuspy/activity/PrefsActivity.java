@@ -9,7 +9,6 @@ package org.axdev.cpuspy.activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,13 +59,13 @@ public class PrefsActivity extends AppCompatActivity {
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
                         R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
                         R.drawable.ic_version_dark : R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
                         R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.darkTheme ?
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
                         R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
 
