@@ -701,8 +701,7 @@
                 android:layout_marginTop="@dimen/padding_mtrl"
                 android:layout_marginLeft="@dimen/padding_mtrl"
                 android:layout_marginRight="@dimen/padding_mtrl"
-                android:text="@string/information_kernel_version_full_header"
-                android:textSize="15sp"/>
+                android:text="@string/information_kernel_version_full_header"/>
 
             <TextView
                 android:id="@+id/kernel_version_full"
@@ -714,7 +713,6 @@
                 android:layout_marginRight="@dimen/padding_mtrl"
                 android:layout_below="@+id/kernel_version_full_header"
                 android:layout_gravity="center"
-                android:textSize="15sp"
                 android:textIsSelectable="true"/>
 
         </RelativeLayout>
