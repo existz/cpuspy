@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.hardware.display.DisplayManager;
 import android.media.AudioManager;
 import android.os.BatteryManager;
@@ -80,6 +81,7 @@ public class SleepService extends Service {
             while (isRunning) {
                 try {
                     final Context context = getApplicationContext();
+                    final Resources res = getResources();
 
                     if (!isScreenOn(context)
                             && !isPluggedIn(context)
@@ -100,9 +102,9 @@ public class SleepService extends Service {
 
                             mBuilder = new NotificationCompat.Builder(context)
                                     .setContentIntent(contentIntent)
-                                    .setContentTitle(getResources().getString(R.string.notification_warning))
-                                    .setContentText(getResources().getString(R.string.notification_deep_sleep))
-                                    .setColor(getResources().getColor(R.color.primary))
+                                    .setContentTitle(res.getString(R.string.notification_warning))
+                                    .setContentText(res.getString(R.string.notification_deep_sleep))
+                                    .setColor(res.getColor(R.color.primary))
                                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                                     .setSmallIcon(R.drawable.ic_notify_deepsleep)
                                     .setOnlyAlertOnce(true);
@@ -113,9 +115,9 @@ public class SleepService extends Service {
 
                             // Add "X" icon to disable button for KitKat devices only
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                mBuilder.addAction(0, getResources().getString(R.string.notification_disable), btPendingIntent);
+                                mBuilder.addAction(0, res.getString(R.string.notification_disable), btPendingIntent);
                             } else {
-                                mBuilder.addAction(R.drawable.ic_notify_close, getResources().getString(R.string.notification_disable), btPendingIntent);
+                                mBuilder.addAction(R.drawable.ic_notify_close, res.getString(R.string.notification_disable), btPendingIntent);
                             }
 
                             // Send the notification

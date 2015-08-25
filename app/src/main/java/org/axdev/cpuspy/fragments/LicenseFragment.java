@@ -8,6 +8,7 @@ package org.axdev.cpuspy.fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -46,6 +47,7 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.licenses, android.R.layout.simple_list_item_1);
 
+        final Resources res = getResources();
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
 
@@ -55,9 +57,9 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(getResources().getString(R.string.pref_title_license));
+            mActionBar.setTitle(res.getString(R.string.pref_title_license));
         } else {
-            final SpannableString s = new SpannableString(getResources().getString(R.string.pref_title_license));
+            final SpannableString s = new SpannableString(res.getString(R.string.pref_title_license));
             s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

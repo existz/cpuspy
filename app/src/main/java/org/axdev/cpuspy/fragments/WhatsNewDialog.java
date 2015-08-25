@@ -10,13 +10,13 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.BuildConfig;
@@ -30,11 +30,12 @@ public class WhatsNewDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Resources res = getResources();
         final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title(getResources().getString(R.string.menu_changelog))
+                .title(res.getString(R.string.menu_changelog))
                 .customView(R.layout.changelog_layout, true)
-                .negativeText(getResources().getString(R.string.action_changelog))
-                .neutralText(getResources().getString(R.string.action_dismiss))
+                .negativeText(res.getString(R.string.action_changelog))
+                .neutralText(res.getString(R.string.action_dismiss))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onNegative(MaterialDialog dialog) {

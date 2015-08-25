@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,7 @@ public class ThemeUtils extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void onActivityCreateSetNavBar(Activity activity) {
+        final Resources res = activity.getResources();
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
 
         int mNavBar = sp.getInt("navbar", 0);
@@ -85,11 +87,11 @@ public class ThemeUtils extends AppCompatActivity {
         switch (mNavBar) {
             default:
             case NAVBAR_DEFAULT:
-                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
+                activity.getWindow().setNavigationBarColor(res.getColor(android.R.color.black));
                 isColoredNav = false;
                 break;
             case NAVBAR_COLORED:
-                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.primary_dark));
+                activity.getWindow().setNavigationBarColor(res.getColor(R.color.primary_dark));
                 isColoredNav = true;
                 break;
         }

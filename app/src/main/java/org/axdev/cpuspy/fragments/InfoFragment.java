@@ -7,6 +7,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -110,7 +111,8 @@ public class InfoFragment extends BackHandledFragment {
     private boolean mHasCpu6;
     private boolean mHasCpu7;
 
-    private final Handler mHandler = new Handler();
+    private Handler mHandler;
+    private Resources res;
     private Typeface robotoMedium;
 
     @Override
@@ -125,6 +127,8 @@ public class InfoFragment extends BackHandledFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         /** Set text and typeface for TextViews */
+        mHandler = new Handler();
+        res = getResources();
         robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
@@ -237,10 +241,10 @@ public class InfoFragment extends BackHandledFragment {
 
         if (vmVersion != null) {
             if (vmVersion.startsWith("2")) {
-                runtime = getResources().getString(R.string.information_device_runtime_art)
+                runtime = res.getString(R.string.information_device_runtime_art)
                         + " v" + vmVersion.substring(0, 5);
             } else {
-                runtime = getResources().getString(R.string.information_device_runtime_dalvik)
+                runtime = res.getString(R.string.information_device_runtime_dalvik)
                         + " v" + vmVersion.substring(0, 5);
             }
         } else {
@@ -281,8 +285,8 @@ public class InfoFragment extends BackHandledFragment {
                         mCpuTemp.setText(CPUUtils.getTemp());
                     } else {
                         mIsMonitoringTemp = false;
-                        mCpuTemp.setText(getResources().getString(R.string.error));
-                        mCpuTemp.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCpuTemp.setText(res.getString(R.string.error));
+                        mCpuTemp.setTextColor(res.getColor(R.color.primary_text_color_error));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -304,8 +308,8 @@ public class InfoFragment extends BackHandledFragment {
                             mCore0.setText(CPUUtils.getCpu0());
                         } else {
                             mIsMonitoringCpu = false;
-                            mCore0.setText(getResources().getString(R.string.error));
-                            mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                            mCore0.setText(res.getString(R.string.error));
+                            mCore0.setTextColor(res.getColor(R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -314,8 +318,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu0 = false;
-                        mCore0.setText(getResources().getString(R.string.error));
-                        mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore0.setText(res.getString(R.string.error));
+                        mCore0.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -323,7 +327,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu1 = new File(CPUUtils.CPU1);
                         if (cpu1.length() == 0) {
-                            mCore1.setText(getResources().getString(R.string.core_offline));
+                            mCore1.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore1.setText(CPUUtils.getCpu1());
                         }
@@ -332,8 +336,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu1 = false;
-                        mCore1.setText(getResources().getString(R.string.error));
-                        mCore1.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore1.setText(res.getString(R.string.error));
+                        mCore1.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -341,7 +345,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu2 = new File(CPUUtils.CPU2);
                         if (cpu2.length() == 0) {
-                            mCore2.setText(getResources().getString(R.string.core_offline));
+                            mCore2.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore2.setText(CPUUtils.getCpu2());
                         }
@@ -350,8 +354,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu2 = false;
-                        mCore2.setText(getResources().getString(R.string.error));
-                        mCore2.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore2.setText(res.getString(R.string.error));
+                        mCore2.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -359,7 +363,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu3 = new File(CPUUtils.CPU3);
                         if (cpu3.length() == 0) {
-                            mCore3.setText(getResources().getString(R.string.core_offline));
+                            mCore3.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore3.setText(CPUUtils.getCpu3());
                         }
@@ -368,8 +372,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu3 = false;
-                        mCore3.setText(getResources().getString(R.string.error));
-                        mCore3.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore3.setText(res.getString(R.string.error));
+                        mCore3.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -377,7 +381,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu4 = new File(CPUUtils.CPU4);
                         if (cpu4.length() == 0) {
-                            mCore4.setText(getResources().getString(R.string.core_offline));
+                            mCore4.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore4.setText(CPUUtils.getCpu4());
                         }
@@ -386,8 +390,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu4 = false;
-                        mCore4.setText(getResources().getString(R.string.error));
-                        mCore4.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore4.setText(res.getString(R.string.error));
+                        mCore4.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -395,7 +399,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu5 = new File(CPUUtils.CPU5);
                         if (cpu5.length() == 0) {
-                            mCore5.setText(getResources().getString(R.string.core_offline));
+                            mCore5.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore5.setText(CPUUtils.getCpu5());
                         }
@@ -404,8 +408,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu5 = false;
-                        mCore5.setText(getResources().getString(R.string.error));
-                        mCore5.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore5.setText(res.getString(R.string.error));
+                        mCore5.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -413,7 +417,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu6 = new File(CPUUtils.CPU6);
                         if (cpu6.length() == 0) {
-                            mCore6.setText(getResources().getString(R.string.core_offline));
+                            mCore6.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore6.setText(CPUUtils.getCpu6());
                         }
@@ -422,8 +426,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu6 = false;
-                        mCore6.setText(getResources().getString(R.string.error));
-                        mCore6.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore6.setText(res.getString(R.string.error));
+                        mCore6.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -431,7 +435,7 @@ public class InfoFragment extends BackHandledFragment {
                     try {
                         final File cpu7 = new File(CPUUtils.CPU7);
                         if (cpu7.length() == 0) {
-                            mCore7.setText(getResources().getString(R.string.core_offline));
+                            mCore7.setText(res.getString(R.string.core_offline));
                         } else {
                             mCore7.setText(CPUUtils.getCpu7());
                         }
@@ -440,8 +444,8 @@ public class InfoFragment extends BackHandledFragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu7 = false;
-                        mCore7.setText(getResources().getString(R.string.error));
-                        mCore7.setTextColor(getResources().getColor(R.color.primary_text_color_error));
+                        mCore7.setText(res.getString(R.string.error));
+                        mCore7.setTextColor(res.getColor(R.color.primary_text_color_error));
                     }
                 }
 
@@ -575,7 +579,7 @@ public class InfoFragment extends BackHandledFragment {
                 if (CPUUtils.getKernelVersion() != null) {
                     mKernelVersionFull.setText(CPUUtils.getKernelVersion());
                 } else {
-                    mKernelVersionFull.setText(getResources().getString(R.string.information_kernel_version_unavailable));
+                    mKernelVersionFull.setText(res.getString(R.string.information_kernel_version_unavailable));
                 }
             }
             return true;

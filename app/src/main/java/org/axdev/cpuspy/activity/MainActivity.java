@@ -10,6 +10,7 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
     private boolean mLastTheme;
     private boolean mLastNavBar;
     private BackHandledFragment selectedFragment;
+    private Resources res;
     private SharedPreferences sp;
 
     @Override
@@ -68,16 +70,17 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         setContentView(R.layout.main_layout);
         setupTabs();
 
+        res = getResources();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         final ActionBar mActionBar = getSupportActionBar();
         assert mActionBar != null;
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(getResources().getString(R.string.app_name_long));
+            mActionBar.setTitle(res.getString(R.string.app_name_long));
             mActionBar.setElevation(0);
         } else {
-            final SpannableString s = new SpannableString(getResources().getString(R.string.app_name_long));
+            final SpannableString s = new SpannableString(res.getString(R.string.app_name_long));
             s.setSpan(new TypefaceSpan(this, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -98,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
 
             if (showXposedWarning) {
                 final MaterialDialog dialog = new MaterialDialog.Builder(this)
-                        .title(getResources().getString(R.string.xposed_warning_title))
-                        .content(getResources().getString(R.string.xposed_warning_content))
-                        .positiveText(getResources().getString(R.string.action_dismiss))
+                        .title(res.getString(R.string.xposed_warning_title))
+                        .content(res.getString(R.string.xposed_warning_content))
+                        .positiveText(res.getString(R.string.action_dismiss))
                         .callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
@@ -133,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
                     SnackbarManager.show(
                             Snackbar.with(MainActivity.this)
                                     .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
-                                    .text(getResources().getString(R.string.snackbar_text_update))
-                                    .actionLabel(getResources().getString(R.string.action_view))
+                                    .text(res.getString(R.string.snackbar_text_update))
+                                    .actionLabel(res.getString(R.string.action_view))
                                     .actionLabelTypeface(robotoMedium)
                                     .actionColor(getResources().getColor(R.color.primary))
                                     .actionListener(new ActionClickListener() {

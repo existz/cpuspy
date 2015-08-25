@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -88,9 +89,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
 
-    private final Handler mHandler = new Handler();
-
     private CpuStateMonitor monitor;
+    private Handler mHandler;
+    private Resources res;
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
     private SharedPreferences sp;
@@ -114,6 +115,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        mHandler = new Handler();
+        res = getResources();
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
@@ -150,8 +154,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.white));
-        mSwipeLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.primary));
+        mSwipeLayout.setColorSchemeColors(res.getColor(android.R.color.white));
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(res.getColor(R.color.primary));
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -289,14 +293,14 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final AnimationSet animSet = new AnimationSet(true);
 
         if (enabled) {
-            duration = getResources().getInteger(R.integer.animationShort);
+            duration = res.getInteger(R.integer.animationShort);
             animRotate = new RotateAnimation(0.0f, -180.0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
             mAdditionalStates.setVisibility(View.VISIBLE);
         } else {
-            duration = getResources().getInteger(R.integer.animationMedium);
+            duration = res.getInteger(R.integer.animationMedium);
             animRotate = new RotateAnimation(-180.0f, 0f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
@@ -367,20 +371,20 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 this.updateView();
                 if (!mAdditionalStates.isShown()) showUnusedStates(true);
                 SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(getResources().getString(R.string.snackbar_text_reset))
-                        .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
+                        .text(res.getString(R.string.snackbar_text_reset))
+                        .actionLabel(res.getString(R.string.action_dismiss)) // action button label
                         .actionLabelTypeface(robotoMedium)
-                        .actionColor(getResources().getColor(R.color.primary)));
+                        .actionColor(res.getColor(R.color.primary)));
                 break;
             case R.id.menu_restore:
                 CpuSpyApp.restoreTimers();
                 sp.edit().remove("offsets").apply();
                 this.updateView();
                 SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(getResources().getString(R.string.snackbar_text_restore))
+                        .text(res.getString(R.string.snackbar_text_restore))
                         .actionLabelTypeface(robotoMedium)
-                        .actionLabel(getResources().getString(R.string.action_dismiss)) // action button label
-                        .actionColor(getResources().getColor(R.color.primary)));
+                        .actionLabel(res.getString(R.string.action_dismiss)) // action button label
+                        .actionColor(res.getColor(R.color.primary)));
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(getActivity(), PrefsActivity.class));
@@ -409,7 +413,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }
             } else {
                 if (state.freq == 0) {
-                    extraStates.add(getResources().getString(R.string.states_deep_sleep));
+                    extraStates.add(res.getString(R.string.states_deep_sleep));
                 } else {
                     extraStates.add(state.freq / 1000 + "MHz");
                 }
@@ -418,7 +422,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // get the total number of unused states
         final int count = extraStates.size();
-        mAdditionalStatesCount.setText(String.valueOf(count) + getResources().getString(R.string.unused_states_count));
+        mAdditionalStatesCount.setText(String.valueOf(count) + res.getString(R.string.unused_states_count));
 
         // update the total state time
         final long totTime = monitor.getTotalStateTime() / 100;
@@ -436,7 +440,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             mAdditionalStates.setText(stringBuilder.toString());
         } else {
-            mAdditionalStates.setText(getResources().getString(R.string.states_empty));
+            mAdditionalStates.setText(res.getString(R.string.states_empty));
         }
     }
 
@@ -477,7 +481,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 monitor.getTotalStateTime();
         final String sPer = String.format("%.01f", per) + "%";
 
-        final String sFreq = state.freq == 0 ? getResources().getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
+        final String sFreq = state.freq == 0 ? res.getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
 
         // duration
         final long tSec = state.duration / 100;
@@ -503,7 +507,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     mBar.setMax(100 * 100);
                     anim.setInterpolator(new DecelerateInterpolator());
                     anim.setProgress((Math.round(per)) * 100);
-                    anim.setDuration(getResources().getInteger(R.integer.progressAnimationDuration));
+                    anim.setDuration(res.getInteger(R.integer.progressAnimationDuration));
                     mBar.startAnimation(anim);
                     mIsAnimating = false;
                 }

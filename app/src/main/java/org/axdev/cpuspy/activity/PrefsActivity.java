@@ -9,6 +9,7 @@ package org.axdev.cpuspy.activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class PrefsActivity extends AppCompatActivity {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
 
+        private Resources res;
         private SharedPreferences sp;
 
         @Override
@@ -54,17 +56,18 @@ public class PrefsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
 
+            res = getResources();
             sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
                         R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
                         R.drawable.ic_version_dark : R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
                         R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(getResources(), ThemeUtils.isDarkTheme ?
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
                         R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
 
@@ -102,8 +105,8 @@ public class PrefsActivity extends AppCompatActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     int selected = sp.getInt("theme", 0);
                     new MaterialDialog.Builder(getActivity())
-                            .title(getResources().getString(R.string.pref_title_themes))
-                            .items(getResources().getStringArray(R.array.themes))
+                            .title(res.getString(R.string.pref_title_themes))
+                            .items(res.getStringArray(R.array.themes))
                             .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
@@ -122,8 +125,8 @@ public class PrefsActivity extends AppCompatActivity {
                                     return true; // allow selection
                                 }
                             })
-                            .positiveText(getResources().getString(android.R.string.ok))
-                            .positiveColor(getResources().getColor(R.color.primary))
+                            .positiveText(res.getString(android.R.string.ok))
+                            .positiveColor(res.getColor(R.color.primary))
                             .show();
                     return true;
                 }
@@ -162,7 +165,7 @@ public class PrefsActivity extends AppCompatActivity {
                         if (newValue.toString().equals("false")) {
                             SnackbarManager.show(Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
-                                    .text(getResources().getString(R.string.snackbar_text_crashreport)));
+                                    .text(res.getString(R.string.snackbar_text_crashreport)));
                         }
                         return true;
                     }
@@ -174,7 +177,7 @@ public class PrefsActivity extends AppCompatActivity {
                         if (newValue.toString().equals("false")) {
                             SnackbarManager.show(Snackbar.with(getActivity())
                                     .type(SnackbarType.MULTI_LINE)
-                                    .text(getResources().getString(R.string.snackbar_text_crashreport)));
+                                    .text(res.getString(R.string.snackbar_text_crashreport)));
                         }
                         return true;
                     }
@@ -206,9 +209,9 @@ public class PrefsActivity extends AppCompatActivity {
 
             /** Use custom Typeface for action bar title on KitKat devices */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mActionBar.setTitle(getResources().getString(R.string.settings));
+                mActionBar.setTitle(res.getString(R.string.settings));
             } else {
-                final SpannableString s = new SpannableString(getResources().getString(R.string.settings));
+                final SpannableString s = new SpannableString(res.getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
