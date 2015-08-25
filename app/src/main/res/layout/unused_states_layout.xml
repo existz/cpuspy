@@ -7,14 +7,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/ui_additional_states_show"
+            android:id="@+id/ui_additional_states_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="@dimen/padding_mtrl"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:text="@string/unused_states_show"
             android:textColor="?android:attr/textColorPrimary"/>
 
         <ImageView
@@ -27,18 +26,6 @@
             android:layout_marginRight="@dimen/padding_mtrl"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true" />
-
-        <TextView
-            android:id="@+id/ui_additional_states_hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/padding_mtrl"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:text="@string/unused_states_hide"
-            android:textColor="?android:attr/textColorPrimary"
-            android:visibility="gone"/>
 
     </RelativeLayout>
 

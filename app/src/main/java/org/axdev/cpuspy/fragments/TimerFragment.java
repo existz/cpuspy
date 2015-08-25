@@ -33,9 +33,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -81,8 +79,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.ui_states_warning) LinearLayout mStatesWarning;
     @Bind(R.id.swipe_container) SwipeRefreshLayout mSwipeLayout;
     @Bind(R.id.ui_additional_states) TextView mAdditionalStates;
-    @Bind(R.id.ui_additional_states_show) TextView mAdditionalStatesShow;
-    @Bind(R.id.ui_additional_states_hide) TextView mAdditionalStatesHide;
+    @Bind(R.id.ui_additional_states_count) TextView mAdditionalStatesCount;
     @Bind(R.id.ui_total_state_time) TextView mTotalStateTime;
     @Bind(R.id.ui_header_total_state_time) TextView mHeaderTotalStateTime;
     @Bind(R.id.welcome_summary) TextView mWelcomeCardSummary;
@@ -127,8 +124,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mWelcomeCardSummary.setTypeface(robotoMedium);
         mWelcomeCardFeatures.setTypeface(robotoMedium);
         mFeatureCardTitle.setTypeface(robotoMedium);
-        mAdditionalStatesShow.setTypeface(robotoMedium);
-        mAdditionalStatesHide.setTypeface(robotoMedium);
+        mAdditionalStatesCount.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTypeface(robotoMedium);
 
         /** Show WhatsNewDialog if versionCode has changed */
@@ -292,8 +288,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         int duration;
         RotateAnimation animRotate;
         final AnimationSet animSet = new AnimationSet(true);
-        final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
-        final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
 
         if (enabled) {
             duration = getResources().getInteger(R.integer.animationShort);
@@ -301,12 +295,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
-            fadeOut.setDuration(200);
-            mAdditionalStatesShow.startAnimation(fadeOut);
-            mAdditionalStatesShow.setVisibility(View.GONE);
-            fadeIn.setDuration(650);
-            mAdditionalStatesHide.startAnimation(fadeIn);
-            mAdditionalStatesHide.setVisibility(View.VISIBLE);
             mAdditionalStates.setVisibility(View.VISIBLE);
         } else {
             duration = getResources().getInteger(R.integer.animationMedium);
@@ -314,12 +302,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f);
 
-            fadeOut.setDuration(200);
-            mAdditionalStatesHide.startAnimation(fadeOut);
-            mAdditionalStatesHide.setVisibility(View.GONE);
-            fadeIn.setDuration(650);
-            mAdditionalStatesShow.startAnimation(fadeIn);
-            mAdditionalStatesShow.setVisibility(View.VISIBLE);
             mAdditionalStates.setVisibility(View.GONE);
         }
 
@@ -362,7 +344,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @OnClick(R.id.card_view_states)
     void unusedStatesButton() {
-        if (mAdditionalStatesShow.isShown()) {
+        if (!mAdditionalStates.isShown()) {
             showUnusedStates(true);
         } else {
             showUnusedStates(false);
@@ -434,6 +416,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }
             }
         }
+
+        // get the total number of unused states
+        final int count = extraStates.size();
+        mAdditionalStatesCount.setText(String.valueOf(count) + getResources().getString(R.string.unused_states_count));
 
         // update the total state time
         final long totTime = monitor.getTotalStateTime() / 100;

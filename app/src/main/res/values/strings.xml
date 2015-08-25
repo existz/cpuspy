@@ -5,8 +5,7 @@
 
     <string name="core_offline">Offline</string>
 
-    <string name="unused_states_show">View Unused States</string>
-    <string name="unused_states_hide">Hide Unused States</string>
+    <string name="unused_states_count">&#160;Unused States</string>
 
     <string name="total_state_time">Total State Time</string>
 
@@ -21,7 +20,7 @@
 
     <string name="states_empty">Empty</string>
     <string name="states_deep_sleep">Deep Sleep</string>
-    <string name="states_warning"><b>Uh Oh!</b>\n\nNo states file found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
+    <string name="states_warning"><b>Uh Oh!</b>\n\nStatic file not found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
 
     <string name="error">ERROR</string>
 
