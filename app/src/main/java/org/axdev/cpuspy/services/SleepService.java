@@ -102,7 +102,7 @@ public class SleepService extends Service {
                                     .setContentIntent(contentIntent)
                                     .setContentTitle(getResources().getString(R.string.notification_warning))
                                     .setContentText(getResources().getString(R.string.notification_deep_sleep))
-                                    .setColor(Utils.getColor(getResources(), R.color.primary, getTheme()))
+                                    .setColor(getResources().getColor(R.color.primary))
                                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                                     .setSmallIcon(R.drawable.ic_notify_deepsleep)
                                     .setOnlyAlertOnce(true);

@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
                                     .text(getResources().getString(R.string.snackbar_text_update))
                                     .actionLabel(getResources().getString(R.string.action_view))
                                     .actionLabelTypeface(robotoMedium)
-                                    .actionColor(Utils.getColor(getResources(), R.color.primary, getTheme()))
+                                    .actionColor(getResources().getColor(R.color.primary))
                                     .actionListener(new ActionClickListener() {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return Utils.getColor(getResources(), R.color.tabsScrollColor, getTheme());
+                return getResources().getColor(R.color.tabsScrollColor);
             }
         });
 

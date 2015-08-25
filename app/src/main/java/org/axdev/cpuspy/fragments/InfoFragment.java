@@ -31,7 +31,6 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
-import org.axdev.cpuspy.utils.Utils;
 
 import java.io.File;
 
@@ -283,7 +282,7 @@ public class InfoFragment extends BackHandledFragment {
                     } else {
                         mIsMonitoringTemp = false;
                         mCpuTemp.setText(getResources().getString(R.string.error));
-                        mCpuTemp.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCpuTemp.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -306,7 +305,7 @@ public class InfoFragment extends BackHandledFragment {
                         } else {
                             mIsMonitoringCpu = false;
                             mCore0.setText(getResources().getString(R.string.error));
-                            mCore0.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                            mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -316,7 +315,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu0 = false;
                         mCore0.setText(getResources().getString(R.string.error));
-                        mCore0.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore0.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -334,7 +333,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu1 = false;
                         mCore1.setText(getResources().getString(R.string.error));
-                        mCore1.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore1.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -352,7 +351,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu2 = false;
                         mCore2.setText(getResources().getString(R.string.error));
-                        mCore2.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore2.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -370,7 +369,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu3 = false;
                         mCore3.setText(getResources().getString(R.string.error));
-                        mCore3.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore3.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -388,7 +387,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu4 = false;
                         mCore4.setText(getResources().getString(R.string.error));
-                        mCore4.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore4.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -406,7 +405,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu5 = false;
                         mCore5.setText(getResources().getString(R.string.error));
-                        mCore5.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore5.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -424,7 +423,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu6 = false;
                         mCore6.setText(getResources().getString(R.string.error));
-                        mCore6.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore6.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -442,7 +441,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu7 = false;
                         mCore7.setText(getResources().getString(R.string.error));
-                        mCore7.setTextColor(Utils.getColor(getResources(), R.color.primary_text_color_error, getContext().getTheme()));
+                        mCore7.setTextColor(getResources().getColor(R.color.primary_text_color_error));
                     }
                 }
 

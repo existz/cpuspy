@@ -85,11 +85,11 @@ public class ThemeUtils extends AppCompatActivity {
         switch (mNavBar) {
             default:
             case NAVBAR_DEFAULT:
-                activity.getWindow().setNavigationBarColor(Utils.getColor(activity.getResources(), android.R.color.black, activity.getTheme()));
+                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
                 isColoredNav = false;
                 break;
             case NAVBAR_COLORED:
-                activity.getWindow().setNavigationBarColor(Utils.getColor(activity.getResources(), R.color.primary_dark, activity.getTheme()));
+                activity.getWindow().setNavigationBarColor(activity.getResources().getColor(R.color.primary_dark));
                 isColoredNav = true;
                 break;
         }

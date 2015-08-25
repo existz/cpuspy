@@ -40,7 +40,6 @@ import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
-import org.axdev.cpuspy.utils.Utils;
 
 public class PrefsActivity extends AppCompatActivity {
 
@@ -124,7 +123,7 @@ public class PrefsActivity extends AppCompatActivity {
                                 }
                             })
                             .positiveText(getResources().getString(android.R.string.ok))
-                            .positiveColor(Utils.getColor(getResources(), R.color.primary, getContext().getTheme()))
+                            .positiveColor(getResources().getColor(R.color.primary))
                             .show();
                     return true;
                 }
