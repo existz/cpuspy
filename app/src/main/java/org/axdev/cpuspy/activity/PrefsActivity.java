@@ -18,6 +18,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -126,7 +127,7 @@ public class PrefsActivity extends AppCompatActivity {
                                 }
                             })
                             .positiveText(res.getString(android.R.string.ok))
-                            .positiveColor(res.getColor(R.color.primary))
+                            .positiveColor(ContextCompat.getColor(getActivity(), R.color.primary))
                             .show();
                     return true;
                 }

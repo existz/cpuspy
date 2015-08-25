@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -154,8 +155,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeColors(res.getColor(android.R.color.white));
-        mSwipeLayout.setProgressBackgroundColorSchemeColor(res.getColor(R.color.primary));
+        mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), android.R.color.white));
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getActivity(), R.color.primary));
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -374,7 +375,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(res.getString(R.string.snackbar_text_reset))
                         .actionLabel(res.getString(R.string.action_dismiss)) // action button label
                         .actionLabelTypeface(robotoMedium)
-                        .actionColor(res.getColor(R.color.primary)));
+                        .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
                 break;
             case R.id.menu_restore:
                 CpuSpyApp.restoreTimers();
@@ -384,7 +385,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         .text(res.getString(R.string.snackbar_text_restore))
                         .actionLabelTypeface(robotoMedium)
                         .actionLabel(res.getString(R.string.action_dismiss)) // action button label
-                        .actionColor(res.getColor(R.color.primary)));
+                        .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
                 break;
             case R.id.menu_settings:
                 this.startActivity(new Intent(getActivity(), PrefsActivity.class));

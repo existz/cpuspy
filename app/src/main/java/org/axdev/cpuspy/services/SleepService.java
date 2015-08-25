@@ -24,6 +24,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.view.Display;
 
@@ -104,7 +105,7 @@ public class SleepService extends Service {
                                     .setContentIntent(contentIntent)
                                     .setContentTitle(res.getString(R.string.notification_warning))
                                     .setContentText(res.getString(R.string.notification_deep_sleep))
-                                    .setColor(res.getColor(R.color.primary))
+                                    .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                                     .setSmallIcon(R.drawable.ic_notify_deepsleep)
                                     .setOnlyAlertOnce(true);

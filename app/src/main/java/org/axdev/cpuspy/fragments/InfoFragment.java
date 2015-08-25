@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -286,7 +287,7 @@ public class InfoFragment extends BackHandledFragment {
                     } else {
                         mIsMonitoringTemp = false;
                         mCpuTemp.setText(res.getString(R.string.error));
-                        mCpuTemp.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCpuTemp.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -309,7 +310,7 @@ public class InfoFragment extends BackHandledFragment {
                         } else {
                             mIsMonitoringCpu = false;
                             mCore0.setText(res.getString(R.string.error));
-                            mCore0.setTextColor(res.getColor(R.color.primary_text_color_error));
+                            mCore0.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -319,7 +320,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu0 = false;
                         mCore0.setText(res.getString(R.string.error));
-                        mCore0.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore0.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -337,7 +338,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu1 = false;
                         mCore1.setText(res.getString(R.string.error));
-                        mCore1.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore1.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -355,7 +356,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu2 = false;
                         mCore2.setText(res.getString(R.string.error));
-                        mCore2.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore2.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -373,7 +374,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu3 = false;
                         mCore3.setText(res.getString(R.string.error));
-                        mCore3.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore3.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -391,7 +392,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu4 = false;
                         mCore4.setText(res.getString(R.string.error));
-                        mCore4.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore4.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -409,7 +410,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu5 = false;
                         mCore5.setText(res.getString(R.string.error));
-                        mCore5.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore5.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -427,7 +428,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu6 = false;
                         mCore6.setText(res.getString(R.string.error));
-                        mCore6.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore6.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -445,7 +446,7 @@ public class InfoFragment extends BackHandledFragment {
                         e.printStackTrace();
                         mHasCpu7 = false;
                         mCore7.setText(res.getString(R.string.error));
-                        mCore7.setTextColor(res.getColor(R.color.primary_text_color_error));
+                        mCore7.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
                     }
                 }
 

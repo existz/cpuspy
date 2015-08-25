@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
                                     .text(res.getString(R.string.snackbar_text_update))
                                     .actionLabel(res.getString(R.string.action_view))
                                     .actionLabelTypeface(robotoMedium)
-                                    .actionColor(getResources().getColor(R.color.primary))
+                                    .actionColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
                                     .actionListener(new ActionClickListener() {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return ContextCompat.getColor(getApplicationContext(), R.color.tabsScrollColor);
             }
         });
 
@@ -197,14 +198,14 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
         viewPager.setAdapter(adapter);
     }
 
-    public class Adapter extends FragmentPagerAdapter {
+    private class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
 
-        public Adapter(FragmentManager fm) {
+        private Adapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void addFragment(Fragment fragment) {
+        private void addFragment(Fragment fragment) {
             mFragments.add(fragment);
         }
 
