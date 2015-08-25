@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class CpuStateMonitor {
 
-    private final List<CpuState>      _states = new ArrayList<>();
-    private SparseArray<Long>  _offsets = new SparseArray<>();
+    private final List<CpuState> _states = new ArrayList<>();
+    private SparseArray<Long> _offsets = new SparseArray<>();
 
     /** exception class */
     public class CpuStateMonitorException extends Exception {
@@ -43,7 +43,7 @@ public class CpuStateMonitor {
 
     /** @return List of CpuState with the offsets applied */
     public List<CpuState> getStates() {
-        final List<CpuState> states = new ArrayList<>();
+        final List<CpuState> states = new ArrayList<>(_states.size());
 
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */

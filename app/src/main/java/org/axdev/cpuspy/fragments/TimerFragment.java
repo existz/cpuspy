@@ -396,7 +396,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
          * creating a row if the duration is > 0 or otherwise marking it in
          * extraStates (missing) */
         if (mStatesView != null) mStatesView.removeAllViews();
-        final List<String> extraStates = new ArrayList<>();
+        final List<String> extraStates = new ArrayList<>(monitor.getStates().size());
         for (final CpuState state : monitor.getStates()) {
             if (state.duration > 0) {
                 final CpuState cpuState = new CpuState(-99, 0);
