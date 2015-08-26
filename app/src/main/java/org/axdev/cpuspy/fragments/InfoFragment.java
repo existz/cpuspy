@@ -12,9 +12,11 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +42,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InfoFragment extends BackHandledFragment {
+public class InfoFragment extends Fragment {
 
     @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
@@ -185,15 +187,28 @@ public class InfoFragment extends BackHandledFragment {
                 return mDisableScrolling;
             }
         });
-    }
 
-    @Override
-    public boolean onBackPressed() {
-        if (mCardKernelFull.isShown()) {
-            showFullKernelVersion(false);
-            return true;
-        } else {
-            return false;
+        // Allow dismissing full kernel cardview with back button
+        if (getView() != null) {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+
+            getView().setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            if (mCardKernelFull.isShown()) {
+                                showFullKernelVersion(false);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 

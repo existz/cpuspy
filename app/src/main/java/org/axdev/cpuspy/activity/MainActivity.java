@@ -37,7 +37,6 @@ import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.fragments.BackHandledFragment;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
 import org.axdev.cpuspy.services.SleepService;
@@ -52,11 +51,10 @@ import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity implements BackHandledFragment.BackHandlerInterface {
+public class MainActivity extends AppCompatActivity {
 
     private boolean mLastTheme;
     private boolean mLastNavBar;
-    private BackHandledFragment selectedFragment;
     private Resources res;
     private SharedPreferences sp;
 
@@ -234,19 +232,6 @@ public class MainActivity extends AppCompatActivity implements BackHandledFragme
             sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return sb;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(selectedFragment == null || !selectedFragment.onBackPressed()) {
-            // Selected fragment did not consume the back press event.
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public void setSelectedFragment(BackHandledFragment selectedFragment) {
-        this.selectedFragment = selectedFragment;
     }
 
     @Override
