@@ -35,6 +35,8 @@
         <attr name="colorDrawableTint" format="color" />
         <!-- Default ripple color on KitKat -->
         <attr name="colorMaterialRipple" format="color" />
+        <!-- Default floating toolbar color -->
+        <attr name="colorFloatingToolbar" format="color" />
         <!-- Color for progress drawable background -->
         <attr name="drawableProgressBackground" format="reference" />
 

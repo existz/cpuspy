@@ -6,7 +6,6 @@
 
 package org.axdev.cpuspy.fragments;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -18,9 +17,6 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +28,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 
@@ -612,25 +607,6 @@ public class InfoFragment extends Fragment {
 
             return false;
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Auto-generated method stub
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu, menu);
-    }
-
-    /** called to handle a menu event */
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        // what it do mayne
-        switch (item.getItemId()) {
-        /* pressed the load menu button */
-            case R.id.menu_settings:
-                this.startActivity(new Intent(getActivity(), PrefsActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

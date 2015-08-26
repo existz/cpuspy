@@ -29,6 +29,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
@@ -250,5 +252,26 @@ public class MainActivity extends AppCompatActivity {
                 || mLastNavBar != ThemeUtils.isColoredNav) {
             this.recreate();
         }
+    }
+
+    /** called when we want to inflate the menu */
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        // request inflater from activity and inflate into its menu
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // made it
+        return true;
+    }
+
+    /** called to handle a menu event */
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        // what it do mayne
+        switch (item.getItemId()) {
+        /* pressed the load menu button */
+            case R.id.menu_settings:
+                this.startActivity(new Intent(this, PrefsActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

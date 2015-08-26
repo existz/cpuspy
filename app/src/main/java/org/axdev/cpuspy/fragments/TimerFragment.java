@@ -29,10 +29,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationSet;
@@ -51,7 +49,6 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
-import org.axdev.cpuspy.activity.PrefsActivity;
 import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -86,6 +83,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.welcome_summary) TextView mWelcomeCardSummary;
     @Bind(R.id.welcome_features) TextView mWelcomeCardFeatures;
     @Bind(R.id.feature_title) TextView mFeatureCardTitle;
+    @Bind(R.id.states_toolbar) CardView mStatesToolbar;
 
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
@@ -175,6 +173,29 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         /** Register receiver to check battery status */
         getActivity().registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        // Allow dismissing states toolbar with back button
+        if (getView() != null) {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+
+            getView().setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            if (mStatesToolbar.isShown()) {
+                                mStatesToolbar.setVisibility(View.GONE);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
     }
 
     @Override public void onStart () {
@@ -355,43 +376,35 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.timer_menu, menu);
-        inflater.inflate(R.menu.main_menu, menu);
+    @OnClick(R.id.btn_states_more)
+    void statesMoreButton() {
+        mStatesToolbar.setVisibility(View.VISIBLE);
     }
 
-    /** called to handle a menu event */
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        // what it do mayne
-        switch (item.getItemId()) {
-        /* pressed the load menu button */
-            case R.id.menu_reset:
-                CpuSpyApp.resetTimers();
-                this.updateView();
-                if (!mAdditionalStates.isShown()) showUnusedStates(true);
-                SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(res.getString(R.string.snackbar_text_reset))
-                        .actionLabel(res.getString(R.string.action_dismiss)) // action button label
-                        .actionLabelTypeface(robotoMedium)
-                        .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
-                break;
-            case R.id.menu_restore:
-                CpuSpyApp.restoreTimers();
-                sp.edit().remove("offsets").apply();
-                this.updateView();
-                SnackbarManager.show(Snackbar.with(getActivity())
-                        .text(res.getString(R.string.snackbar_text_restore))
-                        .actionLabelTypeface(robotoMedium)
-                        .actionLabel(res.getString(R.string.action_dismiss)) // action button label
-                        .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
-                break;
-            case R.id.menu_settings:
-                this.startActivity(new Intent(getActivity(), PrefsActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    @OnClick(R.id.states_restore)
+    void statesRestoreButton() {
+        CpuSpyApp.restoreTimers();
+        sp.edit().remove("offsets").apply();
+        this.updateView();
+        SnackbarManager.show(Snackbar.with(getActivity())
+                .text(res.getString(R.string.snackbar_text_restore))
+                .actionLabelTypeface(robotoMedium)
+                .actionLabel(res.getString(R.string.action_dismiss)) // action button label
+                .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
+        mStatesToolbar.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.states_reset)
+    void statesResetButton() {
+        CpuSpyApp.resetTimers();
+        this.updateView();
+        if (!mAdditionalStates.isShown()) showUnusedStates(true);
+        SnackbarManager.show(Snackbar.with(getActivity())
+                .text(res.getString(R.string.snackbar_text_reset))
+                .actionLabel(res.getString(R.string.action_dismiss)) // action button label
+                .actionLabelTypeface(robotoMedium)
+                .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
+        mStatesToolbar.setVisibility(View.GONE);
     }
 
     /** Generate and update all UI elements */
