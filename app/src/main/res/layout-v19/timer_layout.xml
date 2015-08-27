@@ -46,6 +46,22 @@
                         android:orientation="vertical"
                         android:animateLayoutChanges="true">
 
+                        <ImageButton
+                            android:id="@+id/btn_states_more"
+                            android:src="@drawable/ic_menu_more"
+                            android:tint="?attr/colorDrawableTint"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_marginLeft="@dimen/btn_padding_mtrl"
+                            android:layout_marginRight="@dimen/btn_padding_mtrl"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_gravity="center_horizontal|top|right"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true" />
+
                         <TextView
                             android:id="@+id/ui_header_total_state_time"
                             android:layout_width="wrap_content"
@@ -142,10 +158,20 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/states_hide"
+                android:layout_width="118dp"
+                android:layout_height="48dp"
+                android:text="@string/states_toolbar_hide"
+                android:textAllCaps="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@android:color/transparent"/>
+
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/states_reset"
                 android:layout_width="80dp"
                 android:layout_height="48dp"
-                android:text="Reset"
+                android:layout_toEndOf="@+id/states_hide"
+                android:text="@string/states_toolbar_reset"
                 android:textAllCaps="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@android:color/transparent"/>
@@ -155,7 +181,7 @@
                 android:layout_width="96dp"
                 android:layout_height="48dp"
                 android:layout_toEndOf="@+id/states_reset"
-                android:text="Restore"
+                android:text="@string/states_toolbar_restore"
                 android:textAllCaps="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:background="@android:color/transparent"/>

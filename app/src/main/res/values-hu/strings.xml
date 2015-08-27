@@ -11,8 +11,6 @@
     <string name="charged_view_message">Ha a készülék teljesen feltöltődött, akkor a töltő leválasztásakor a CPU idők automatikusan törlődnek.</string>
     <string name="menu_changelog">Változások listája</string>
     <string name="menu_donate">Adományozás</string>
-    <string name="menu_timers_reset">Időzítők törlése</string>
-    <string name="menu_timers_restore">Időzítők visszaállítása</string>
     <string name="states_empty">Üres</string>
     <string name="states_deep_sleep">Mélyalvás</string>
     <string name="states_warning"><b>Uh Oh!</b>\n\nÁllapotok nem találhatóak. Biztos, hogy kompatibilis a telefonja?\n\nHa egyedi ROM-ot vagy kernelt használ, próbáljon kapcsolatba lépni a fejlesztővel, és jelezze, hogy az állapotok fájl nem olvasható.</string>
@@ -105,9 +103,9 @@
     <string-array name="licenses">
         <item>Android Support Library</item>
         <item>Butter Knife</item>
+        <item>Discrete SeekBar</item>
         <item>Material Dialogs</item>
         <item>Material Ripple</item>
-        <item>Material SeekBarPreference</item>
         <item>Snackbar</item>
     </string-array>
     <!-- About -->

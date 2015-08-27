@@ -7,8 +7,6 @@
     <string name="unused_states_hide">অব্যবহৃত অবস্থা লুকান</string>
     <string name="charged_view_status">ব্যাটারি অবস্থাঃ পূর্ণ</string>
     <string name="menu_donate">অনুদান</string>
-    <string name="menu_timers_reset">টাইমার পুন:স্থাপন</string>
-    <string name="menu_timers_restore">টাইমার রিস্টোর</string>
     <string name="states_empty">খালি করা</string>
     <!-- Information -->
     <string name="information_cpu_arch_header">স্থাপত্য</string>

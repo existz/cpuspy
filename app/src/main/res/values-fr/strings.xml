@@ -17,8 +17,6 @@
 
     <string name="menu_changelog">Changelog</string>
     <string name="menu_donate">Donation</string>
-    <string name="menu_timers_reset">Réinitialiser compteurs</string>
-    <string name="menu_timers_restore">Restaurer compteurs</string>
 
     <string name="states_empty">Aucun</string>
     <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>

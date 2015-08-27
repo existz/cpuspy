@@ -84,7 +84,6 @@
     <string name="pref_summary_autoreset">Resetar os contadores da CPU quando estiver completamente carregado</string>
     <string name="pref_title_sleepdetection">Detecção de Sono Profundo</string>
     <string name="pref_summary_sleepdetection">Notificar se o dispositivo não entrar em sono profundo</string>
-    <string name="pref_title_hidestates">Ocultar Estados Abaixo da Porcentagem</string>
     <string name="pref_summary_hidestates">Estados abaixo % não vão ser usados</string>
     <string name="pref_title_themes">Tema base</string>
     <string name="pref_summary_themes">Escolha entre claro, escuro e auto</string>
@@ -105,9 +104,9 @@
     <string-array name="licenses">
         <item>Bibliotecas Android Support</item>
         <item>Butter Knife</item>
+        <item>Discreto SeekBar</item>
         <item>Diálogos Material</item>
         <item>Ondulação Material</item>
-        <item>Material Preferencias SeekBar</item>
         <item>Lanchonete</item>
     </string-array>
     <!-- About -->

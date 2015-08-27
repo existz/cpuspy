@@ -82,13 +82,13 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
                 openURL("https://github.com/JakeWharton/butterknife");
                 break;
             case 2:
-                openURL("https://github.com/afollestad/material-dialogs");
+                openURL("https://github.com/AnderWeb/discreteSeekBar");
                 break;
             case 3:
-                openURL("https://github.com/balysv/material-ripple");
+                openURL("https://github.com/afollestad/material-dialogs");
                 break;
             case 4:
-                openURL("https://github.com/MrBIMC/MaterialSeekBarPreference");
+                openURL("https://github.com/balysv/material-ripple");
                 break;
             case 5:
                 openURL("https://github.com/nispok/snackbar");

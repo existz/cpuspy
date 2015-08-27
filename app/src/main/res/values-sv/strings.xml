@@ -11,8 +11,6 @@
     <string name="charged_view_message">När enheten är helt laddad, dra ur laddaren för att nollställa CPU räknare.</string>
     <string name="menu_changelog">Ändringar</string>
     <string name="menu_donate">Donera</string>
-    <string name="menu_timers_reset">Nollställ räknare</string>
-    <string name="menu_timers_restore">Återställ räknare</string>
     <string name="states_empty">Tom</string>
     <string name="states_deep_sleep">Ljud sömn</string>
     <string name="states_warning"><b>Ojdå!</b>\n\nInga läges filer kunde hittas. Säker att din enhet är kompatibel?\n\nOm du använder ett ROM eller kernel, försök kontakta utvecklaren för att informera honom om problemet.</string>
@@ -105,9 +103,9 @@
     <string-array name="licenses">
         <item>Android Support Library</item>
         <item>Butter Knife</item>
+        <item>Discrete SeekBar</item>
         <item>Material Dialogs</item>
         <item>Material Ripple</item>
-        <item>Material SeekBarPreference</item>
         <item>Snackbar</item>
     </string-array>
     <!-- About -->

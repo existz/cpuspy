@@ -11,8 +11,6 @@
     <string name="charged_view_message">Completata la carica, scollega il caricatore per resettare completamente i timer CPU</string>
     <string name="menu_changelog">Changelog</string>
     <string name="menu_donate">Donazione</string>
-    <string name="menu_timers_reset">Azzera Timer</string>
-    <string name="menu_timers_restore">Ripristina Timer</string>
     <string name="states_empty">Vuoto</string>
     <string name="states_deep_sleep">Deep Sleep</string>
     <string name="states_warning"><b>Uh Oh!</b>\n\nNessuna frequenza trovata. Sei sicuro che il tuo smartphone sia compatibile?\n\nSe stai utilizzando una custom ROM o un kernel custom, prova a contattare il suo sviluppatore e informarlo che i states file non sono consultabili.</string>
@@ -105,9 +103,9 @@
     <string-array name="licenses">
         <item>Supporto Librerie Android</item>
         <item>Butter Knife</item>
+        <item>Discrete SeekBar</item>
         <item>Material Dialogs</item>
         <item>Material Ripple</item>
-        <item>Material SeekBarPreference</item>
         <item>Snackbar</item>
     </string-array>
     <!-- About -->

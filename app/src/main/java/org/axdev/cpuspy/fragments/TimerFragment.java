@@ -33,7 +33,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -42,9 +44,11 @@ import android.widget.RelativeLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
@@ -378,6 +382,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @OnClick(R.id.btn_states_more)
     void statesMoreButton() {
+        final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.popup_enter_mtrl);
+        mStatesToolbar.startAnimation(fadeIn);
         mStatesToolbar.setVisibility(View.VISIBLE);
     }
 
@@ -405,6 +411,45 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 .actionLabelTypeface(robotoMedium)
                 .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
         mStatesToolbar.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.states_hide)
+    void statesHideButton() {
+        mStatesToolbar.setVisibility(View.GONE);
+        final View layout = getActivity().getLayoutInflater().inflate(R.layout.hide_percent_layout,
+                (ViewGroup) ButterKnife.findById(getActivity(), R.id.hide_states_root));
+        final DiscreteSeekBar discreteSeekBar = ButterKnife.findById(layout, R.id.percentSeek);
+        final TextView textView = ButterKnife.findById(layout, R.id.percentSeekTitle);
+        textView.setTypeface(robotoMedium);
+
+        final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+                .customView(layout, true)
+                .build();
+
+        final int currentValue = sp.getInt("hidePercent", 0);
+        final View view = dialog.getCustomView();
+        if (view != null) {
+            discreteSeekBar.setProgress(currentValue);
+            final DiscreteSeekBar.OnProgressChangeListener progressChangeListener = new DiscreteSeekBar.OnProgressChangeListener() {
+                @Override
+                public void onProgressChanged(DiscreteSeekBar discreteSeekBar, int value, boolean b) {
+                    sp.edit().putInt("hidePercent", value).apply();
+                }
+
+                @Override
+                public void onStartTrackingTouch(DiscreteSeekBar discreteSeekBar) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(DiscreteSeekBar discreteSeekBar) {
+                    updateView();
+                    dialog.dismiss();
+                }
+            };
+
+            discreteSeekBar.setOnProgressChangeListener(progressChangeListener);
+        }
+       dialog.show();
     }
 
     /** Generate and update all UI elements */

@@ -11,8 +11,6 @@
     <string name="charged_view_message">Когда устройство полностью зарядилось, отключите ЗУ для автоматического сброса таймеров CPU.</string>
     <string name="menu_changelog">Изменения</string>
     <string name="menu_donate">Пожертвовать</string>
-    <string name="menu_timers_reset">Сброс таймеров</string>
-    <string name="menu_timers_restore">Восстановление таймеров</string>
     <string name="states_empty">Пусто</string>
     <string name="states_deep_sleep">Глубокий сон</string>
     <string name="states_warning"><b>Увы!</b>\n\nФайла статистики не найдено. Уверены, что Ваш телефон это поддерживает?\n\nЕсли у Вас сторонняя прошивка или ядро, попробуйте связаться с разработчиком и сообщить ему, что файл статистики не читается.</string>
@@ -105,9 +103,9 @@
     <string-array name="licenses">
         <item>Android Support Library</item>
         <item>Butter Knife</item>
+        <item>Discrete SeekBar</item>
         <item>Material Dialogs</item>
         <item>Material Ripple</item>
-        <item>Material SeekBarPreference</item>
         <item>Snackbar</item>
     </string-array>
     <!-- About -->
