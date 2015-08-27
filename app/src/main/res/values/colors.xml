@@ -22,4 +22,10 @@
     <color name="floating_toolbar_dark">#424242</color>
 
     <color name="primary_text_color_error">#db4437</color>
+
+    <color name="dsb_progress_color">@color/primary</color>
+    <color name="dsb_track_color">#1f939393</color>
+    <color name="dsb_disabled_color">#66939393</color>
+    <color name="dsb_ripple_color_pressed">#26939393</color>
+    <color name="dsb_ripple_color_focused">#99999999</color>
 </resources>

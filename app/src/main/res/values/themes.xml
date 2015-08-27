@@ -74,18 +74,4 @@
         <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
-    <style name="Button.Tinted" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">?attr/colorPrimary</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="Button.Tinted.Dark" parent="Widget.AppCompat.Button">
-        <item name="colorButtonNormal">?attr/colorPrimaryDark</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="DiscreteIndicatorTextAppearance" parent="Widget.DiscreteIndicatorTextAppearance">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
 </resources>

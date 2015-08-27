@@ -10,7 +10,8 @@
         android:id="@+id/percentSeekTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="@dimen/padding_mtrl"
+        android:layout_gravity="center_horizontal"
         android:text="@string/pref_title_hidestates"
         android:textSize="16sp"/>
 
@@ -18,13 +19,12 @@
         android:id="@+id/percentSeek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_mtrl"
+        android:layout_marginBottom="@dimen/padding_mtrl"
         app:dsb_min="0"
         app:dsb_max="10"
         app:dsb_value="0"
         app:dsb_indicatorFormatter="%d%%"
-        app:dsb_trackColor="?attr/colorPrimary"
-        app:dsb_progressColor="?attr/colorPrimary"
-        app:dsb_indicatorColor="?attr/colorPrimary"
-        app:dsb_indicatorTextAppearance="@style/DiscreteIndicatorTextAppearance"/>
+        app:dsb_indicatorColor="?attr/colorPrimary"/>
 
 </LinearLayout>
