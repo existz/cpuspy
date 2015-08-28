@@ -12,7 +12,6 @@
         <item name="colorCardBackground">@color/card_light_background</item>
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="colorDrawableTint">@color/drawable_color_light</item>
-        <item name="colorMaterialRipple">@color/ripple_color_light</item>
         <item name="colorFloatingToolbar">@color/floating_toolbar_light</item>
         <item name="drawableProgressBackground">@drawable/progess_drawable</item>
         <item name="md_title_color">@android:color/black</item>
@@ -40,7 +39,6 @@
         <item name="colorCardBackground">@color/card_dark_background</item>
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="colorDrawableTint">@color/drawable_color_dark</item>
-        <item name="colorMaterialRipple">@color/ripple_color_dark</item>
         <item name="colorFloatingToolbar">@color/floating_toolbar_dark</item>
         <item name="drawableProgressBackground">@drawable/progess_drawable_dark</item>
         <item name="md_title_color">@android:color/white</item>

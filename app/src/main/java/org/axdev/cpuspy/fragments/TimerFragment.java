@@ -271,6 +271,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mStatesCardView.setVisibility(View.GONE);
             mTimeCardView.setVisibility(View.GONE);
             mWelcomeCardView.setVisibility(View.GONE);
+            mFeatureCardView.setVisibility(View.GONE);
             mChargedView.setVisibility(View.VISIBLE);
 
             CpuSpyApp.resetTimers();
@@ -289,6 +290,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             removeView(mTimeCardView);
             removeView(mStatesCardView);
             removeView(mWelcomeCardView);
+            removeView(mFeatureCardView);
             removeView(mChargedView);
             mStatesWarning.setVisibility(View.VISIBLE);
 

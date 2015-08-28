@@ -58,7 +58,6 @@ dependencies {
     compile 'com.android.support:support-annotations:23.0.0@jar'
 
     compile 'com.afollestad:material-dialogs:0.7.8.0'
-    compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nispok:snackbar:2.11.0'
     compile('com.crashlytics.sdk.android:crashlytics:+') {

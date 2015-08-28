@@ -16,8 +16,6 @@
     <color name="card_light_background">#fafafa</color>
     <color name="drawable_color_dark">@color/primary_text_color_dark</color>
     <color name="drawable_color_light">@color/primary_text_color</color>
-    <color name="ripple_color_dark">#42ffffff</color>
-    <color name="ripple_color_light">#1f000000</color>
     <color name="floating_toolbar_light">#ffffff</color>
     <color name="floating_toolbar_dark">#424242</color>
 
