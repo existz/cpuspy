@@ -30,6 +30,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
+import org.axdev.cpuspy.utils.Utils;
 
 import java.io.File;
 
@@ -78,6 +79,7 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.device_bootloader_header) TextView mDeviceBootloaderHeader;
     @Bind(R.id.device_bootloader) TextView mDeviceBootloader;
     @Bind(R.id.scroll_container) ScrollView mScrollView;
+    @Bind(R.id.content_overlay) View mContentOverlay;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
     @Bind(R.id.cpu1_header) TextView mCore1Header;
@@ -211,6 +213,7 @@ public class InfoFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
+        if (mCardKernelFull.isShown()) showFullKernelVersion(false);
     }
 
     @Override
@@ -569,13 +572,23 @@ public class InfoFragment extends Fragment {
     void kernelMoreButton() {
         if (!mCardKernelFull.isShown()) {
             showFullKernelVersion(true);
+            mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent ev) {
+                    if (mCardKernelFull.isShown()
+                            && Utils.isOutOfBounds(mCardKernelFull, ev)) {
+                        showFullKernelVersion(false);
+                        return true;
+                    }
+                    return false;
+                }
+            });
         } else {
             showFullKernelVersion(false);
         }
     }
 
     private boolean showFullKernelVersion(boolean enabled) {
-        final View mContentOverlay = ButterKnife.findById(getActivity(), R.id.content_overlay);
         if (enabled) {
             if (!mCardKernelFull.isShown()) {
                 final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);

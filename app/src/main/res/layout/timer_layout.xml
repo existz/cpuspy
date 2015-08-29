@@ -85,6 +85,60 @@
                             android:textColor="?android:attr/textColorPrimary"
                             android:textSize="36sp"/>
 
+                        <android.support.v7.widget.CardView
+                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/states_toolbar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_mtrl"
+                            android:layout_marginBottom="@dimen/padding_mtrl"
+                            android:layout_marginLeft="@dimen/padding_mtrl"
+                            android:layout_marginRight="@dimen/padding_mtrl"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:elevation="4dp"
+                            android:visibility="gone"
+                            card_view:cardBackgroundColor="?attr/colorFloatingToolbar"
+                            card_view:cardCornerRadius="2dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/states_hide"
+                                    android:layout_width="118dp"
+                                    android:layout_height="48dp"
+                                    android:text="@string/states_toolbar_hide"
+                                    android:textAllCaps="true"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:background="@android:color/transparent"/>
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/states_reset"
+                                    android:layout_width="80dp"
+                                    android:layout_height="48dp"
+                                    android:layout_toEndOf="@+id/states_hide"
+                                    android:text="@string/states_toolbar_reset"
+                                    android:textAllCaps="true"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:background="@android:color/transparent"/>
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/states_restore"
+                                    android:layout_width="96dp"
+                                    android:layout_height="48dp"
+                                    android:layout_toEndOf="@+id/states_reset"
+                                    android:text="@string/states_toolbar_restore"
+                                    android:textAllCaps="true"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:background="@android:color/transparent"/>
+
+                            </RelativeLayout>
+
+                        </android.support.v7.widget.CardView>
+
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
@@ -129,54 +183,9 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/states_toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="top|right"
-        android:elevation="4dp"
-        android:visibility="gone"
-        card_view:cardBackgroundColor="?attr/colorFloatingToolbar"
-        card_view:cardCornerRadius="2dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/states_hide"
-                android:layout_width="118dp"
-                android:layout_height="48dp"
-                android:text="@string/states_toolbar_hide"
-                android:textAllCaps="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@android:color/transparent"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/states_reset"
-                android:layout_width="80dp"
-                android:layout_height="48dp"
-                android:layout_toEndOf="@+id/states_hide"
-                android:text="@string/states_toolbar_reset"
-                android:textAllCaps="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@android:color/transparent"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/states_restore"
-                android:layout_width="96dp"
-                android:layout_height="48dp"
-                android:layout_toEndOf="@+id/states_reset"
-                android:text="@string/states_toolbar_restore"
-                android:textAllCaps="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:background="@android:color/transparent"/>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
+    <View
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 </FrameLayout>

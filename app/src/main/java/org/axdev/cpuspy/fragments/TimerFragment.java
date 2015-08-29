@@ -31,6 +31,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -57,6 +58,7 @@ import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.Utils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -88,6 +90,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.welcome_features) TextView mWelcomeCardFeatures;
     @Bind(R.id.feature_title) TextView mFeatureCardTitle;
     @Bind(R.id.states_toolbar) CardView mStatesToolbar;
+    @Bind(R.id.container) View mContainer;
 
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
@@ -220,6 +223,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     /** Disable handler when fragment loses focus */
     @Override public void onPause () {
         super.onPause();
+        if (mStatesToolbar.isShown()) mStatesToolbar.setVisibility(View.GONE);
         if (!mAutoRefresh) setShakeRefresh(false);
         mAutoRefresh = false;
     }
@@ -387,6 +391,17 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.popup_enter_mtrl);
         mStatesToolbar.startAnimation(fadeIn);
         mStatesToolbar.setVisibility(View.VISIBLE);
+        mContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+                if (mStatesToolbar.isShown()
+                        && Utils.isOutOfBounds(mStatesToolbar, ev)) {
+                    mStatesToolbar.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @OnClick(R.id.states_restore)
@@ -418,6 +433,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @OnClick(R.id.states_hide)
     void statesHideButton() {
         mStatesToolbar.setVisibility(View.GONE);
+        showDiscreteSeekbar();
+    }
+
+    private void showDiscreteSeekbar() {
         final View layout = getActivity().getLayoutInflater().inflate(R.layout.hide_percent_layout,
                 (ViewGroup) ButterKnife.findById(getActivity(), R.id.hide_states_root));
         final DiscreteSeekBar discreteSeekBar = ButterKnife.findById(layout, R.id.percentSeek);
@@ -451,7 +470,17 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             discreteSeekBar.setOnProgressChangeListener(progressChangeListener);
         }
-       dialog.show();
+        dialog.show();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()) {
+            if (!isVisibleToUser && mStatesToolbar.isShown()) {
+                mStatesToolbar.setVisibility(View.GONE);
+            }
+        }
     }
 
     /** Generate and update all UI elements */

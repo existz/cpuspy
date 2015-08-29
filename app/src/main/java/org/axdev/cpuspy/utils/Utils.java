@@ -3,7 +3,10 @@ package org.axdev.cpuspy.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.os.SystemClock;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -56,5 +59,12 @@ public class Utils {
      */
     public static long getDeepSleep() {
         return (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
+    }
+
+    /** Check to see if we've clicked outside of a view */
+    public static boolean isOutOfBounds(View v, MotionEvent ev) {
+        final Rect viewRect = new Rect();
+        v.getGlobalVisibleRect(viewRect);
+        return !viewRect.contains((int) ev.getRawX(), (int) ev.getRawY());
     }
 }
