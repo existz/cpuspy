@@ -229,10 +229,11 @@ public class PrefsActivity extends AppCompatActivity {
             ThemeUtils.onActivityCreateSetNavBar(this);
         }
         ThemeUtils.onActivityCreateSetTheme(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
-        getFragmentManager().beginTransaction().add(R.id.content_wrapper, new PrefsFragment()).commit();
+
+        if (savedInstanceState == null)
+            getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new PrefsFragment()).commit();
     }
 
     private void checkBackStack() {

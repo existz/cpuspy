@@ -124,8 +124,8 @@ public class InfoFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         /** Set text and typeface for TextViews */
         mHandler = new Handler();
         res = getResources();

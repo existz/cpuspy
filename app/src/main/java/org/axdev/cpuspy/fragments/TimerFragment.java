@@ -116,8 +116,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());

@@ -30,10 +30,7 @@ public class ThemeUtils extends AppCompatActivity {
         final Editor editor = sp.edit();
 
         editor.putInt("theme", mTheme).apply();
-
-        activity.finish();
-        activity.startActivity(new Intent(activity, activity.getClass()));
-        activity.overridePendingTransition(0, 0);
+        activity.recreate();
     }
 
     public static void changeNavBar(Activity activity, int mNavBar) {
@@ -41,10 +38,7 @@ public class ThemeUtils extends AppCompatActivity {
         final Editor editor = sp.edit();
 
         editor.putInt("navbar", mNavBar).apply();
-
-        activity.finish();
-        activity.startActivity(new Intent(activity, activity.getClass()));
-        activity.overridePendingTransition(0, 0);
+        activity.recreate();
     }
 
     public static void onActivityCreateSetTheme(Activity activity) {
