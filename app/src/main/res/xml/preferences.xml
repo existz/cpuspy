@@ -23,7 +23,6 @@
         <Preference
             android:key="themes"
             android:title="@string/pref_title_themes"
-            android:summary="@string/pref_summary_themes"
             android:persistent="true"/>
     </PreferenceCategory>
 

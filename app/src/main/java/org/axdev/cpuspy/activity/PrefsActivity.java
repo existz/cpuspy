@@ -101,10 +101,24 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             });
 
+            /** Set current theme as summary */
+            final int selected = sp.getInt("theme", 0);
+            final String[] s = res.getStringArray(R.array.themes);
+            switch (selected) {
+                case 0:
+                    findPreference("themes").setSummary(s[0]);
+                    break;
+                case 1:
+                    findPreference("themes").setSummary(s[1]);
+                    break;
+                case 2:
+                    findPreference("themes").setSummary(s[2]);
+                    break;
+            }
+
             findPreference("themes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    int selected = sp.getInt("theme", 0);
                     new MaterialDialog.Builder(getActivity())
                             .title(res.getString(R.string.pref_title_themes))
                             .items(res.getStringArray(R.array.themes))

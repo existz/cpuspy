@@ -2,7 +2,6 @@ package org.axdev.cpuspy.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
