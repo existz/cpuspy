@@ -3,8 +3,6 @@
     <string name="app_name">সিপিইউ স্পাই</string>
     <string name="app_name_long">সিপিইউ স্পাই উপকরণ</string>
     <string name="core_offline">অফলাইন</string>
-    <string name="unused_states_show">অব্যবহৃত অবস্থা দেখুন</string>
-    <string name="unused_states_hide">অব্যবহৃত অবস্থা লুকান</string>
     <string name="charged_view_status">ব্যাটারি অবস্থাঃ পূর্ণ</string>
     <string name="menu_donate">অনুদান</string>
     <string name="states_empty">খালি করা</string>
@@ -18,4 +16,5 @@
     <!-- Open Source Licenses -->
     <!-- About -->
     <!-- Tab Title -->
+    <string name="menu_timers_restore">টাইমার রিস্টোর</string>
 </resources>

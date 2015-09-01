@@ -3,8 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Inaktív</string>
-    <string name="unused_states_show">Nem használt állapotok megtekintése</string>
-    <string name="unused_states_hide">Nem használt állapotok elrejtése</string>
+    <string name="unused_states_count">&#160;Nem használt állapotok</string>
     <string name="total_state_time">Összes állapot ideje</string>
     <string name="charged_view_enabled">Automatikus törlés engedélyezve</string>
     <string name="charged_view_status">Akkumulátor állapot: feltöltve</string>
@@ -13,7 +12,7 @@
     <string name="menu_donate">Adományozás</string>
     <string name="states_empty">Üres</string>
     <string name="states_deep_sleep">Mélyalvás</string>
-    <string name="states_warning"><b>Uh Oh!</b>\n\nÁllapotok nem találhatóak. Biztos, hogy kompatibilis a telefonja?\n\nHa egyedi ROM-ot vagy kernelt használ, próbáljon kapcsolatba lépni a fejlesztővel, és jelezze, hogy az állapotok fájl nem olvasható.</string>
+    <string name="states_warning"><b>Uh Oh!</b>\n\nÁllapot fájl nem található. Biztos, hogy kompatibilis a telefonja?\n\nHa egyedi ROM-ot vagy kernelt használ, próbáljon kapcsolatba lépni a fejlesztővel, és jelezze, hogy az állapotok fájl nem olvasható.</string>
     <string name="error">HIBA</string>
     <string name="snackbar_text_reset">Időzítők törlése sikeres</string>
     <string name="snackbar_text_restore">Időzítők visszaállítása sikeres</string>
@@ -85,7 +84,6 @@
     <string name="pref_title_hidestates">Állapotok elrejtése megadott százalék alatt</string>
     <string name="pref_summary_hidestates">Ezen megadott % alatti állapotok nem kerülnek megjelenítésre</string>
     <string name="pref_title_themes">Alap téma</string>
-    <string name="pref_summary_themes">Válasszon a világos, sötét és automatikus közül</string>
     <string name="pref_title_navbar">Színezett navigációs sáv</string>
     <string name="pref_summary_navbar">Elsődleges színű navigációs sáv engedélyezése</string>
     <string name="pref_title_checkupdates">Frissítések keresése</string>
@@ -103,7 +101,7 @@
     <string-array name="licenses">
         <item>Android Support Library</item>
         <item>Butter Knife</item>
-        <item>Discrete SeekBar</item>
+        <item>Diszkrét SeekBar</item>
         <item>Material Dialogs</item>
         <item>Snackbar</item>
     </string-array>
@@ -122,4 +120,5 @@
     <string name="new_feature_summary">Új háttérfigyelő szolgáltatás, mely figyelmezteti Önt, ha a készüléke nem lép mélyalvásba.</string>
     <string name="xposed_warning_title">Xposed érzékelve</string>
     <string name="xposed_warning_content">Sajnos nem támogatjuk az xposed-et futtató eszközöket. Az automatikus hibabejelentés tiltásra kerül.</string>
+    <string name="menu_timers_restore">Időzítők visszaállítása</string>
 </resources>

@@ -3,8 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Оффлайн</string>
-    <string name="unused_states_show">См. неиспользуемую статистику</string>
-    <string name="unused_states_hide">Скрыть неиспользуемую статистику</string>
+    <string name="unused_states_count">&#160;Неиспользуемые</string>
     <string name="total_state_time">Общее время статистики</string>
     <string name="charged_view_enabled">Включен автосброс</string>
     <string name="charged_view_status">Батарея: заряжена</string>
@@ -13,7 +12,10 @@
     <string name="menu_donate">Пожертвовать</string>
     <string name="states_empty">Пусто</string>
     <string name="states_deep_sleep">Глубокий сон</string>
-    <string name="states_warning"><b>Увы!</b>\n\nФайла статистики не найдено. Уверены, что Ваш телефон это поддерживает?\n\nЕсли у Вас сторонняя прошивка или ядро, попробуйте связаться с разработчиком и сообщить ему, что файл статистики не читается.</string>
+    <string name="states_warning"><b>Увы!</b>\n\nФайл статистики не найден. Вы уверены, что Ваш телефон совместим?\n\nЕсли у Вас сторонняя прошивка или ядро, попробуйте связаться с разработчиком и сообщить ему, что файл статистики не читается.</string>
+    <string name="states_toolbar_hide">Скрыть статистику</string>
+    <string name="states_toolbar_reset">Сброс</string>
+    <string name="states_toolbar_restore">Восстановить</string>
     <string name="error">ОШИБКА</string>
     <string name="snackbar_text_reset">Таймеры сброшены</string>
     <string name="snackbar_text_restore">Таймеры восстановлены</string>
@@ -85,7 +87,6 @@
     <string name="pref_title_hidestates">Процент скрытия статистики</string>
     <string name="pref_summary_hidestates">Статистика ниже % не будет использоваться</string>
     <string name="pref_title_themes">Основная тема</string>
-    <string name="pref_summary_themes">Выбор между светлой, тёмной и авто</string>
     <string name="pref_title_navbar">Цветная панель навигации</string>
     <string name="pref_summary_navbar">Включение цветной панели навигации</string>
     <string name="pref_title_checkupdates">Проверка обновлений</string>
@@ -122,4 +123,5 @@
     <string name="new_feature_summary">Новая служба фонового мониторинга, предупреждающая, когда устройство не переходит в глубокий сон.</string>
     <string name="xposed_warning_title">Обнаружен Xposed</string>
     <string name="xposed_warning_content">К сожалению, мы не можем поддерживать устройства с Xposed. Автоматический отчёт о сбоях будет отключен.</string>
+    <string name="menu_timers_restore">Восстановление таймеров</string>
 </resources>

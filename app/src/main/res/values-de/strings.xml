@@ -3,8 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_show">Nicht verwendete Zustände anzeigen</string>
-    <string name="unused_states_hide">Nicht verwendete Zustände verbergen</string>
+    <string name="unused_states_count">&#160;Nicht verwendete Zustände</string>
     <string name="total_state_time">Gesamtzeit</string>
     <string name="charged_view_enabled">Auto-Reset aktiviert</string>
     <string name="charged_view_status">Batteriezustand: Aufgeladen</string>
@@ -85,7 +84,6 @@
     <string name="pref_title_hidestates">Zustände unter % verbergen</string>
     <string name="pref_summary_hidestates">Zustände unter dieser dieser %-Angabe werden nicht verwendet</string>
     <string name="pref_title_themes">Grund-Design</string>
-    <string name="pref_summary_themes">Wählen Sie zwischen hell, dunkel und automatisch</string>
     <string name="pref_title_navbar">Farbige Navigation-Bar</string>
     <string name="pref_summary_navbar">Farbige Navigation-Bar aktivieren</string>
     <string name="pref_title_checkupdates">Auf Updates überprüfen</string>
@@ -122,4 +120,5 @@
     <string name="new_feature_summary">Ein neuer Hintergrund-Überwachungsdienst, der Sie benachrichtigt, falls das Gerät nicht in Deep-Sleep geht.</string>
     <string name="xposed_warning_title">Xposed erkannt</string>
     <string name="xposed_warning_content">Leider können wir Geräte mit Xposed nicht ünterstützen. Automatische Absturzberichte werden deaktiviert.</string>
+    <string name="menu_timers_restore">Timer wiederherstellen</string>
 </resources>

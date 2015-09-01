@@ -3,16 +3,12 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_show">Ver estados não usados</string>
-    <string name="unused_states_hide">Ocultar estados não usados</string>
     <string name="total_state_time">Tempo total do estado</string>
     <string name="charged_view_enabled">Auto Reininciar Ativado</string>
     <string name="charged_view_status">Status da Bateria: Carregada</string>
     <string name="charged_view_message">Uma vez que o dispositivo está totalmente carregado, desconecte seu carregador para automaticamente reininciar os contadores da CPU.</string>
     <string name="menu_changelog">Log de Mudanças</string>
     <string name="menu_donate">Doar</string>
-    <string name="menu_timers_reset">Reininciar Contadores</string>
-    <string name="menu_timers_restore">Restaurar Contadores</string>
     <string name="states_empty">Vazio</string>
     <string name="states_deep_sleep">Sono Profundo</string>
     <string name="states_warning"><b>Oops</b>\n\nNenhum arquivo de estado encontrado. Tem certeza que o seu dispositivo é compatível?\n\nSe você está rodando uma ROM customizada ou kernel, tente contatar os desenvolvedores para informar que o arquivo de estados não são lidos.</string>
@@ -84,9 +80,9 @@
     <string name="pref_summary_autoreset">Resetar os contadores da CPU quando estiver completamente carregado</string>
     <string name="pref_title_sleepdetection">Detecção de Sono Profundo</string>
     <string name="pref_summary_sleepdetection">Notificar se o dispositivo não entrar em sono profundo</string>
+    <string name="pref_title_hidestates">Ocultar Estados Abaixo da Porcentagem</string>
     <string name="pref_summary_hidestates">Estados abaixo % não vão ser usados</string>
     <string name="pref_title_themes">Tema base</string>
-    <string name="pref_summary_themes">Escolha entre claro, escuro e auto</string>
     <string name="pref_title_navbar">Barra de Navegação Colorida</string>
     <string name="pref_summary_navbar">Ativar cor primária da barra de navegação</string>
     <string name="pref_title_checkupdates">Checar por atualizações</string>
@@ -123,4 +119,5 @@
     <string name="new_feature_summary">Um novo serviço de monitoramento de fundo vai te alertar quando o dispositivo não entrar em sono profundo.</string>
     <string name="xposed_warning_title">Xposed Detectado</string>
     <string name="xposed_warning_content">Infelizmente nós não conseguimos suportar dispositivos rodando Xposed. Relatórios de falhas automático vão ser desativados.</string>
+    <string name="menu_timers_restore">Restaurar Contadores</string>
 </resources>

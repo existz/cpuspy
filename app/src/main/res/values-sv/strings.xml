@@ -3,8 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_show">Visa oanvända lägen</string>
-    <string name="unused_states_hide">Göm oanvända lägen</string>
+    <string name="unused_states_count">&#160;Oanvända lägen</string>
     <string name="total_state_time">Total tid i läge</string>
     <string name="charged_view_enabled">Auto nollställning aktiverad</string>
     <string name="charged_view_status">Batteristatus: Laddad</string>
@@ -13,7 +12,7 @@
     <string name="menu_donate">Donera</string>
     <string name="states_empty">Tom</string>
     <string name="states_deep_sleep">Ljud sömn</string>
-    <string name="states_warning"><b>Ojdå!</b>\n\nInga läges filer kunde hittas. Säker att din enhet är kompatibel?\n\nOm du använder ett ROM eller kernel, försök kontakta utvecklaren för att informera honom om problemet.</string>
+    <string name="states_warning"><b>Ojdå!</b>\n\nInga filer kunde hittas. Säker att din enhet är kompatibel?\n\nOm du använder ett ROM eller kernel, försök kontakta utvecklaren för att informera honom om problemet.</string>
     <string name="error">ERROR</string>
     <string name="snackbar_text_reset">Räknare nollställd</string>
     <string name="snackbar_text_restore">Räknare återställda</string>
@@ -85,7 +84,6 @@
     <string name="pref_title_hidestates">Göm lägen under en viss procent</string>
     <string name="pref_summary_hidestates">Lägen under % visas inte</string>
     <string name="pref_title_themes">Bastema</string>
-    <string name="pref_summary_themes">Välj mellan ljust, mörkt och auto</string>
     <string name="pref_title_navbar">Färgad Nav.Bar</string>
     <string name="pref_summary_navbar">Aktivera primär färg på navigeringsfältet</string>
     <string name="pref_title_checkupdates">Kolla efter uppdateringar</string>
@@ -103,7 +101,7 @@
     <string-array name="licenses">
         <item>Android Support Library</item>
         <item>Butter Knife</item>
-        <item>Discrete SeekBar</item>
+        <item>Diskreta SeekBar</item>
         <item>Material Dialogs</item>
         <item>Snackbar</item>
     </string-array>
@@ -122,4 +120,5 @@
     <string name="new_feature_summary">En ny bakgrundstjänst som gör att din enhet meddelar dig när den inte går i djup sömn.</string>
     <string name="xposed_warning_title">Xposed Upptäckt</string>
     <string name="xposed_warning_content">Tyvärr stödjer vi inte enheter med Xposed. Automatiska crashmeddelanden inaktiveras.</string>
+    <string name="menu_timers_restore">Återställ räknare</string>
 </resources>
