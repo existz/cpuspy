@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,13 +20,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -128,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         // This must always be updated to reflect the upcoming version
         final String upcomingVersionURL = "https://app.box.com/cpuspy-v317";
-        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getApplicationContext());
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(MainActivity.this);
 
         // Check if an update is available
         final Thread t = new Thread(new Runnable() {
@@ -140,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                     .text(res.getString(R.string.snackbar_text_update))
                                     .actionLabel(res.getString(R.string.action_view))
                                     .actionLabelTypeface(robotoMedium)
-                                    .actionColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
+                                    .actionColor(ContextCompat.getColor(MainActivity.this, R.color.primary))
                                     .actionListener(new ActionClickListener() {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
@@ -177,14 +174,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Assiging the Sliding Tab Layout View
         final SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setCustomTabView(R.layout.tab_layout, 0);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return ContextCompat.getColor(getApplicationContext(), R.color.tabsScrollColor);
+                return ContextCompat.getColor(MainActivity.this, R.color.tabsScrollColor);
             }
         });
 
@@ -193,20 +189,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         final Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new TimerFragment());
-        adapter.addFragment(new InfoFragment());
+        adapter.addFragment(new TimerFragment(), getResources().getString(R.string.tab_title_timers));
+        adapter.addFragment(new InfoFragment(), getResources().getString(R.string.tab_title_info));
         viewPager.setAdapter(adapter);
     }
 
     private class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
 
         private Adapter(FragmentManager fm) {
             super(fm);
         }
 
-        private void addFragment(Fragment fragment) {
+        private void addFragment(Fragment fragment, String title) {
             mFragments.add(fragment);
+            mFragmentTitles.add(title);
         }
 
         @Override
@@ -219,20 +217,9 @@ public class MainActivity extends AppCompatActivity {
             return mFragments.size();
         }
 
-        private final int[] imageResId = {
-                R.drawable.ic_tab_timers,
-                R.drawable.ic_tab_info
-        };
-
         @Override
         public CharSequence getPageTitle(int position) {
-            final Drawable image = ResourcesCompat.getDrawable(getResources(), imageResId[position], null);
-            assert image != null;
-            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-            final SpannableString sb = new SpannableString(" ");
-            final ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return sb;
+            return mFragmentTitles.get(position);
         }
     }
 
