@@ -19,9 +19,9 @@
     <string name="states_empty">Empty</string>
     <string name="states_deep_sleep">Deep Sleep</string>
     <string name="states_warning"><b>Uh Oh!</b>\n\nStatic file not found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
-    <string name="states_toolbar_hide">Hide States</string>
-    <string name="states_toolbar_reset">Reset</string>
-    <string name="states_toolbar_restore">Restore</string>
+    <string name="states_toolbar_hide" translatable="false">Hide States</string>
+    <string name="states_toolbar_reset" translatable="false">Reset</string>
+    <string name="states_toolbar_restore" translatable="false">Restore</string>
 
     <string name="error">ERROR</string>
 
