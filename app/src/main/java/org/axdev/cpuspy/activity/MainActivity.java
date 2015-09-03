@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // This must always be updated to reflect the upcoming version
-        final String upcomingVersionURL = "https://app.box.com/cpuspy-v317";
+        final String upcomingVersionURL = "https://app.box.com/cpuspy-v318";
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(MainActivity.this);
 
         // Check if an update is available
