@@ -4,4 +4,4 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:gravity="center"
-    android:background="?android:selectableItemBackground" />
+    android:background="?android:attr/selectableItemBackground" />

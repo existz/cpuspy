@@ -34,7 +34,7 @@
                 android:layout_marginRight="@dimen/padding_mtrl"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/new_feature_title"
-                android:textColor="@android:color/primary_text_dark" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/feature_summary"
@@ -44,7 +44,7 @@
                 android:layout_marginLeft="@dimen/padding_mtrl"
                 android:layout_marginRight="@dimen/padding_mtrl"
                 android:text="@string/new_feature_summary"
-                android:textColor="@android:color/primary_text_dark" />
+                android:textColor="@android:color/white" />
 
             <View
                 android:id="@+id/feature_blankspace"

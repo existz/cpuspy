@@ -48,6 +48,7 @@ import org.axdev.cpuspy.widget.SlidingTabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onDismiss(DialogInterface dialog) {
                                 sp.edit().putBoolean("crashReport", false).apply();
                                 sp.edit().putBoolean("showXposedWarning", false).apply();
+                                recreate();
                             }
                         })
                         .build();
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Assiging the Sliding Tab Layout View
-        final SlidingTabLayout tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        final SlidingTabLayout tabs = ButterKnife.findById(this, R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
