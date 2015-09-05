@@ -56,7 +56,7 @@
     </style>
 
     <style name="AppThemeLauncher">
-        <item name="android:windowBackground">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="Widget.TextView.ListSeparator" parent="@android:style/Widget.TextView">

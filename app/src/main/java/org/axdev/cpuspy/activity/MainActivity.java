@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -43,7 +44,6 @@ import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
-import org.axdev.cpuspy.widget.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,24 +169,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupTabs() {
         // Assigning ViewPager View and setting the adapter
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        if (viewPager != null) {
-            setupViewPager(viewPager);
-        }
+        final ViewPager viewPager = ButterKnife.findById(this, R.id.pager);
+        setupViewPager(viewPager);
 
-        // Assiging the Sliding Tab Layout View
-        final SlidingTabLayout tabs = ButterKnife.findById(this, R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return ContextCompat.getColor(MainActivity.this, R.color.tabsScrollColor);
-            }
-        });
-
-        tabs.setViewPager(viewPager);
+        // Assigning the Sliding Tab Layout View
+        final TabLayout tabs = ButterKnife.findById(this, R.id.tabLayout);
+        tabs.setupWithViewPager(viewPager);
     }
 
     private void setupViewPager(ViewPager viewPager) {
