@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="core_offline">Indisponível</string>
+    <string name="total_state_time">Tempo Total do Estado</string>
+    <string name="charged_view_enabled">Reiniciar Automático Ativado</string>
+    <string name="charged_view_status">Estado da Bateria: Carregada</string>
+    <string name="charged_view_message">Uma vez que o dispositivo está totalmente carregado, desconecte o seu carregador para reiniciar automaticamente os contadores da CPU</string>
+    <string name="menu_changelog">Lista de Mudanças</string>
+    <string name="menu_donate">Doar</string>
+    <string name="states_empty">Vazio</string>
+    <string name="states_deep_sleep">Sono Profundo</string>
+    <string name="states_warning">Uh Oh!\n\nFicheiro não encontrado. Tens a certeza que o teu dispositivo é compatível?\n\nSe estiveres a usar uma ROM ou kernel modificado, tenta contactar o desenvolvedor para o informar sobre os ficheiros que não são legíveis.</string>
+    <string name="error">ERRO</string>
+    <string name="snackbar_text_reset">Contadores reiniciados com sucesso</string>
+    <string name="snackbar_text_restore">Contadores restaurados com sucesso</string>
+    <string name="snackbar_text_crashreport">Crash reporting desativado. As mudanças vão ter efeito assim que a aplicação reiniciar</string>
+    <string name="snackbar_text_update">Uma nova versão está disponível!</string>
+    <string name="action_changelog">Lista de Mudanças Completa</string>
+    <string name="action_disable">Desativar</string>
+    <string name="action_dismiss">Dispensar</string>
+    <string name="action_view">Ver</string>
+    <string name="widget_reset_title">CPUSpy - Reiniciar Contadores</string>
+    <string name="widget_reset_error">Oops! Ocorreu um erro, tente outra vez</string>
+    <string name="widget_reset_success">Contadores reiniciados com sucesso</string>
+    <!-- Information -->
+    <string name="information">Informação</string>
+    <string name="information_kernel_info">Informação do kernel</string>
+    <string name="information_device_info">Informação do dispositivo</string>
+    <string name="information_cpu_info">Informação da CPU</string>
+    <string name="information_kernel_governor">Governador:</string>
+    <string name="information_kernel_version_header">Versão:</string>
+    <string name="information_kernel_version_full_header">Versão completa do kernel</string>
+    <string name="information_kernel_version_unavailable">Versão do kernel indisponível</string>
+    <string name="information_device_build_header">ID da build</string>
+    <string name="information_device_api_header">Nível da API</string>
+    <string name="information_device_manuf_header">Fabricante:</string>
+    <string name="information_device_model_header">Modelo:</string>
+    <string name="information_device_board_header">Placa:</string>
+    <string name="information_device_platform_header">Plataforma:</string>
+    <string name="information_device_runtime_header">Runtime (Executor)</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Bootloader:</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">Arquitetura:</string>
+    <string name="information_cpu_freq_header">Frequência:</string>
+    <string name="information_cpu_temp_header">Temperatura:</string>
+    <string name="information_cpu_features_header">Características:</string>
+    <string name="information_usage_header">Utilização da CPU</string>
+    <!-- Welcome info -->
+    <!-- Settings info -->
+    <!-- Open Source Licenses -->
+    <!-- About -->
+    <!-- Tab Title -->
+    <string name="menu_timers_restore">Restaurar Contadores</string>
+</resources>
