@@ -36,6 +36,7 @@ public class CpuSpyApp extends Application {
      * current kernel version string
      */
     @Override public void onCreate() {
+        super.onCreate();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Initialize and start automatic crash reporting
