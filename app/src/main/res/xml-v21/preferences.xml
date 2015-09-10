@@ -44,9 +44,7 @@
         </Preference>
         <Preference
             android:key="credit"
-            android:title="@string/pref_about_header_credits"
-            android:summary="@string/pref_about_credits"
-            android:selectable="false">
+            android:title="@string/pref_about_header_credits">
         </Preference>
         <Preference
             android:key="license"

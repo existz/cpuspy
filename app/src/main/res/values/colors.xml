@@ -6,7 +6,9 @@
     <color name="tabsScrollColor">@android:color/white</color>
     <color name="tabsDisabledTextColor">#b3ffffff</color>
     <color name="primary_text_color">#414141</color>
+    <color name="secondary_text_color_light">#8a000000</color>
     <color name="primary_text_color_dark">#eeeeee</color>
+    <color name="secondary_text_color_dark">#b3ffffff</color>
     <color name="dark_background">#292929</color>
     <color name="light_background">#eeeeee</color>
     <color name="dim_background_disabled">#73000000</color>

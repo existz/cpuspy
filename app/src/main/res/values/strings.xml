@@ -15,6 +15,7 @@
 
     <string name="menu_changelog">Changelog</string>
     <string name="menu_donate">Donate</string>
+    <string name="menu_help_translate">Help Translate</string>
 
     <string name="states_empty">Empty</string>
     <string name="states_deep_sleep">Deep Sleep</string>
@@ -117,18 +118,11 @@
 
     <!-- Open Source Licenses -->
     <string name="license_header">Libraries</string>
-    <string-array name="licenses">
-        <item>Android Support Library</item>
-        <item>Butter Knife</item>
-        <item>Discrete SeekBar</item>
-        <item>Material Dialogs</item>
-        <item>Snackbar</item>
-    </string-array>
+    <string name="translators_header">Translators</string>
 
     <!-- About -->
     <string name="pref_about_header_dev">Developer</string>
     <string name="pref_about_header_credits">Credits</string>
-    <string name="pref_about_credits">Eduardo Pratti - Icons\nBrandon Valosek - Creator</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
 
     <!-- Tab Title -->

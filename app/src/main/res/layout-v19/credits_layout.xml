@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/license_header"
+            android:id="@+id/credits_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_mtrl"
@@ -21,12 +21,28 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:textColor="?attr/colorPrimary"
-            android:text="@string/license_header"/>
+            android:text="@string/pref_about_header_credits"/>
 
         <ListView
-            android:id="@+id/license_list"
+            android:id="@+id/credits_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/translator_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_mtrl"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textColor="?attr/colorPrimary"
+            android:text="@string/translators_header"/>
+
+        <ListView
+            android:id="@+id/translator_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <Space
             android:layout_width="match_parent"

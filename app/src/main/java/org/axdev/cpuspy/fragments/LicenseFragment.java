@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -24,16 +26,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.app.ListFragment;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
+import org.axdev.cpuspy.utils.Utils;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class LicenseFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class LicenseFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,12 +51,48 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.licenses, android.R.layout.simple_list_item_1);
-
         final Resources res = getResources();
-        setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
+        final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        mLicenseHeader.setTypeface(robotoMedium);
+
+        final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
+        final List<String[]> licenseList = new LinkedList<>();
+        licenseList.add(new String[]{"Android Support Library", "Android Open Source Project"});
+        licenseList.add(new String[]{"Butter Knife", "Jake Wharton"});
+        licenseList.add(new String[]{"Discrete Seekbar", "AnderWeb"});
+        licenseList.add(new String[]{"Material Dialogs", "Aidan Follestad"});
+        licenseList.add(new String[]{"Snackbar", "William Mora"});
+        mListView1.setAdapter(new ArrayAdapter<String[]>(
+                getActivity(),
+                android.R.layout.simple_list_item_2,
+                android.R.id.text1,
+                licenseList) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                // Must always return just a View.
+                final View view = super.getView(position, convertView, parent);
+
+                // If you look at the android.R.layout.simple_list_item_2 source, you'll see
+                // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
+                //TwoLineListItem listItem = (TwoLineListItem) view;
+                final String[] entry = licenseList.get(position);
+                final TextView mText1 = ButterKnife.findById(view, android.R.id.text1);
+                final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
+                mText1.setText(entry[0]);
+                mText2.setText(entry[1]);
+                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemeUtils.isDarkTheme ?
+                        R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
+                return view;
+            }
+        });
+
+        Utils.setDynamicHeight(mListView1);
+        mListView1.setDivider(null);
+        mListView1.setDividerHeight(0);
+        mListView1.setOnItemClickListener(this);
 
         final ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         assert mActionBar != null;
@@ -66,10 +109,6 @@ public class LicenseFragment extends ListFragment implements AdapterView.OnItemC
             // Update the action bar title with the TypefaceSpan instance
             mActionBar.setTitle(s);
         }
-
-        final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
-        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
-        mLicenseHeader.setTypeface(robotoMedium);
     }
 
     @Override

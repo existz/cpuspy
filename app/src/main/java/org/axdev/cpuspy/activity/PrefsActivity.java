@@ -36,6 +36,7 @@ import com.nispok.snackbar.enums.SnackbarType;
 
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.fragments.CreditsFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.services.SleepService;
@@ -85,6 +86,18 @@ public class PrefsActivity extends AppCompatActivity {
                     } catch (ActivityNotFoundException e) {
                         Log.e("CpuSpy", "Error opening: " + googleURL);
                     }
+                    return true;
+                }
+            });
+
+            findPreference("credit").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    // Create new fragment and transaction
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.content_wrapper, new CreditsFragment())
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 }
             });

@@ -98,13 +98,6 @@
     </string-array>
     <!-- Open Source Licenses -->
     <string name="license_header">Könyvtárak</string>
-    <string-array name="licenses">
-        <item>Android Support Library</item>
-        <item>Butter Knife</item>
-        <item>Diszkrét SeekBar</item>
-        <item>Material Dialogs</item>
-        <item>Snackbar</item>
-    </string-array>
     <!-- About -->
     <string name="pref_about_header_dev">Fejlesztő</string>
     <string name="pref_about_header_credits">Közreműködők</string>
