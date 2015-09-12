@@ -99,9 +99,8 @@
                 android:layout_marginRight="@dimen/padding_mtrl" />
 
 
-            <View
-                android:id="@+id/welcome_blankspace"
-                android:layout_width="wrap_content"
+            <Space
+                android:layout_width="match_parent"
                 android:layout_height="32dp" />
 
             <android.support.v7.widget.AppCompatButton

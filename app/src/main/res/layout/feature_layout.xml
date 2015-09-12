@@ -46,9 +46,8 @@
                 android:text="@string/new_feature_summary"
                 android:textColor="@android:color/white" />
 
-            <View
-                android:id="@+id/feature_blankspace"
-                android:layout_width="wrap_content"
+            <Space
+                android:layout_width="match_parent"
                 android:layout_height="32dp" />
 
             <android.support.v7.widget.AppCompatButton
