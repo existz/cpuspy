@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,7 +37,7 @@ import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -82,7 +81,7 @@ public class CreditsFragment extends Fragment {
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.credits_list);
         final ListView mListView2 = ButterKnife.findById(getActivity(), R.id.translator_list);
 
-        final List<String[]> creditList = new LinkedList<>();
+        final List<String[]> creditList = new ArrayList<>();
         creditList.add(new String[]{"Icons", "Eduardo Pratti"});
         creditList.add(new String[]{"Creator", "Brandon Valosek"});
         mListView1.setAdapter(new ArrayAdapter<String[]>(
@@ -111,7 +110,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        final List<String[]> translatorList = new LinkedList<>();
+        final List<String[]> translatorList = new ArrayList<>();
         translatorList.add(new String[]{"Bengali (India)", "suhridkhan"});
         translatorList.add(new String[]{"French", "orlith"});
         translatorList.add(new String[]{"German", "AhMaizeBalls"});

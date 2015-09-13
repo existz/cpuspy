@@ -35,7 +35,7 @@ import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -57,7 +57,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         mLicenseHeader.setTypeface(robotoMedium);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
-        final List<String[]> licenseList = new LinkedList<>();
+        final List<String[]> licenseList = new ArrayList<>();
         licenseList.add(new String[]{"Android Support Library", "Android Open Source Project"});
         licenseList.add(new String[]{"Butter Knife", "Jake Wharton"});
         licenseList.add(new String[]{"Discrete Seekbar", "AnderWeb"});
