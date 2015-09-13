@@ -8,12 +8,8 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.Utils;
 
 import butterknife.ButterKnife;
 
@@ -40,12 +37,9 @@ public class WhatsNewDialog extends DialogFragment {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         try {
-                            final Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(githubURL));
-                            startActivity(i);
-                        } catch (ActivityNotFoundException e) {
+                            Utils.openURL(getActivity(), githubURL);
+                        } catch (Exception e) {
                             // Dismiss dialog if unable to open intent
-                            Log.e("CpuSpy", "Error opening: " + githubURL);
                             dialog.dismiss();
                         }
                     }

@@ -6,11 +6,9 @@
 
 package org.axdev.cpuspy.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -24,7 +22,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +40,7 @@ import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.ThemeUtils;
+import org.axdev.cpuspy.utils.Utils;
 
 public class PrefsActivity extends AppCompatActivity {
 
@@ -79,13 +77,7 @@ public class PrefsActivity extends AppCompatActivity {
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    try {
-                        final Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(googleURL));
-                        startActivity(i);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e("CpuSpy", "Error opening: " + googleURL);
-                    }
+                    Utils.openURL(getActivity(), googleURL);
                     return true;
                 }
             });
@@ -296,13 +288,7 @@ public class PrefsActivity extends AppCompatActivity {
                 break;
             case R.id.menu_donate:
                 final String donateURL = "http://goo.gl/X2sA4D";
-                try {
-                    final Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(donateURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException e) {
-                    Log.e("CpuSpy", "Error opening: " + donateURL);
-                }
+                Utils.openURL(this, donateURL);
                 break;
             case android.R.id.home:
                 this.checkBackStack();

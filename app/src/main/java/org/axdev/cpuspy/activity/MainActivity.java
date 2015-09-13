@@ -6,13 +6,11 @@
 
 package org.axdev.cpuspy.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -26,7 +24,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -144,13 +141,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
                                             final String xdaURL = "http://goo.gl/AusQy8";
-                                            try {
-                                                final Intent i = new Intent(Intent.ACTION_VIEW);
-                                                i.setData(Uri.parse(xdaURL));
-                                                startActivity(i);
-                                            } catch (ActivityNotFoundException e) {
-                                                Log.e("CpuSpy", "Error opening: " + xdaURL);
-                                            }
+                                            Utils.openURL(MainActivity.this, xdaURL);
                                         }
                                     })
                     );

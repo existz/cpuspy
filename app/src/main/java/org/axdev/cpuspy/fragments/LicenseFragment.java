@@ -7,11 +7,9 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +18,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,32 +110,23 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final Context context = getActivity();
         switch (position) {
             case 0:
-                openURL("http://developer.android.com/tools/support-library/index.html");
+                Utils.openURL(context, "http://developer.android.com/tools/support-library/index.html");
                 break;
             case 1:
-                openURL("https://github.com/JakeWharton/butterknife");
+                Utils.openURL(context, "https://github.com/JakeWharton/butterknife");
                 break;
             case 2:
-                openURL("https://github.com/AnderWeb/discreteSeekBar");
+                Utils.openURL(context, "https://github.com/AnderWeb/discreteSeekBar");
                 break;
             case 3:
-                openURL("https://github.com/afollestad/material-dialogs");
+                Utils.openURL(context, "https://github.com/afollestad/material-dialogs");
                 break;
             case 4:
-                openURL("https://github.com/nispok/snackbar");
+                Utils.openURL(context, "https://github.com/nispok/snackbar");
                 break;
-        }
-    }
-
-    private void openURL(String s) {
-        try {
-            final Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(s));
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Log.e("CpuSpy", "Error opening: " + s);
         }
     }
 }

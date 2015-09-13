@@ -7,11 +7,8 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +17,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -169,18 +165,8 @@ public class CreditsFragment extends Fragment {
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_help_translate:
-                openURL("https://cpuspy.oneskyapp.com");
+                Utils.openURL(getActivity(), "https://cpuspy.oneskyapp.com");
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void openURL(String s) {
-        try {
-            final Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(s));
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Log.e("CpuSpy", "Error opening: " + s);
-        }
     }
 }

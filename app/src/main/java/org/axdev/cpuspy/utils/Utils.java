@@ -1,10 +1,14 @@
 package org.axdev.cpuspy.utils;
 
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,5 +92,15 @@ public class Utils {
         params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
         mListView.setLayoutParams(params);
         mListView.requestLayout();
+    }
+
+    public static void openURL(Context c, String s) {
+        try {
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(s));
+            c.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.e("CpuSpy", "Error opening: " + s);
+        }
     }
 }
