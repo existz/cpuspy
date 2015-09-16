@@ -27,8 +27,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
+
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.utils.ThemeUtils;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
@@ -71,8 +73,12 @@ public class CreditsFragment extends Fragment {
 
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
+        final int color = ThemeSingleton.get().widgetColor;
+        final int accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
         mCreditsHeader.setTypeface(robotoMedium);
+        mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
+        mTranslatorsHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.credits_list);
         final ListView mListView2 = ButterKnife.findById(getActivity(), R.id.translator_list);
@@ -100,7 +106,7 @@ public class CreditsFragment extends Fragment {
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
-                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemeUtils.isDarkTheme ?
+                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
                 return view;
             }
@@ -136,7 +142,7 @@ public class CreditsFragment extends Fragment {
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
-                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemeUtils.isDarkTheme ?
+                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
                 return view;
             }

@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.SystemClock;
@@ -101,6 +102,15 @@ public class Utils {
             c.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Log.e("CpuSpy", "Error opening: " + s);
+        }
+    }
+
+    public static int resolveColor(Context context, int attr) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(new int[]{attr});
+        try {
+            return a.getColor(0, 0);
+        } finally {
+            a.recycle();
         }
     }
 }

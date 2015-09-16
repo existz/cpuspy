@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_header_general" >
-        <SwitchPreference
+    <org.axdev.cpuspy.views.CpuSpyPreferenceCategory android:title="@string/pref_header_general" >
+        <CheckBoxPreference
             android:key="autoRefresh"
             android:title="@string/pref_title_autorefresh"
             android:summary="@string/pref_summary_autorefresh"
-            android:defaultValue="false" />
-        <SwitchPreference
+            android:defaultValue="false"
+            android:widgetLayout="@layout/preference_dynamiccheckbox"/>
+        <CheckBoxPreference
             android:key="autoReset"
             android:title="@string/pref_title_autoreset"
             android:summary="@string/pref_summary_autoreset"
-            android:defaultValue="true" />
-        <SwitchPreference
+            android:defaultValue="true"
+            android:widgetLayout="@layout/preference_dynamiccheckbox"/>
+        <CheckBoxPreference
             android:key="sleepDetection"
             android:title="@string/pref_title_sleepdetection"
             android:summary="@string/pref_summary_sleepdetection"
-            android:defaultValue="true" />
-    </PreferenceCategory>
+            android:defaultValue="true"
+            android:widgetLayout="@layout/preference_dynamiccheckbox"/>
+    </org.axdev.cpuspy.views.CpuSpyPreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_header_ui" >
+    <org.axdev.cpuspy.views.CpuSpyPreferenceCategory android:title="@string/pref_header_ui" >
         <Preference
             android:key="themes"
             android:title="@string/pref_title_themes"
             android:persistent="true"/>
-        <SwitchPreference
+        <org.axdev.cpuspy.views.CpuSpyPreference
+            android:key="primary_color"
+            android:summary="@string/primary_color_desc"
+            android:title="@string/primary_color" />
+        <org.axdev.cpuspy.views.CpuSpyPreference
+            android:key="accent_color"
+            android:summary="@string/accent_color_desc"
+            android:title="@string/accent_color" />
+        <CheckBoxPreference
             android:key="coloredNavBar"
             android:title="@string/pref_title_navbar"
             android:summary="@string/pref_summary_navbar"
-            android:defaultValue="false" />
-    </PreferenceCategory>
+            android:defaultValue="false"
+            android:widgetLayout="@layout/preference_dynamiccheckbox"/>
+    </org.axdev.cpuspy.views.CpuSpyPreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_header_about" >
+    <org.axdev.cpuspy.views.CpuSpyPreferenceCategory android:title="@string/pref_header_about" >
         <Preference
             android:key="developer"
             android:title="@string/pref_about_header_dev"
@@ -51,11 +63,12 @@
             android:title="@string/pref_title_license"
             android:persistent="false">
         </Preference>
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="crashReport"
             android:title="@string/pref_title_crashreport"
             android:summary="@string/pref_summary_crashreport"
-            android:defaultValue="true" />
-    </PreferenceCategory>
+            android:defaultValue="true"
+            android:widgetLayout="@layout/preference_dynamiccheckbox"/>
+    </org.axdev.cpuspy.views.CpuSpyPreferenceCategory>
 
 </PreferenceScreen>

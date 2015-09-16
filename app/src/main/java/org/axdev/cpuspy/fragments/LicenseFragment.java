@@ -26,8 +26,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
+
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.utils.ThemeUtils;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
@@ -51,7 +53,10 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         final Resources res = getResources();
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        final int color = ThemeSingleton.get().widgetColor;
+        final int accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
         mLicenseHeader.setTypeface(robotoMedium);
+        mLicenseHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
         final List<String[]> licenseList = new ArrayList<>();
@@ -80,7 +85,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
-                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemeUtils.isDarkTheme ?
+                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
                 return view;
             }

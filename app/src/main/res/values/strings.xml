@@ -32,6 +32,8 @@
     <string name="snackbar_text_update">A newer version is available!</string>
 
     <string name="action_changelog">Full Changelog</string>
+    <string name="action_back">Back</string>
+    <string name="action_done">Done</string>
     <string name="action_disable">Disable</string>
     <string name="action_dismiss">Dismiss</string>
     <string name="action_view">View</string>
@@ -138,4 +140,9 @@
 
     <string name="xposed_warning_title">Xposed Detected</string>
     <string name="xposed_warning_content">Unfortunately we are unable to support devices running Xposed. Automatic crash reporting will be disabled.</string>
+
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_desc">Apply a primary theme color</string>
+    <string name="accent_color">Accent Color</string>
+    <string name="accent_color_desc">Apply an accent color</string>
 </resources>

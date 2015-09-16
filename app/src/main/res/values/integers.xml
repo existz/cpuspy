@@ -21,4 +21,5 @@
     <integer name="animationMedium">500</integer>
     <integer name="animationLong">1000</integer>
     <integer name="progressAnimationDuration">650</integer>
+    <integer name="font_textStyle_medium">1</integer>
 </resources>

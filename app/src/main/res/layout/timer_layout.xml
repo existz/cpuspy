@@ -72,7 +72,7 @@
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
                             android:text="@string/total_state_time"
-                            android:textColor="?attr/colorAccent"/>
+                            android:textColor="?colorAccent"/>
 
                         <TextView
                             android:id="@+id/ui_total_state_time"

@@ -34,7 +34,6 @@
         android:layout_below="@id/ui_freq_text"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="?attr/drawableProgressBackground" />
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
 </RelativeLayout>

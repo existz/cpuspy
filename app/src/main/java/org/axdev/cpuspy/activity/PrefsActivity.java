@@ -11,12 +11,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.ColorChooserDialog;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -39,10 +39,10 @@ import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
-import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.Utils;
+import org.axdev.cpuspy.views.CpuSpyPreference;
 
-public class PrefsActivity extends AppCompatActivity {
+public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.ColorCallback {
 
     public static class PrefsFragment extends PreferenceFragment {
 
@@ -61,13 +61,13 @@ public class PrefsActivity extends AppCompatActivity {
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
                         R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
                         R.drawable.ic_version_dark : R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
                         R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, ThemeUtils.isDarkTheme ?
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
                         R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
             }
 
@@ -130,89 +130,83 @@ public class PrefsActivity extends AppCompatActivity {
                             .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
-                                    switch (position) {
-                                        case 0:
-                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.LIGHT);
-                                            break;
-                                        case 1:
-                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.DARK);
-                                            break;
-                                        case 2:
-                                            ThemeUtils.changeToTheme(getActivity(), ThemeUtils.AUTO);
-                                            break;
-                                    }
                                     sp.edit().putInt("theme", position).apply();
-                                    return true; // allow selection
+                                    if (getActivity() != null)
+                                        getActivity().recreate();
+                                    return true;
                                 }
                             })
                             .positiveText(res.getString(android.R.string.ok))
-                            .positiveColor(ContextCompat.getColor(getActivity(), R.color.primary))
                             .show();
                     return true;
                 }
             });
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final SwitchPreference sleepDetection = (SwitchPreference) getPreferenceManager().findPreference("sleepDetection");
-                sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue.toString().equals("true")) {
-                            getActivity().startService(new Intent(getActivity(), SleepService.class));
-                        } else {
-                            getActivity().stopService(new Intent(getActivity(), SleepService.class));
-                        }
-                        return true;
+            CpuSpyPreference primaryColor = (CpuSpyPreference) findPreference("primary_color");
+            primaryColor.setColor(((ThemedActivity) getActivity()).primaryColor(), Utils.resolveColor(getActivity(), R.attr.colorAccent));
+            primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    PrefsActivity act = (PrefsActivity) getActivity();
+                    if (act == null) return false;
+                    new ColorChooserDialog.Builder(act, preference.getTitleRes())
+                            .preselect(act.primaryColor())
+                            .backButton(R.string.action_back)
+                            .doneButton(R.string.action_done)
+                            .cancelButton(android.R.string.cancel)
+                            .show();
+                    return true;
+                }
+            });
+
+            CpuSpyPreference accentColor = (CpuSpyPreference) findPreference("accent_color");
+            accentColor.setColor(((ThemedActivity) getActivity()).accentColor(), Utils.resolveColor(getActivity(), R.attr.colorAccent));
+            accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    PrefsActivity act = (PrefsActivity) getActivity();
+                    if (act == null) return false;
+                    new ColorChooserDialog.Builder(act, preference.getTitleRes())
+                            .preselect(act.accentColor())
+                            .accentMode(true)
+                            .backButton(R.string.action_back)
+                            .doneButton(R.string.action_done)
+                            .cancelButton(android.R.string.cancel)
+                            .show();
+                    return true;
+                }
+            });
+
+            findPreference("sleepDetection").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue.toString().equals("true")) {
+                        getActivity().startService(new Intent(getActivity(), SleepService.class));
+                    } else {
+                        getActivity().stopService(new Intent(getActivity(), SleepService.class));
                     }
-                });
-            } else {
-                final CheckBoxPreference sleepDetection = (CheckBoxPreference) getPreferenceManager().findPreference("sleepDetection");
-                sleepDetection.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue.toString().equals("true")) {
-                            getActivity().startService(new Intent(getActivity(), SleepService.class));
-                        } else {
-                            getActivity().stopService(new Intent(getActivity(), SleepService.class));
-                        }
-                        return true;
+                    return true;
+                }
+            });
+
+            findPreference("crashReport").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue.toString().equals("false")) {
+                        SnackbarManager.show(Snackbar.with(getActivity())
+                                .type(SnackbarType.MULTI_LINE)
+                                .text(res.getString(R.string.snackbar_text_crashreport)));
                     }
-                });
-            }
+                    return true;
+                }
+            });
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final SwitchPreference crashReport = (SwitchPreference) getPreferenceManager().findPreference("crashReport");
-                crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                findPreference("coloredNavBar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue.toString().equals("false")) {
-                            SnackbarManager.show(Snackbar.with(getActivity())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(res.getString(R.string.snackbar_text_crashreport)));
-                        }
-                        return true;
-                    }
-                });
-            } else {
-                final CheckBoxPreference crashReport = (CheckBoxPreference) getPreferenceManager().findPreference("crashReport");
-                crashReport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue.toString().equals("false")) {
-                            SnackbarManager.show(Snackbar.with(getActivity())
-                                    .type(SnackbarType.MULTI_LINE)
-                                    .text(res.getString(R.string.snackbar_text_crashreport)));
-                        }
-                        return true;
-                    }
-                });
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final SwitchPreference coloredNavBar = (SwitchPreference) getPreferenceManager().findPreference("coloredNavBar");
-                coloredNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (newValue.toString().equals("true")) {
-                            ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_COLORED);
-                        } else {
-                            ThemeUtils.changeNavBar(getActivity(), ThemeUtils.NAVBAR_DEFAULT);
-                        }
+                        if (getActivity() != null)
+                            getActivity().recreate();
                         return true;
                     }
                 });
@@ -244,10 +238,6 @@ public class PrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ThemeUtils.onActivityCreateSetNavBar(this);
-        }
-        ThemeUtils.onActivityCreateSetTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
 
@@ -295,6 +285,16 @@ public class PrefsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog colorChooserDialog, @ColorInt int color) {
+        if (colorChooserDialog.isAccentMode()) {
+            accentColor(color);
+        } else {
+            primaryColor(color);
+        }
+        recreate();
     }
 
 } /** End PrefsActivity **/

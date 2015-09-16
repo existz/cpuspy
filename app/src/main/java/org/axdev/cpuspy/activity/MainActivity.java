@@ -21,7 +21,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
@@ -37,7 +36,6 @@ import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
 import org.axdev.cpuspy.services.SleepService;
-import org.axdev.cpuspy.utils.ThemeUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
@@ -48,20 +46,13 @@ import java.util.List;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ThemedActivity {
 
-    private boolean mLastTheme;
-    private boolean mLastNavBar;
     private Resources res;
     private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ThemeUtils.onActivityCreateSetNavBar(this);
-        }
-        ThemeUtils.onActivityCreateSetTheme(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         setupTabs();
@@ -88,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mLastTheme = ThemeUtils.isDarkTheme;
-        mLastNavBar = ThemeUtils.isColoredNav;
 
         // Show warning dialog if Xposed is installed
         if (Utils.isXposedInstalled(this)) {
@@ -136,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                                     .text(res.getString(R.string.snackbar_text_update))
                                     .actionLabel(res.getString(R.string.action_view))
                                     .actionLabelTypeface(robotoMedium)
-                                    .actionColor(ContextCompat.getColor(MainActivity.this, R.color.primary))
+                                    .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.primary) : accentColor())
                                     .actionListener(new ActionClickListener() {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
@@ -165,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Assigning the Sliding Tab Layout View
         final TabLayout tabs = ButterKnife.findById(this, R.id.tabLayout);
+        tabs.setBackgroundColor(primaryColor());
         tabs.setupWithViewPager(viewPager);
     }
 
@@ -213,12 +203,6 @@ public class MainActivity extends AppCompatActivity {
             Fabric.with(this, new Crashlytics());
         } else {
             sp.edit().putBoolean("crashReport", false).apply();
-        }
-
-        // Restart activity if theme or navbar changed
-        if (mLastTheme != ThemeUtils.isDarkTheme
-                || mLastNavBar != ThemeUtils.isColoredNav) {
-            this.recreate();
         }
     }
 

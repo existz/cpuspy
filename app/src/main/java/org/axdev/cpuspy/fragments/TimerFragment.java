@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -46,6 +47,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
@@ -54,6 +57,7 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -103,6 +107,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private SharedPreferences sp;
     private Typeface robotoMedium;
 
+    private int accentColor;
+
     private boolean mAutoRefresh;
     private boolean mIsAnimating;
     private boolean mIsCharged;
@@ -127,6 +133,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        int color = ThemeSingleton.get().widgetColor;
+        accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
@@ -135,6 +143,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mFeatureCardTitle.setTypeface(robotoMedium);
         mAdditionalStatesCount.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTypeface(robotoMedium);
+        mHeaderTotalStateTime.setTextColor(accentColor);
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -161,7 +170,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), android.R.color.white));
-        mSwipeLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getActivity(), R.color.primary));
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(accentColor);
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
@@ -413,7 +422,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 .text(res.getString(R.string.snackbar_text_restore))
                 .actionLabelTypeface(robotoMedium)
                 .actionLabel(res.getString(R.string.action_dismiss)) // action button label
-                .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
+                .actionColor(accentColor));
         mStatesToolbar.setVisibility(View.GONE);
     }
 
@@ -426,7 +435,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 .text(res.getString(R.string.snackbar_text_reset))
                 .actionLabel(res.getString(R.string.action_dismiss)) // action button label
                 .actionLabelTypeface(robotoMedium)
-                .actionColor(ContextCompat.getColor(getActivity(), R.color.primary)));
+                .actionColor(accentColor));
         mStatesToolbar.setVisibility(View.GONE);
     }
 
@@ -450,6 +459,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final int currentValue = sp.getInt("hidePercent", 0);
         final View view = dialog.getCustomView();
         if (view != null) {
+            discreteSeekBar.setScrubberColor(accentColor);
+            discreteSeekBar.setThumbColor(accentColor, accentColor);
             discreteSeekBar.setProgress(currentValue);
             final DiscreteSeekBar.OnProgressChangeListener progressChangeListener = new DiscreteSeekBar.OnProgressChangeListener() {
                 @Override
@@ -582,6 +593,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final TextView mDurText = ButterKnife.findById(theRow, R.id.ui_duration_text);
         final TextView mPerText = ButterKnife.findById(theRow, R.id.ui_percentage_text);
         final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
+
+        MDTintHelper.setTint(mBar, accentColor);
+        mBar.setProgressDrawable(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
+                R.drawable.progress_drawable_dark : R.drawable.progress_drawable, null));
 
         // modify the row
         mFreqText.setText(sFreq);
