@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 
 /**

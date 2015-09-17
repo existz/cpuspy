@@ -47,7 +47,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;

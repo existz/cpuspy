@@ -26,10 +26,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.Utils;

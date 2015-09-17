@@ -15,12 +15,10 @@ import android.preference.PreferenceManager;
 import android.util.SparseArray;
 
 import com.crashlytics.android.Crashlytics;
-import com.squareup.leakcanary.LeakCanary;
 
 import org.axdev.cpuspy.utils.Utils;
 
 import io.fabric.sdk.android.Fabric;
-import me.drakeet.library.CrashWoodpecker;
 
 /** main application class */
 public class CpuSpyApp extends Application {
@@ -47,9 +45,6 @@ public class CpuSpyApp extends Application {
         }
 
         loadOffsets();
-
-        CrashWoodpecker.fly().to(this);
-        LeakCanary.install(this);
     }
 
     /** @return the internal CpuStateMonitor object */

@@ -11,8 +11,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
-import com.afollestad.materialdialogs.internal.CircleView;
+import com.afollestad.materialdialogs.color.CircleView;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 
 import org.axdev.cpuspy.R;
 
