@@ -60,6 +60,8 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_freq) TextView mCpuFreq;
     @Bind(R.id.cpu_temp_header) TextView mCpuTempHeader;
     @Bind(R.id.cpu_temp) TextView mCpuTemp;
+    @Bind(R.id.cpu_usage_header) TextView mCpuUsageHeader;
+    @Bind(R.id.cpu_usage) TextView mCpuUsage;
     @Bind(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
     @Bind(R.id.cpu_features) TextView mCpuFeatures;
     @Bind(R.id.device_header) TextView mDeviceInfo;
@@ -103,6 +105,7 @@ public class InfoFragment extends Fragment {
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
     private boolean mIsMonitoringCpu;
+    private boolean mIsMonitoringUsage;
     private boolean mHasCpu0;
     private boolean mHasCpu1;
     private boolean mHasCpu2;
@@ -168,6 +171,7 @@ public class InfoFragment extends Fragment {
         mCpuArchHeader.setTypeface(robotoMedium);
         mCpuFreqHeader.setTypeface(robotoMedium);
         mCpuFeaturesHeader.setTypeface(robotoMedium);
+        mCpuUsageHeader.setTypeface(robotoMedium);
         mDeviceInfo.setTypeface(robotoMedium);
         mDeviceBuildHeader.setTypeface(robotoMedium);
         mDeviceApiHeader.setTypeface(robotoMedium);
@@ -249,9 +253,13 @@ public class InfoFragment extends Fragment {
         if (enabled) {
             checkTempMonitor();
             checkCoreMonitor();
+
+            mIsMonitoringUsage = true;
+            mHandler.post(monitorCpuUsage);
         } else {
             mIsMonitoringCpu = false;
             mIsMonitoringTemp = false;
+            mIsMonitoringUsage = false;
         }
     }
 
@@ -313,7 +321,36 @@ public class InfoFragment extends Fragment {
                 } catch (NumberFormatException e) {
                     mCpuTemp = null;
                 }
-                mHandler.postDelayed(monitorTemp, 3000);
+                mHandler.postDelayed(this, 3000);
+            }
+        }
+    };
+
+    /** Monitor CPU usage */
+    private final Runnable monitorCpuUsage = new Runnable() {
+        @Override
+        public void run() {
+            if (mIsMonitoringUsage) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final float usage = CPUUtils.getCpuUsage();
+                        try {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mCpuUsage.setText(String.format("%.1f", usage) + "%");
+                                }
+                            });
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                            mCpuUsage.setText(res.getString(R.string.error));
+                            mCpuUsage.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                            Log.e("CpuSpyInfo", "Error reading cpu usage: null");
+                        }
+                    }
+                }).start();
+                mHandler.postDelayed(this, 3000);
             }
         }
     };
@@ -470,7 +507,7 @@ public class InfoFragment extends Fragment {
                     }
                 }
 
-                mHandler.postDelayed(monitorCpu, 1000); // 1 second
+                mHandler.postDelayed(this, 1000); // 1 second
             }
         }
     };

@@ -66,6 +66,7 @@
     <string name="information_cpu_freq_header">Frequency:</string>
     <string name="information_cpu_temp_header">Temp:</string>
     <string name="information_cpu_features_header">Features:</string>
+    <string name="information_cpu_usage_header">Usage:</string>
 
     <string name="information_usage_header">CPU Usage</string>
     <string name="information_core_header">Cores:</string>

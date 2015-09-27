@@ -11,7 +11,9 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 
 public class CPUUtils {
 
@@ -83,6 +85,103 @@ public class CPUUtils {
         return mFreq;
     }
 
+    private static float readCPUUsage() {
+        try {
+            String cpuStat1 = readSystemStat();
+            Thread.sleep(100);
+            String cpuStat2 = readSystemStat();
+            float usage = getSystemCpuUsage(cpuStat1, cpuStat2);
+            if (usage > -1) return usage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    /**
+     * Return the first line of /proc/stat or null if failed.
+     */
+    private static String readSystemStat() {
+        try {
+            RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+            String value = reader.readLine();
+            reader.close();
+            return value;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Compute and return the total CPU usage, in percent.
+     *
+     * @param start first content of /proc/stat. Not null.
+     * @param end   second content of /proc/stat. Not null.
+     * @return the CPU use in percent, or -1f if the stats are inverted or on
+     * error
+     * @see {@link #readSystemStat()}
+     */
+    private static float getSystemCpuUsage(String start, String end) {
+        String[] stat = start.split(" ");
+        long idle1 = getSystemIdleTime(stat);
+        long up1 = getSystemUptime(stat);
+
+        stat = end.split(" ");
+        long idle2 = getSystemIdleTime(stat);
+        long up2 = getSystemUptime(stat);
+
+        // don't know how it is possible but we should care about zero and
+        // negative values.
+        float cpu = -1f;
+        if (idle1 >= 0 && up1 >= 0 && idle2 >= 0 && up2 >= 0) {
+            if ((up2 + idle2) > (up1 + idle1) && up2 >= up1) {
+                cpu = (up2 - up1) / (float) ((up2 + idle2) - (up1 + idle1));
+                cpu *= 100.0f;
+            }
+        }
+
+        return cpu;
+    }
+
+    /**
+     * Return the sum of uptimes read from /proc/stat.
+     *
+     * @param stat see {@link #readSystemStat()}
+     */
+    private static long getSystemUptime(String[] stat) {
+        long l = 0L;
+        for (int i = 2; i < stat.length; i++) {
+            if (i != 5) { // bypass any idle mode. There is currently only one.
+                try {
+                    l += Long.parseLong(stat[i]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    return -1L;
+                }
+            }
+        }
+
+        return l;
+    }
+
+    /**
+     * Return the sum of idle times read from /proc/stat.
+     *
+     * @param stat see {@link #readSystemStat()}
+     */
+    private static long getSystemIdleTime(String[] stat) {
+        try {
+            return Long.parseLong(stat[5]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return -1L;
+    }
+
     /** Retrieves information for ARM CPUs. */
     private static String readCpuInfo(String INFO) {
         try {
@@ -145,7 +244,7 @@ public class CPUUtils {
         if (temp > 1000) temp /= 1000;
         else if (temp > 200) temp /= 10;
 
-        return ((double) temp) + "°C";
+        return String.format("%s°C", String.valueOf((double) temp));
     }
 
     private static String[] tempFiles = {
@@ -165,11 +264,9 @@ public class CPUUtils {
         for (final String s : tempFiles) {
             final File file = new File(s);
             if (file.canRead() && file.length() != 0) {
-                if (s.equals("/sys/devices/virtual/thermal/thermal_zone1/temp")) {
-                    mTempFile = "/sys/devices/virtual/thermal/thermal_zone0/temp";
-                } else {
-                    mTempFile = s;
-                }
+                final String THERMAL_ZONE0 = "/sys/devices/virtual/thermal/thermal_zone0/temp";
+                final String THERMAL_ZONE1 = "/sys/devices/virtual/thermal/thermal_zone1/temp";
+                mTempFile = s.equals(THERMAL_ZONE1) ? THERMAL_ZONE0 : s;
             }
         }
 
@@ -304,6 +401,11 @@ public class CPUUtils {
     public static int getCoreCount() {
         final int availableProcessors = Runtime.getRuntime().availableProcessors();
         if (availableProcessors != 0) return availableProcessors;
+        return 0;
+    }
+
+    public static float getCpuUsage() {
+        if (readCPUUsage() != 0) return readCPUUsage();
         return 0;
     }
 }
