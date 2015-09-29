@@ -64,7 +64,7 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_usage) TextView mCpuUsage;
     @Bind(R.id.cpu_features_header) TextView mCpuFeaturesHeader;
     @Bind(R.id.cpu_features) TextView mCpuFeatures;
-    @Bind(R.id.device_header) TextView mDeviceInfo;
+    @Bind(R.id.device_header) TextView mDeviceHeader;
     @Bind(R.id.device_build_header) TextView mDeviceBuildHeader;
     @Bind(R.id.device_build) TextView mDeviceBuild;
     @Bind(R.id.device_api_header) TextView mDeviceApiHeader;
@@ -119,6 +119,8 @@ public class InfoFragment extends Fragment {
     private Resources res;
     private Typeface robotoMedium;
 
+    private int mNumCores;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.info_layout, container, false);
@@ -139,10 +141,10 @@ public class InfoFragment extends Fragment {
         final String kernelVersion = System.getProperty("os.version");
 
         /** @return the current number of CPU cores */
-        final int coreCount = CPUUtils.getCoreCount();
-        if (coreCount != 0) {
+        mNumCores = CPUUtils.getCoreCount();
+        if (mNumCores != 0) {
             mCpuCoreHeader.setTypeface(robotoMedium);
-            mCpuCore.setText(Integer.toString(CPUUtils.getCoreCount()));
+            mCpuCore.setText(Integer.toString(mNumCores));
         } else {
             mCpuCoreHeader.setVisibility(View.GONE);
             mCpuCore.setVisibility(View.GONE);
@@ -172,7 +174,7 @@ public class InfoFragment extends Fragment {
         mCpuFreqHeader.setTypeface(robotoMedium);
         mCpuFeaturesHeader.setTypeface(robotoMedium);
         mCpuUsageHeader.setTypeface(robotoMedium);
-        mDeviceInfo.setTypeface(robotoMedium);
+        mDeviceHeader.setTypeface(robotoMedium);
         mDeviceBuildHeader.setTypeface(robotoMedium);
         mDeviceApiHeader.setTypeface(robotoMedium);
         mDeviceManufHeader.setTypeface(robotoMedium);
@@ -187,7 +189,7 @@ public class InfoFragment extends Fragment {
         final int accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
         mKernelHeader.setTextColor(accentColor);
         mCpuHeader.setTextColor(accentColor);
-        mDeviceInfo.setTextColor(accentColor);
+        mDeviceHeader.setTextColor(accentColor);
 
         mScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -514,7 +516,7 @@ public class InfoFragment extends Fragment {
 
     /** Check which CPU cores to start monitoring */
     private void checkCoreMonitor() {
-        switch (CPUUtils.getCoreCount()) {
+        switch (mNumCores) {
             default:
                 return;
             case 1:
