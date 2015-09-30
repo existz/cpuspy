@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
@@ -28,6 +29,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -47,6 +49,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.color.CircleView;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.nispok.snackbar.Snackbar;
@@ -76,6 +79,9 @@ import butterknife.OnClick;
 public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
 {
     // main ui views
+    @Bind(R.id.btn_charged) AppCompatButton mChargedButton;
+    @Bind(R.id.btn_feature) AppCompatButton mFeatureButton;
+    @Bind(R.id.btn_welcome) AppCompatButton mWelcomeButton;
     @Bind(R.id.card_view_states) CardView mStatesCardView;
     @Bind(R.id.card_view_welcome) CardView mWelcomeCardView;
     @Bind(R.id.card_view_feature) CardView mFeatureCardView;
@@ -144,6 +150,14 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mAdditionalStatesCount.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTextColor(accentColor);
+
+        /** Tint cardview and buttons to match accent color */
+        final int primaryDark = CircleView.shiftColorDown(accentColor);
+        final ColorStateList sl = ColorStateList.valueOf(primaryDark);
+        mWelcomeCardView.setCardBackgroundColor(accentColor);
+        mFeatureCardView.setCardBackgroundColor(accentColor);
+        mWelcomeButton.setSupportBackgroundTintList(sl);
+        mFeatureButton.setSupportBackgroundTintList(sl);
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = 0;
@@ -279,6 +293,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         if (sp.getBoolean("autoReset", true) && mIsCharged) {
             // Disable layout transitions
             mCardContainer.setLayoutTransition(null);
+
+            // Set button background to accent color
+            final ColorStateList sl = ColorStateList.valueOf(accentColor);
+            mChargedButton.setSupportBackgroundTintList(sl);
 
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
