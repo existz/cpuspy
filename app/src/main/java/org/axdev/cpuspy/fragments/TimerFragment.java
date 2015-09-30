@@ -62,7 +62,6 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -617,9 +616,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final TextView mPerText = ButterKnife.findById(theRow, R.id.ui_percentage_text);
         final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
 
-        // set progress drawable and tint to match accent color
-        mBar.setProgressDrawable(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
-                R.drawable.progress_drawable_dark : R.drawable.progress_drawable, null));
+        // set progress tint to match accent color
         MDTintHelper.setTint(mBar, accentColor);
 
         // modify the row
