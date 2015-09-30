@@ -17,7 +17,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
@@ -297,6 +299,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             // Set button background to accent color
             final ColorStateList sl = ColorStateList.valueOf(accentColor);
             mChargedButton.setSupportBackgroundTintList(sl);
+            // Set charged image to accent color
+            final Drawable chargedImage = ResourcesCompat.getDrawable(res, R.drawable.ic_charged, null);
+            chargedImage.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
 
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
@@ -612,9 +617,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final TextView mPerText = ButterKnife.findById(theRow, R.id.ui_percentage_text);
         final ProgressBar mBar = ButterKnife.findById(theRow, R.id.ui_bar);
 
-        MDTintHelper.setTint(mBar, accentColor);
+        // set progress drawable and tint to match accent color
         mBar.setProgressDrawable(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
                 R.drawable.progress_drawable_dark : R.drawable.progress_drawable, null));
+        MDTintHelper.setTint(mBar, accentColor);
 
         // modify the row
         mFreqText.setText(sFreq);
