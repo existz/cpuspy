@@ -58,7 +58,7 @@ public class WhatsNewDialog extends DialogFragment {
         final View view = dialog.getCustomView();
         if (view != null) {
             final TextView version = ButterKnife.findById(view, R.id.changelog_version);
-            version.setText("v" + BuildConfig.VERSION_NAME);
+            version.setText(String.format(res.getString(R.string.build_version), BuildConfig.VERSION_NAME));
         }
 
         // Override dialog enter/exit animation

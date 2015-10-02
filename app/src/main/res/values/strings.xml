@@ -2,10 +2,11 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
 
     <string name="core_offline">Offline</string>
 
-    <string name="unused_states_count">&#160;Unused States</string>
+    <string name="unused_states_count">%s&#160;Unused States</string>
 
     <string name="total_state_time">Total State Time</string>
 

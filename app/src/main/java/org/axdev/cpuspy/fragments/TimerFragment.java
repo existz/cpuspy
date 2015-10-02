@@ -546,8 +546,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         // get the total number of unused states
-        final int count = extraStates.size();
-        mAdditionalStatesCount.setText(String.valueOf(count) + res.getString(R.string.unused_states_count));
+        final String count = String.valueOf(extraStates.size());
+        mAdditionalStatesCount.setText(String.format(res.getString(R.string.unused_states_count), count));
 
         // update the total state time
         final long totTime = monitor.getTotalStateTime() / 100;
@@ -604,7 +604,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         // what percentage we've got
         final float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
-        final String sPer = String.format("%.01f", per) + "%";
+        final String sPer = String.format("%.01f%%", per);
 
         final String sFreq = state.freq == 0 ? res.getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
 

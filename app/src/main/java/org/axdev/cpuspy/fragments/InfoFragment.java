@@ -344,7 +344,7 @@ public class InfoFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mCpuUsage.setText(String.format("%.1f", usage) + "%");
+                                    mCpuUsage.setText(String.format("%.01f%%", usage));
                                 }
                             });
                         } catch (NullPointerException e) {
