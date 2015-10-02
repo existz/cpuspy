@@ -106,6 +106,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
 
+    private Context mContext;
     private CpuStateMonitor monitor;
     private Handler mHandler;
     private Resources res;
@@ -132,16 +133,17 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.mContext = this.getActivity();
         PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
-        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         mHandler = new Handler();
         res = getResources();
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
-        robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         int color = ThemeSingleton.get().widgetColor;
-        accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
+        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
@@ -164,7 +166,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         int currentVersionNumber = 0;
         int savedVersionNumber = sp.getInt("version_number", 0);
         try {
-            final PackageInfo pi = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            final PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             currentVersionNumber = pi.versionCode;
         } catch (Exception ignored) {}
 
@@ -184,12 +186,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(getActivity(), android.R.color.white));
+        mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext, android.R.color.white));
         mSwipeLayout.setProgressBackgroundColorSchemeColor(accentColor);
 
         /** Add listener for shake to refresh */
         if (!mAutoRefresh) {
-            mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+            mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
                 mSensorListener = new ShakeEventListener();
                 mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
@@ -202,7 +204,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         /** Register receiver to check battery status */
-        getActivity().registerReceiver(this.mBatInfoReceiver,
+        mContext.registerReceiver(this.mBatInfoReceiver,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         // Allow dismissing states toolbar with back button
@@ -337,7 +339,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     private void setShakeRefresh(boolean enabled) {
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             if (enabled) {
                 mSensorManager.registerListener(mSensorListener,
@@ -419,7 +421,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @OnClick(R.id.btn_states_more)
     void statesMoreButton() {
-        final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.popup_enter_mtrl);
+        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
         mStatesToolbar.startAnimation(fadeIn);
         mStatesToolbar.setVisibility(View.VISIBLE);
         mContainer.setOnTouchListener(new View.OnTouchListener() {
@@ -440,7 +442,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         CpuSpyApp.restoreTimers();
         sp.edit().remove("offsets").apply();
         this.updateView();
-        SnackbarManager.show(Snackbar.with(getActivity())
+        SnackbarManager.show(Snackbar.with(mContext)
                 .text(res.getString(R.string.snackbar_text_restore))
                 .actionLabelTypeface(robotoMedium)
                 .actionLabel(res.getString(R.string.action_dismiss)) // action button label
@@ -453,7 +455,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         CpuSpyApp.resetTimers();
         this.updateView();
         if (!mAdditionalStates.isShown()) showUnusedStates(true);
-        SnackbarManager.show(Snackbar.with(getActivity())
+        SnackbarManager.show(Snackbar.with(mContext)
                 .text(res.getString(R.string.snackbar_text_reset))
                 .actionLabel(res.getString(R.string.action_dismiss)) // action button label
                 .actionLabelTypeface(robotoMedium)
@@ -474,7 +476,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final TextView textView = ButterKnife.findById(layout, R.id.percentSeekTitle);
         textView.setTypeface(robotoMedium);
 
-        final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+        final MaterialDialog dialog = new MaterialDialog.Builder(mContext)
                 .customView(layout, true)
                 .build();
 
@@ -688,6 +690,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         super.onDestroy();
         mAutoRefresh = false;
         ButterKnife.unbind(this);
-        getActivity().unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
+        mContext.unregisterReceiver(this.mBatInfoReceiver); // unregister receiver
     }
 }

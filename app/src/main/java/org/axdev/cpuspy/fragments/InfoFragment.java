@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -115,6 +116,7 @@ public class InfoFragment extends Fragment {
     private boolean mHasCpu6;
     private boolean mHasCpu7;
 
+    private Context mContext;
     private Handler mHandler;
     private Resources res;
     private Typeface robotoMedium;
@@ -133,9 +135,10 @@ public class InfoFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         /** Set text and typeface for TextViews */
+        this.mContext = this.getActivity();
         mHandler = new Handler();
         res = getResources();
-        robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
         final String kernelVersion = System.getProperty("os.version");
@@ -144,7 +147,7 @@ public class InfoFragment extends Fragment {
         mNumCores = CPUUtils.getCoreCount();
         if (mNumCores != 0) {
             mCpuCoreHeader.setTypeface(robotoMedium);
-            mCpuCore.setText(Integer.toString(mNumCores));
+            mCpuCore.setText(String.format("%d", mNumCores));
         } else {
             mCpuCoreHeader.setVisibility(View.GONE);
             mCpuCore.setVisibility(View.GONE);
@@ -186,7 +189,7 @@ public class InfoFragment extends Fragment {
         mKernelVersionFullHeader.setTypeface(robotoMedium);
 
         final int color = ThemeSingleton.get().widgetColor;
-        final int accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
         mKernelHeader.setTextColor(accentColor);
         mCpuHeader.setTextColor(accentColor);
         mDeviceHeader.setTextColor(accentColor);
@@ -295,7 +298,7 @@ public class InfoFragment extends Fragment {
             mCpuTemp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new MaterialDialog.Builder(getActivity())
+                    new MaterialDialog.Builder(mContext)
                             .content(CPUUtils.getTempFile())
                             .show();
                 }
@@ -317,7 +320,7 @@ public class InfoFragment extends Fragment {
                     } else {
                         mIsMonitoringTemp = false;
                         mCpuTemp.setText(res.getString(R.string.error));
-                        mCpuTemp.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCpuTemp.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -347,7 +350,7 @@ public class InfoFragment extends Fragment {
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                             mCpuUsage.setText(res.getString(R.string.error));
-                            mCpuUsage.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                            mCpuUsage.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu usage: null");
                         }
                     }
@@ -369,7 +372,7 @@ public class InfoFragment extends Fragment {
                         } else {
                             mIsMonitoringCpu = false;
                             mCore0.setText(res.getString(R.string.error));
-                            mCore0.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                            mCore0.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -379,7 +382,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu0 = false;
                         mCore0.setText(res.getString(R.string.error));
-                        mCore0.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore0.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -397,7 +400,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu1 = false;
                         mCore1.setText(res.getString(R.string.error));
-                        mCore1.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore1.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -415,7 +418,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu2 = false;
                         mCore2.setText(res.getString(R.string.error));
-                        mCore2.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore2.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -433,7 +436,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu3 = false;
                         mCore3.setText(res.getString(R.string.error));
-                        mCore3.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore3.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -451,7 +454,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu4 = false;
                         mCore4.setText(res.getString(R.string.error));
-                        mCore4.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore4.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -469,7 +472,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu5 = false;
                         mCore5.setText(res.getString(R.string.error));
-                        mCore5.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore5.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -487,7 +490,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu6 = false;
                         mCore6.setText(res.getString(R.string.error));
-                        mCore6.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore6.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -505,7 +508,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu7 = false;
                         mCore7.setText(res.getString(R.string.error));
-                        mCore7.setTextColor(ContextCompat.getColor(getActivity(), R.color.primary_text_color_error));
+                        mCore7.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
                     }
                 }
 
@@ -637,11 +640,11 @@ public class InfoFragment extends Fragment {
     private boolean showFullKernelVersion(boolean enabled) {
         if (enabled) {
             if (!mCardKernelFull.isShown()) {
-                final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
                 mContentOverlay.startAnimation(fadeIn);
                 mContentOverlay.setVisibility(View.VISIBLE);
 
-                final Animation slideUp = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
+                final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
                 mCardKernelFull.startAnimation(slideUp);
                 mCardKernelFull.setVisibility(View.VISIBLE);
 
@@ -654,11 +657,11 @@ public class InfoFragment extends Fragment {
             }
             return true;
         } else {
-            final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+            final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
 
-            final Animation slideDown = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
+            final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
             mCardKernelFull.startAnimation(slideDown);
             mCardKernelFull.setVisibility(View.GONE);
 

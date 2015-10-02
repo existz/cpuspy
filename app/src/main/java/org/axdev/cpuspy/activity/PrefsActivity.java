@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -48,6 +49,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
 
+        private Context mContext;
         private Resources res;
         private SharedPreferences sp;
 
@@ -56,8 +58,9 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
 
+            this.mContext = this.getActivity();
             res = getResources();
-            sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            sp = PreferenceManager.getDefaultSharedPreferences(mContext);
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -77,7 +80,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Utils.openURL(getActivity(), googleURL);
+                    Utils.openURL(mContext, googleURL);
                     return true;
                 }
             });
@@ -124,14 +127,14 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             findPreference("themes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    new MaterialDialog.Builder(getActivity())
+                    new MaterialDialog.Builder(mContext)
                             .title(res.getString(R.string.pref_title_themes))
                             .items(res.getStringArray(R.array.themes))
                             .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
                                     sp.edit().putInt("theme", position).apply();
-                                    if (getActivity() != null)
+                                    if (mContext != null)
                                         getActivity().recreate();
                                     return true;
                                 }
@@ -143,11 +146,11 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             });
 
             CpuSpyPreference primaryColor = (CpuSpyPreference) findPreference("primary_color");
-            primaryColor.setColor(((ThemedActivity) getActivity()).primaryColor(), Utils.resolveColor(getActivity(), R.attr.colorAccent));
+            primaryColor.setColor(((ThemedActivity) mContext).primaryColor(), Utils.resolveColor(mContext, R.attr.colorAccent));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    PrefsActivity act = (PrefsActivity) getActivity();
+                    PrefsActivity act = (PrefsActivity) mContext;
                     if (act == null) return false;
                     new ColorChooserDialog.Builder(act, preference.getTitleRes())
                             .preselect(act.primaryColor())
@@ -160,11 +163,11 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             });
 
             CpuSpyPreference accentColor = (CpuSpyPreference) findPreference("accent_color");
-            accentColor.setColor(((ThemedActivity) getActivity()).accentColor(), Utils.resolveColor(getActivity(), R.attr.colorAccent));
+            accentColor.setColor(((ThemedActivity) mContext).accentColor(), Utils.resolveColor(mContext, R.attr.colorAccent));
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    PrefsActivity act = (PrefsActivity) getActivity();
+                    PrefsActivity act = (PrefsActivity) mContext;
                     if (act == null) return false;
                     new ColorChooserDialog.Builder(act, preference.getTitleRes())
                             .preselect(act.accentColor())
@@ -181,9 +184,9 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString().equals("true")) {
-                        getActivity().startService(new Intent(getActivity(), SleepService.class));
+                        mContext.startService(new Intent(mContext, SleepService.class));
                     } else {
-                        getActivity().stopService(new Intent(getActivity(), SleepService.class));
+                        mContext.stopService(new Intent(mContext, SleepService.class));
                     }
                     return true;
                 }
@@ -193,7 +196,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue.toString().equals("false")) {
-                        SnackbarManager.show(Snackbar.with(getActivity())
+                        SnackbarManager.show(Snackbar.with(mContext)
                                 .type(SnackbarType.MULTI_LINE)
                                 .text(res.getString(R.string.snackbar_text_crashreport)));
                     }
@@ -205,7 +208,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                 findPreference("coloredNavBar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        if (getActivity() != null)
+                        if (mContext != null)
                             getActivity().recreate();
                         return true;
                     }
@@ -217,7 +220,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
         public void onStart() {
             super.onStart();
 
-            final ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
             assert mActionBar != null;
             mActionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -226,7 +229,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                 mActionBar.setTitle(res.getString(R.string.settings));
             } else {
                 final SpannableString s = new SpannableString(res.getString(R.string.settings));
-                s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
+                s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 // Update the action bar title with the TypefaceSpan instance

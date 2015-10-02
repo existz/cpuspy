@@ -8,6 +8,7 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -23,12 +24,14 @@ import butterknife.ButterKnife;
 
 public class WhatsNewDialog extends DialogFragment {
 
+    private Context mContext;
     private final String githubURL = "https://github.com/existz/cpuspy/commits/staging";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.mContext = this.getActivity();
         final Resources res = getResources();
-        final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+        final MaterialDialog dialog = new MaterialDialog.Builder(mContext)
                 .title(res.getString(R.string.menu_changelog))
                 .customView(R.layout.changelog_layout, true)
                 .negativeText(res.getString(R.string.action_changelog))
@@ -37,7 +40,7 @@ public class WhatsNewDialog extends DialogFragment {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         try {
-                            Utils.openURL(getActivity(), githubURL);
+                            Utils.openURL(mContext, githubURL);
                         } catch (Exception e) {
                             // Dismiss dialog if unable to open intent
                             dialog.dismiss();

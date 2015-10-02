@@ -7,6 +7,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -42,6 +43,8 @@ import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
 
+    private Context mContext;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -52,8 +55,9 @@ public class CreditsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Resources res = getResources();
+        this.mContext = this.getActivity();
 
-        final ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
         assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -62,19 +66,19 @@ public class CreditsFragment extends Fragment {
             mActionBar.setTitle(res.getString(R.string.pref_about_header_credits));
         } else {
             final SpannableString s = new SpannableString(res.getString(R.string.pref_about_header_credits));
-            s.setSpan(new TypefaceSpan(getActivity(), TypefaceHelper.MEDIUM_FONT), 0, s.length(),
+            s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             // Update the action bar title with the TypefaceSpan instance
             mActionBar.setTitle(s);
         }
 
-        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(getActivity());
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
 
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
         final int color = ThemeSingleton.get().widgetColor;
-        final int accentColor = color == 0 ? ContextCompat.getColor(getActivity(), R.color.primary) : color;
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
         mCreditsHeader.setTypeface(robotoMedium);
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
@@ -87,7 +91,7 @@ public class CreditsFragment extends Fragment {
         creditList.add(new String[]{"Icons", "Eduardo Pratti"});
         creditList.add(new String[]{"Creator", "Brandon Valosek"});
         mListView1.setAdapter(new ArrayAdapter<String[]>(
-                getActivity(),
+                mContext,
                 android.R.layout.simple_list_item_2,
                 android.R.id.text1,
                 creditList) {
@@ -106,7 +110,7 @@ public class CreditsFragment extends Fragment {
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
-                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemedActivity.mIsDarkTheme ?
+                mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
                 return view;
             }
@@ -123,7 +127,7 @@ public class CreditsFragment extends Fragment {
         translatorList.add(new String[]{"Russian", "gaich"});
         translatorList.add(new String[]{"Swedish", "Carl"});
         mListView2.setAdapter(new ArrayAdapter<String[]>(
-                getActivity(),
+                mContext,
                 android.R.layout.simple_list_item_2,
                 android.R.id.text1,
                 translatorList) {
@@ -142,7 +146,7 @@ public class CreditsFragment extends Fragment {
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
-                mText2.setTextColor(ContextCompat.getColor(getActivity(), ThemedActivity.mIsDarkTheme ?
+                mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
                 return view;
             }
@@ -171,7 +175,7 @@ public class CreditsFragment extends Fragment {
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_help_translate:
-                Utils.openURL(getActivity(), "https://cpuspy.oneskyapp.com");
+                Utils.openURL(mContext, "https://cpuspy.oneskyapp.com");
         }
         return super.onOptionsItemSelected(item);
     }
