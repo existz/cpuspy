@@ -100,7 +100,6 @@
     <!-- About -->
     <string name="pref_about_header_dev">Desenvolvedor</string>
     <string name="pref_about_header_credits">Créditos</string>
-    <string name="pref_about_credits">Eduardo Pratti - Ícones\nBrandon Valosek - Criador</string>
     <string name="pref_about_developer">Rob Beane (existe)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Contadores</string>

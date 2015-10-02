@@ -101,7 +101,6 @@
     <!-- About -->
     <string name="pref_about_header_dev">Sviluppatore</string>
     <string name="pref_about_header_credits">Ringraziamenti</string>
-    <string name="pref_about_credits">Eduardo Pratti - Icone\nBrandon Valosek - Creatore</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Timer</string>

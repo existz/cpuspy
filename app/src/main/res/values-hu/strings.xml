@@ -10,6 +10,7 @@
     <string name="charged_view_message">Ha a készülék teljesen feltöltődött, akkor a töltő leválasztásakor a CPU idők automatikusan törlődnek.</string>
     <string name="menu_changelog">Változások listája</string>
     <string name="menu_donate">Adományozás</string>
+    <string name="menu_help_translate">Segítsen a fordításban</string>
     <string name="states_empty">Üres</string>
     <string name="states_deep_sleep">Mélyalvás</string>
     <string name="states_warning"><b>Uh Oh!</b>\n\nÁllapot fájl nem található. Biztos, hogy kompatibilis a telefonja?\n\nHa egyedi ROM-ot vagy kernelt használ, próbáljon kapcsolatba lépni a fejlesztővel, és jelezze, hogy az állapotok fájl nem olvasható.</string>
@@ -19,6 +20,8 @@
     <string name="snackbar_text_crashreport">A hibabejelentés letiltva. Változások az alkalmazás újraindulásával lépnek életbe.</string>
     <string name="snackbar_text_update">Újabb verzió érhető el!</string>
     <string name="action_changelog">Teljes változáslista</string>
+    <string name="action_back">Vissza</string>
+    <string name="action_done">Kész</string>
     <string name="action_disable">Letiltás</string>
     <string name="action_dismiss">Elutasítás</string>
     <string name="action_view">Megtekintés</string>
@@ -98,10 +101,10 @@
     </string-array>
     <!-- Open Source Licenses -->
     <string name="license_header">Könyvtárak</string>
+    <string name="translators_header">Fordítók</string>
     <!-- About -->
     <string name="pref_about_header_dev">Fejlesztő</string>
     <string name="pref_about_header_credits">Közreműködők</string>
-    <string name="pref_about_credits">Eduardo Pratti - Ikonok\nBrandon Valosek - Alkotó</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Időzítők</string>
@@ -113,5 +116,9 @@
     <string name="new_feature_summary">Új háttérfigyelő szolgáltatás, mely figyelmezteti Önt, ha a készüléke nem lép mélyalvásba.</string>
     <string name="xposed_warning_title">Xposed érzékelve</string>
     <string name="xposed_warning_content">Sajnos nem támogatjuk az xposed-et futtató eszközöket. Az automatikus hibabejelentés tiltásra kerül.</string>
+    <string name="primary_color">Elsődleges szín</string>
+    <string name="primary_color_desc">Elsődleges témaszín alkalmazása</string>
+    <string name="accent_color">Kiemelőszín</string>
+    <string name="accent_color_desc">Kiemelőszín alkalmazása</string>
     <string name="menu_timers_restore">Időzítők visszaállítása</string>
 </resources>

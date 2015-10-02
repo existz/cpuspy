@@ -10,6 +10,7 @@
     <string name="charged_view_message">När enheten är helt laddad, dra ur laddaren för att nollställa CPU räknare.</string>
     <string name="menu_changelog">Ändringar</string>
     <string name="menu_donate">Donera</string>
+    <string name="menu_help_translate">Hjälp med översättning</string>
     <string name="states_empty">Tom</string>
     <string name="states_deep_sleep">Ljud sömn</string>
     <string name="states_warning"><b>Ojdå!</b>\n\nInga filer kunde hittas. Säker att din enhet är kompatibel?\n\nOm du använder ett ROM eller kernel, försök kontakta utvecklaren för att informera honom om problemet.</string>
@@ -19,6 +20,8 @@
     <string name="snackbar_text_crashreport">Crash rapportering inaktiverat. Ändringar tar effekt vid omstart av appen.</string>
     <string name="snackbar_text_update">En nyare version finns tillgänglig!</string>
     <string name="action_changelog">Fulla ändringar</string>
+    <string name="action_back">Tillbaka</string>
+    <string name="action_done">Klar</string>
     <string name="action_disable">Inaktivera</string>
     <string name="action_dismiss">Avslå</string>
     <string name="action_view">Granska</string>
@@ -98,10 +101,10 @@
     </string-array>
     <!-- Open Source Licenses -->
     <string name="license_header">Licenser</string>
+    <string name="translators_header">Övesättare</string>
     <!-- About -->
     <string name="pref_about_header_dev">Utvecklare</string>
     <string name="pref_about_header_credits">Tack till</string>
-    <string name="pref_about_credits">Eduardo Pratti - Ikoner\nBrandon Valosek - Skapare</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Räknare</string>
@@ -113,5 +116,9 @@
     <string name="new_feature_summary">En ny bakgrundstjänst som gör att din enhet meddelar dig när den inte går i djup sömn.</string>
     <string name="xposed_warning_title">Xposed Upptäckt</string>
     <string name="xposed_warning_content">Tyvärr stödjer vi inte enheter med Xposed. Automatiska crashmeddelanden inaktiveras.</string>
+    <string name="primary_color">Huvudfärg</string>
+    <string name="primary_color_desc">Tillämpa en primär temafärg</string>
+    <string name="accent_color">Sekundärkulör</string>
+    <string name="accent_color_desc">Tillämpa en sekundärkulör</string>
     <string name="menu_timers_restore">Återställ räknare</string>
 </resources>

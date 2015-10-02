@@ -10,6 +10,7 @@
     <string name="charged_view_message">Когда устройство полностью зарядилось, отключите ЗУ для автоматического сброса таймеров CPU.</string>
     <string name="menu_changelog">Изменения</string>
     <string name="menu_donate">Пожертвовать</string>
+    <string name="menu_help_translate">Помощь в переводе</string>
     <string name="states_empty">Пусто</string>
     <string name="states_deep_sleep">Глубокий сон</string>
     <string name="states_warning"><b>Увы!</b>\n\nФайла статистики не найдено. Уверены, что Ваш телефон это поддерживает?\n\nЕсли у Вас сторонняя прошивка или ядро, попробуйте связаться с разработчиком и сообщить ему, что файл статистики не читается.</string>
@@ -19,6 +20,8 @@
     <string name="snackbar_text_crashreport">Сообщения о сбоях отключены. Изменения вступят в силу после перезапуска приложения.</string>
     <string name="snackbar_text_update">Доступна более новая версия!</string>
     <string name="action_changelog">Полная история изменений</string>
+    <string name="action_back">Назад</string>
+    <string name="action_done">Готово</string>
     <string name="action_disable">Отключить</string>
     <string name="action_dismiss">Отмена</string>
     <string name="action_view">Просмотр</string>
@@ -98,10 +101,10 @@
     </string-array>
     <!-- Open Source Licenses -->
     <string name="license_header">Библиотеки</string>
+    <string name="translators_header">Переводчики</string>
     <!-- About -->
     <string name="pref_about_header_dev">Разработчик</string>
     <string name="pref_about_header_credits">Авторство</string>
-    <string name="pref_about_credits">Eduardo Pratti - значки\nBrandon Valosek - создатель</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Таймеры</string>
@@ -113,5 +116,9 @@
     <string name="new_feature_summary">Новая служба фонового мониторинга, предупреждающая, когда устройство не переходит в глубокий сон.</string>
     <string name="xposed_warning_title">Обнаружен Xposed</string>
     <string name="xposed_warning_content">К сожалению, мы не можем поддерживать устройства с Xposed. Автоматический отчёт о сбоях будет отключен.</string>
+    <string name="primary_color">Основной цвет</string>
+    <string name="primary_color_desc">Применить основной цвет темы</string>
+    <string name="accent_color">Цвет выделения</string>
+    <string name="accent_color_desc">Применитьцвет выделения</string>
     <string name="menu_timers_restore">Восстановление таймеров</string>
 </resources>

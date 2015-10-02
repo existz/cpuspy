@@ -101,7 +101,6 @@
     <!-- About -->
     <string name="pref_about_header_dev">Entwickler</string>
     <string name="pref_about_header_credits">Credits</string>
-    <string name="pref_about_credits">Eduardo Pratti - Icons\nBrandon Valosek - Creator</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
     <string name="tab_title_timers">Timer</string>
