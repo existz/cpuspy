@@ -347,11 +347,13 @@ public class InfoFragment extends Fragment {
                                     mCpuUsage.setText(String.format("%.01f%%", usage));
                                 }
                             });
-                        } catch (NullPointerException e) {
+                        } catch (NumberFormatException e) {
+                            mCpuUsage = null;
+                        } catch (Exception e) {
                             e.printStackTrace();
-                            mCpuUsage.setText(res.getString(R.string.error));
-                            mCpuUsage.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
-                            Log.e("CpuSpyInfo", "Error reading cpu usage: null");
+                            mIsMonitoringUsage = false;
+                            mCpuUsageHeader.setVisibility(View.GONE);
+                            mCpuUsage.setVisibility(View.GONE);
                         }
                     }
                 }).start();
