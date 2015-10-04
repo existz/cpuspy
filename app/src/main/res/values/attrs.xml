@@ -27,8 +27,8 @@
         <!-- ============== -->
         <eat-comment />
 
-        <!-- Default color for cardview background. -->
         <attr name="colorPrimary" format="color" />
+        <!-- Default color for cardview background. -->
         <attr name="colorCardBackground" format="color" />
         <!-- Default color for unused states background. -->
         <attr name="colorUnusedBackground" format="color" />

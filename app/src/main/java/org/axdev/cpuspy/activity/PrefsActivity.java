@@ -64,14 +64,17 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
 
             /** Apply preference icons for Lollipop and above */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
-                        R.drawable.ic_developer_dark : R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
-                        R.drawable.ic_version_dark : R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
-                        R.drawable.ic_credits_dark : R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, ThemedActivity.mIsDarkTheme ?
-                        R.drawable.ic_opensource_dark : R.drawable.ic_opensource, null));
+                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_developer, null));
+                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_version, null));
+                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_credits, null));
+                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_opensource, null));
+
+                // Tint icons depending on selected theme
+                final int color = Utils.resolveColor(mContext, R.attr.colorDrawableTint);
+                findPreference("developer").getIcon().setTint(color);
+                findPreference("version").getIcon().setTint(color);
+                findPreference("credit").getIcon().setTint(color);
+                findPreference("license").getIcon().setTint(color);
             }
 
             /** Get versionName and set as summary */
@@ -113,13 +116,13 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             final int selected = sp.getInt("theme", 0);
             final String[] s = res.getStringArray(R.array.themes);
             switch (selected) {
-                case 0:
+                case 0: // Light theme
                     findPreference("themes").setSummary(s[0]);
                     break;
-                case 1:
+                case 1: // Dark theme
                     findPreference("themes").setSummary(s[1]);
                     break;
-                case 2:
+                case 2: // Auto theme
                     findPreference("themes").setSummary(s[2]);
                     break;
             }
