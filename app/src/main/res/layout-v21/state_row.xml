@@ -30,10 +30,10 @@
     <ProgressBar
         android:id="@+id/ui_bar"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="3dp"
         android:layout_below="@id/ui_freq_text"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
 </RelativeLayout>
