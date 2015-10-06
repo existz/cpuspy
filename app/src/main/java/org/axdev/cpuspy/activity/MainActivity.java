@@ -32,6 +32,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
 
+import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.fragments.InfoFragment;
 import org.axdev.cpuspy.fragments.TimerFragment;
@@ -111,8 +112,10 @@ public class MainActivity extends ThemedActivity {
             }
         }
 
-        // This must always be updated to reflect the upcoming version
-        final String upcomingVersionURL = "https://app.box.com/cpuspy-v318";
+        // Add +1 to current build version and check if that URL exists
+        final String currentVersion = String.valueOf(BuildConfig.VERSION_NAME).replace(".", "");
+        final int upcomingVersion = Integer.parseInt(currentVersion) + 1;
+        final String upcomingVersionURL = "https://app.box.com/cpuspy-v" + upcomingVersion;
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(MainActivity.this);
 
         // Check if an update is available
