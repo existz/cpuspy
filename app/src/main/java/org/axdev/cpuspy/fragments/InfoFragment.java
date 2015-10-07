@@ -193,6 +193,7 @@ public class InfoFragment extends Fragment {
         mKernelHeader.setTextColor(accentColor);
         mCpuHeader.setTextColor(accentColor);
         mDeviceHeader.setTextColor(accentColor);
+        mKernelVersionFullHeader.setTextColor(accentColor);
 
         mScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
