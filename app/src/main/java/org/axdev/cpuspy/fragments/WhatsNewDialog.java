@@ -11,9 +11,11 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.BuildConfig;
@@ -36,9 +38,9 @@ public class WhatsNewDialog extends DialogFragment {
                 .customView(R.layout.changelog_layout, true)
                 .negativeText(res.getString(R.string.action_changelog))
                 .neutralText(res.getString(R.string.action_dismiss))
-                .callback(new MaterialDialog.ButtonCallback() {
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onNegative(MaterialDialog dialog) {
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         try {
                             Utils.openURL(mContext, githubURL);
                         } catch (Exception e) {
@@ -46,9 +48,10 @@ public class WhatsNewDialog extends DialogFragment {
                             dialog.dismiss();
                         }
                     }
-
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onNeutral(MaterialDialog dialog) {
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })
