@@ -28,8 +28,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
-
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -77,8 +75,9 @@ public class CreditsFragment extends Fragment {
 
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
-        final int color = ThemeSingleton.get().widgetColor;
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
+        final ThemedActivity act = (ThemedActivity) mContext;
+        final int color = act.accentColor();
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mCreditsHeader.setTypeface(robotoMedium);
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);

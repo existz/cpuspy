@@ -52,7 +52,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.CircleView;
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -62,6 +61,7 @@ import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
 import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -142,8 +142,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        int color = ThemeSingleton.get().widgetColor;
-        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
+        final ThemedActivity act = (ThemedActivity) mContext;
+        final int color = act.accentColor();
+        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */

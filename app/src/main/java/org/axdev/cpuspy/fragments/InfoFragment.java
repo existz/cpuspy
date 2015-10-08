@@ -27,9 +27,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.Utils;
@@ -188,8 +188,9 @@ public class InfoFragment extends Fragment {
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
 
-        final int color = ThemeSingleton.get().widgetColor;
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
+        final ThemedActivity act = (ThemedActivity) mContext;
+        final int color = act.accentColor();
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mKernelHeader.setTextColor(accentColor);
         mCpuHeader.setTextColor(accentColor);
         mDeviceHeader.setTextColor(accentColor);
