@@ -4,6 +4,8 @@
     <color name="primary_dark">#1976D2</color>
     <color name="accent">@color/primary</color>
     <color name="tabsScrollColor">@android:color/white</color>
+    <color name="tabsScrollColor_lightAB">#414141</color>
+    <color name="tabsTextColor_lightAB">#414141</color>
     <color name="tabsDisabledTextColor">#b3ffffff</color>
     <color name="primary_text_color">#414141</color>
     <color name="secondary_text_color_light">#8a000000</color>
@@ -18,6 +20,7 @@
     <color name="card_light_background">#fafafa</color>
     <color name="drawable_color_dark">@color/primary_text_color_dark</color>
     <color name="drawable_color_light">@color/primary_text_color</color>
+    <color name="drawable_color_lightAB">#414141</color>
     <color name="floating_toolbar_light">#ffffff</color>
     <color name="floating_toolbar_dark">#424242</color>
     <color name="edge_effect_color">#66939393</color>

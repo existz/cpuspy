@@ -54,7 +54,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_kernel_info"
-                        android:textColor="?colorAccent"/>
+                        android:textColor="@color/accent"/>
 
                     <TextView
                         android:id="@+id/kernel_governor_header"
@@ -132,7 +132,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_device_info"
-                        android:textColor="?colorAccent"/>
+                        android:textColor="@color/accent"/>
 
                     <TextView
                         android:id="@+id/device_build_header"
@@ -323,7 +323,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_cpu_info"
-                        android:textColor="?colorAccent"/>
+                        android:textColor="@color/accent"/>
 
                     <TextView
                         android:id="@+id/cpu_abi_header"

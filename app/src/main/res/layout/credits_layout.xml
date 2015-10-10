@@ -20,7 +20,7 @@
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/accent"
             android:text="@string/pref_about_header_credits"/>
 
         <ListView
@@ -36,7 +36,7 @@
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/accent"
             android:text="@string/translators_header"/>
 
         <ListView

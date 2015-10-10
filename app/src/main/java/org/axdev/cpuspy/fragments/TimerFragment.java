@@ -103,6 +103,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.states_toolbar) CardView mStatesToolbar;
     @Bind(R.id.container) View mContainer;
 
+    private final String AUTO_RESET = "autoReset";
     private final String WELCOME_SCREEN = "welcomeScreenShown";
     private final String NEW_FEATURE = "newFeatureShown";
 
@@ -285,7 +286,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             sp = PreferenceManager.getDefaultSharedPreferences(context);
 
             mIsCharged = percent >= 97 && isCharging;
-            if (sp.getBoolean("autoReset", true) && !mAutoRefresh) checkView();
+            if (sp.getBoolean(AUTO_RESET, true) && !mAutoRefresh) checkView();
         }
     };
 
@@ -294,7 +295,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final boolean mStatesNotFound = !timeInState.exists() || timeInState.length() == 0;
 
         // Reset timers and show info when battery is charged
-        if (sp.getBoolean("autoReset", true) && mIsCharged) {
+        if (sp.getBoolean(AUTO_RESET, true) && mIsCharged) {
             // Disable layout transitions
             mCardContainer.setLayoutTransition(null);
 
@@ -406,7 +407,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @OnClick(R.id.btn_charged)
     void chargedButton() {
-        sp.edit().putBoolean("autoReset", false).apply();
+        sp.edit().putBoolean(AUTO_RESET, false).apply();
         refreshData();
         CpuSpyApp.resetTimers();
     }

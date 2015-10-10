@@ -9,8 +9,10 @@ package org.axdev.cpuspy.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Spannable;
@@ -159,6 +162,11 @@ public class MainActivity extends ThemedActivity {
 
         // Assigning the Sliding Tab Layout View
         final TabLayout tabs = ButterKnife.findById(this, R.id.tabLayout);
+        if (ThemedActivity.isLightAB(this)) {
+            final ColorStateList sl = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.tabsTextColor_lightAB));
+            tabs.setTabTextColors(sl);
+            tabs.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.tabsScrollColor_lightAB));
+        }
         tabs.setBackgroundColor(primaryColor());
         tabs.setupWithViewPager(viewPager);
     }
@@ -215,6 +223,12 @@ public class MainActivity extends ThemedActivity {
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         // request inflater from activity and inflate into its menu
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // tint settings icon based on theme
+        if (ThemedActivity.isLightAB(this)) {
+            final MenuItem settings = menu.findItem(R.id.menu_settings);
+            Utils.colorMenuItem(settings, ContextCompat.getColor(this, R.color.drawable_color_lightAB), 0);
+        }
 
         // made it
         return true;

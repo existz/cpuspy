@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +114,20 @@ public class Utils {
             return a.getColor(0, 0);
         } finally {
             a.recycle();
+        }
+    }
+
+    /** Sets a color filter on a {@link MenuItem} */
+    public static void colorMenuItem(final MenuItem menuItem, final int color, final int alpha) {
+        final Drawable drawable = menuItem.getIcon();
+        if (drawable != null) {
+            // If we don't mutate the drawable, then all drawable's with this id will have a color
+            // filter applied to it.
+            drawable.mutate();
+            drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+            if (alpha > 0) {
+                drawable.setAlpha(alpha);
+            }
         }
     }
 }

@@ -23,6 +23,28 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppTheme_LightAB" parent="@style/Theme.AppCompat.Light" >
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/primary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@android:color/black</item>
+        <item name="colorCardBackground">@color/card_light_background</item>
+        <item name="colorUnusedBackground">@color/unused_light_background</item>
+        <item name="colorDrawableTint">@color/drawable_color_light</item>
+        <item name="colorFloatingToolbar">@color/floating_toolbar_light</item>
+        <item name="md_title_color">@android:color/black</item>
+        <item name="md_content_color">@android:color/black</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="actionModeBackground">?colorPrimary</item>
+        <item name="android:colorBackground">@color/light_background</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textColorPrimary">@color/primary_text_color</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
     <style name="AppThemeDark" parent="@style/Theme.AppCompat" >
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
@@ -43,6 +65,44 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/primary_text_color_dark</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppThemeDark_LightAB" parent="@style/Theme.AppCompat" >
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/primary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorCardBackground">@color/card_dark_background</item>
+        <item name="colorUnusedBackground">@color/unused_dark_background</item>
+        <item name="colorDrawableTint">@color/drawable_color_dark</item>
+        <item name="colorFloatingToolbar">@color/floating_toolbar_dark</item>
+        <item name="md_title_color">@android:color/white</item>
+        <item name="md_content_color">@android:color/white</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="homeAsUpIndicator">@drawable/ic_ab_back_mtrl_am_alpha</item>
+        <item name="actionBarStyle">@style/Widget.Material.Light.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="actionModeBackground">?colorPrimary</item>
+        <item name="actionOverflowButtonStyle">@style/ActionButtonOverflow</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/primary_text_color_dark</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="ActionButtonOverflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_menu_moreoverflow_mtrl_alpha</item>
+    </style>
+
+    <style name="ActionBarTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/primary_text_color</item>
+    </style>
+
+    <style name="Widget.Material.Light.ActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="android:titleTextStyle">@style/ActionBarTitleTextStyle</item>
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
     </style>
 
     <style name="AppThemeLauncher">
