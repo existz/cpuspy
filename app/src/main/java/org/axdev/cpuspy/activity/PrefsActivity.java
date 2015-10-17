@@ -150,7 +150,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             });
 
             CpuSpyPreference primaryColor = (CpuSpyPreference) findPreference("primary_color");
-            primaryColor.setColor(((ThemedActivity) mContext).primaryColor(), Utils.resolveColor(mContext, R.attr.colorAccent));
+            primaryColor.setColor(((ThemedActivity) mContext).primaryColor());
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -168,7 +168,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             });
 
             CpuSpyPreference accentColor = (CpuSpyPreference) findPreference("accent_color");
-            accentColor.setColor(((ThemedActivity) mContext).accentColor(), Utils.resolveColor(mContext, R.attr.colorAccent));
+            accentColor.setColor(((ThemedActivity) mContext).accentColor());
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {

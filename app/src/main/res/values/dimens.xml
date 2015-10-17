@@ -23,5 +23,4 @@
     <dimen name="padding_mtrl_cpu">24dp</dimen>
     <dimen name="btn_padding_mtrl">0dp</dimen>
     <dimen name="circle_view_border">1dp</dimen>
-    <dimen name="circle_view_check">24dp</dimen>
 </resources>

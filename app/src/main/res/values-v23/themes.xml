@@ -8,7 +8,7 @@
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@android:color/black</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="colorCardBackground">@color/card_light_background</item>
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="colorDrawableTint">@color/drawable_color_light</item>
@@ -32,7 +32,7 @@
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@android:color/black</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="colorCardBackground">@color/card_light_background</item>
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="colorDrawableTint">@color/drawable_color_light</item>
@@ -57,7 +57,7 @@
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="colorCardBackground">@color/card_dark_background</item>
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="colorDrawableTint">@color/drawable_color_dark</item>
@@ -81,7 +81,7 @@
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="colorCardBackground">@color/card_dark_background</item>
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="colorDrawableTint">@color/drawable_color_dark</item>

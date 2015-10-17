@@ -14,7 +14,6 @@ import org.axdev.cpuspy.R;
 
 public class BorderCircleView extends FrameLayout {
 
-    private final Bitmap mCheck;
     private final Paint paint;
     private final Paint paintBorder;
     private final int borderWidth;
@@ -29,9 +28,6 @@ public class BorderCircleView extends FrameLayout {
 
     public BorderCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        final int checkSize = (int) context.getResources().getDimension(R.dimen.circle_view_check);
-        mCheck = getResizedBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_check), checkSize, checkSize);
         borderWidth = (int) getResources().getDimension(R.dimen.circle_view_border);
 
         paint = new Paint();
@@ -42,18 +38,6 @@ public class BorderCircleView extends FrameLayout {
         paintBorder.setColor(Color.BLACK);
 
         setWillNotDraw(false);
-    }
-
-    private static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
-        return resizedBitmap;
     }
 
     @Override
@@ -96,13 +80,5 @@ public class BorderCircleView extends FrameLayout {
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
-
-        if (isActivated()) {
-            int targetDimen = mCheck.getWidth();
-            if (mCheck.getWidth() > getMeasuredWidth())
-                targetDimen = getMeasuredWidth();
-            final int offset = (canvasSize / 2) - (targetDimen / 2);
-            canvas.drawBitmap(mCheck, offset, offset, null);
-        }
     }
 }

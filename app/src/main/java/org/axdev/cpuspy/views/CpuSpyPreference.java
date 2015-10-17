@@ -2,17 +2,18 @@ package org.axdev.cpuspy.views;
 
 import android.content.Context;
 import android.preference.Preference;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.activity.ThemedActivity;
 
 @SuppressWarnings("NullableProblems")
 public class CpuSpyPreference extends Preference {
 
     private View mView;
     private int color;
-    private int border;
 
     public CpuSpyPreference(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -34,9 +35,8 @@ public class CpuSpyPreference extends Preference {
         invalidateColor();
     }
 
-    public void setColor(int color, int border) {
+    public void setColor(int color) {
         this.color = color;
-        this.border = border;
         invalidateColor();
     }
 
@@ -46,7 +46,11 @@ public class CpuSpyPreference extends Preference {
             if (this.color != 0) {
                 circle.setVisibility(View.VISIBLE);
                 circle.setBackgroundColor(color);
-                circle.setBorderColor(border);
+                if (ThemedActivity.mIsDarkTheme) {
+                    circle.setBorderColor(ContextCompat.getColor(getContext(), android.R.color.white));
+                } else {
+                    circle.setBorderColor(ContextCompat.getColor(getContext(), android.R.color.black));
+                }
             } else {
                 circle.setVisibility(View.GONE);
             }
