@@ -61,10 +61,10 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nispok:snackbar:2.11.0'
-    compile('com.afollestad.material-dialogs:core:0.8.3.0@aar') {
+    compile('com.afollestad.material-dialogs:core:0.8.4.0@aar') {
         transitive = true
     }
-    compile('com.afollestad.material-dialogs:commons:0.8.3.0@aar') {
+    compile('com.afollestad.material-dialogs:commons:0.8.4.0@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:+') {
