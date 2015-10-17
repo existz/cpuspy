@@ -304,7 +304,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mChargedButton.setSupportBackgroundTintList(sl);
             // Set charged image to accent color
             final Drawable chargedImage = ResourcesCompat.getDrawable(res, R.drawable.ic_charged, null);
-            chargedImage.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
+            if (chargedImage != null) {
+                chargedImage.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
+            }
 
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
