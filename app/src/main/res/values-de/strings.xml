@@ -10,6 +10,7 @@
     <string name="charged_view_message">Sobald das Gerät vollständig geladen ist, ziehen Sie es aus, um die CPU-Timer automatisch zurückzusetzen.</string>
     <string name="menu_changelog">Changelog</string>
     <string name="menu_donate">Spenden</string>
+    <string name="menu_help_translate">Hilf bei der Übersetzung</string>
     <string name="states_empty">Leer</string>
     <string name="states_deep_sleep">Deep Sleep</string>
     <string name="states_warning"><b>Ups!</b>\n\nKeine Zustandsinformationen gefunden. Sind Sie sicher, dass Ihr Telefon kompatibel ist?\n\nFalls Sie ein Custom-ROM verwenden, versuchen Sie, dessen Entwickler darüber zu informieren, dass die Zustandsinformationen nicht lesbar sind.</string>
@@ -19,6 +20,8 @@
     <string name="snackbar_text_crashreport">Absturzberichte deaktiviert. Änderung wird aktiv, wenn die App neu gestartet wird.</string>
     <string name="snackbar_text_update">Eine neuere Version ist verfügbar!</string>
     <string name="action_changelog">Vollständiger Changelog</string>
+    <string name="action_back">Zurück</string>
+    <string name="action_done">Fertig</string>
     <string name="action_disable">Deaktivieren</string>
     <string name="action_dismiss">Schliessen</string>
     <string name="action_view">Ansehen</string>
@@ -98,6 +101,7 @@
     </string-array>
     <!-- Open Source Licenses -->
     <string name="license_header">Bibliotheken</string>
+    <string name="translators_header">Übersetzer</string>
     <!-- About -->
     <string name="pref_about_header_dev">Entwickler</string>
     <string name="pref_about_header_credits">Credits</string>
@@ -112,5 +116,9 @@
     <string name="new_feature_summary">Ein neuer Hintergrund-Überwachungsdienst, der Sie benachrichtigt, falls das Gerät nicht in Deep-Sleep geht.</string>
     <string name="xposed_warning_title">Xposed erkannt</string>
     <string name="xposed_warning_content">Leider können wir Geräte mit Xposed nicht ünterstützen. Automatische Absturzberichte werden deaktiviert.</string>
+    <string name="primary_color">Primärfarbe</string>
+    <string name="primary_color_desc">Primärfarbe übernehmen</string>
+    <string name="accent_color">Akzentfarbe</string>
+    <string name="accent_color_desc">Akzentfarbe übernehmen</string>
     <string name="menu_timers_restore">Timer wiederherstellen</string>
 </resources>
