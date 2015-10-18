@@ -161,7 +161,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                             .doneButton(R.string.md_done_label)
                             .cancelButton(R.string.md_cancel_label)
                             .backButton(R.string.md_back_label)
-                            .customColors(0, themeColors())
                             .show();
                     return true;
                 }
@@ -180,7 +179,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                             .doneButton(R.string.md_done_label)
                             .cancelButton(R.string.md_cancel_label)
                             .backButton(R.string.md_back_label)
-                            .customColors(0, themeColors())
                             .show();
                     return true;
                 }
@@ -220,17 +218,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                     }
                 });
             }
-        }
-
-        private int[][] themeColors() {
-            return new int[][]{
-                    new int[]{Color.parseColor("#EF5350"), Color.parseColor("#F44336"), Color.parseColor("#E53935")},
-                    new int[]{Color.parseColor("#EC407A"), Color.parseColor("#E91E63"), Color.parseColor("#D81B60")},
-                    new int[]{Color.parseColor("#AB47BC"), Color.parseColor("#9C27B0"), Color.parseColor("#8E24AA")},
-                    new int[]{Color.parseColor("#7E57C2"), Color.parseColor("#673AB7"), Color.parseColor("#5E35B1")},
-                    new int[]{Color.parseColor("#5C6BC0"), Color.parseColor("#3F51B5"), Color.parseColor("#3949AB")},
-                    new int[]{Color.parseColor("#42A5F5"), Color.parseColor("#2196F3"), Color.parseColor("#1E88E5")}
-            };
         }
 
         @Override
