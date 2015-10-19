@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="whats_new">&#8226; Updated translations\n&#8226; Add support for Marshmallow\n&#8226; Fix charged view card alignment\n&#8226; Update libraries to latest versions\n&#8226; Revert back to using text for tabs\n&#8226; Use AppCompatButton for all buttons\n&#8226; Updates and fixes to theme changing\n&#8226; Adjust full kernel version text size\n&#8226; Summarize theme selected in Settings\n&#8226; Remove redundant calls to getResources()\n&#8226; Show the total number of unused states\n&#8226; Add bootloader information to Info tab\n&#8226; Use SwitchPreference for API 21+ devices\n&#8226; Specify initial size of getStates ArrayList\n&#8226; Update primary colors to match guidelines\n&#8226; Disable layout transitions during charged view\n&#8226; Allow animating progress bars with Auto Refresh\n&#8226; Simplify checking views when Auto Reset is enabled\n&#8226; Fix background color not showing correctly on KitKat\n&#8226; Add toolbar for hiding/resetting/restoring states\n&#8226; Allow Settings to keep scroll position during recreate\n&#8226; Override KeyEvent instead of using BackHandledFragment\n</string>
     <string name="changelog_notes_header">IMPORTANT</string>
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
+
+    <string-array name="changelog">
+        <item>&#8226; Updated translations</item>
+        <item>&#8226; Add support for Marshmallow</item>
+        <item>&#8226; Fix charged view card alignment</item>
+        <item>&#8226; Update libraries to latest versions</item>
+        <item>&#8226; Revert back to using text for tabs</item>
+        <item>&#8226; Use AppCompatButton for all buttons</item>
+        <item>&#8226; Updates and fixes to theme changing</item>
+        <item>&#8226; Adjust full kernel version text size</item>
+        <item>&#8226; Summarize theme selected in Settings</item>
+        <item>&#8226; Remove redundant calls to getResources()</item>
+        <item>&#8226; Show the total number of unused states</item>
+        <item>&#8226; Add bootloader information to Info tab</item>
+        <item>&#8226; Use SwitchPreference for API 21+ devices</item>
+        <item>&#8226; Specify initial size of getStates ArrayList</item>
+        <item>&#8226; Update primary colors to match guidelines</item>
+        <item>&#8226; Disable layout transitions during charged view</item>
+        <item>&#8226; Allow animating progress bars with Auto Refresh</item>
+        <item>&#8226; Simplify checking views when Auto Reset is enabled</item>
+        <item>&#8226; Fix background color not showing correctly on KitKat</item>
+        <item>&#8226; Add toolbar for hiding/resetting/restoring states</item>
+        <item>&#8226; Allow Settings to keep scroll position during recreate</item>
+        <item>&#8226; Override KeyEvent instead of using BackHandledFragment</item>
+    </string-array>
 
 </resources>
