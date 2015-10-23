@@ -5,28 +5,26 @@
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
     <string-array name="changelog">
-        <item>&#8226; Updated translations</item>
-        <item>&#8226; Add support for Marshmallow</item>
-        <item>&#8226; Fix charged view card alignment</item>
-        <item>&#8226; Update libraries to latest versions</item>
-        <item>&#8226; Revert back to using text for tabs</item>
-        <item>&#8226; Use AppCompatButton for all buttons</item>
-        <item>&#8226; Updates and fixes to theme changing</item>
-        <item>&#8226; Adjust full kernel version text size</item>
-        <item>&#8226; Summarize theme selected in Settings</item>
-        <item>&#8226; Remove redundant calls to getResources()</item>
-        <item>&#8226; Show the total number of unused states</item>
-        <item>&#8226; Add bootloader information to Info tab</item>
-        <item>&#8226; Use SwitchPreference for API 21+ devices</item>
-        <item>&#8226; Specify initial size of getStates ArrayList</item>
-        <item>&#8226; Update primary colors to match guidelines</item>
-        <item>&#8226; Disable layout transitions during charged view</item>
-        <item>&#8226; Allow animating progress bars with Auto Refresh</item>
-        <item>&#8226; Simplify checking views when Auto Reset is enabled</item>
-        <item>&#8226; Fix background color not showing correctly on KitKat</item>
-        <item>&#8226; Add toolbar for hiding/resetting/restoring states</item>
-        <item>&#8226; Allow Settings to keep scroll position during recreate</item>
-        <item>&#8226; Override KeyEvent instead of using BackHandledFragment</item>
+        <item>&#8226; Update to latest build tools</item>
+        <item>&#8226; Move openURL method to Utils</item>
+        <item>&#8226; Use vector drawables for API 21+</item>
+        <item>&#8226; Use ArrayList instead of LinkedList</item>
+        <item>&#8226; Add Translators to Credits section</item>
+        <item>&#8226; Add CPU usage monitoring to Info tab</item>
+        <item>&#8226; Reduce number of calls to getActivity</item>
+        <item>&#8226; Only call CPUUtils.getCoreCount() once</item>
+        <item>&#8226; Add missing onCreate() to CpuSpyApp</item>
+        <item>&#8226; Remove useless code from CpuSpyPreference</item>
+        <item>&#8226; Use vector drawables for Preference icons</item>
+        <item>&#8226; Fix ProgressBar height on KitKat devices</item>
+        <item>&#8226; Use String.format() to fix lint warnings</item>
+        <item>&#8226; Automate checking if new version is available</item>
+        <item>&#8226; Add setting to change primary and accent colors</item>
+        <item>&#8226; Tint AppCompatButton to match new accent color</item>
+        <item>&#8226; Tint charged image to match new accent color</item>
+        <item>&#8226; Use new Design Support Library for sliding tabs</item>
+        <item>&#8226; Allow using String Array for changelog content</item>
+        <item>&#8226; Recreate activity when dismissing Xposed warning</item>
     </string-array>
 
 </resources>
