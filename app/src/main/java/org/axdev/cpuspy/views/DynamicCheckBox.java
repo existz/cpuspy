@@ -30,5 +30,6 @@ public class DynamicCheckBox extends AppCompatCheckBox {
     private void init() {
         final int color = ThemeSingleton.get().widgetColor;
         MDTintHelper.setTint(this, color);
+        setBackgroundColor(0);
     }
 }
