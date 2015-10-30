@@ -117,7 +117,7 @@ public class CreditsFragment extends Fragment {
 
         final List<String[]> translatorList = new ArrayList<>();
         translatorList.add(new String[]{"Bengali (India)", "suhridkhan"});
-        translatorList.add(new String[]{"French", "orlith"});
+        translatorList.add(new String[]{"French", "Micks29, orlith"});
         translatorList.add(new String[]{"German", "AhMaizeBalls"});
         translatorList.add(new String[]{"Hungarian", "wechy77"});
         translatorList.add(new String[]{"Italian", "sossio18"});

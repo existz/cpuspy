@@ -1,26 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Hors ligne</string>
+    <string name="unused_states_count">&#160; états inutilisés</string>
+    <string name="total_state_time">Temps Total État</string>
+    <string name="charged_view_enabled">Réinitialisation auto activée</string>
     <string name="charged_view_status">Statut de la batterie : chargée</string>
-    <string name="menu_donate">Dons</string>
-    <string name="states_empty">Vide</string>
+    <string name="charged_view_message">Dès que l\'appareil est complètement chargé, débranchez votre chargeur pour réinitialiser automatiquement les compteurs CPU.</string>
+    <string name="menu_changelog">Changelog</string>
+    <string name="menu_donate">Donation</string>
+    <string name="menu_help_translate">Traduire</string>
+    <string name="states_empty">Aucun</string>
+    <string name="states_deep_sleep">Deep Sleep</string>
+    <string name="states_warning"><b>Oh Oh !</b>\n\nAucun fichier état trouvé. Êtes-vous sûr que votre appareil est compatible ?\n\nSi vous utilisez un kernel ou une ROM personnalisé, essayez de contacter son développeur pour l\'informer que le fichier des états n\'est pas lisible.</string>
     <string name="error">Erreur</string>
+    <string name="snackbar_text_reset">Compteurs réinitialisés avec succès</string>
+    <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
+    <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>
     <string name="snackbar_text_update">Une nouvelle version est disponible !</string>
+    <string name="action_changelog">Changelog complet</string>
+    <string name="action_back">Retour</string>
+    <string name="action_done">OK</string>
     <string name="action_disable">Désactiver</string>
+    <string name="action_dismiss">Fermer</string>
     <string name="action_view">Voir</string>
+    <string name="widget_reset_title">CPUSpy - Réinitialiser compteurs</string>
+    <string name="widget_reset_error">Oups ! Il y a eu une erreur, réessayez</string>
+    <string name="widget_reset_success">Compteurs réinitialisés avec succès</string>
     <!-- Information -->
     <string name="information">Information</string>
-    <string name="information_device_info">Information sur l\'appareil</string>
-    <string name="information_cpu_info">Info sur le processeur</string>
+    <string name="information_kernel_info">Kernel</string>
+    <string name="information_device_info">Appareil</string>
+    <string name="information_cpu_info">Processeur</string>
+    <string name="information_kernel_governor">Gouverneur :</string>
     <string name="information_kernel_version_header">Version :</string>
+    <string name="information_kernel_version_full_header">Version kernel complet</string>
+    <string name="information_kernel_version_unavailable">Version kernel indisponible</string>
+    <string name="information_device_build_header">Build ID :</string>
+    <string name="information_device_api_header">API Level :</string>
+    <string name="information_device_manuf_header">Fabricant :</string>
     <string name="information_device_model_header">Modèle :</string>
+    <string name="information_device_board_header">Board :</string>
     <string name="information_device_platform_header">Plateforme :</string>
-    <string name="information_cpu_freq_header">Fréquence ::</string>
+    <string name="information_device_runtime_header">Runtime :</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">Bootloader :</string>
+    <string name="information_cpu_abi_header">ABI :</string>
+    <string name="information_cpu_arch_header">Architecture :</string>
+    <string name="information_cpu_freq_header">Fréquence :</string>
     <string name="information_cpu_temp_header">Température :</string>
+    <string name="information_cpu_features_header">Features :</string>
+    <string name="information_usage_header">CPU usage</string>
+    <string name="information_core_header">Coeurs :</string>
+    <string name="information_cpu0_header">CPU 0 :</string>
+    <string name="information_cpu1_header">CPU 1 :</string>
+    <string name="information_cpu2_header">CPU 2 :</string>
+    <string name="information_cpu3_header">CPU 3 :</string>
+    <string name="information_cpu4_header">CPU 4 :</string>
+    <string name="information_cpu5_header">CPU 5 :</string>
+    <string name="information_cpu6_header">CPU 6 :</string>
+    <string name="information_cpu7_header">CPU 7 :</string>
     <!-- Welcome info -->
+    <string name="welcome_summary">Bienvenue sur CPUSpy Material. Utilisez cet outil pour surveiller quelles fréquences votre processeur utilise le plus.</string>
+    <string name="welcome_features">Fonctions</string>
+    <string name="welcome_cpuinfo">&#8226; Informations et suivi du CPU + Kernel</string>
+    <string name="welcome_crashreport">&#8226; Envoie automatiquement des rapports de bug et d\'usage</string>
+    <string name="welcome_autorefresh">&#8226; Activer Actualisation automatique pour actualiser les états en temps réel</string>
+    <string name="welcome_autoreset">&#8226; Compteurs automatiquement réinitialisés lorsque la batterie est chargée</string>
+    <string name="welcome_widget">&#8226; Widget pour réinitialiser les compteurs CPU depuis l\'écran d\'accueil</string>
+    <string name="welcome_hidepercent">&#8226; Option pour masquer l\'état dessous un certain pourcentage</string>
     <!-- Settings info -->
+    <string name="settings">Paramètres</string>
+    <string name="pref_header_general">Général</string>
+    <string name="pref_header_about">À propos</string>
+    <string name="pref_header_ui">Interface</string>
+    <string name="pref_title_version">Version</string>
+    <string name="pref_summary_about">À propos de l\'application et de son développeur</string>
+    <string name="pref_title_autorefresh">Actualisation automatique</string>
+    <string name="pref_summary_autorefresh">Actualiser les compteurs CPU automatiquement</string>
+    <string name="pref_title_autoreset">Réinitialisation automatique</string>
+    <string name="pref_summary_autoreset">Réinitialiser les compteurs CPU lorsque la batterie est chargée</string>
+    <string name="pref_title_sleepdetection">Détection Deep Sleep</string>
+    <string name="pref_summary_sleepdetection">Notifier si l\'appareil n\'entre pas en deep sleep</string>
+    <string name="pref_title_hidestates">Masquer pourcentage d\'états</string>
+    <string name="pref_summary_hidestates">États dessous % ne seront pas utilisés</string>
+    <string name="pref_title_themes">Thème</string>
+    <string name="pref_title_navbar">Barre de navigation colorée</string>
+    <string name="pref_summary_navbar">Activer couleur primaire sur la barre de navigation</string>
+    <string name="pref_title_checkupdates">Vérifier les mises à jour</string>
+    <string name="pref_summary_checkupdates">Dernière vérification : &#160;</string>
+    <string name="pref_title_crashreport">Rapport de bug anonyme</string>
+    <string name="pref_summary_crashreport">Permettre la collecte de bug et les données d\'usage</string>
+    <string name="pref_title_license">Licences Open Source</string>
+    <string-array name="themes">
+        <item>Clair</item>
+        <item>Sombre</item>
+        <item>Auto</item>
+    </string-array>
     <!-- Open Source Licenses -->
+    <string name="license_header">Libraries</string>
+    <string name="translators_header">Traducteurs</string>
     <!-- About -->
+    <string name="pref_about_header_dev">Développeur</string>
+    <string name="pref_about_header_credits">Crédits</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
     <!-- Tab Title -->
+    <string name="tab_title_timers">Compteurs</string>
+    <string name="tab_title_info">Informations</string>
+    <string name="notification_warning">Avertissement</string>
+    <string name="new_feature_title">Détection Deep Sleep</string>
+    <string name="xposed_warning_title">Xposed détecté</string>
+    <string name="primary_color">Couleur primaire</string>
+    <string name="primary_color_desc">Appliquer une couleur primaire au thème</string>
+    <string name="accent_color">Couleur secondaire</string>
+    <string name="accent_color_desc">Appliquer une couleur secondaire au thème</string>
+    <string name="menu_timers_restore">Restaurer compteurs</string>
 </resources>
