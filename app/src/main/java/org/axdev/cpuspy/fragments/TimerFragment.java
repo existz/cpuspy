@@ -39,10 +39,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -377,7 +377,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mAdditionalStates.setVisibility(View.GONE);
         }
 
-        animSet.setInterpolator(new DecelerateInterpolator());
+        animSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animSet.setFillAfter(true);
         animSet.setFillEnabled(true);
 
@@ -637,7 +637,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 public void run() {
                     final ProgressBarAnimation anim = new ProgressBarAnimation(mBar, 1000);
                     mBar.setMax(100 * 100);
-                    anim.setInterpolator(new DecelerateInterpolator());
+                    anim.setInterpolator(new AccelerateDecelerateInterpolator());
                     anim.setProgress((Math.round(per)) * 100);
                     anim.setDuration(res.getInteger(R.integer.progressAnimationDuration));
                     mBar.startAnimation(anim);
