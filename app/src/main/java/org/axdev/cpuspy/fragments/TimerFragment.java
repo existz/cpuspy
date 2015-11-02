@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
@@ -72,6 +71,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -102,6 +103,14 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.feature_title) TextView mFeatureCardTitle;
     @Bind(R.id.states_toolbar) CardView mStatesToolbar;
     @Bind(R.id.container) View mContainer;
+
+    @BindDrawable(R.drawable.ic_charged) Drawable chargedDrawable;
+    @BindString(R.string.action_dismiss) String actionDismissText;
+    @BindString(R.string.snackbar_text_reset) String snackbarResetText;
+    @BindString(R.string.snackbar_text_restore) String snackbarRestoreText;
+    @BindString(R.string.states_deep_sleep) String statesDeepSleepText;
+    @BindString(R.string.states_empty) String statesEmptyText;
+    @BindString(R.string.unused_states_count) String statesUnusedCountText;
 
     private final String AUTO_RESET = "autoReset";
     private final String WELCOME_SCREEN = "welcomeScreenShown";
@@ -303,9 +312,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             final ColorStateList sl = ColorStateList.valueOf(accentColor);
             mChargedButton.setSupportBackgroundTintList(sl);
             // Set charged image to accent color
-            final Drawable chargedImage = ResourcesCompat.getDrawable(res, R.drawable.ic_charged, null);
-            if (chargedImage != null) {
-                chargedImage.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
+            if (chargedDrawable != null) {
+                chargedDrawable.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
             }
 
             mStatesWarning.setVisibility(View.GONE);
@@ -447,9 +455,9 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         sp.edit().remove("offsets").apply();
         this.updateView();
         SnackbarManager.show(Snackbar.with(mContext)
-                .text(res.getString(R.string.snackbar_text_restore))
+                .text(snackbarRestoreText)
                 .actionLabelTypeface(robotoMedium)
-                .actionLabel(res.getString(R.string.action_dismiss)) // action button label
+                .actionLabel(actionDismissText) // action button label
                 .actionColor(accentColor));
         mStatesToolbar.setVisibility(View.GONE);
     }
@@ -460,8 +468,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         this.updateView();
         if (!mAdditionalStates.isShown()) showUnusedStates(true);
         SnackbarManager.show(Snackbar.with(mContext)
-                .text(res.getString(R.string.snackbar_text_reset))
-                .actionLabel(res.getString(R.string.action_dismiss)) // action button label
+                .text(snackbarResetText)
+                .actionLabel(actionDismissText) // action button label
                 .actionLabelTypeface(robotoMedium)
                 .actionColor(accentColor));
         mStatesToolbar.setVisibility(View.GONE);
@@ -542,7 +550,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }
             } else {
                 if (state.freq == 0) {
-                    extraStates.add(res.getString(R.string.states_deep_sleep));
+                    extraStates.add(statesDeepSleepText);
                 } else {
                     extraStates.add(state.freq / 1000 + "MHz");
                 }
@@ -551,7 +559,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // get the total number of unused states
         final String count = String.valueOf(extraStates.size());
-        mAdditionalStatesCount.setText(String.format(res.getString(R.string.unused_states_count), count));
+        mAdditionalStatesCount.setText(String.format(statesUnusedCountText, count));
 
         // update the total state time
         final long totTime = monitor.getTotalStateTime() / 100;
@@ -569,7 +577,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             mAdditionalStates.setText(stringBuilder.toString());
         } else {
-            mAdditionalStates.setText(res.getString(R.string.states_empty));
+            mAdditionalStates.setText(statesEmptyText);
         }
     }
 
@@ -610,7 +618,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 monitor.getTotalStateTime();
         final String sPer = String.format("%.01f%%", per);
 
-        final String sFreq = state.freq == 0 ? res.getString(R.string.states_deep_sleep) : state.freq / 1000 + "MHz";
+        final String sFreq = state.freq == 0 ? statesDeepSleepText : state.freq / 1000 + "MHz";
 
         // duration
         final long tSec = state.duration / 100;

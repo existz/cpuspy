@@ -37,6 +37,8 @@ import org.axdev.cpuspy.utils.Utils;
 import java.io.File;
 
 import butterknife.Bind;
+import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -102,6 +104,13 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_freq6) TextView mCore6;
     @Bind(R.id.cpu_freq7) TextView mCore7;
 
+    @BindColor(R.color.primary_text_color_error) int errorTextColor;
+    @BindString(R.string.error) String errorText;
+    @BindString(R.string.core_offline) String coreOfflineText;
+    @BindString(R.string.information_device_runtime_art) String artRuntimeText;
+    @BindString(R.string.information_device_runtime_dalvik) String dalvikRuntimeText;
+    @BindString(R.string.information_kernel_version_unavailable) String versionUnavailableText;
+
     private boolean mDisableScrolling;
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
@@ -118,7 +127,6 @@ public class InfoFragment extends Fragment {
 
     private Context mContext;
     private Handler mHandler;
-    private Resources res;
     private Typeface robotoMedium;
 
     private int mNumCores;
@@ -137,7 +145,6 @@ public class InfoFragment extends Fragment {
         /** Set text and typeface for TextViews */
         this.mContext = this.getActivity();
         mHandler = new Handler();
-        res = getResources();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
@@ -276,11 +283,9 @@ public class InfoFragment extends Fragment {
 
         if (vmVersion != null) {
             if (vmVersion.startsWith("2")) {
-                runtime = res.getString(R.string.information_device_runtime_art)
-                        + " v" + vmVersion.substring(0, 5);
+                runtime = artRuntimeText + " v" + vmVersion.substring(0, 5);
             } else {
-                runtime = res.getString(R.string.information_device_runtime_dalvik)
-                        + " v" + vmVersion.substring(0, 5);
+                runtime = dalvikRuntimeText + " v" + vmVersion.substring(0, 5);
             }
         } else {
             runtime = null;
@@ -320,8 +325,8 @@ public class InfoFragment extends Fragment {
                         mCpuTemp.setText(CPUUtils.getTemp());
                     } else {
                         mIsMonitoringTemp = false;
-                        mCpuTemp.setText(res.getString(R.string.error));
-                        mCpuTemp.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCpuTemp.setText(errorText);
+                        mCpuTemp.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -374,8 +379,8 @@ public class InfoFragment extends Fragment {
                             mCore0.setText(CPUUtils.getCpu0());
                         } else {
                             mIsMonitoringCpu = false;
-                            mCore0.setText(res.getString(R.string.error));
-                            mCore0.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                            mCore0.setText(errorText);
+                            mCore0.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -384,8 +389,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu0 = false;
-                        mCore0.setText(res.getString(R.string.error));
-                        mCore0.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore0.setText(errorText);
+                        mCore0.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -393,7 +398,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu1 = new File(CPUUtils.CPU1);
                         if (cpu1.length() == 0) {
-                            mCore1.setText(res.getString(R.string.core_offline));
+                            mCore1.setText(coreOfflineText);
                         } else {
                             mCore1.setText(CPUUtils.getCpu1());
                         }
@@ -402,8 +407,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu1 = false;
-                        mCore1.setText(res.getString(R.string.error));
-                        mCore1.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore1.setText(errorText);
+                        mCore1.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -411,7 +416,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu2 = new File(CPUUtils.CPU2);
                         if (cpu2.length() == 0) {
-                            mCore2.setText(res.getString(R.string.core_offline));
+                            mCore2.setText(coreOfflineText);
                         } else {
                             mCore2.setText(CPUUtils.getCpu2());
                         }
@@ -420,8 +425,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu2 = false;
-                        mCore2.setText(res.getString(R.string.error));
-                        mCore2.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore2.setText(errorText);
+                        mCore2.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -429,7 +434,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu3 = new File(CPUUtils.CPU3);
                         if (cpu3.length() == 0) {
-                            mCore3.setText(res.getString(R.string.core_offline));
+                            mCore3.setText(coreOfflineText);
                         } else {
                             mCore3.setText(CPUUtils.getCpu3());
                         }
@@ -438,8 +443,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu3 = false;
-                        mCore3.setText(res.getString(R.string.error));
-                        mCore3.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore3.setText(errorText);
+                        mCore3.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -447,7 +452,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu4 = new File(CPUUtils.CPU4);
                         if (cpu4.length() == 0) {
-                            mCore4.setText(res.getString(R.string.core_offline));
+                            mCore4.setText(coreOfflineText);
                         } else {
                             mCore4.setText(CPUUtils.getCpu4());
                         }
@@ -456,8 +461,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu4 = false;
-                        mCore4.setText(res.getString(R.string.error));
-                        mCore4.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore4.setText(errorText);
+                        mCore4.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -465,7 +470,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu5 = new File(CPUUtils.CPU5);
                         if (cpu5.length() == 0) {
-                            mCore5.setText(res.getString(R.string.core_offline));
+                            mCore5.setText(coreOfflineText);
                         } else {
                             mCore5.setText(CPUUtils.getCpu5());
                         }
@@ -474,8 +479,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu5 = false;
-                        mCore5.setText(res.getString(R.string.error));
-                        mCore5.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore5.setText(errorText);
+                        mCore5.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -483,7 +488,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu6 = new File(CPUUtils.CPU6);
                         if (cpu6.length() == 0) {
-                            mCore6.setText(res.getString(R.string.core_offline));
+                            mCore6.setText(coreOfflineText);
                         } else {
                             mCore6.setText(CPUUtils.getCpu6());
                         }
@@ -492,8 +497,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu6 = false;
-                        mCore6.setText(res.getString(R.string.error));
-                        mCore6.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore6.setText(errorText);
+                        mCore6.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -501,7 +506,7 @@ public class InfoFragment extends Fragment {
                     try {
                         final File cpu7 = new File(CPUUtils.CPU7);
                         if (cpu7.length() == 0) {
-                            mCore7.setText(res.getString(R.string.core_offline));
+                            mCore7.setText(coreOfflineText);
                         } else {
                             mCore7.setText(CPUUtils.getCpu7());
                         }
@@ -510,8 +515,8 @@ public class InfoFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         mHasCpu7 = false;
-                        mCore7.setText(res.getString(R.string.error));
-                        mCore7.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text_color_error));
+                        mCore7.setText(errorText);
+                        mCore7.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
                     }
                 }
 
@@ -655,7 +660,7 @@ public class InfoFragment extends Fragment {
                 if (CPUUtils.getKernelVersion() != null) {
                     mKernelVersionFull.setText(CPUUtils.getKernelVersion());
                 } else {
-                    mKernelVersionFull.setText(res.getString(R.string.information_kernel_version_unavailable));
+                    mKernelVersionFull.setText(versionUnavailableText);
                 }
             }
             return true;
