@@ -86,7 +86,7 @@ public class CreditsFragment extends Fragment {
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.credits_list);
         final ListView mListView2 = ButterKnife.findById(getActivity(), R.id.translator_list);
 
-        final List<String[]> creditList = new ArrayList<>();
+        final List<String[]> creditList = new ArrayList<>(2);
         creditList.add(new String[]{"Icons", "Eduardo Pratti"});
         creditList.add(new String[]{"Creator", "Brandon Valosek"});
         mListView1.setAdapter(new ArrayAdapter<String[]>(
@@ -115,7 +115,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        final List<String[]> translatorList = new ArrayList<>();
+        final List<String[]> translatorList = new ArrayList<>(9);
         translatorList.add(new String[]{"Bengali (India)", "suhridkhan"});
         translatorList.add(new String[]{"French", "Micks29, orlith"});
         translatorList.add(new String[]{"German", "AhMaizeBalls"});

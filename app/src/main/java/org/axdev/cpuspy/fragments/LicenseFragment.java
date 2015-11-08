@@ -61,7 +61,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         mLicenseHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
-        final List<String[]> licenseList = new ArrayList<>();
+        final List<String[]> licenseList = new ArrayList<>(5);
         licenseList.add(new String[]{"Android Support Library", "Android Open Source Project"});
         licenseList.add(new String[]{"Butter Knife", "Jake Wharton"});
         licenseList.add(new String[]{"Discrete Seekbar", "AnderWeb"});
