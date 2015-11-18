@@ -4,73 +4,73 @@
     <string name="app_name_long">CPUSpy Material</string>
     <string name="build_version">v%s</string>
 
-    <string name="core_offline">Offline</string>
+    <string name="core_offline">Αδρανής</string>
 
-    <string name="unused_states_count">%s&#160;Unused States</string>
+    <string name="unused_states_count">%s&#160;Αχρησιμοποίητες καταστάσεις</string>
 
-    <string name="total_state_time">Total State Time</string>
+    <string name="total_state_time">Ολικός χρόνος </string>
 
-    <string name="charged_view_enabled">Auto Reset Enabled</string>
-    <string name="charged_view_status">Battery Status: Charged</string>
-    <string name="charged_view_message">Once the device is fully charged, unplug your charger to automatically reset the CPU timers.</string>
+    <string name="charged_view_enabled">Ενεργοποίηση αυτόματου μηδενισμού</string>
+    <string name="charged_view_status">Κατάσταση μπαταρίας: Φορτισμένη</string>
+    <string name="charged_view_message">Μόλις φορτιστεί η μπαταρία, βγάλτε το φορτιστή από την πρίζα για αυτόματο μηδενισμό των μετρητών του επεξεργαστή.</string>
 
-    <string name="menu_changelog">Changelog</string>
-    <string name="menu_donate">Donate</string>
-    <string name="menu_help_translate">Help Translate</string>
+    <string name="menu_changelog">Αρχείο αλλαγών</string>
+    <string name="menu_donate">Δωρεά</string>
+    <string name="menu_help_translate">Βοηθείστε στη μετάφραση</string>
 
-    <string name="states_empty">Empty</string>
-    <string name="states_deep_sleep">Deep Sleep</string>
-    <string name="states_warning"><b>Uh Oh!</b>\n\nStatic file not found. Are you sure your phone is compatible?\n\nIf you are running a custom ROM or kernel, try contacting its developer to inform him that the states file is not readable.</string>
-    <string name="states_toolbar_hide" translatable="false">Hide States</string>
-    <string name="states_toolbar_reset" translatable="false">Reset</string>
-    <string name="states_toolbar_restore" translatable="false">Restore</string>
+    <string name="states_empty">Κενό</string>
+    <string name="states_deep_sleep">Βαθύς ύπνος</string>
+    <string name="states_warning"><b>Ωχ!</b>\n\nΤο στατικό αρχείο δε βρέθηκε. Είστε σίγουρος ότι η συσκευή σας είναι συμβατή;\n\nΑν έχετε custom ROM ή kernel, προσπαθείστε να επικοινωνήσετε με τον προγραμματιστή για να τον ενημερώσετε ότι το αρχείο κατάστασης δεν είναι προσπελάσιμο.</string>
+    <string name="states_toolbar_hide" translatable="false">Απόκρυψη καταστάσεων</string>
+    <string name="states_toolbar_reset" translatable="false">Μηδενισμός</string>
+    <string name="states_toolbar_restore" translatable="false">Ανάκτηση</string>
 
-    <string name="error">ERROR</string>
+    <string name="error">ΣΦΑΛΜΑ</string>
 
-    <string name="snackbar_text_reset">Timers reset successfully</string>
-    <string name="snackbar_text_restore">Timers restored successfully</string>
-    <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
-    <string name="snackbar_text_update">A newer version is available!</string>
+    <string name="snackbar_text_reset">Οι χρονομετρητές μηδενίστηκαν επιτυχώς</string>
+    <string name="snackbar_text_restore">Οι χρονομετρητές ανακτήθηκαν επιτυχώς</string>
+    <string name="snackbar_text_crashreport">Η αναφορά σφαλμάτων απενεργοποιήθηκε. Οι αλλαγές θα ισχύσουν μετά την επανεκκίνηση της εφαρμογής.</string>
+    <string name="snackbar_text_update">Μια νεότερη έκδοση είναι διαθέσιμη!</string>
 
-    <string name="action_changelog">Full Changelog</string>
-    <string name="action_back">Back</string>
-    <string name="action_done">Done</string>
-    <string name="action_disable">Disable</string>
-    <string name="action_dismiss">Dismiss</string>
-    <string name="action_view">View</string>
+    <string name="action_changelog">Πλήρες αρχείο αλλαγών</string>
+    <string name="action_back">Πίσω</string>
+    <string name="action_done">Τέλος</string>
+    <string name="action_disable">Απενεργοποίηση</string>
+    <string name="action_dismiss">Απόρριψη</string>
+    <string name="action_view">Προβολή</string>
 
-    <string name="widget_reset_title">CPUSpy - Reset Timers</string>
-    <string name="widget_reset_error">Oops! There was an error, try again</string>
-    <string name="widget_reset_success">Timers reset successfully</string>
+    <string name="widget_reset_title">CPUSpy - Μηδενισμός χρονομετρητών</string>
+    <string name="widget_reset_error">Ωχ! Παρουσιάστηκε σφάλμα, προσπαθείστε ξανά.</string>
+    <string name="widget_reset_success">Οι χρονομετρητές μηδενίστηκαν επιτυχώς</string>
 
     <!-- Information -->
-    <string name="information">Information</string>
-    <string name="information_kernel_info">Kernel Info</string>
-    <string name="information_device_info">Device Info</string>
-    <string name="information_cpu_info">CPU Info</string>
-    <string name="information_kernel_governor">Governor:</string>
-    <string name="information_kernel_version_header">Version:</string>
-    <string name="information_kernel_version_full_header">Full Kernel Version</string>
-    <string name="information_kernel_version_unavailable">Kernel version unavailable</string>
-    <string name="information_device_build_header">Build ID:</string>
-    <string name="information_device_api_header">API Level:</string>
-    <string name="information_device_manuf_header">Manufacturer:</string>
-    <string name="information_device_model_header">Model:</string>
+    <string name="information">Πληροφορίες</string>
+    <string name="information_kernel_info">Πληροφορίες kernel</string>
+    <string name="information_device_info">Πληροφορίες συσκευής</string>
+    <string name="information_cpu_info">Πληροφορίες επεξεργαστή</string>
+    <string name="information_kernel_governor">Κυβερνήτης:</string>
+    <string name="information_kernel_version_header">Έκδοση:</string>
+    <string name="information_kernel_version_full_header">Πλήρης έκδοση kernel</string>
+    <string name="information_kernel_version_unavailable">Έκδοση kernel μη διαθέσιμη</string>
+    <string name="information_device_build_header">ID έκδοσης:</string>
+    <string name="information_device_api_header">Επίπεδο API:</string>
+    <string name="information_device_manuf_header">Κατασκευαστής:</string>
+    <string name="information_device_model_header">Μοντέλο:</string>
     <string name="information_device_board_header">Board:</string>
-    <string name="information_device_platform_header">Platform:</string>
+    <string name="information_device_platform_header">Πλατφόρμα:</string>
     <string name="information_device_runtime_header">Runtime:</string>
     <string name="information_device_runtime_art">ART</string>
     <string name="information_device_runtime_dalvik">Dalvik</string>
     <string name="information_device_bootloader_header">Bootloader:</string>
     <string name="information_cpu_abi_header">ABI:</string>
-    <string name="information_cpu_arch_header">Architecture:</string>
-    <string name="information_cpu_freq_header">Frequency:</string>
-    <string name="information_cpu_temp_header">Temp:</string>
-    <string name="information_cpu_features_header">Features:</string>
-    <string name="information_cpu_usage_header">Usage:</string>
+    <string name="information_cpu_arch_header">Αρχιτεκτονική:</string>
+    <string name="information_cpu_freq_header">Συχνότητα:</string>
+    <string name="information_cpu_temp_header">Θερμοκρασία:</string>
+    <string name="information_cpu_features_header">Χαρακτηριστικά:</string>
+    <string name="information_cpu_usage_header">Χρήση:</string>
 
-    <string name="information_usage_header">CPU Usage</string>
-    <string name="information_core_header">Cores:</string>
+    <string name="information_usage_header">Χρήση επεξεργαστή</string>
+    <string name="information_core_header">Πυρήνες:</string>
     <string name="information_cpu0_header">CPU 0:</string>
     <string name="information_cpu1_header">CPU 1:</string>
     <string name="information_cpu2_header">CPU 2:</string>
@@ -81,70 +81,70 @@
     <string name="information_cpu7_header">CPU 7:</string>
 
     <!-- Welcome info -->
-    <string name="welcome_summary">Welcome to CPUSpy Material. Use this tool to monitor which frequencies your CPU uses the most.</string>
-    <string name="welcome_features">Features</string>
-    <string name="welcome_cpuinfo">&#8226; CPU + Kernel information and monitoring</string>
-    <string name="welcome_crashreport">&#8226; Automatically sends crash and usage reports</string>
-    <string name="welcome_autorefresh">&#8226; Enable Auto Refresh to update states in real time</string>
-    <string name="welcome_autoreset">&#8226; Timers automatically reset once battery is full</string>
-    <string name="welcome_widget">&#8226; Widget to reset CPU timers from home screen</string>
-    <string name="welcome_hidepercent">&#8226; Option to hide state below certain percentage</string>
+    <string name="welcome_summary">Καλώς ήρθατε στο CPUSpy Material. Χρησιμοποιήστε το για να ελέγξετε ποιές συχνότητες λειτουργίας χρησιμοποιεί περισσότερο ο επεξεργαστής σας.</string>
+    <string name="welcome_features">Λειτουργίες</string>
+    <string name="welcome_cpuinfo">&#8226; Πληροφορίες και εποπτεία επεξεργαστή + Kernel</string>
+    <string name="welcome_crashreport">&#8226; Αυτόματη αποστολή αναφορών σφαλμάτων και χρήσης</string>
+    <string name="welcome_autorefresh">&#8226; Ενεργοποίηση αυτόματης ανανέωσης των καταστάσεων σε πραγματικό χρόνο</string>
+    <string name="welcome_autoreset">&#8226; Μηδενισμός χρονομετρητών μόλις φορτιστεί η μπαταρία</string>
+    <string name="welcome_widget">&#8226; Widget για μηδενισμό των χρομομετρητών από την αρχική οθόνη</string>
+    <string name="welcome_hidepercent">&#8226; Επιλογή απόκρυψης καταστάσεων κάτω από συγκεκριμένο ποσοστό χρήσης</string>
 
     <!-- Settings info -->
-    <string name="settings">Settings</string>
-    <string name="pref_header_general">General</string>
-    <string name="pref_header_about">About</string>
-    <string name="pref_header_ui">UI</string>
-    <string name="pref_title_version">Version</string>
-    <string name="pref_summary_about">About the app and its developer</string>
-    <string name="pref_title_autorefresh">Automatic Refresh</string>
-    <string name="pref_summary_autorefresh">Refresh the CPU timers automatically</string>
-    <string name="pref_title_autoreset">Automatic Reset</string>
-    <string name="pref_summary_autoreset">Reset CPU timers when fully charged</string>
-    <string name="pref_title_sleepdetection">Deep Sleep Detection</string>
-    <string name="pref_summary_sleepdetection">Notify if device doesn\'t enter deep sleep</string>
-    <string name="pref_title_hidestates">Hide States Below Percentage</string>
-    <string name="pref_summary_hidestates">States below % will not be used</string>
-    <string name="pref_title_themes">Base Theme</string>
-    <string name="pref_title_navbar">Colored Navigation Bar</string>
-    <string name="pref_summary_navbar">Enable primary colored navigation bar</string>
-    <string name="pref_title_checkupdates">Check For Updates</string>
-    <string name="pref_summary_checkupdates">Last checked:&#160;</string>
-    <string name="pref_title_crashreport">Anonymous Crash Reporting</string>
-    <string name="pref_summary_crashreport">Allow collection of Crash and Usage data</string>
-    <string name="pref_title_license">Open Source Licenses</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="pref_header_general">Γενικά</string>
+    <string name="pref_header_about">Σχετικά</string>
+    <string name="pref_header_ui">Περιβάλλον χρήστη</string>
+    <string name="pref_title_version">Έκδοση</string>
+    <string name="pref_summary_about">Σχετικά με την εφαρμογή και το δημιουργό της</string>
+    <string name="pref_title_autorefresh">Αυτόματη ανανέωση</string>
+    <string name="pref_summary_autorefresh">Αυτόματη ανανέωση των χρονομετρητών</string>
+    <string name="pref_title_autoreset">Αυτόματος μηδενισμός</string>
+    <string name="pref_summary_autoreset">Μηδενισμός χρονομετρητών μετά την πλήρη φόρτιση</string>
+    <string name="pref_title_sleepdetection">Ανίχνευση βαθέους ύπνου</string>
+    <string name="pref_summary_sleepdetection">Ειδοποίηση αν η συσκευή δεν μπει σε κατάσταση βαθέους ύπνου</string>
+    <string name="pref_title_hidestates">Απόκρυψη καταστάσεων κάτω από ποσοστό</string>
+    <string name="pref_summary_hidestates">Καταστάσεις κάτω από % δε θα χρησιμοποιηθούν</string>
+    <string name="pref_title_themes">Βασικό θέμα</string>
+    <string name="pref_title_navbar">Χρωματισμός μπάρας πλοήγησης</string>
+    <string name="pref_summary_navbar">Ενεργοποίηση χρωματισμένης μπάρας πλοήγησης</string>
+    <string name="pref_title_checkupdates">Έλεγχος αναβαθμίσεων</string>
+    <string name="pref_summary_checkupdates">Τελευταίος έλεγχος:&#160;</string>
+    <string name="pref_title_crashreport">Ανώνυμες αναφορές σφαλμάτων</string>
+    <string name="pref_summary_crashreport">Να επιτρέπεται η συλλογή δεδομένων σφαλμάτων και χρήσης</string>
+    <string name="pref_title_license">Άδειες ανοικτού κώδικα</string>
 
     <string-array name="themes">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Auto</item>
+        <item>Φωτεινό</item>
+        <item>Σκούρο</item>
+        <item>Αυτόματο</item>
     </string-array>
 
     <!-- Open Source Licenses -->
-    <string name="license_header">Libraries</string>
-    <string name="translators_header">Translators</string>
+    <string name="license_header">Βιβλιοθήκες</string>
+    <string name="translators_header">Μεταφραστές</string>
 
     <!-- About -->
-    <string name="pref_about_header_dev">Developer</string>
-    <string name="pref_about_header_credits">Credits</string>
+    <string name="pref_about_header_dev">Προγραμματιστής</string>
+    <string name="pref_about_header_credits">Ευχαριστίες</string>
     <string name="pref_about_developer">Rob Beane (existz)</string>
 
     <!-- Tab Title -->
-    <string name="tab_title_timers">Timers</string>
-    <string name="tab_title_info">Info</string>
+    <string name="tab_title_timers">Χρονομετρητές</string>
+    <string name="tab_title_info">Πληροφορίες</string>
 
-    <string name="notification_warning">Warning</string>
-    <string name="notification_disable">Disable sleep detection</string>
-    <string name="notification_deep_sleep">Device is not entering Deep Sleep</string>
+    <string name="notification_warning">Προειδοποίηση</string>
+    <string name="notification_disable">Απενεργοποίηση ανίχνευσης ύπνου</string>
+    <string name="notification_deep_sleep">Η συσκευή δεν μπαίνει σε κατάσταση βαθέους ύπνου</string>
 
-    <string name="new_feature_title">Deep Sleep Detection</string>
-    <string name="new_feature_summary">A new background monitoring service that alerts you when the device does not enter deep sleep.</string>
+    <string name="new_feature_title">Ανίχνευση βαθέους ύπνου</string>
+    <string name="new_feature_summary">Μια υπηρεσία παρασκηνίου που ειδοποιεί όταν η συσκευή δεν μπαίνει σε κατάσταση βαθέους ύπνου.</string>
 
-    <string name="xposed_warning_title">Xposed Detected</string>
-    <string name="xposed_warning_content">Unfortunately we are unable to support devices running Xposed. Automatic crash reporting will be disabled.</string>
+    <string name="xposed_warning_title">Ανιχνεύτηκε το Xposed</string>
+    <string name="xposed_warning_content">Δυστυχώς οι συσκευές με Xposed δεν υποστηρίζονται. Η αυτόματη αποστολή αναφορών σφαλμάτων θα απενεργοποιηθεί.</string>
 
-    <string name="primary_color">Primary Color</string>
-    <string name="primary_color_desc">Apply a primary theme color</string>
-    <string name="accent_color">Accent Color</string>
-    <string name="accent_color_desc">Apply an accent color</string>
+    <string name="primary_color">Βασικό χρώμα</string>
+    <string name="primary_color_desc">Εφαρμογή βασικού χρώματος θέματος</string>
+    <string name="accent_color">Δευτερεύον χρώμαAccent Color</string>
+    <string name="accent_color_desc">Εφαρμογή δευτερεύοντος χρώματος</string>
 </resources>
