@@ -23,7 +23,7 @@
     <string name="action_back">Retour</string>
     <string name="action_done">OK</string>
     <string name="action_disable">Désactiver</string>
-    <string name="action_dismiss">Fermer</string>
+    <string name="action_dismiss">Annuler</string>
     <string name="action_view">Voir</string>
     <string name="widget_reset_title">CPUSpy - Réinitialiser compteurs</string>
     <string name="widget_reset_error">Oups ! Il y a eu une erreur, réessayez</string>
@@ -32,7 +32,7 @@
     <string name="information">Information</string>
     <string name="information_kernel_info">Kernel</string>
     <string name="information_device_info">Appareil</string>
-    <string name="information_cpu_info">Processeur</string>
+    <string name="information_cpu_info">CPU</string>
     <string name="information_kernel_governor">Gouverneur :</string>
     <string name="information_kernel_version_header">Version :</string>
     <string name="information_kernel_version_full_header">Version kernel complet</string>
@@ -51,8 +51,8 @@
     <string name="information_cpu_arch_header">Architecture :</string>
     <string name="information_cpu_freq_header">Fréquence :</string>
     <string name="information_cpu_temp_header">Température :</string>
-    <string name="information_cpu_features_header">Features :</string>
-    <string name="information_usage_header">CPU usage</string>
+    <string name="information_cpu_features_header">Fonctions :</string>
+    <string name="information_usage_header">Usage CPU</string>
     <string name="information_core_header">Coeurs :</string>
     <string name="information_cpu0_header">CPU 0 :</string>
     <string name="information_cpu1_header">CPU 1 :</string>
@@ -82,7 +82,7 @@
     <string name="pref_summary_autorefresh">Actualiser les compteurs CPU automatiquement</string>
     <string name="pref_title_autoreset">Réinitialisation automatique</string>
     <string name="pref_summary_autoreset">Réinitialiser les compteurs CPU lorsque la batterie est chargée</string>
-    <string name="pref_title_sleepdetection">Détection Deep Sleep</string>
+    <string name="pref_title_sleepdetection">Détection deep sleep</string>
     <string name="pref_summary_sleepdetection">Notifier si l\'appareil n\'entre pas en deep sleep</string>
     <string name="pref_title_hidestates">Masquer pourcentage d\'états</string>
     <string name="pref_summary_hidestates">États dessous % ne seront pas utilisés</string>
@@ -100,7 +100,7 @@
         <item>Auto</item>
     </string-array>
     <!-- Open Source Licenses -->
-    <string name="license_header">Libraries</string>
+    <string name="license_header">Bibliothèques</string>
     <string name="translators_header">Traducteurs</string>
     <!-- About -->
     <string name="pref_about_header_dev">Développeur</string>
@@ -110,8 +110,12 @@
     <string name="tab_title_timers">Compteurs</string>
     <string name="tab_title_info">Informations</string>
     <string name="notification_warning">Avertissement</string>
-    <string name="new_feature_title">Détection Deep Sleep</string>
+    <string name="notification_disable">Désactiver la détection</string>
+    <string name="notification_deep_sleep">L\'appareil n\'est pas entré en deep sleep</string>
+    <string name="new_feature_title">Détection deep sleep</string>
+    <string name="new_feature_summary">Un nouveau service de contrôle en arrière-plan qui vous avertit lorsque l\'appareil n\'entre pas en deep sleep.</string>
     <string name="xposed_warning_title">Xposed détecté</string>
+    <string name="xposed_warning_content">Malheureusement il est impossible de supporter les appareils exécutant Xposed. Le rapport de bug automatique sera désactivé.</string>
     <string name="primary_color">Couleur primaire</string>
     <string name="primary_color_desc">Appliquer une couleur primaire au thème</string>
     <string name="accent_color">Couleur secondaire</string>
