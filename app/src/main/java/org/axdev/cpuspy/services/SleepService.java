@@ -30,6 +30,7 @@ import android.view.Display;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.MainActivity;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
@@ -40,6 +41,7 @@ public class SleepService extends Service {
     private int notificationID;
     private long lastDeepSleep;
     private BroadcastReceiver NotificationButtonReceiver;
+    private Context mContext;
     private NotificationCompat.Builder mBuilder;
     private NotificationManager mNotifyManager;
     private Thread backgroundThread;
@@ -53,6 +55,7 @@ public class SleepService extends Service {
 
     @Override
     public void onCreate() {
+        this.mContext = getApplicationContext();
         this.isRunning = false;
         this.backgroundThread = new Thread(monitorDeepSleep);
         this.lastDeepSleep = Utils.getDeepSleep();
@@ -81,13 +84,12 @@ public class SleepService extends Service {
         public void run() {
             while (isRunning) {
                 try {
-                    final Context context = getApplicationContext();
                     final Resources res = getResources();
 
-                    if (!isScreenOn(context)
-                            && !isPluggedIn(context)
-                            && !isUserInCall(context)
-                            && !isMusicPlaying(context)) {
+                    if (!isScreenOn(mContext)
+                            && !isPluggedIn(mContext)
+                            && !isUserInCall(mContext)
+                            && !isMusicPlaying(mContext)) {
 
                         // Wait 10 minutes before checking deep sleep
                         TimeUnit.MINUTES.sleep(10);
@@ -97,22 +99,25 @@ public class SleepService extends Service {
 
                         if (currentDeepSleep <= lastDeepSleep) {
                             // PendingIntent to launch app when notification is clicked
-                            final Intent mainIntent = new Intent(context, MainActivity.class);
-                            final PendingIntent contentIntent = PendingIntent.getActivity(context,
+                            final Intent mainIntent = new Intent(mContext, MainActivity.class);
+                            final PendingIntent contentIntent = PendingIntent.getActivity(mContext,
                                     0, mainIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                            mBuilder = new NotificationCompat.Builder(context)
+                            final int color = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("primary_color", 0);
+                            final int primaryColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
+
+                            mBuilder = new NotificationCompat.Builder(mContext)
                                     .setContentIntent(contentIntent)
                                     .setContentTitle(res.getString(R.string.notification_warning))
                                     .setContentText(res.getString(R.string.notification_deep_sleep))
-                                    .setColor(ContextCompat.getColor(getApplicationContext(), R.color.primary))
+                                    .setColor(primaryColor)
                                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                                     .setSmallIcon(R.drawable.ic_notify_deepsleep)
                                     .setOnlyAlertOnce(true);
 
                             // Add PendingIntent for disable button
                             final Intent buttonIntent = new Intent(buttonReceiver);
-                            final PendingIntent btPendingIntent = PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
+                            final PendingIntent btPendingIntent = PendingIntent.getBroadcast(mContext, 0, buttonIntent, 0);
 
                             // Add "X" icon to disable button for KitKat devices only
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
