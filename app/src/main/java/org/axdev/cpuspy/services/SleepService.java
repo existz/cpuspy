@@ -30,7 +30,6 @@ import android.view.Display;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.MainActivity;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.Utils;
 
 import java.util.concurrent.TimeUnit;

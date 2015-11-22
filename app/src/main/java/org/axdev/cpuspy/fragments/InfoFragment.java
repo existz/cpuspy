@@ -7,7 +7,6 @@
 package org.axdev.cpuspy.fragments;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
