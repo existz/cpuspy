@@ -91,7 +91,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     }
 
     protected boolean isColoredNavBar() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("coloredNavBar", true);
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("coloredNavBar", false);
     }
 
     protected boolean hasColoredBars() {
