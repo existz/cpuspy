@@ -197,7 +197,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext, ThemedActivity.isLightAB(mContext) ?
+        mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext, ThemedActivity.isLightAccent(mContext) ?
                 R.color.tabsScrollColor_lightAB : android.R.color.white));
         mSwipeLayout.setProgressBackgroundColorSchemeColor(accentColor);
 

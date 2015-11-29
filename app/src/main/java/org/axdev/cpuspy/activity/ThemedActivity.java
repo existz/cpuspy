@@ -152,6 +152,26 @@ public abstract class ThemedActivity extends AppCompatActivity {
                 || primaryColor == -4941 || primaryColor == -8062 || primaryColor == -8014;
     }
 
+    public static boolean isLightAccent(Context context) {
+        int accentColor = PreferenceManager.getDefaultSharedPreferences(context).getInt("accent_color", 0);
+        return accentColor == -2298424 || accentColor == -5054501 || accentColor == -5051406
+                || accentColor == -985917 || accentColor == -2659 || accentColor == -1596
+                || accentColor == -4464901 || accentColor == -8060929 || accentColor == -5767189
+                || accentColor == -4589878 || accentColor == -3342448 || accentColor == -721023
+                || accentColor == -115 || accentColor == -4941 || accentColor == -8062
+                || accentColor == -328966 || accentColor == -657932 || accentColor == -8014
+                || accentColor == -1118482 || accentColor == -2039584 || accentColor == -1249295
+                || accentColor == -2034959 || accentColor == -657931 || accentColor == -5138
+                || accentColor == -1512714 || accentColor == -1838339 || accentColor == -1968642
+                || accentColor == -2033670 || accentColor == -1509911 || accentColor == -919319
+                || accentColor == -394265 || accentColor == -537 || accentColor == -1823
+                || accentColor == -3104 || accentColor == -267801 || accentColor == -13124
+                || accentColor == -2634552 || accentColor == -1053719 || accentColor == -3155748
+                || accentColor == -3610935 || accentColor == -4987396 || accentColor == -12846
+                || accentColor == -203540 || accentColor == -476208 || accentColor == -793099
+                || accentColor == -1185802 || accentColor == -3029783 || accentColor == -3814679;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
