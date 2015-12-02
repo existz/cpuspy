@@ -52,6 +52,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ThemedActivity {
 
+    private boolean hasXposed;
     private Resources res;
     private SharedPreferences sp;
 
@@ -86,6 +87,7 @@ public class MainActivity extends ThemedActivity {
 
         // Show warning dialog if Xposed is installed
         if (Utils.isXposedInstalled(this)) {
+            hasXposed = true;
             final boolean showXposedWarning = sp.getBoolean("showXposedWarning", true);
 
             if (showXposedWarning) {
@@ -210,7 +212,7 @@ public class MainActivity extends ThemedActivity {
         super.onResume();
 
         // Initialize and start automatic crash reporting
-        if (sp.getBoolean("crashReport", true) && !Utils.isXposedInstalled(this)) {
+        if (sp.getBoolean("crashReport", true) && !hasXposed) {
             Fabric.with(this, new Crashlytics());
         } else {
             sp.edit().putBoolean("crashReport", false).apply();
