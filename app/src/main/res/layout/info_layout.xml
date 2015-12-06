@@ -411,6 +411,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:paddingLeft="24dp"
+                        android:text="0.0%"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu_usage_header"
                         android:layout_alignStart="@+id/cpu_temp"

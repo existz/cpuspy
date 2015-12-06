@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -83,103 +84,6 @@ public class CPUUtils {
         mFreq = Integer.toString(i) + "MHz";
 
         return mFreq;
-    }
-
-    private static float readCPUUsage() {
-        try {
-            String cpuStat1 = readSystemStat();
-            Thread.sleep(100);
-            String cpuStat2 = readSystemStat();
-            float usage = getSystemCpuUsage(cpuStat1, cpuStat2);
-            if (usage > -1) return usage;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    /**
-     * Return the first line of /proc/stat or null if failed.
-     */
-    private static String readSystemStat() {
-        try {
-            RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
-            String value = reader.readLine();
-            reader.close();
-            return value;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    /**
-     * Compute and return the total CPU usage, in percent.
-     *
-     * @param start first content of /proc/stat. Not null.
-     * @param end   second content of /proc/stat. Not null.
-     * @return the CPU use in percent, or -1f if the stats are inverted or on
-     * error
-     * @see {@link #readSystemStat()}
-     */
-    private static float getSystemCpuUsage(String start, String end) {
-        String[] stat = start.split(" ");
-        long idle1 = getSystemIdleTime(stat);
-        long up1 = getSystemUptime(stat);
-
-        stat = end.split(" ");
-        long idle2 = getSystemIdleTime(stat);
-        long up2 = getSystemUptime(stat);
-
-        // don't know how it is possible but we should care about zero and
-        // negative values.
-        float cpu = -1f;
-        if (idle1 >= 0 && up1 >= 0 && idle2 >= 0 && up2 >= 0) {
-            if ((up2 + idle2) > (up1 + idle1) && up2 >= up1) {
-                cpu = (up2 - up1) / (float) ((up2 + idle2) - (up1 + idle1));
-                cpu *= 100.0f;
-            }
-        }
-
-        return cpu;
-    }
-
-    /**
-     * Return the sum of uptimes read from /proc/stat.
-     *
-     * @param stat see {@link #readSystemStat()}
-     */
-    private static long getSystemUptime(String[] stat) {
-        long l = 0L;
-        for (int i = 2; i < stat.length; i++) {
-            if (i != 5) { // bypass any idle mode. There is currently only one.
-                try {
-                    l += Long.parseLong(stat[i]);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    return -1L;
-                }
-            }
-        }
-
-        return l;
-    }
-
-    /**
-     * Return the sum of idle times read from /proc/stat.
-     *
-     * @param stat see {@link #readSystemStat()}
-     */
-    private static long getSystemIdleTime(String[] stat) {
-        try {
-            return Long.parseLong(stat[5]);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        return -1L;
     }
 
     /** Retrieves information for ARM CPUs. */
@@ -405,7 +309,83 @@ public class CPUUtils {
     }
 
     public static float getCpuUsage() {
-        if (readCPUUsage() != 0) return readCPUUsage();
+        try {
+            Usage[] usage1 = getUsages();
+            Thread.sleep(1000);
+            Usage[] usage2 = getUsages();
+
+            if (usage1 != null && usage2 != null) {
+                float[] pers = new float[usage1.length];
+                for (int i = 0; i < usage1.length; i++) {
+                    long idle1 = usage1[i].getIdle();
+                    long up1 = usage1[i].getUptime();
+
+                    long idle2 = usage2[i].getIdle();
+                    long up2 = usage2[i].getUptime();
+
+                    float cpu = -1f;
+                    if (idle1 >= 0 && up1 >= 0 && idle2 >= 0 && up2 >= 0) {
+                        if ((up2 + idle2) > (up1 + idle1) && up2 >= up1) {
+                            cpu = (up2 - up1) / (float) ((up2 + idle2) - (up1 + idle1));
+                            cpu *= 100.0f;
+                        }
+                    }
+
+                    pers[i] = cpu > -1 ? cpu : 0;
+                }
+                return pers[0];
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return 0;
+    }
+
+    private static Usage[] getUsages() {
+        try {
+            RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
+            Usage[] usage = new Usage[getCoreCount() + 1];
+            for (int i = 0; i < usage.length; i++)
+                usage[i] = new Usage(reader.readLine());
+            reader.close();
+            return usage;
+        } catch (FileNotFoundException e) {
+            Log.i("CpuSpy", "/proc/stat does not exist");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static class Usage {
+
+        private long[] stats;
+
+        public Usage(String stats) {
+            if (stats == null) return;
+
+            String[] values = stats.replace("  ", " ").split(" ");
+            this.stats = new long[values.length - 1];
+            for (int i = 0; i < this.stats.length; i++)
+                this.stats[i] = Long.parseLong(values[i + 1]);
+        }
+
+        public long getUptime() {
+            if (stats == null) return -1L;
+            long l = 0L;
+            for (int i = 0; i < stats.length; i++)
+                if (i != 3) l += stats[i];
+            return l;
+        }
+
+        public long getIdle() {
+            try {
+                return stats == null ? -1L : stats[3];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return -1L;
+            }
+        }
+
     }
 }
