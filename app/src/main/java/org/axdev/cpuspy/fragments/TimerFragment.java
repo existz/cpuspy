@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
@@ -56,6 +55,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
@@ -174,12 +174,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mFeatureButton.setSupportBackgroundTintList(sl);
 
         /** Show WhatsNewDialog if versionCode has changed */
-        int currentVersionNumber = 0;
+        int currentVersionNumber = BuildConfig.VERSION_CODE;
         int savedVersionNumber = sp.getInt("version_number", 0);
-        try {
-            final PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            currentVersionNumber = pi.versionCode;
-        } catch (Exception ignored) {}
 
         if (currentVersionNumber > savedVersionNumber) {
             final WhatsNewDialog newFragment = new WhatsNewDialog();
