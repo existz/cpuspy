@@ -56,6 +56,8 @@ public class MainActivity extends ThemedActivity {
     private Resources res;
     private SharedPreferences sp;
 
+    private String crashReport = "crashReport";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +106,7 @@ public class MainActivity extends ThemedActivity {
                         .dismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
-                                sp.edit().putBoolean("crashReport", false).apply();
+                                sp.edit().putBoolean(crashReport, false).apply();
                                 sp.edit().putBoolean("showXposedWarning", false).apply();
                                 recreate();
                             }
@@ -149,8 +151,9 @@ public class MainActivity extends ThemedActivity {
 
         // Start service if its not automatically started on boot
         if (sp.getBoolean("sleepDetection", true)) {
-            if (!Utils.isServiceRunning(this, SleepService.class)) {
-                startService(new Intent(this, SleepService.class));
+            final Class mClass = SleepService.class;
+            if (!Utils.isServiceRunning(this, mClass)) {
+                startService(new Intent(this, mClass));
             }
         }
     }
@@ -212,10 +215,10 @@ public class MainActivity extends ThemedActivity {
         super.onResume();
 
         // Initialize and start automatic crash reporting
-        if (sp.getBoolean("crashReport", true) && !hasXposed) {
+        if (sp.getBoolean(crashReport, true) && !hasXposed) {
             Fabric.with(this, new Crashlytics());
         } else {
-            sp.edit().putBoolean("crashReport", false).apply();
+            sp.edit().putBoolean(crashReport, false).apply();
         }
     }
 
