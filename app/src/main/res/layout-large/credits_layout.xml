@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/credits_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_mtrl"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
+            android:text="@string/pref_about_header_credits"/>
+
+        <ListView
+            android:id="@+id/credits_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/translator_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_mtrl"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
+            android:text="@string/translators_header"/>
+
+        <ListView
+            android:id="@+id/translator_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="4dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
