@@ -357,8 +357,6 @@ public class InfoFragment extends Fragment {
                         } catch (Exception e) {
                             e.printStackTrace();
                             mIsMonitoringUsage = false;
-                            mCpuUsageHeader.setVisibility(View.GONE);
-                            mCpuUsage.setVisibility(View.GONE);
                         }
                     }
                 }).start();

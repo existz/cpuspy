@@ -414,9 +414,7 @@
                         android:text="0.0%"
                         android:textColor="?android:attr/textColorPrimary"
                         android:layout_alignTop="@+id/cpu_usage_header"
-                        android:layout_alignStart="@+id/cpu_temp"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:layout_alignStart="@+id/cpu_temp"/>
 
                     <TextView
                         android:id="@+id/cpu_freq_header"
