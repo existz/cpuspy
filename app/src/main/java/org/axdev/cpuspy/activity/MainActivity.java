@@ -182,8 +182,8 @@ public class MainActivity extends ThemedActivity {
     }
 
     private class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragments = new ArrayList<>();
-        private final List<String> mFragmentTitles = new ArrayList<>();
+        private final List<Fragment> mFragments = new ArrayList<>(2);
+        private final List<String> mFragmentTitles = new ArrayList<>(2);
 
         private Adapter(FragmentManager fm) {
             super(fm);
