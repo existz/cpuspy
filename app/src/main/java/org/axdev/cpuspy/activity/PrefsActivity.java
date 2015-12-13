@@ -137,7 +137,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int position, CharSequence text) {
                                     sp.edit().putInt("theme", position).apply();
-                                    if (mContext != null)
+                                    if (mContext != null && selected != position)
                                         getActivity().recreate();
                                     return true;
                                 }
