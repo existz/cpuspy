@@ -119,31 +119,38 @@ public class MainActivity extends ThemedActivity {
             }
         }
 
-        // Add +1 to current build version and check if that URL exists
-        final String currentVersion = String.valueOf(BuildConfig.VERSION_NAME).replace(".", "");
-        final int upcomingVersion = Integer.parseInt(currentVersion) + 1;
-        final String upcomingVersionURL = "https://app.box.com/cpuspy-v" + upcomingVersion;
-        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(MainActivity.this);
-
         // Check if an update is available
         final Thread t = new Thread(new Runnable() {
             public void run() {
-                if (Utils.urlExists(upcomingVersionURL)) {
-                    SnackbarManager.show(
-                            Snackbar.with(MainActivity.this)
-                                    .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
-                                    .text(res.getString(R.string.snackbar_text_update))
-                                    .actionLabel(res.getString(R.string.action_view))
-                                    .actionLabelTypeface(robotoMedium)
-                                    .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.primary) : accentColor())
-                                    .actionListener(new ActionClickListener() {
-                                        @Override
-                                        public void onActionClicked(Snackbar snackbar) {
-                                            final String xdaURL = "http://goo.gl/AusQy8";
-                                            Utils.openChromeTab(MainActivity.this, xdaURL, primaryColor());
-                                        }
-                                    })
-                    );
+                boolean success = false;
+                int count = 0, MAX_TRIES = 10;
+                String versionString = String.valueOf(BuildConfig.VERSION_NAME).replace(".", "");
+                int versionNumber = Integer.parseInt(versionString) + 1;
+
+                while (!success && count++ < MAX_TRIES) {
+                    final Typeface robotoMedium = TypefaceHelper.mediumTypeface(MainActivity.this);
+                    String versionURL = "https://app.box.com/cpuspy-v" + versionNumber++;
+
+                    if (Utils.urlExists(versionURL)) {
+                        SnackbarManager.show(
+                                Snackbar.with(MainActivity.this)
+                                        .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
+                                        .text(res.getString(R.string.snackbar_text_update))
+                                        .actionLabel(res.getString(R.string.action_view))
+                                        .actionLabelTypeface(robotoMedium)
+                                        .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.primary) : accentColor())
+                                        .actionListener(new ActionClickListener() {
+                                            @Override
+                                            public void onActionClicked(Snackbar snackbar) {
+                                                final String xdaURL = "http://goo.gl/AusQy8";
+                                                Utils.openChromeTab(MainActivity.this, xdaURL, primaryColor());
+                                            }
+                                        })
+                        );
+                        success = true;
+                    } else {
+                        success = false;
+                    }
                 }
             }
         });
