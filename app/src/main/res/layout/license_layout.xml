@@ -20,17 +20,12 @@
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:textColor="@color/accent"
             android:text="@string/license_header"/>
 
         <ListView
             android:id="@+id/license_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="4dp"/>
 
     </LinearLayout>
 

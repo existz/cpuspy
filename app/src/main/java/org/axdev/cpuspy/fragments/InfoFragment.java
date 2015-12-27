@@ -378,6 +378,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU0 */
                 if (mHasCpu0) {
                     try {
+                        mCore0Header.setVisibility(View.VISIBLE);
+                        mCore0.setVisibility(View.VISIBLE);
                         // CPU0 should never be null
                         if (CPUUtils.getCpu0() != null) {
                             mCore0.setText(CPUUtils.getCpu0());
@@ -400,6 +402,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU1 */
                 if (mHasCpu1) {
                     try {
+                        mCore1Header.setVisibility(View.VISIBLE);
+                        mCore1.setVisibility(View.VISIBLE);
                         final File cpu1 = new File(CPUUtils.CPU1);
                         if (cpu1.length() == 0) {
                             mCore1.setText(coreOfflineText);
@@ -418,6 +422,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU2 */
                 if (mHasCpu2) {
                     try {
+                        mCore2Header.setVisibility(View.VISIBLE);
+                        mCore2.setVisibility(View.VISIBLE);
                         final File cpu2 = new File(CPUUtils.CPU2);
                         if (cpu2.length() == 0) {
                             mCore2.setText(coreOfflineText);
@@ -436,6 +442,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU3 */
                 if (mHasCpu3) {
                     try {
+                        mCore3Header.setVisibility(View.VISIBLE);
+                        mCore3.setVisibility(View.VISIBLE);
                         final File cpu3 = new File(CPUUtils.CPU3);
                         if (cpu3.length() == 0) {
                             mCore3.setText(coreOfflineText);
@@ -454,6 +462,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU4 */
                 if (mHasCpu4) {
                     try {
+                        mCore4Header.setVisibility(View.VISIBLE);
+                        mCore4.setVisibility(View.VISIBLE);
                         final File cpu4 = new File(CPUUtils.CPU4);
                         if (cpu4.length() == 0) {
                             mCore4.setText(coreOfflineText);
@@ -472,6 +482,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU5 */
                 if (mHasCpu5) {
                     try {
+                        mCore5Header.setVisibility(View.VISIBLE);
+                        mCore5.setVisibility(View.VISIBLE);
                         final File cpu5 = new File(CPUUtils.CPU5);
                         if (cpu5.length() == 0) {
                             mCore5.setText(coreOfflineText);
@@ -490,6 +502,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU6 */
                 if (mHasCpu6) {
                     try {
+                        mCore6Header.setVisibility(View.VISIBLE);
+                        mCore6.setVisibility(View.VISIBLE);
                         final File cpu6 = new File(CPUUtils.CPU6);
                         if (cpu6.length() == 0) {
                             mCore6.setText(coreOfflineText);
@@ -508,6 +522,8 @@ public class InfoFragment extends Fragment {
                 /** Set the frequency for CPU7 */
                 if (mHasCpu7) {
                     try {
+                        mCore7Header.setVisibility(View.VISIBLE);
+                        mCore7.setVisibility(View.VISIBLE);
                         final File cpu7 = new File(CPUUtils.CPU7);
                         if (cpu7.length() == 0) {
                             mCore7.setText(coreOfflineText);
@@ -535,92 +551,34 @@ public class InfoFragment extends Fragment {
             default:
                 return;
             case 1:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
                 mHasCpu0 = true;
                 break;
             case 2:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
                 mHasCpu0 = true;
-
-                mCore1Header.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.VISIBLE);
                 mHasCpu1 = true;
                 break;
             case 4:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
                 mHasCpu0 = true;
-
-                mCore1Header.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.VISIBLE);
                 mHasCpu1 = true;
-
-                mCore2Header.setVisibility(View.VISIBLE);
-                mCore2.setVisibility(View.VISIBLE);
                 mHasCpu2 = true;
-
-                mCore3Header.setVisibility(View.VISIBLE);
-                mCore3.setVisibility(View.VISIBLE);
                 mHasCpu3 = true;
                 break;
             case 6:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
                 mHasCpu0 = true;
-
-                mCore1Header.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.VISIBLE);
                 mHasCpu1 = true;
-
-                mCore2Header.setVisibility(View.VISIBLE);
-                mCore2.setVisibility(View.VISIBLE);
                 mHasCpu2 = true;
-
-                mCore3Header.setVisibility(View.VISIBLE);
-                mCore3.setVisibility(View.VISIBLE);
                 mHasCpu3 = true;
-
-                mCore4Header.setVisibility(View.VISIBLE);
-                mCore4.setVisibility(View.VISIBLE);
                 mHasCpu4 = true;
-
-                mCore5Header.setVisibility(View.VISIBLE);
-                mCore5.setVisibility(View.VISIBLE);
                 mHasCpu5 = true;
                 break;
             case 8:
-                mCore0Header.setVisibility(View.VISIBLE);
-                mCore0.setVisibility(View.VISIBLE);
                 mHasCpu0 = true;
-
-                mCore1Header.setVisibility(View.VISIBLE);
-                mCore1.setVisibility(View.VISIBLE);
                 mHasCpu1 = true;
-
-                mCore2Header.setVisibility(View.VISIBLE);
-                mCore2.setVisibility(View.VISIBLE);
                 mHasCpu2 = true;
-
-                mCore3Header.setVisibility(View.VISIBLE);
-                mCore3.setVisibility(View.VISIBLE);
                 mHasCpu3 = true;
-
-                mCore4Header.setVisibility(View.VISIBLE);
-                mCore4.setVisibility(View.VISIBLE);
                 mHasCpu4 = true;
-
-                mCore5Header.setVisibility(View.VISIBLE);
-                mCore5.setVisibility(View.VISIBLE);
                 mHasCpu5 = true;
-
-                mCore6Header.setVisibility(View.VISIBLE);
-                mCore6.setVisibility(View.VISIBLE);
                 mHasCpu6 = true;
-
-                mCore7Header.setVisibility(View.VISIBLE);
-                mCore7.setVisibility(View.VISIBLE);
                 mHasCpu7 = true;
                 break;
         }
