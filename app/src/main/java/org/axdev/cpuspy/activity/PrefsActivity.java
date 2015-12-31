@@ -237,6 +237,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             /** Use custom Typeface for action bar title on KitKat devices */
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mActionBar.setTitle(res.getString(R.string.settings));
+                mActionBar.setElevation(mContext.getResources().getDimension(R.dimen.ab_elevation));
             } else {
                 final SpannableString s = new SpannableString(res.getString(R.string.settings));
                 s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
