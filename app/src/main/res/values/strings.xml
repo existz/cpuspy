@@ -151,4 +151,12 @@
     <string name="running_processes">Running Processes</string>
     <string name="btn_full_kernel_version">Full Version</string>
     <string name="btn_processes">Processes</string>
+
+    <string name="contact">Contact</string>
+    <string name="email_developer">Email Developer</string>
+    <string name="email_developer_summary">Send bug report and feature requests</string>
+    <string name="view_gplus">View G+ Profile</string>
+    <string name="view_gplus_summary">Open Google Plus profile page</string>
+    <string name="donate_summary">Send money to help fund this project</string>
+
 </resources>

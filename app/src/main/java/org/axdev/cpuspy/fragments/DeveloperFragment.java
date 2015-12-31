@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -22,6 +23,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.color.CircleView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
@@ -49,6 +52,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         super.onViewCreated(view, savedInstanceState);
 
         final Context mContext = getActivity();
+        final Resources res = getResources();
         final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
         assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -56,9 +60,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle("Developer");
+            mActionBar.setTitle(res.getString(R.string.pref_about_developer));
         } else {
-            final SpannableString s = new SpannableString("Developer");
+            final SpannableString s = new SpannableString(res.getString(R.string.pref_about_developer));
             s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -69,11 +73,8 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         final CircleImageView imageView = ButterKnife.findById(view, R.id.profile_image);
         final Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.profile, null);
         imageView.setImageDrawable(drawable);
-        if (ThemedActivity.mIsDarkTheme) {
-            imageView.setBorderColor(ContextCompat.getColor(mContext, android.R.color.white));
-        } else {
-            imageView.setBorderColor(ContextCompat.getColor(mContext, android.R.color.black));
-        }
+        imageView.setBorderColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
+                android.R.color.white : android.R.color.black));
 
         final ThemedActivity act = (ThemedActivity) mContext;
         final int colorPrimary = act.primaryColor();
@@ -84,6 +85,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
         mHeader.setBackgroundColor(primaryColor);
 
+        final View mDivider = ButterKnife.findById(view, R.id.viewDivider);
+        mDivider.setBackgroundColor(CircleView.shiftColorDown(primaryColor));
+
         final TextView contactTitle = ButterKnife.findById(view, R.id.developer_contact_title);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         contactTitle.setTypeface(robotoMedium);
@@ -91,9 +95,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
 
         final ListView mListView = ButterKnife.findById(getActivity(), R.id.developer_list);
         final List<String[]> developerList = new ArrayList<>();
-        developerList.add(new String[]{"Email Developer", "Send bug report and feature requests"});
-        developerList.add(new String[]{"View G+ Profile", "Open Google Plus profile page"});
-        developerList.add(new String[]{"Donate", "Send money to help fund this project"});
+        developerList.add(new String[]{res.getString(R.string.email_developer), res.getString(R.string.email_developer_summary)});
+        developerList.add(new String[]{res.getString(R.string.view_gplus), res.getString(R.string.view_gplus_summary)});
+        developerList.add(new String[]{res.getString(R.string.menu_donate), res.getString(R.string.donate_summary)});
         mListView.setAdapter(new ArrayAdapter<String[]>(
                 mContext,
                 android.R.layout.simple_list_item_2,
@@ -133,7 +137,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
                 intent.setType("plain/text");
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "robbeane@gmail.com" });
                 intent.putExtra(Intent.EXTRA_SUBJECT, "CPUSpy Material");
-                startActivity(Intent.createChooser(intent, "Email Developer"));
+                startActivity(Intent.createChooser(intent, getResources().getString(R.string.email_developer)));
                 break;
             case 1: // Google Plus
                 Utils.openChromeTab(mContext, "https://plus.google.com/+RobBeane", primaryColor);

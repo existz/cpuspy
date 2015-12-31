@@ -14,6 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="125dp" />
 
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/developer_header" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
@@ -32,7 +38,7 @@
             android:layout_marginStart="@dimen/padding_mtrl"
             android:layout_marginBottom="24dp"
             android:layout_below="@+id/profile_image"
-            android:text="Contact"/>
+            android:text="@string/contact"/>
 
         <ImageView
             android:id="@+id/email_icon"
