@@ -31,6 +31,8 @@ public class CpuStateMonitor {
     private final List<CpuState> _states = new ArrayList<>();
     private SparseArray<Long> _offsets = new SparseArray<>();
 
+    private int MAX_TRIES = 10;
+
     /** exception class */
     public class CpuStateMonitorException extends Exception {
 
@@ -48,7 +50,7 @@ public class CpuStateMonitor {
         /* check for an existing offset, and if it's not too big, subtract it
          * from the duration, otherwise just add it to the return List */
         boolean success = false;
-        int count = 0, MAX_TRIES = 10;
+        int count = 0;
         while (!success && count++ < MAX_TRIES) {
             try {
                 for (final CpuState state : _states) {
@@ -91,7 +93,7 @@ public class CpuStateMonitor {
         long sum = 0;
         long offset = 0;
         boolean success = false;
-        int count = 0, MAX_TRIES = 10;
+        int count = 0;
 
         while (!success && count++ < MAX_TRIES) {
             try {
@@ -135,7 +137,7 @@ public class CpuStateMonitor {
      */
     public void setOffsets() throws CpuStateMonitorException {
         boolean success = false;
-        int count = 0, MAX_TRIES = 10;
+        int count = 0;
         while (!success && count++ < MAX_TRIES) {
             try {
                 _offsets.clear();
@@ -166,28 +168,35 @@ public class CpuStateMonitor {
     public void updateStates() throws CpuStateMonitorException {
         /* attempt to create a buffered reader to the time in state
          * file and read in the states to the class */
-        try {
-            final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-            final File file = new File(TIME_IN_STATE_PATH);
-            if (file.canRead()) {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-                _states.clear();
-                readInStates(br);
-                br.close();
-            } else {
-                Log.e("CpuSpy", "Unable to read file: " + TIME_IN_STATE_PATH);
+        boolean success = false;
+        int count = 0;
+        while (!success && count++ < MAX_TRIES) {
+            try {
+                final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
+                final File file = new File(TIME_IN_STATE_PATH);
+                if (file.canRead()) {
+                    final BufferedReader br = new BufferedReader(new FileReader(file));
+                    _states.clear();
+                    readInStates(br);
+                    br.close();
+                } else {
+                    Log.e("CpuSpy", "Unable to read file: " + TIME_IN_STATE_PATH);
+                }
+
+
+                /* deep sleep time determined by difference between elapsed
+                 * (total) boot time and the system uptime (awake)
+                 */
+                final long sleepTime = Utils.getDeepSleep();
+                _states.add(new CpuState(0, sleepTime));
+
+                Collections.sort(_states, Collections.reverseOrder());
+                success = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new CpuStateMonitorException("Problem opening time-in-states file");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new CpuStateMonitorException("Problem opening time-in-states file");
         }
-
-        /* deep sleep time determined by difference between elapsed
-         * (total) boot time and the system uptime (awake) */
-        final long sleepTime = Utils.getDeepSleep();
-        _states.add(new CpuState(0, sleepTime));
-
-        Collections.sort(_states, Collections.reverseOrder());
     }
 
     /** read from a provided BufferedReader the state lines into the
