@@ -32,7 +32,7 @@ public class WhatsNewDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Context mContext = this.getActivity();
-        final ThemedActivity act = (ThemedActivity) mContext;
+        final ThemedActivity act = ((ThemedActivity) mContext);
         final int primaryColor = act.primaryColor();
         final Resources res = getResources();
         final MaterialDialog dialog = new MaterialDialog.Builder(mContext)

@@ -152,7 +152,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        final ThemedActivity act = (ThemedActivity) mContext;
+        final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
         accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         this.checkView();

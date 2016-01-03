@@ -76,7 +76,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         imageView.setBorderColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                 android.R.color.white : android.R.color.black));
 
-        final ThemedActivity act = (ThemedActivity) mContext;
+        final ThemedActivity act = ((ThemedActivity) mContext);
         final int colorPrimary = act.primaryColor();
         final int colorAccent = act.accentColor();
         primaryColor = colorPrimary == 0 ? ContextCompat.getColor(mContext, R.color.primary) : colorPrimary;
@@ -86,7 +86,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         mHeader.setBackgroundColor(primaryColor);
 
         final View mDivider = ButterKnife.findById(view, R.id.viewDivider);
-        mDivider.setBackgroundColor(CircleView.shiftColorDown(primaryColor));
+        mDivider.setBackgroundColor(act.primaryColorDark());
 
         final TextView contactTitle = ButterKnife.findById(view, R.id.developer_contact_title);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);

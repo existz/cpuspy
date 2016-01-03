@@ -56,7 +56,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         final Resources res = getResources();
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        final ThemedActivity act = (ThemedActivity) mContext;
+        final ThemedActivity act = ((ThemedActivity) mContext);
         primaryColor = act.primaryColor();
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;

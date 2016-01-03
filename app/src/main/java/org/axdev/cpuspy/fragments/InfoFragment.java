@@ -46,8 +46,8 @@ import butterknife.OnClick;
 public class InfoFragment extends Fragment {
 
     @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
-    @Bind(R.id.kernel_toolbar) CardView mKernelToolbar;
-    @Bind(R.id.process_toolbar) CardView mProcessToolbar;
+    @Bind(R.id.kernel_menu) CardView mKernelMenu;
+    @Bind(R.id.device_menu) CardView mDeviceMenu;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @Bind(R.id.kernel_governor) TextView mKernelGovernor;
@@ -199,7 +199,7 @@ public class InfoFragment extends Fragment {
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
 
-        final ThemedActivity act = (ThemedActivity) mContext;
+        final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mKernelHeader.setTextColor(accentColor);
@@ -242,8 +242,8 @@ public class InfoFragment extends Fragment {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
         if (mCardKernelFull.isShown()) showFullKernelVersion(false);
-        if (mProcessToolbar.isShown()) mProcessToolbar.setVisibility(View.GONE);
-        if (mKernelToolbar.isShown()) mKernelToolbar.setVisibility(View.GONE);
+        if (mDeviceMenu.isShown()) mDeviceMenu.setVisibility(View.GONE);
+        if (mKernelMenu.isShown()) mKernelMenu.setVisibility(View.GONE);
     }
 
     @Override
@@ -591,7 +591,7 @@ public class InfoFragment extends Fragment {
     void fullKernelVersion() {
         if (!mCardKernelFull.isShown()) {
             showFullKernelVersion(true);
-            mKernelToolbar.setVisibility(View.GONE);
+            mKernelMenu.setVisibility(View.GONE);
             mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent ev) {
@@ -611,14 +611,14 @@ public class InfoFragment extends Fragment {
     @OnClick(R.id.btn_kernel_more)
     void kernelMoreButton() {
         final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
-        mKernelToolbar.startAnimation(fadeIn);
-        mKernelToolbar.setVisibility(View.VISIBLE);
+        mKernelMenu.startAnimation(fadeIn);
+        mKernelMenu.setVisibility(View.VISIBLE);
         mContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent ev) {
-                if (mKernelToolbar.isShown()
-                        && Utils.isOutOfBounds(mKernelToolbar, ev)) {
-                    mKernelToolbar.setVisibility(View.GONE);
+                if (mKernelMenu.isShown()
+                        && Utils.isOutOfBounds(mKernelMenu, ev)) {
+                    mKernelMenu.setVisibility(View.GONE);
                     return true;
                 }
                 return false;
@@ -629,14 +629,14 @@ public class InfoFragment extends Fragment {
     @OnClick(R.id.btn_device_more)
     void deviceMoreButton() {
         final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
-        mProcessToolbar.startAnimation(fadeIn);
-        mProcessToolbar.setVisibility(View.VISIBLE);
+        mDeviceMenu.startAnimation(fadeIn);
+        mDeviceMenu.setVisibility(View.VISIBLE);
         mContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent ev) {
-                if (mProcessToolbar.isShown()
-                        && Utils.isOutOfBounds(mProcessToolbar, ev)) {
-                    mProcessToolbar.setVisibility(View.GONE);
+                if (mDeviceMenu.isShown()
+                        && Utils.isOutOfBounds(mDeviceMenu, ev)) {
+                    mDeviceMenu.setVisibility(View.GONE);
                     return true;
                 }
                 return false;
@@ -646,7 +646,7 @@ public class InfoFragment extends Fragment {
 
     @OnClick(R.id.running_processes)
     void runningProcessesButton() {
-        mProcessToolbar.setVisibility(View.GONE);
+        mDeviceMenu.setVisibility(View.GONE);
         Intent myIntent = new Intent(getActivity(), ProcessActivity.class);
         startActivity(myIntent);
     }

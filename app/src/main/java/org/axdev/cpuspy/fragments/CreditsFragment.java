@@ -42,6 +42,7 @@ import butterknife.ButterKnife;
 public class CreditsFragment extends Fragment {
 
     private Context mContext;
+    private ThemedActivity act;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class CreditsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final Resources res = getResources();
         this.mContext = this.getActivity();
+        this.act = ((ThemedActivity) mContext);
 
         final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
         assert mActionBar != null;
@@ -75,7 +77,6 @@ public class CreditsFragment extends Fragment {
 
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
-        final ThemedActivity act = (ThemedActivity) mContext;
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mCreditsHeader.setTypeface(robotoMedium);
@@ -171,7 +172,6 @@ public class CreditsFragment extends Fragment {
 
     /** called to handle a menu event */
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        final ThemedActivity act = (ThemedActivity) mContext;
         final int primaryColor = act.primaryColor();
         // what it do mayne
         switch (item.getItemId()) {
