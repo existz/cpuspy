@@ -36,8 +36,12 @@ public abstract class ThemedActivity extends AppCompatActivity {
 
     protected int darkTheme() {
         mIsDarkTheme = true;
-        if (isLightAB(this)) {
+        if (isLightAB(this) && !isLightAccent(this)) {
             return R.style.AppThemeDark_LightAB;
+        } else if (!isLightAB(this) && isLightAccent(this)) {
+            return R.style.AppThemeDark_LightAccent;
+        } else if (isLightAB(this) && isLightAccent(this)) {
+            return R.style.AppThemeDark_LightAB_LightAccent;
         } else {
             return R.style.AppThemeDark;
         }
@@ -45,8 +49,12 @@ public abstract class ThemedActivity extends AppCompatActivity {
 
     protected int lightTheme() {
         mIsDarkTheme = false;
-        if (isLightAB(this)) {
+        if (isLightAB(this) && !isLightAccent(this)) {
             return R.style.AppTheme_LightAB;
+        } else if (!isLightAB(this) && isLightAccent(this)) {
+            return R.style.AppTheme_LightAccent;
+        } else if (isLightAB(this) && isLightAccent(this)) {
+            return R.style.AppTheme_LightAB_LightAccent;
         } else {
             return R.style.AppTheme;
         }
@@ -149,7 +157,8 @@ public abstract class ThemedActivity extends AppCompatActivity {
                 || primaryColor == -3029783 || primaryColor == -3814679 || primaryColor == -4464901
                 || primaryColor == -5051406 || primaryColor == -5054501 || primaryColor == 2298424
                 || primaryColor == -985917 || primaryColor == -1596 || primaryColor == -2659
-                || primaryColor == -4941 || primaryColor == -8062 || primaryColor == -8014;
+                || primaryColor == -4941 || primaryColor == -8062 || primaryColor == -8014
+                || primaryColor == -1;
     }
 
     public static boolean isLightAccent(Context context) {
@@ -169,7 +178,8 @@ public abstract class ThemedActivity extends AppCompatActivity {
                 || accentColor == -2634552 || accentColor == -1053719 || accentColor == -3155748
                 || accentColor == -3610935 || accentColor == -4987396 || accentColor == -12846
                 || accentColor == -203540 || accentColor == -476208 || accentColor == -793099
-                || accentColor == -1185802 || accentColor == -3029783 || accentColor == -3814679;
+                || accentColor == -1185802 || accentColor == -3029783 || accentColor == -3814679
+                || accentColor == -1;
     }
 
     @Override

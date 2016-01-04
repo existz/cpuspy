@@ -45,6 +45,14 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="AppTheme_LightAccent" parent="@style/AppTheme" >
+        <item name="discreteSeekBarStyle">@style/Widget.DiscreteSeekBar_LightAccent</item>
+    </style>
+
+    <style name="AppTheme_LightAB_LightAccent" parent="@style/AppTheme_LightAB" >
+        <item name="discreteSeekBarStyle">@style/Widget.DiscreteSeekBar_LightAccent</item>
+    </style>
+
     <style name="AppThemeDark" parent="@style/Theme.AppCompat" >
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
@@ -90,6 +98,14 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/primary_text_color_dark</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppThemeDark_LightAccent" parent="@style/AppThemeDark" >
+        <item name="discreteSeekBarStyle">@style/Widget.DiscreteSeekBar_LightAccent</item>
+    </style>
+
+    <style name="AppThemeDark_LightAB_LightAccent" parent="@style/AppThemeDark_LightAB" >
+        <item name="discreteSeekBarStyle">@style/Widget.DiscreteSeekBar_LightAccent</item>
     </style>
 
     <style name="ActionButtonOverflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">

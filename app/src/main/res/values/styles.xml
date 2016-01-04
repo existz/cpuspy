@@ -30,9 +30,17 @@
         <item name="dsb_mirrorForRtl">true</item>
     </style>
 
+    <style name="Widget.DiscreteSeekBar_LightAccent" parent="Widget.DiscreteSeekBar">
+        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance_LightAccent</item>
+    </style>
+
     <style name="Widget.DiscreteIndicatorTextAppearance" parent="android:TextAppearance.Small">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="Widget.DiscreteIndicatorTextAppearance_LightAccent" parent="Widget.DiscreteIndicatorTextAppearance">
+        <item name="android:textColor">@color/primary_text_color</item>
     </style>
 
 </resources>
