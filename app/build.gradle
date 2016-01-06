@@ -18,8 +18,8 @@ repositories {
 
 // build version
 def versionMajor = 3
-def versionMinor = 1
-def versionPatch = 9
+def versionMinor = 2
+def versionPatch = 0
 
 // support library version
 def supportLibVersion = '23.1.1'
@@ -30,7 +30,7 @@ android {
 
     defaultConfig {
         applicationId "org.axdev.cpuspy"
-        versionCode 100019
+        versionCode 100020
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         minSdkVersion 19
         targetSdkVersion 23
