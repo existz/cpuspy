@@ -171,11 +171,13 @@ public class CreditsFragment extends Fragment {
 
     /** called to handle a menu event */
     @Override public boolean onOptionsItemSelected(MenuItem item) {
+        final ThemedActivity act = (ThemedActivity) mContext;
+        final int primaryColor = act.primaryColor();
         // what it do mayne
         switch (item.getItemId()) {
         /* pressed the load menu button */
             case R.id.menu_help_translate:
-                Utils.openURL(mContext, "https://cpuspy.oneskyapp.com");
+                Utils.openChromeTab(getActivity(), "https://cpuspy.oneskyapp.com", primaryColor);
         }
         return super.onOptionsItemSelected(item);
     }

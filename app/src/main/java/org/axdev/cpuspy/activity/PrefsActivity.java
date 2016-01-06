@@ -45,6 +45,8 @@ import org.axdev.cpuspy.views.CpuSpyPreference;
 
 public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.ColorCallback {
 
+    public static int primaryColor;
+
     public static class PrefsFragment extends PreferenceFragment {
 
         private final String googleURL = "https://plus.google.com/+RobBeane";
@@ -83,7 +85,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Utils.openURL(mContext, googleURL);
+                    Utils.openChromeTab(getActivity(), googleURL, primaryColor);
                     return true;
                 }
             });
@@ -246,6 +248,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
+        primaryColor = primaryColor();
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_wrapper, new PrefsFragment()).commit();
@@ -284,7 +287,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                 break;
             case R.id.menu_donate:
                 final String donateURL = "http://goo.gl/X2sA4D";
-                Utils.openURL(this, donateURL);
+                Utils.openChromeTab(this, donateURL, primaryColor());
                 break;
             case android.R.id.home:
                 this.checkBackStack();

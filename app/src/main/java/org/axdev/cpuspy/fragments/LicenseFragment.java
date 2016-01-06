@@ -6,6 +6,7 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
@@ -40,6 +41,7 @@ import butterknife.ButterKnife;
 public class LicenseFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private Context mContext;
+    private int primaryColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         final ThemedActivity act = (ThemedActivity) mContext;
+        primaryColor = act.primaryColor();
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mLicenseHeader.setTypeface(robotoMedium);
@@ -118,24 +121,25 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Activity activity = getActivity();
         switch (position) {
             case 0:
-                Utils.openURL(mContext, "http://developer.android.com/tools/support-library/index.html");
+                Utils.openChromeTab(activity, "http://developer.android.com/tools/support-library/index.html", primaryColor);
                 break;
             case 1:
-                Utils.openURL(mContext, "https://github.com/jaredrummler/AndroidProcesses");
+                Utils.openChromeTab(activity, "https://github.com/jaredrummler/AndroidProcesses", primaryColor);
                 break;
             case 2:
-                Utils.openURL(mContext, "https://github.com/JakeWharton/butterknife");
+                Utils.openChromeTab(activity, "https://github.com/JakeWharton/butterknife", primaryColor);
                 break;
             case 3:
-                Utils.openURL(mContext, "https://github.com/AnderWeb/discreteSeekBar");
+                Utils.openChromeTab(activity, "https://github.com/AnderWeb/discreteSeekBar", primaryColor);
                 break;
             case 4:
-                Utils.openURL(mContext, "https://github.com/afollestad/material-dialogs");
+                Utils.openChromeTab(activity, "https://github.com/afollestad/material-dialogs", primaryColor);
                 break;
             case 5:
-                Utils.openURL(mContext, "https://github.com/nispok/snackbar");
+                Utils.openChromeTab(activity, "https://github.com/nispok/snackbar", primaryColor);
                 break;
         }
     }

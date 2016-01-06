@@ -140,7 +140,7 @@ public class MainActivity extends ThemedActivity {
                                         @Override
                                         public void onActionClicked(Snackbar snackbar) {
                                             final String xdaURL = "http://goo.gl/AusQy8";
-                                            Utils.openURL(MainActivity.this, xdaURL);
+                                            Utils.openChromeTab(MainActivity.this, xdaURL, primaryColor());
                                         }
                                     })
                     );

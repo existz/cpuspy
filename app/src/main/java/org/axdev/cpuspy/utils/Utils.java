@@ -1,15 +1,16 @@
 package org.axdev.cpuspy.utils;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.support.customtabs.CustomTabsIntent;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -27,6 +29,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
+import org.axdev.cpuspy.R;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -107,13 +110,16 @@ public class Utils {
         mListView.requestLayout();
     }
 
-    public static void openURL(Context c, String s) {
+    public static void openChromeTab(Activity act, String url, int color) {
         try {
-            final Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(s));
-            c.startActivity(intent);
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(color).setShowTitle(true);
+            builder.setCloseButtonIcon(
+                    BitmapFactory.decodeResource(act.getResources(), R.drawable.ic_close));
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(act, Uri.parse(url));
         } catch (ActivityNotFoundException e) {
-            Log.e("CpuSpy", "Error opening: " + s);
+            Log.e("CpuSpy", "Error opening: " + url);
         }
     }
 

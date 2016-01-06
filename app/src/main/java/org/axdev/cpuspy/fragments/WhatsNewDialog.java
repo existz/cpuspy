@@ -20,18 +20,20 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.Utils;
 
 import butterknife.ButterKnife;
 
 public class WhatsNewDialog extends DialogFragment {
 
-    private Context mContext;
     private final String githubURL = "https://github.com/existz/cpuspy/commits/staging";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.mContext = this.getActivity();
+        final Context mContext = this.getActivity();
+        final ThemedActivity act = (ThemedActivity) mContext;
+        final int primaryColor = act.primaryColor();
         final Resources res = getResources();
         final MaterialDialog dialog = new MaterialDialog.Builder(mContext)
                 .title(res.getString(R.string.menu_changelog))
@@ -42,7 +44,7 @@ public class WhatsNewDialog extends DialogFragment {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         try {
-                            Utils.openURL(mContext, githubURL);
+                            Utils.openChromeTab(getActivity(), githubURL, primaryColor );
                         } catch (Exception e) {
                             // Dismiss dialog if unable to open intent
                             dialog.dismiss();
