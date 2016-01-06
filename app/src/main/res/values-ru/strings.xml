@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Оффлайн</string>
-    <string name="unused_states_count">&#160;Неиспользуемые</string>
+    <string name="unused_states_count">%s&#160;Неиспользуемые</string>
     <string name="total_state_time">Общее время статистики</string>
     <string name="charged_view_enabled">Включен автосброс</string>
     <string name="charged_view_status">Батарея: заряжена</string>
@@ -52,6 +53,7 @@
     <string name="information_cpu_freq_header">Частота:</string>
     <string name="information_cpu_temp_header">Температура:</string>
     <string name="information_cpu_features_header">Особенности:</string>
+    <string name="information_cpu_usage_header">Использование:</string>
     <string name="information_usage_header">Использование CPU</string>
     <string name="information_core_header">Ядра:</string>
     <string name="information_cpu0_header">CPU 0:</string>
@@ -68,7 +70,7 @@
     <string name="welcome_cpuinfo">&#8226; Информация и мониторинг CPU + ядра</string>
     <string name="welcome_crashreport">&#8226; Автоматическая отправка сообщений о сбоях и отчетов о использовании</string>
     <string name="welcome_autorefresh">&#8226; Включение автообновления для получения статистики в реальном времени</string>
-    <string name="welcome_autoreset">&#8226; Таймеры автоматически сбрасываются при полной заряде батареи</string>
+    <string name="welcome_autoreset">&#8226; Таймеры автоматически сбрасываются при полной зарядке батареи</string>
     <string name="welcome_widget">&#8226; Виджет для сброса таймеров CPU с домашнего экрана</string>
     <string name="welcome_hidepercent">&#8226; Опция скрытия статистики ниже определенного процента</string>
     <!-- Settings info -->
@@ -77,7 +79,6 @@
     <string name="pref_header_about">О приложении</string>
     <string name="pref_header_ui">Интерфейс</string>
     <string name="pref_title_version">Версия</string>
-    <string name="pref_summary_about">О приложении и разработчике</string>
     <string name="pref_title_autorefresh">Автообновление</string>
     <string name="pref_summary_autorefresh">Автоматическое обновление таймеров CPU</string>
     <string name="pref_title_autoreset">Автоматический сброс</string>
@@ -120,5 +121,14 @@
     <string name="primary_color_desc">Применить основной цвет темы</string>
     <string name="accent_color">Цвет выделения</string>
     <string name="accent_color_desc">Применитьцвет выделения</string>
+    <string name="running_processes">Запущенные процессы</string>
+    <string name="btn_full_kernel_version">Полная версия</string>
+    <string name="btn_processes">Процессы</string>
+    <string name="contact">Контакты</string>
+    <string name="email_developer">Написать разработчику</string>
+    <string name="email_developer_summary">Отправить сообщение об ошибке и запрос функции</string>
+    <string name="view_gplus">Просмотреть профиль G+</string>
+    <string name="view_gplus_summary">Открыть страницу профиля на Google+</string>
+    <string name="donate_summary">Отправить пожертвование для помощи проекту</string>
     <string name="menu_timers_restore">Восстановление таймеров</string>
 </resources>

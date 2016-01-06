@@ -3,7 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_count">&#160;Frequenze Inutilizzate</string>
+    <string name="unused_states_count">%s&#160;Frequenze Inutilizzate</string>
     <string name="total_state_time">Tempo Totale Utilizzo</string>
     <string name="charged_view_enabled">Auto Reset Abilitato</string>
     <string name="charged_view_status">Stato Batteria: Carica</string>
@@ -74,7 +74,6 @@
     <string name="pref_header_about">Informazioni</string>
     <string name="pref_header_ui">Interfaccia</string>
     <string name="pref_title_version">Versione</string>
-    <string name="pref_summary_about">Informazioni sull\'app e il suo sviluppatore</string>
     <string name="pref_title_autorefresh">Aggiornamento Automatico</string>
     <string name="pref_summary_autorefresh">Aggiorna automaticamente i timer della CPU</string>
     <string name="pref_title_autoreset">Azzeramento Automatico</string>

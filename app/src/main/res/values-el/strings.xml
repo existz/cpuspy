@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Αδρανής</string>
-    <string name="unused_states_count">&#160;Αχρησιμοποίητες καταστάσεις</string>
+    <string name="unused_states_count">%s&#160;Αχρησιμοποίητες καταστάσεις</string>
     <string name="total_state_time">Ολικός χρόνος</string>
     <string name="charged_view_enabled">Ενεργοποίηση αυτόματου μηδενισμού</string>
     <string name="charged_view_status">Κατάσταση μπαταρίας: Φορτισμένη</string>
@@ -52,6 +53,7 @@
     <string name="information_cpu_freq_header">Συχνότητα:</string>
     <string name="information_cpu_temp_header">Θερμοκρασία:</string>
     <string name="information_cpu_features_header">Χαρακτηριστικά:</string>
+    <string name="information_cpu_usage_header">Χρήση:</string>
     <string name="information_usage_header">Χρήση επεξεργαστή</string>
     <string name="information_core_header">Πυρήνες:</string>
     <string name="information_cpu0_header">CPU 0:</string>
@@ -77,7 +79,6 @@
     <string name="pref_header_about">Σχετικά</string>
     <string name="pref_header_ui">Περιβάλλον χρήστη</string>
     <string name="pref_title_version">Έκδοση</string>
-    <string name="pref_summary_about">Σχετικά με την εφαρμογή και το δημιουργό της</string>
     <string name="pref_title_autorefresh">Αυτόματη ανανέωση</string>
     <string name="pref_summary_autorefresh">Αυτόματη ανανέωση των χρονομετρητών</string>
     <string name="pref_title_autoreset">Αυτόματος μηδενισμός</string>

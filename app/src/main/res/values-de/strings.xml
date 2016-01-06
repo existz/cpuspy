@@ -3,7 +3,7 @@
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_count">&#160;Nicht verwendete Zustände</string>
+    <string name="unused_states_count">%s&#160;Nicht verwendete Zustände</string>
     <string name="total_state_time">Gesamtzeit</string>
     <string name="charged_view_enabled">Auto-Reset aktiviert</string>
     <string name="charged_view_status">Batteriezustand: Aufgeladen</string>
@@ -13,7 +13,7 @@
     <string name="menu_help_translate">Hilf bei der Übersetzung</string>
     <string name="states_empty">Leer</string>
     <string name="states_deep_sleep">Deep Sleep</string>
-    <string name="states_warning"><b>Ups!</b>\n\nKeine Zustandsinformationen gefunden. Sind Sie sicher, dass Ihr Telefon kompatibel ist?\n\nFalls Sie ein Custom-ROM verwenden, versuchen Sie, dessen Entwickler darüber zu informieren, dass die Zustandsinformationen nicht lesbar sind.</string>
+    <string name="states_warning"><b>Ups!</b>\n\nStatische Datei nicht gefunden. Sind Sie sicher, dass Ihr Telefon kompatibel ist?\n\nFalls Sie ein Custom-ROM verwenden, versuchen Sie, dessen Entwickler darüber zu informieren, dass die Zustandsinformationen nicht lesbar sind.</string>
     <string name="error">FEHLER</string>
     <string name="snackbar_text_reset">Timer erfolgreich zurückgesetzt</string>
     <string name="snackbar_text_restore">Timer erfolgreich wiederhergestellt</string>
@@ -77,7 +77,6 @@
     <string name="pref_header_about">Über CPUSpy</string>
     <string name="pref_header_ui">Benutzeroberfläche</string>
     <string name="pref_title_version">Version</string>
-    <string name="pref_summary_about">Über die App und den Entwickler</string>
     <string name="pref_title_autorefresh">Automatische Aktualisierung</string>
     <string name="pref_summary_autorefresh">CPU-Timer automatisch aktualisieren</string>
     <string name="pref_title_autoreset">Automatisches Zurücksetzen</string>

@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Hors ligne</string>
-    <string name="unused_states_count">&#160; états inutilisés</string>
+    <string name="unused_states_count">%s&#160; états inutilisés</string>
     <string name="total_state_time">Temps Total État</string>
     <string name="charged_view_enabled">Réinitialisation auto activée</string>
     <string name="charged_view_status">Statut de la batterie : chargée</string>
@@ -37,8 +38,8 @@
     <string name="information_kernel_version_header">Version :</string>
     <string name="information_kernel_version_full_header">Version kernel complet</string>
     <string name="information_kernel_version_unavailable">Version kernel indisponible</string>
-    <string name="information_device_build_header">Build ID :</string>
-    <string name="information_device_api_header">API Level :</string>
+    <string name="information_device_build_header">Identifiant build :</string>
+    <string name="information_device_api_header">Niveau API :</string>
     <string name="information_device_manuf_header">Fabricant :</string>
     <string name="information_device_model_header">Modèle :</string>
     <string name="information_device_board_header">Board :</string>
@@ -52,7 +53,8 @@
     <string name="information_cpu_freq_header">Fréquence :</string>
     <string name="information_cpu_temp_header">Température :</string>
     <string name="information_cpu_features_header">Fonctions :</string>
-    <string name="information_usage_header">Usage CPU</string>
+    <string name="information_cpu_usage_header">Utilisation :</string>
+    <string name="information_usage_header">Utilisation CPU</string>
     <string name="information_core_header">Coeurs :</string>
     <string name="information_cpu0_header">CPU 0 :</string>
     <string name="information_cpu1_header">CPU 1 :</string>
@@ -66,18 +68,17 @@
     <string name="welcome_summary">Bienvenue sur CPUSpy Material. Utilisez cet outil pour surveiller quelles fréquences votre processeur utilise le plus.</string>
     <string name="welcome_features">Fonctions</string>
     <string name="welcome_cpuinfo">&#8226; Informations et suivi du CPU + Kernel</string>
-    <string name="welcome_crashreport">&#8226; Envoie automatiquement des rapports de bug et d\'usage</string>
+    <string name="welcome_crashreport">&#8226; Envoie automatique des rapports de bug et d\'utilisation</string>
     <string name="welcome_autorefresh">&#8226; Activer Actualisation automatique pour actualiser les états en temps réel</string>
     <string name="welcome_autoreset">&#8226; Compteurs automatiquement réinitialisés lorsque la batterie est chargée</string>
     <string name="welcome_widget">&#8226; Widget pour réinitialiser les compteurs CPU depuis l\'écran d\'accueil</string>
-    <string name="welcome_hidepercent">&#8226; Option pour masquer l\'état dessous un certain pourcentage</string>
+    <string name="welcome_hidepercent">&#8226; Option pour masquer l\'état en-dessous un certain pourcentage</string>
     <!-- Settings info -->
     <string name="settings">Paramètres</string>
     <string name="pref_header_general">Général</string>
     <string name="pref_header_about">À propos</string>
     <string name="pref_header_ui">Interface</string>
     <string name="pref_title_version">Version</string>
-    <string name="pref_summary_about">À propos de l\'application et de son développeur</string>
     <string name="pref_title_autorefresh">Actualisation automatique</string>
     <string name="pref_summary_autorefresh">Actualiser les compteurs CPU automatiquement</string>
     <string name="pref_title_autoreset">Réinitialisation automatique</string>
@@ -85,15 +86,15 @@
     <string name="pref_title_sleepdetection">Détection deep sleep</string>
     <string name="pref_summary_sleepdetection">Notifier si l\'appareil n\'entre pas en deep sleep</string>
     <string name="pref_title_hidestates">Masquer pourcentage d\'états</string>
-    <string name="pref_summary_hidestates">États dessous % ne seront pas utilisés</string>
+    <string name="pref_summary_hidestates">États en-dessous % ne seront pas utilisés</string>
     <string name="pref_title_themes">Thème</string>
     <string name="pref_title_navbar">Barre de navigation colorée</string>
-    <string name="pref_summary_navbar">Activer couleur primaire sur la barre de navigation</string>
+    <string name="pref_summary_navbar">Activer la couleur primaire sur la barre de navigation</string>
     <string name="pref_title_checkupdates">Vérifier les mises à jour</string>
     <string name="pref_summary_checkupdates">Dernière vérification : &#160;</string>
     <string name="pref_title_crashreport">Rapport de bug anonyme</string>
-    <string name="pref_summary_crashreport">Permettre la collecte de bug et les données d\'usage</string>
-    <string name="pref_title_license">Licences Open Source</string>
+    <string name="pref_summary_crashreport">Permettre la collecte de bug et les données d\'utilisation</string>
+    <string name="pref_title_license">Licences open source</string>
     <string-array name="themes">
         <item>Clair</item>
         <item>Sombre</item>
@@ -120,5 +121,14 @@
     <string name="primary_color_desc">Appliquer une couleur primaire au thème</string>
     <string name="accent_color">Couleur secondaire</string>
     <string name="accent_color_desc">Appliquer une couleur secondaire au thème</string>
+    <string name="running_processes">Processus en exécution</string>
+    <string name="btn_full_kernel_version">Version complète</string>
+    <string name="btn_processes">Processus</string>
+    <string name="contact">Contact</string>
+    <string name="email_developer">E-mail au développeur</string>
+    <string name="email_developer_summary">Envoyer un rapport de bug et une demande de fonctionnalité</string>
+    <string name="view_gplus">Voir le profil Google+</string>
+    <string name="view_gplus_summary">Accéder à la page de profil Google+</string>
+    <string name="donate_summary">Envoyer de l\'argent pour aider à financer ce projet</string>
     <string name="menu_timers_restore">Restaurer compteurs</string>
 </resources>

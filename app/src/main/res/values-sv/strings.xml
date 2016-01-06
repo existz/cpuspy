@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Offline</string>
-    <string name="unused_states_count">&#160;Oanvända lägen</string>
+    <string name="unused_states_count">%s&#160;Oanvända lägen</string>
     <string name="total_state_time">Total tid i läge</string>
     <string name="charged_view_enabled">Auto nollställning aktiverad</string>
     <string name="charged_view_status">Batteristatus: Laddad</string>
@@ -52,6 +53,7 @@
     <string name="information_cpu_freq_header">Frekvens:</string>
     <string name="information_cpu_temp_header">Temp:</string>
     <string name="information_cpu_features_header">Funktioner:</string>
+    <string name="information_cpu_usage_header">Användning:</string>
     <string name="information_usage_header">CPU användning</string>
     <string name="information_core_header">Kärnor:</string>
     <string name="information_cpu0_header">CPU 0:</string>
@@ -77,12 +79,11 @@
     <string name="pref_header_about">Om</string>
     <string name="pref_header_ui">UI</string>
     <string name="pref_title_version">Version</string>
-    <string name="pref_summary_about">Om appen och dens utvecklare</string>
     <string name="pref_title_autorefresh">Automatisk uppdatering</string>
     <string name="pref_summary_autorefresh">Uppdatera CPU räknare automatiskt</string>
     <string name="pref_title_autoreset">Automatisk nollställning</string>
     <string name="pref_summary_autoreset">Nollställ CPU räknare vid fulladdning</string>
-    <string name="pref_title_sleepdetection">Ljud sömn</string>
+    <string name="pref_title_sleepdetection">Djup sömn</string>
     <string name="pref_summary_sleepdetection">Notifiera om enheten inte går i djup sömn</string>
     <string name="pref_title_hidestates">Göm lägen under en viss procent</string>
     <string name="pref_summary_hidestates">Lägen under % visas inte</string>
@@ -110,7 +111,7 @@
     <string name="tab_title_timers">Räknare</string>
     <string name="tab_title_info">Info</string>
     <string name="notification_warning">Varning</string>
-    <string name="notification_disable">Inaktivera identifiering av ljud sömn</string>
+    <string name="notification_disable">Inaktivera identifiering av djup sömn</string>
     <string name="notification_deep_sleep">Enheten går inte i djup sömn</string>
     <string name="new_feature_title">Ljud sömn</string>
     <string name="new_feature_summary">En ny bakgrundstjänst som gör att din enhet meddelar dig när den inte går i djup sömn.</string>

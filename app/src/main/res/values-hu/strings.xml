@@ -2,8 +2,9 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Inaktív</string>
-    <string name="unused_states_count">&#160;Nem használt állapotok</string>
+    <string name="unused_states_count">%s&#160;Nem használt állapotok</string>
     <string name="total_state_time">Összes állapot ideje</string>
     <string name="charged_view_enabled">Automatikus törlés engedélyezve</string>
     <string name="charged_view_status">Akkumulátor állapot: feltöltve</string>
@@ -52,6 +53,7 @@
     <string name="information_cpu_freq_header">Frekvencia:</string>
     <string name="information_cpu_temp_header">Hőmérséklet:</string>
     <string name="information_cpu_features_header">Jellemzők:</string>
+    <string name="information_cpu_usage_header">Használat:</string>
     <string name="information_usage_header">CPU használat</string>
     <string name="information_core_header">Magok:</string>
     <string name="information_cpu0_header">CPU 0:</string>
@@ -64,7 +66,7 @@
     <string name="information_cpu7_header">CPU 7:</string>
     <!-- Welcome info -->
     <string name="welcome_summary">Üdvözli a CPUSpy Material. Ezzel az alkalmazással figyelheti, hogy mely frekvenciát használja legtöbbet a CPU-ja.</string>
-    <string name="welcome_features">Jellemzők</string>
+    <string name="welcome_features">Jellemzők:</string>
     <string name="welcome_cpuinfo">&#8226; CPU + Kernel információ és monitorozás</string>
     <string name="welcome_crashreport">&#8226; Hiba- és használati jelentések automatikus küldése</string>
     <string name="welcome_autorefresh">&#8226; Engedélyezze az automatikus frissítést a valós idejű állapotokhoz</string>
@@ -77,7 +79,6 @@
     <string name="pref_header_about">Névjegy</string>
     <string name="pref_header_ui">Felhasználói felület</string>
     <string name="pref_title_version">Verzió</string>
-    <string name="pref_summary_about">Az alkalmazásról és annak fejlesztőjéről</string>
     <string name="pref_title_autorefresh">Automatikus frissítés</string>
     <string name="pref_summary_autorefresh">CPU időzítők automatikus frissítése</string>
     <string name="pref_title_autoreset">Automatikus törlés</string>
@@ -120,5 +121,14 @@
     <string name="primary_color_desc">Elsődleges témaszín alkalmazása</string>
     <string name="accent_color">Kiemelőszín</string>
     <string name="accent_color_desc">Kiemelőszín alkalmazása</string>
+    <string name="running_processes">Futó folyamatok</string>
+    <string name="btn_full_kernel_version">Teljes verzió</string>
+    <string name="btn_processes">Folyamatok</string>
+    <string name="contact">Kapcsolat</string>
+    <string name="email_developer">E-mail a fejlesztőnek</string>
+    <string name="email_developer_summary">Hibajelentés és új funkciók kérésének küldése</string>
+    <string name="view_gplus">Google+ profil megtekintése</string>
+    <string name="view_gplus_summary">Google+ profil oldalának megnyitása</string>
+    <string name="donate_summary">Pénz küldése a projekt támogatására</string>
     <string name="menu_timers_restore">Időzítők visszaállítása</string>
 </resources>

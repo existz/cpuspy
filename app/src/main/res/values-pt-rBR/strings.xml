@@ -73,7 +73,6 @@
     <string name="pref_header_about">Sobre</string>
     <string name="pref_header_ui">Interface</string>
     <string name="pref_title_version">Versão</string>
-    <string name="pref_summary_about">Sobre o app e seu desenvolvedor</string>
     <string name="pref_title_autorefresh">Atualizar Automaticamente</string>
     <string name="pref_summary_autorefresh">Atualizar os contadores da CPU automaticamente</string>
     <string name="pref_title_autoreset">Reinício Automático</string>
