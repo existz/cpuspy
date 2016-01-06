@@ -4,20 +4,29 @@ import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.jaredrummler.android.processes.models.AndroidAppProcess;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -128,6 +137,44 @@ public class Utils {
             if (alpha > 0) {
                 drawable.setAlpha(alpha);
             }
+        }
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof PictureDrawable) {
+            PictureDrawable pictureDrawable = (PictureDrawable) drawable;
+            Bitmap bitmap = Bitmap.createBitmap(pictureDrawable.getIntrinsicWidth(),
+                    pictureDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            canvas.drawPicture(pictureDrawable.getPicture());
+            return bitmap;
+        }
+        int width = drawable.getIntrinsicWidth();
+        width = width > 0 ? width : 1;
+        int height = drawable.getIntrinsicHeight();
+        height = height > 0 ? height : 1;
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    public static int toPx(Context context, float dp) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return Math.round(px);
+    }
+
+    public static String getPackageName(Context context, AndroidAppProcess process) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packageInfo = process.getPackageInfo(context, 0);
+            return org.axdev.cpuspy.utils.AppNames.getLabel(pm, packageInfo);
+        } catch (PackageManager.NameNotFoundException e) {
+            return process.name;
         }
     }
 }

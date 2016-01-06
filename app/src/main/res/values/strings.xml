@@ -147,4 +147,8 @@
     <string name="primary_color_desc">Apply a primary theme color</string>
     <string name="accent_color">Accent Color</string>
     <string name="accent_color_desc">Apply an accent color</string>
+
+    <string name="running_processes">Running Processes</string>
+    <string name="btn_full_kernel_version">Full Version</string>
+    <string name="btn_processes">Processes</string>
 </resources>

@@ -30,6 +30,12 @@
 
         </activity>
 
+        <activity android:name=".activity.ProcessActivity"
+            android:label="@string/running_processes"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName=".activity.MainActivity">
+        </activity>
+
         <!-- Settings Menu -->
         <activity android:name=".activity.PrefsActivity"
             android:label="@string/settings"

@@ -232,7 +232,6 @@ public class MainActivity extends ThemedActivity {
             final MenuItem settings = menu.findItem(R.id.menu_settings);
             Utils.colorMenuItem(settings, ContextCompat.getColor(this, R.color.drawable_color_lightAB), 0);
         }
-
         // made it
         return true;
     }

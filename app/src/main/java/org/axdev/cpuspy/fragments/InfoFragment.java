@@ -7,6 +7,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.activity.ProcessActivity;
 import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -44,6 +46,8 @@ import butterknife.OnClick;
 public class InfoFragment extends Fragment {
 
     @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
+    @Bind(R.id.kernel_toolbar) CardView mKernelToolbar;
+    @Bind(R.id.process_toolbar) CardView mProcessToolbar;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @Bind(R.id.kernel_governor) TextView mKernelGovernor;
@@ -85,6 +89,7 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.device_bootloader) TextView mDeviceBootloader;
     @Bind(R.id.scroll_container) ScrollView mScrollView;
     @Bind(R.id.content_overlay) View mContentOverlay;
+    @Bind(R.id.container) View mContainer;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
     @Bind(R.id.cpu1_header) TextView mCore1Header;
@@ -237,6 +242,8 @@ public class InfoFragment extends Fragment {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
         if (mCardKernelFull.isShown()) showFullKernelVersion(false);
+        if (mProcessToolbar.isShown()) mProcessToolbar.setVisibility(View.GONE);
+        if (mKernelToolbar.isShown()) mKernelToolbar.setVisibility(View.GONE);
     }
 
     @Override
@@ -622,10 +629,11 @@ public class InfoFragment extends Fragment {
     }
 
     /** Bind button listeners */
-    @OnClick({R.id.btn_kernel_more, R.id.btn_kernel_close})
-    void kernelMoreButton() {
+    @OnClick({R.id.full_kernel_version, R.id.btn_kernel_close})
+    void fullKernelVersion() {
         if (!mCardKernelFull.isShown()) {
             showFullKernelVersion(true);
+            mKernelToolbar.setVisibility(View.GONE);
             mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent ev) {
@@ -640,6 +648,49 @@ public class InfoFragment extends Fragment {
         } else {
             showFullKernelVersion(false);
         }
+    }
+
+    @OnClick(R.id.btn_kernel_more)
+    void kernelMoreButton() {
+        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
+        mKernelToolbar.startAnimation(fadeIn);
+        mKernelToolbar.setVisibility(View.VISIBLE);
+        mContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+                if (mKernelToolbar.isShown()
+                        && Utils.isOutOfBounds(mKernelToolbar, ev)) {
+                    mKernelToolbar.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_device_more)
+    void deviceMoreButton() {
+        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
+        mProcessToolbar.startAnimation(fadeIn);
+        mProcessToolbar.setVisibility(View.VISIBLE);
+        mContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+                if (mProcessToolbar.isShown()
+                        && Utils.isOutOfBounds(mProcessToolbar, ev)) {
+                    mProcessToolbar.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @OnClick(R.id.running_processes)
+    void runningProcessesButton() {
+        mProcessToolbar.setVisibility(View.GONE);
+        Intent myIntent = new Intent(getActivity(), ProcessActivity.class);
+        startActivity(myIntent);
     }
 
     private boolean showFullKernelVersion(boolean enabled) {

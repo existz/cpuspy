@@ -61,8 +61,9 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         mLicenseHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
-        final List<String[]> licenseList = new ArrayList<>(5);
+        final List<String[]> licenseList = new ArrayList<>(6);
         licenseList.add(new String[]{"Android Support Library", "Android Open Source Project"});
+        licenseList.add(new String[]{"Android Processes", "Jared Rummler"});
         licenseList.add(new String[]{"Butter Knife", "Jake Wharton"});
         licenseList.add(new String[]{"Discrete Seekbar", "AnderWeb"});
         licenseList.add(new String[]{"Material Dialogs", "Aidan Follestad"});
@@ -122,15 +123,18 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
                 Utils.openURL(mContext, "http://developer.android.com/tools/support-library/index.html");
                 break;
             case 1:
-                Utils.openURL(mContext, "https://github.com/JakeWharton/butterknife");
+                Utils.openURL(mContext, "https://github.com/jaredrummler/AndroidProcesses");
                 break;
             case 2:
-                Utils.openURL(mContext, "https://github.com/AnderWeb/discreteSeekBar");
+                Utils.openURL(mContext, "https://github.com/JakeWharton/butterknife");
                 break;
             case 3:
-                Utils.openURL(mContext, "https://github.com/afollestad/material-dialogs");
+                Utils.openURL(mContext, "https://github.com/AnderWeb/discreteSeekBar");
                 break;
             case 4:
+                Utils.openURL(mContext, "https://github.com/afollestad/material-dialogs");
+                break;
+            case 5:
                 Utils.openURL(mContext, "https://github.com/nispok/snackbar");
                 break;
         }

@@ -15,7 +15,9 @@ import android.preference.PreferenceManager;
 import android.util.SparseArray;
 
 import com.crashlytics.android.Crashlytics;
+import com.squareup.picasso.Picasso;
 
+import org.axdev.cpuspy.picasso.AppIconRequestHandler;
 import org.axdev.cpuspy.utils.Utils;
 
 import io.fabric.sdk.android.Fabric;
@@ -45,6 +47,10 @@ public class CpuSpyApp extends Application {
         }
 
         loadOffsets();
+
+        Picasso.setSingletonInstance(new Picasso.Builder(this)
+                .addRequestHandler(new AppIconRequestHandler(this))
+                .build());
     }
 
     /** @return the internal CpuStateMonitor object */
