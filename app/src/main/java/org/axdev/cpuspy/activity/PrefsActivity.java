@@ -34,6 +34,7 @@ import com.nispok.snackbar.enums.SnackbarType;
 
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.fragments.DeveloperFragment;
 import org.axdev.cpuspy.fragments.CreditsFragment;
 import org.axdev.cpuspy.fragments.LicenseFragment;
 import org.axdev.cpuspy.fragments.WhatsNewDialog;
@@ -85,7 +86,11 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             findPreference("developer").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Utils.openChromeTab(getActivity(), googleURL, primaryColor);
+                    // Create new fragment and transaction
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.content_wrapper, new DeveloperFragment())
+                            .addToBackStack(null)
+                            .commit();
                     return true;
                 }
             });
@@ -284,10 +289,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             case R.id.menu_changelog:
                 final WhatsNewDialog newFragment = new WhatsNewDialog();
                 newFragment.show(getFragmentManager(), "whatsnew");
-                break;
-            case R.id.menu_donate:
-                final String donateURL = "http://goo.gl/X2sA4D";
-                Utils.openChromeTab(this, donateURL, primaryColor());
                 break;
             case android.R.id.home:
                 this.checkBackStack();

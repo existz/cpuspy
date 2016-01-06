@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/developer_header"
+            android:layout_width="match_parent"
+            android:layout_height="125dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="36dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            app:civ_border_width="2dp"/>
+
+        <TextView
+            android:id="@+id/developer_contact_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_mtrl"
+            android:layout_marginBottom="24dp"
+            android:layout_below="@+id/profile_image"
+            android:text="Contact"/>
+
+        <ImageView
+            android:id="@+id/email_icon"
+            android:src="@drawable/ic_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_mtrl"
+            android:layout_below="@+id/developer_contact_title"
+            android:tint="?attr/colorDrawableTint"/>
+
+        <ImageView
+            android:id="@+id/gplus_icon"
+            android:src="@drawable/ic_google_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="@dimen/padding_mtrl"
+            android:layout_below="@+id/email_icon"
+            android:tint="?attr/colorDrawableTint"/>
+
+        <ImageView
+            android:id="@+id/donate_icon"
+            android:src="@drawable/ic_donate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginStart="@dimen/padding_mtrl"
+            android:layout_below="@+id/gplus_icon"
+            android:tint="?attr/colorDrawableTint"/>
+
+        <ListView
+            android:id="@+id/developer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="@dimen/padding_mtrl"
+            android:layout_below="@+id/profile_image"/>
+
+    </RelativeLayout>
+
+</ScrollView>

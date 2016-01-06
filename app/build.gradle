@@ -63,6 +63,7 @@ dependencies {
     compile 'com.nispok:snackbar:2.11.0'
     compile 'com.jaredrummler:android-processes:1.0.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.2') {
         transitive = true
     }
