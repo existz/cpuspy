@@ -31,6 +31,7 @@
     <string name="snackbar_text_restore">Timers restored successfully</string>
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
     <string name="snackbar_text_update">A newer version is available!</string>
+    <string name="snackbar_text_undo">Undo</string>
 
     <string name="action_changelog">Full Changelog</string>
     <string name="action_back">Back</string>
@@ -150,6 +151,7 @@
     <string name="running_processes">Running Processes</string>
     <string name="btn_full_kernel_version">Full Version</string>
     <string name="btn_processes">Processes</string>
+    <string name="btn_logcat">View Logcat</string>
 
     <string name="contact">Contact</string>
     <string name="email_developer">Email Developer</string>
@@ -157,5 +159,9 @@
     <string name="view_gplus">View G+ Profile</string>
     <string name="view_gplus_summary">Open Google Plus profile page</string>
     <string name="donate_summary">Send money to help fund this project</string>
+
+    <string name="logcat_header">Logcat</string>
+    <string name="logcat_file_saved">File saved to /sdcard/</string>
+    <string name="logcat_error_saving">"Unable to save logcat to sdcard"</string>
 
 </resources>

@@ -64,14 +64,15 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         mLicenseHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);
-        final List<String[]> licenseList = new ArrayList<>(8);
+        final List<String[]> licenseList = new ArrayList<>(9);
         licenseList.add(new String[]{"Android Support Library", "Android Open Source Project"});
         licenseList.add(new String[]{"Android Processes", "Jared Rummler"});
         licenseList.add(new String[]{"Butter Knife", "Jake Wharton"});
         licenseList.add(new String[]{"CircleImageView", "Henning Dodenhof"});
         licenseList.add(new String[]{"Discrete Seekbar", "AnderWeb"});
+        licenseList.add(new String[]{"libsuperuser", "Chainfire"});
         licenseList.add(new String[]{"Material Dialogs", "Aidan Follestad"});
-        licenseList.add(new String[]{"Picasso", "Square"});
+        licenseList.add(new String[]{"Picasso", "Square Inc."});
         licenseList.add(new String[]{"Snackbar", "William Mora"});
         mListView1.setAdapter(new ArrayAdapter<String[]>(
                 mContext,
@@ -141,12 +142,15 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
                 Utils.openChromeTab(activity, "https://github.com/AnderWeb/discreteSeekBar", primaryColor);
                 break;
             case 5:
-                Utils.openChromeTab(activity, "https://github.com/afollestad/material-dialogs", primaryColor);
+                Utils.openChromeTab(activity, "https://github.com/Chainfire/libsuperuser", primaryColor);
                 break;
             case 6:
-                Utils.openChromeTab(activity, "https://github.com/square/picasso", primaryColor);
+                Utils.openChromeTab(activity, "https://github.com/afollestad/material-dialogs", primaryColor);
                 break;
             case 7:
+                Utils.openChromeTab(activity, "https://github.com/square/picasso", primaryColor);
+                break;
+            case 8:
                 Utils.openChromeTab(activity, "https://github.com/nispok/snackbar", primaryColor);
                 break;
         }

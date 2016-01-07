@@ -6,12 +6,17 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -27,6 +32,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ProcessActivity;
@@ -35,19 +44,27 @@ import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.Utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import eu.chainfire.libsuperuser.Shell;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class InfoFragment extends Fragment {
 
     @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
+    @Bind(R.id.card_view_logcat) CardView mCardLogcat;
     @Bind(R.id.kernel_menu) CardView mKernelMenu;
     @Bind(R.id.device_menu) CardView mDeviceMenu;
+    @Bind(R.id.logcat_header) TextView mLogcatHeader;
+    @Bind(R.id.logcat_output) TextView mLogcatSummary;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @Bind(R.id.kernel_governor) TextView mKernelGovernor;
@@ -114,12 +131,16 @@ public class InfoFragment extends Fragment {
     @BindString(R.string.information_device_runtime_art) String artRuntimeText;
     @BindString(R.string.information_device_runtime_dalvik) String dalvikRuntimeText;
     @BindString(R.string.information_kernel_version_unavailable) String versionUnavailableText;
+    @BindString(R.string.logcat_file_saved) String logcatFileSaved;
+    @BindString(R.string.logcat_error_saving) String logcatErrorSaving;
+    @BindString(R.string.snackbar_text_undo) String snackBarUndo;
 
     private boolean mDisableScrolling;
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
     private boolean mIsMonitoringCpu;
     private boolean mIsMonitoringUsage;
+    private boolean mShowProgressBar;
     private boolean mHasCpu0;
     private boolean mHasCpu1;
     private boolean mHasCpu2;
@@ -133,7 +154,9 @@ public class InfoFragment extends Fragment {
     private Handler mHandler;
     private Typeface robotoMedium;
 
+    private int accentColor;
     private int mNumCores;
+    private final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -148,6 +171,7 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         /** Set text and typeface for TextViews */
         this.mContext = this.getActivity();
+        mShowProgressBar = true;
         mHandler = new Handler();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
@@ -198,14 +222,16 @@ public class InfoFragment extends Fragment {
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
+        mLogcatHeader.setTypeface(robotoMedium);
 
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mKernelHeader.setTextColor(accentColor);
         mCpuHeader.setTextColor(accentColor);
         mDeviceHeader.setTextColor(accentColor);
 
+        // OnTouchListener to allow disabling scrollview
         mScrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -213,7 +239,40 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        // Allow dismissing full kernel cardview with back button
+        // OnTouchListener to check if we touch outside a view
+        mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+                if (mCardKernelFull.isShown()
+                        && Utils.isOutOfBounds(mCardKernelFull, ev)) {
+                    showAnimatedCard(false, mCardKernelFull);
+                    return true;
+                } else if (mCardLogcat.isShown()
+                        && Utils.isOutOfBounds(mCardLogcat, ev)) {
+                    showAnimatedCard(false, mCardLogcat);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+                if (mDeviceMenu.isShown()
+                        && Utils.isOutOfBounds(mDeviceMenu, ev)) {
+                    mDeviceMenu.setVisibility(View.GONE);
+                    return true;
+                } else if (mKernelMenu.isShown()
+                        && Utils.isOutOfBounds(mKernelMenu, ev)) {
+                    mKernelMenu.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Allow closing card/menus with back button
         if (getView() != null) {
             getView().setFocusableInTouchMode(true);
             getView().requestFocus();
@@ -224,7 +283,16 @@ public class InfoFragment extends Fragment {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (keyCode == KeyEvent.KEYCODE_BACK) {
                             if (mCardKernelFull.isShown()) {
-                                showFullKernelVersion(false);
+                                showAnimatedCard(false, mCardKernelFull);
+                                return true;
+                            } else if (mCardLogcat.isShown()) {
+                                showAnimatedCard(false, mCardLogcat);
+                                return true;
+                            } else if (mDeviceMenu.isShown()) {
+                                mDeviceMenu.setVisibility(View.GONE);
+                                return true;
+                            } else if (mKernelMenu.isShown()) {
+                                mKernelMenu.setVisibility(View.GONE);
                                 return true;
                             } else {
                                 return false;
@@ -241,7 +309,7 @@ public class InfoFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
-        if (mCardKernelFull.isShown()) showFullKernelVersion(false);
+        if (mCardKernelFull.isShown()) showAnimatedCard(false, mCardKernelFull);
         if (mDeviceMenu.isShown()) mDeviceMenu.setVisibility(View.GONE);
         if (mKernelMenu.isShown()) mKernelMenu.setVisibility(View.GONE);
     }
@@ -590,21 +658,15 @@ public class InfoFragment extends Fragment {
     @OnClick({R.id.full_kernel_version, R.id.btn_kernel_close})
     void fullKernelVersion() {
         if (!mCardKernelFull.isShown()) {
-            showFullKernelVersion(true);
+            showAnimatedCard(true, mCardKernelFull);
+            if (CPUUtils.getKernelVersion() != null) {
+                mKernelVersionFull.setText(CPUUtils.getKernelVersion());
+            } else {
+                mKernelVersionFull.setText(versionUnavailableText);
+            }
             mKernelMenu.setVisibility(View.GONE);
-            mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent ev) {
-                    if (mCardKernelFull.isShown()
-                            && Utils.isOutOfBounds(mCardKernelFull, ev)) {
-                        showFullKernelVersion(false);
-                        return true;
-                    }
-                    return false;
-                }
-            });
         } else {
-            showFullKernelVersion(false);
+            showAnimatedCard(false, mCardKernelFull);
         }
     }
 
@@ -613,17 +675,6 @@ public class InfoFragment extends Fragment {
         final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
         mKernelMenu.startAnimation(fadeIn);
         mKernelMenu.setVisibility(View.VISIBLE);
-        mContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent ev) {
-                if (mKernelMenu.isShown()
-                        && Utils.isOutOfBounds(mKernelMenu, ev)) {
-                    mKernelMenu.setVisibility(View.GONE);
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @OnClick(R.id.btn_device_more)
@@ -631,17 +682,6 @@ public class InfoFragment extends Fragment {
         final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
         mDeviceMenu.startAnimation(fadeIn);
         mDeviceMenu.setVisibility(View.VISIBLE);
-        mContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent ev) {
-                if (mDeviceMenu.isShown()
-                        && Utils.isOutOfBounds(mDeviceMenu, ev)) {
-                    mDeviceMenu.setVisibility(View.GONE);
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @OnClick(R.id.running_processes)
@@ -651,23 +691,76 @@ public class InfoFragment extends Fragment {
         startActivity(myIntent);
     }
 
-    private boolean showFullKernelVersion(boolean enabled) {
+    @OnClick({R.id.logcat, R.id.btn_logcat_close})
+    void logcatButton() {
+        if (!mCardLogcat.isShown()) {
+            showAnimatedCard(true, mCardLogcat);
+            mDeviceMenu.setVisibility(View.GONE);
+            new AsyncTaskRunner().execute();
+        } else {
+            showAnimatedCard(false, mCardLogcat);
+        }
+    }
+
+    @OnClick(R.id.btn_logcat_save)
+    void logcatSaveButton() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_WRITE_STORAGE);
+            } else {
+                writeLogcatToFile();
+            }
+        } else {
+            writeLogcatToFile();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void writeLogcatToFile() {
+        final String fileName = "logcat.txt";
+        final File outputFile = new File(Environment.getExternalStorageDirectory(), fileName);
+        try {
+            if (outputFile.exists()) { boolean delete = outputFile.delete(); }
+            final FileWriter writer = new FileWriter(outputFile);
+            writer.write(mLogcatSummary.getText().toString());
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            SnackbarManager.show(Snackbar.with(mContext)
+                    .text(logcatErrorSaving)
+                    .actionLabelTypeface(robotoMedium)
+                    .actionLabel(errorText)
+                    .actionColor(errorTextColor));
+        } finally {
+            SnackbarManager.show(Snackbar.with(mContext)
+                    .text(logcatFileSaved + fileName)
+                    .actionLabelTypeface(robotoMedium)
+                    .actionLabel(snackBarUndo) // action button label
+                    .actionColor(accentColor)
+                    .actionListener(new ActionClickListener() {
+                        @Override
+                        public void onActionClicked(Snackbar snackbar) {
+                            if (outputFile.exists()) { boolean delete = outputFile.delete(); }
+                        }
+                    }));
+        }
+    }
+
+    private boolean showAnimatedCard(boolean enabled, CardView cardView) {
         if (enabled) {
-            if (!mCardKernelFull.isShown()) {
+            if (!cardView.isShown()) {
                 final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
                 mContentOverlay.startAnimation(fadeIn);
                 mContentOverlay.setVisibility(View.VISIBLE);
 
                 final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
-                mCardKernelFull.startAnimation(slideUp);
-                mCardKernelFull.setVisibility(View.VISIBLE);
+                cardView.startAnimation(slideUp);
+                cardView.setVisibility(View.VISIBLE);
 
                 mDisableScrolling = true;
-                if (CPUUtils.getKernelVersion() != null) {
-                    mKernelVersionFull.setText(CPUUtils.getKernelVersion());
-                } else {
-                    mKernelVersionFull.setText(versionUnavailableText);
-                }
             }
             return true;
         } else {
@@ -676,13 +769,82 @@ public class InfoFragment extends Fragment {
             mContentOverlay.setVisibility(View.GONE);
 
             final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-            mCardKernelFull.startAnimation(slideDown);
-            mCardKernelFull.setVisibility(View.GONE);
+            if (cardView == mCardLogcat) slideDown.setDuration(300);
+            cardView.startAnimation(slideDown);
+            cardView.setVisibility(View.GONE);
 
             mDisableScrolling = false;
 
             return false;
         }
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        final String logcatCommand = "logcat -d -v brief";
+        final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                boolean suAvailable = Shell.SU.available();
+                if (suAvailable) {
+                    return Shell.SU.run(logcatCommand).toString();
+                } else {
+                    final Process process = Runtime.getRuntime().exec(logcatCommand);
+                    final BufferedReader bufferedReader = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+
+                    final StringBuilder log = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        log.append(line);
+                    }
+                    return log.toString();
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // Show loading dialog
+            if (mShowProgressBar) {
+                MDTintHelper.setTint(progress, accentColor);
+                progress.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // execution of result of Long time consuming operation
+            if (result != null) {
+                mLogcatSummary.setVisibility(View.VISIBLE);
+                mLogcatSummary.setText(result);
+            } else {
+                mLogcatSummary.setText(errorText);
+                mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
+            }
+            if (progress != null) progress.setVisibility(View.GONE);
+            mShowProgressBar = false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    writeLogcatToFile();
+                }
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
