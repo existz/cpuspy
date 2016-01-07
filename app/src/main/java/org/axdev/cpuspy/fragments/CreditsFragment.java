@@ -116,7 +116,7 @@ public class CreditsFragment extends Fragment {
             }
         });
 
-        final List<String[]> translatorList = new ArrayList<>(10);
+        final List<String[]> translatorList = new ArrayList<>(11);
         translatorList.add(new String[]{"Bengali (India)", "suhridkhan"});
         translatorList.add(new String[]{"French", "Micks29, orlith"});
         translatorList.add(new String[]{"German", "AhMaizeBalls"});
@@ -126,6 +126,7 @@ public class CreditsFragment extends Fragment {
         translatorList.add(new String[]{"Portuguese (Brazil)", "joaomarcosgabaldi"});
         translatorList.add(new String[]{"Portuguese (Portugal)", "Marco Marinho"});
         translatorList.add(new String[]{"Russian", "gaich"});
+        translatorList.add(new String[]{"Simplified Chinese", "ContactFront"});
         translatorList.add(new String[]{"Swedish", "Carl"});
         mListView2.setAdapter(new ArrayAdapter<String[]>(
                 mContext,

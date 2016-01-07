@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CPUSpy</string>
+    <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
+
+    <string name="core_offline">离线</string>
+
+    <string name="unused_states_count">%s&#160;空闲状态</string>
+
+    <string name="total_state_time">全部状态时间</string>
+
+    <string name="charged_view_enabled">自动重置已启用</string>
+    <string name="charged_view_status">电池状态: 已充满</string>
+    <string name="charged_view_message">设备完全满电后, 断开电源以自动重置 CPU 计时器.</string>
+
+    <string name="menu_changelog">更新日志</string>
+    <string name="menu_donate">捐赠</string>
+    <string name="menu_help_translate">帮助翻译</string>
+
+    <string name="states_empty">空</string>
+    <string name="states_deep_sleep">沉睡</string>
+    <string name="states_warning"><b>糟糕!</b>\n\n静态文件未找到. 请确认您的设备时候兼容?\n\n如果您正在使用第三方系统或内核, 请联系相关开发者并告知他们状态文件不可读取.</string>
+    <string name="states_toolbar_hide" translatable="false">Hide States</string>
+    <string name="states_toolbar_reset" translatable="false">Reset</string>
+    <string name="states_toolbar_restore" translatable="false">Restore</string>
+
+    <string name="error">错误</string>
+
+    <string name="snackbar_text_reset">计时器成功重置</string>
+    <string name="snackbar_text_restore">计时器成功还原</string>
+    <string name="snackbar_text_crashreport">崩溃报告已禁用. 更改将在软件重启后生效.</string>
+    <string name="snackbar_text_update">有新版本可用!</string>
+
+    <string name="action_changelog">完整更新日志</string>
+    <string name="action_back">后退</string>
+    <string name="action_done">完成</string>
+    <string name="action_disable">禁用</string>
+    <string name="action_dismiss">取消</string>
+    <string name="action_view">查看</string>
+
+    <string name="widget_reset_title">CPUSpy - 重置计时器</string>
+    <string name="widget_reset_error">糟糕! 发生错误, 请重试</string>
+    <string name="widget_reset_success">计时器成功重置</string>
+
+    <!-- Information -->
+    <string name="information">信息</string>
+    <string name="information_kernel_info">内核信息</string>
+    <string name="information_device_info">设备信息</string>
+    <string name="information_cpu_info">CPU 信息</string>
+    <string name="information_kernel_governor">调节器:</string>
+    <string name="information_kernel_version_header">版本:</string>
+    <string name="information_kernel_version_full_header">完整内核版本</string>
+    <string name="information_kernel_version_unavailable">内核版本不可用</string>
+    <string name="information_device_build_header">编译 ID:</string>
+    <string name="information_device_api_header">API 级别:</string>
+    <string name="information_device_manuf_header">厂商:</string>
+    <string name="information_device_model_header">型号:</string>
+    <string name="information_device_board_header">主板:</string>
+    <string name="information_device_platform_header">平台:</string>
+    <string name="information_device_runtime_header">运行环境:</string>
+    <string name="information_device_runtime_art">ART</string>
+    <string name="information_device_runtime_dalvik">Dalvik</string>
+    <string name="information_device_bootloader_header">引导模式:</string>
+    <string name="information_cpu_abi_header">ABI:</string>
+    <string name="information_cpu_arch_header">构架:</string>
+    <string name="information_cpu_freq_header">频率:</string>
+    <string name="information_cpu_temp_header">温度:</string>
+    <string name="information_cpu_features_header">特性:</string>
+    <string name="information_cpu_usage_header">使用:</string>
+
+    <string name="information_usage_header">CPU 使用</string>
+    <string name="information_core_header">核心:</string>
+    <string name="information_cpu0_header">CPU 0:</string>
+    <string name="information_cpu1_header">CPU 1:</string>
+    <string name="information_cpu2_header">CPU 2:</string>
+    <string name="information_cpu3_header">CPU 3:</string>
+    <string name="information_cpu4_header">CPU 4:</string>
+    <string name="information_cpu5_header">CPU 5:</string>
+    <string name="information_cpu6_header">CPU 6:</string>
+    <string name="information_cpu7_header">CPU 7:</string>
+
+    <!-- Welcome info -->
+    <string name="welcome_summary">欢迎使用 CPUSpy Material. 本工具方便您查看 CPU 的最常工作频率.</string>
+    <string name="welcome_features">特性</string>
+    <string name="welcome_cpuinfo">&#8226; 查看 CPU + 内核信息</string>
+    <string name="welcome_crashreport">&#8226; 自动发送崩溃和使用报告</string>
+    <string name="welcome_autorefresh">&#8226; 启用自动刷新以实时更新状态</string>
+    <string name="welcome_autoreset">&#8226; 电池满电后计时器自动重置</string>
+    <string name="welcome_widget">&#8226; 使用主屏小部件重置 CPU 计时器</string>
+    <string name="welcome_hidepercent">&#8226; 可选指定百分比下时隐藏状态显示</string>
+
+    <!-- Settings info -->
+    <string name="settings">设置</string>
+    <string name="pref_header_general">常规</string>
+    <string name="pref_header_about">关于</string>
+    <string name="pref_header_ui">用户界面</string>
+    <string name="pref_title_version">版本</string>
+    <string name="pref_summary_about">关于本应用及开发者</string>
+    <string name="pref_title_autorefresh">自动刷新</string>
+    <string name="pref_summary_autorefresh">自动刷新 CPU 计时器</string>
+    <string name="pref_title_autoreset">自动重置</string>
+    <string name="pref_summary_autoreset">满电时自动重置 CPU 计时器</string>
+    <string name="pref_title_sleepdetection">沉睡状态检测</string>
+    <string name="pref_summary_sleepdetection">设备无法进入睡眠状态时通知我</string>
+    <string name="pref_title_hidestates">指定百分比下时隐藏状态</string>
+    <string name="pref_summary_hidestates">低于 % 的状态将不被使用</string>
+    <string name="pref_title_themes">基本主题</string>
+    <string name="pref_title_navbar">变色导航栏</string>
+    <string name="pref_summary_navbar">启用主色彩导航栏</string>
+    <string name="pref_title_checkupdates">检查更新</string>
+    <string name="pref_summary_checkupdates">上一次检查:&#160;</string>
+    <string name="pref_title_crashreport">匿名崩溃报告</string>
+    <string name="pref_summary_crashreport">允许收集崩溃和使用信息</string>
+    <string name="pref_title_license">开源协议</string>
+
+    <string-array name="themes">
+        <item>亮色</item>
+        <item>暗色</item>
+        <item>自动</item>
+    </string-array>
+
+    <!-- Open Source Licenses -->
+    <string name="license_header">库</string>
+    <string name="translators_header">翻译者</string>
+
+    <!-- About -->
+    <string name="pref_about_header_dev">开发者</string>
+    <string name="pref_about_header_credits">致谢</string>
+    <string name="pref_about_developer">Rob Beane (existz)</string>
+
+    <!-- Tab Title -->
+    <string name="tab_title_timers">计时器</string>
+    <string name="tab_title_info">信息</string>
+
+    <string name="notification_warning">警告</string>
+    <string name="notification_disable">禁用睡眠检测</string>
+    <string name="notification_deep_sleep">设备未进入睡眠状态</string>
+
+    <string name="new_feature_title">沉睡状态检测</string>
+    <string name="new_feature_summary">一个新的后台监控服务将在设备无法进入沉睡状态时通知您.</string>
+
+    <string name="xposed_warning_title">检测到 Xposed</string>
+    <string name="xposed_warning_content">很遗憾我们无法为使用 Xposed 的设备提供支持. 自动崩溃报告将被禁用.</string>
+
+    <string name="primary_color">主色彩</string>
+    <string name="primary_color_desc">应用一种主色彩主题</string>
+    <string name="accent_color">渐变色彩</string>
+    <string name="accent_color_desc">应用一种渐变色彩</string>
+</resources>
