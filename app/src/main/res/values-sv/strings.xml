@@ -113,7 +113,7 @@
     <string name="notification_warning">Varning</string>
     <string name="notification_disable">Inaktivera identifiering av djup sömn</string>
     <string name="notification_deep_sleep">Enheten går inte i djup sömn</string>
-    <string name="new_feature_title">Ljud sömn</string>
+    <string name="new_feature_title">Märk vid djup sömn</string>
     <string name="new_feature_summary">En ny bakgrundstjänst som gör att din enhet meddelar dig när den inte går i djup sömn.</string>
     <string name="xposed_warning_title">Xposed Upptäckt</string>
     <string name="xposed_warning_content">Tyvärr stödjer vi inte enheter med Xposed. Automatiska crashmeddelanden inaktiveras.</string>
@@ -121,5 +121,14 @@
     <string name="primary_color_desc">Tillämpa en primär temafärg</string>
     <string name="accent_color">Sekundärkulör</string>
     <string name="accent_color_desc">Tillämpa en sekundärkulör</string>
+    <string name="running_processes">Processer som körs</string>
+    <string name="btn_full_kernel_version">Full Version</string>
+    <string name="btn_processes">Processer</string>
+    <string name="contact">Kontakt</string>
+    <string name="email_developer">Maila utvecklare</string>
+    <string name="email_developer_summary">Skicka bugg rapporter och funktionsönskningar</string>
+    <string name="view_gplus">Besök vår G+ Profil</string>
+    <string name="view_gplus_summary">Öppna vår Google Plus profilsida</string>
+    <string name="donate_summary">Donera pengar för att stödja projektet</string>
     <string name="menu_timers_restore">Återställ räknare</string>
 </resources>

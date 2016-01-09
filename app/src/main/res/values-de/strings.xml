@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">CPUSpy</string>
     <string name="app_name_long">CPUSpy Material</string>
+    <string name="build_version">v%s</string>
     <string name="core_offline">Offline</string>
     <string name="unused_states_count">%s&#160;Nicht verwendete Zustände</string>
     <string name="total_state_time">Gesamtzeit</string>
@@ -52,6 +53,7 @@
     <string name="information_cpu_freq_header">Frequenz:</string>
     <string name="information_cpu_temp_header">Temp:</string>
     <string name="information_cpu_features_header">Funktionen:</string>
+    <string name="information_cpu_usage_header">Auslastung:</string>
     <string name="information_usage_header">CPU-Auslastung</string>
     <string name="information_core_header">Kerne:</string>
     <string name="information_cpu0_header">CPU 0:</string>
@@ -63,14 +65,14 @@
     <string name="information_cpu6_header">CPU 6:</string>
     <string name="information_cpu7_header">CPU 7:</string>
     <!-- Welcome info -->
-    <string name="welcome_summary">Wilkommen bei CPUSpy Material. Mit diesem Tool können Sie überprüfen mit welchen Frequenzen Ihr CPU am meisten arbeitet.</string>
+    <string name="welcome_summary">Wilkommen bei CPUSpy Material. Mit diesem Tool können Sie überprüfen in welchen Leistungszuständen sich Ihr CPU am häufigsten befindet.</string>
     <string name="welcome_features">Funktionen</string>
-    <string name="welcome_cpuinfo">&#8226; CPU- &amp; Kernel-Informationen überprüfen</string>
-    <string name="welcome_crashreport">&#8226; Automatische Absturz- und Verwendungsberichte</string>
-    <string name="welcome_autorefresh">&#8226; Automatische Aktualisierung für Überwachung in Echtzeit</string>
-    <string name="welcome_autoreset">&#8226; Timer werden automatisch zurückgestzt, wenn das Gerät voll geladen ist</string>
-    <string name="welcome_widget">&#8226; Widget, um CPU-Timer vom Homescreen aus zurückzusetzen</string>
-    <string name="welcome_hidepercent">&#8226; Möglichkeit, weniger verwendete Zustände zu verstecken</string>
+    <string name="welcome_cpuinfo">&#8226; CPU- / Kernel-Information und -Überwachung</string>
+    <string name="welcome_crashreport">&#8226; Automatisch Absturz- und Verwendungsdaten übermitteln</string>
+    <string name="welcome_autorefresh">&#8226; Auto-Refresh aktivieren für Informationen in Echtzeit</string>
+    <string name="welcome_autoreset">&#8226; Timer werden automatisch zurückgesetzt wenn vollgeladen</string>
+    <string name="welcome_widget">&#8226; Homescreen-Widget für Timer-Reset</string>
+    <string name="welcome_hidepercent">&#8226; Zustände unter gewisser Verwendungszeit verbergen</string>
     <!-- Settings info -->
     <string name="settings">Einstellungen</string>
     <string name="pref_header_general">Allgemein</string>
@@ -82,7 +84,7 @@
     <string name="pref_title_autoreset">Automatisches Zurücksetzen</string>
     <string name="pref_summary_autoreset">CPU-Timer automatisch zurücksetzen, wenn voll geladen</string>
     <string name="pref_title_sleepdetection">Deep-Sleep-Erkennung</string>
-    <string name="pref_summary_sleepdetection">Benachrichtigen, wenn das Gerät nicht in Deep-Sleep geht</string>
+    <string name="pref_summary_sleepdetection">Benachrichtigen, wenn das Gerät nicht in Deep-Sleep übergeht</string>
     <string name="pref_title_hidestates">Zustände unter % verbergen</string>
     <string name="pref_summary_hidestates">Zustände unter dieser dieser %-Angabe werden nicht verwendet</string>
     <string name="pref_title_themes">Grund-Design</string>
@@ -91,7 +93,7 @@
     <string name="pref_title_checkupdates">Auf Updates überprüfen</string>
     <string name="pref_summary_checkupdates">Zuletzt überprüft:&#160;</string>
     <string name="pref_title_crashreport">Anonyme Absturzberichte</string>
-    <string name="pref_summary_crashreport">Sammeln von Absturz- und Verwendungsberichten erlauben</string>
+    <string name="pref_summary_crashreport">Sammeln von Absturz- und Verwendungsdaten erlauben</string>
     <string name="pref_title_license">Open-Source-Lizenzen</string>
     <string-array name="themes">
         <item>Hell</item>
@@ -112,12 +114,21 @@
     <string name="notification_disable">Sleep-Erkennung deaktivieren</string>
     <string name="notification_deep_sleep">Gerät geht nicht in Deep-Sleep</string>
     <string name="new_feature_title">Deep-Sleep-Erkennung</string>
-    <string name="new_feature_summary">Ein neuer Hintergrund-Überwachungsdienst, der Sie benachrichtigt, falls das Gerät nicht in Deep-Sleep geht.</string>
+    <string name="new_feature_summary">Ein neuer Hintergrundüberwachungsdienst der Sie benachrichtigt, wenn das Gerät nicht in Deep-Sleep übergeht.</string>
     <string name="xposed_warning_title">Xposed erkannt</string>
     <string name="xposed_warning_content">Leider können wir Geräte mit Xposed nicht ünterstützen. Automatische Absturzberichte werden deaktiviert.</string>
     <string name="primary_color">Primärfarbe</string>
     <string name="primary_color_desc">Primärfarbe übernehmen</string>
     <string name="accent_color">Akzentfarbe</string>
     <string name="accent_color_desc">Akzentfarbe übernehmen</string>
+    <string name="running_processes">Laufende Prozesse</string>
+    <string name="btn_full_kernel_version">Vollversion</string>
+    <string name="btn_processes">Prozesse</string>
+    <string name="contact">Kontakt</string>
+    <string name="email_developer">E-Mail an den Entwickler</string>
+    <string name="email_developer_summary">Fehlerberichte oder Verbesserungsvorschläge senden</string>
+    <string name="view_gplus">G+ Profil ansehen</string>
+    <string name="view_gplus_summary">Google Plus Profilseite öffnen</string>
+    <string name="donate_summary">Spenden, um dieses Projekt zu unterstützen</string>
     <string name="menu_timers_restore">Timer wiederherstellen</string>
 </resources>

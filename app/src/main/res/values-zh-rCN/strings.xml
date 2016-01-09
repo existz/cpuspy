@@ -21,9 +21,6 @@
     <string name="states_empty">空</string>
     <string name="states_deep_sleep">沉睡</string>
     <string name="states_warning"><b>糟糕!</b>\n\n静态文件未找到. 请确认您的设备时候兼容?\n\n如果您正在使用第三方系统或内核, 请联系相关开发者并告知他们状态文件不可读取.</string>
-    <string name="states_toolbar_hide" translatable="false">Hide States</string>
-    <string name="states_toolbar_reset" translatable="false">Reset</string>
-    <string name="states_toolbar_restore" translatable="false">Restore</string>
 
     <string name="error">错误</string>
 

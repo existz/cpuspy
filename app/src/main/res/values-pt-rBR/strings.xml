@@ -106,7 +106,7 @@
     <string name="notification_warning">Avisos</string>
     <string name="notification_disable">Desativar detecção do sono</string>
     <string name="notification_deep_sleep">Dispositivo não está entrando em Sono Profundo</string>
-    <string name="new_feature_title">Deteção de Sono Profundo</string>
+    <string name="new_feature_title">Detecção de Sono Profundo</string>
     <string name="new_feature_summary">Um novo serviço de monitoramento de fundo vai te alertar quando o dispositivo não entrar em sono profundo.</string>
     <string name="xposed_warning_title">Xposed Detectado</string>
     <string name="xposed_warning_content">Infelizmente nós não conseguimos suportar dispositivos rodando Xposed. Relatórios de falhas automático vão ser desativados.</string>
