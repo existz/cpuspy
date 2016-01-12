@@ -18,6 +18,7 @@
 package org.axdev.cpuspy.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import com.squareup.picasso.Picasso;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.Utils;
 
 import java.util.List;
@@ -78,6 +80,7 @@ public class ProcessListAdapter extends BaseAdapter {
 
         ImageView imageView = holder.find(R.id.imageView);
         TextView textView = holder.find(R.id.textView);
+        TextView textViewSummary = holder.find(R.id.textView_summary);
 
         picasso.load(Uri.parse(SCHEME_PNAME + ":" + process.getPackageName()))
                 .placeholder(android.R.drawable.sym_def_app_icon)
@@ -85,7 +88,11 @@ public class ProcessListAdapter extends BaseAdapter {
                 .centerInside()
                 .into(imageView);
 
-        textView.setText(Utils.getPackageName(context, process));
+        final Typeface robotoMedium = TypefaceHelper.mediumTypeface(context);
+        final String packageName = Utils.getPackageName(context, process);
+        textView.setTypeface(robotoMedium);
+        textView.setText(packageName);
+        textViewSummary.setText(process.name);
 
         return convertView;
     }
