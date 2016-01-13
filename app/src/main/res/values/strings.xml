@@ -164,4 +164,18 @@
     <string name="logcat_file_saved">File saved to /sdcard/</string>
     <string name="logcat_error_saving">"Unable to save logcat to sdcard"</string>
 
+    <string name="process_name_header">Name:</string>
+    <string name="process_policy_header">Policy:</string>
+    <string name="process_pid_header">PID:</string>
+    <string name="process_uid_header">UID/GID:</string>
+    <string name="process_ppid_header">PPID:</string>
+    <string name="process_started_header">Started:</string>
+    <string name="process_cputime_header">CPU Time:</string>
+    <string name="process_nice_header">Nice:</string>
+    <string name="process_scheduling_header">Scheduling Priority:</string>
+    <string name="process_usermode_header">Time in User Mode:</string>
+    <string name="process_kernelmode_header">Time in Kernel Mode:</string>
+    <string name="process_size_header">Size:</string>
+    <string name="process_rss_header">RSS:</string>
+
 </resources>
