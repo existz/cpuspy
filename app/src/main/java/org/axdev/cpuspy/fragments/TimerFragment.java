@@ -21,7 +21,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +50,9 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.CircleView;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
@@ -59,7 +61,6 @@ import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.CpuSpyApp;
 import org.axdev.cpuspy.CpuState;
 import org.axdev.cpuspy.CpuStateMonitor;
-import org.axdev.cpuspy.CpuStateMonitor.CpuStateMonitorException;
 import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.animation.ProgressBarAnimation;
 import org.axdev.cpuspy.listeners.ShakeEventListener;
@@ -580,7 +581,26 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     /** Attempt to update the time-in-state info */
     private void refreshData() {
-        new RefreshStateDataTask().execute();
+        Tasks.executeInBackground(mContext, new BackgroundWork<Void>() {
+            @Override
+            public Void doInBackground() throws Exception {
+                monitor.updateStates();
+                return null;
+            }
+        }, new Completion<Void>() {
+            @Override
+            public void onSuccess(Context context, Void v) {
+                if (getActivity() != null) {
+                    updateView();
+                    checkView();
+                }
+            }
+            @Override
+            public void onError(Context context, Exception e) {
+                e.printStackTrace();
+                Log.e("CpuSpy", "Problem getting CPU states");
+            }
+        });
         if (mSwipeLayout != null) mSwipeLayout.setRefreshing(false);
     }
 
@@ -657,32 +677,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         // add it to parent and return
         parent.addView(theRow);
-    }
-
-    /** Keep updating the state data off the UI thread for slow devices */
-    private class RefreshStateDataTask extends AsyncTask<Void, Void, Void> {
-
-        /** Stuff to do on a seperate thread */
-        @Override protected Void doInBackground(Void... v) {
-            try {
-                monitor.updateStates();
-            } catch (CpuStateMonitorException e) {
-                Log.e("CpuSpy", "Problem getting CPU states");
-            }
-
-            return null;
-        }
-
-        /** Executed on the UI thread right before starting the task */
-        @Override protected void onPreExecute() {}
-
-        /** Executed on UI thread after task */
-        @Override protected void onPostExecute(Void v) {
-            if (getActivity() != null) {
-                updateView();
-                checkView();
-            }
-        }
     }
 
     /** Update data every 1 second if auto refresh is enabled */

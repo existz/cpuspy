@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +32,9 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
@@ -150,6 +152,7 @@ public class InfoFragment extends Fragment {
     private boolean mHasCpu6;
     private boolean mHasCpu7;
 
+    private Animation popupEnterMtrl;
     private Context mContext;
     private Handler mHandler;
     private Typeface robotoMedium;
@@ -174,6 +177,7 @@ public class InfoFragment extends Fragment {
         mShowProgressBar = true;
         mHandler = new Handler();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
+        popupEnterMtrl = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
         final String kernelVersion = System.getProperty("os.version");
@@ -672,15 +676,13 @@ public class InfoFragment extends Fragment {
 
     @OnClick(R.id.btn_kernel_more)
     void kernelMoreButton() {
-        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
-        mKernelMenu.startAnimation(fadeIn);
+        mKernelMenu.startAnimation(popupEnterMtrl);
         mKernelMenu.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.btn_device_more)
     void deviceMoreButton() {
-        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
-        mDeviceMenu.startAnimation(fadeIn);
+        mDeviceMenu.startAnimation(popupEnterMtrl);
         mDeviceMenu.setVisibility(View.VISIBLE);
     }
 
@@ -696,7 +698,52 @@ public class InfoFragment extends Fragment {
         if (!mCardLogcat.isShown()) {
             showAnimatedCard(true, mCardLogcat);
             mDeviceMenu.setVisibility(View.GONE);
-            new AsyncTaskRunner().execute();
+
+            final String logcatCommand = "logcat -d -v brief";
+            final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
+
+            // Show loading dialog
+            if (mShowProgressBar) {
+                MDTintHelper.setTint(progress, accentColor);
+                progress.setVisibility(View.VISIBLE);
+            }
+            Tasks.executeInBackground(mContext, new BackgroundWork<String>() {
+                @Override
+                public String doInBackground() throws Exception {
+                    boolean suAvailable = Shell.SU.available();
+                    if (suAvailable) {
+                        return Shell.SU.run(logcatCommand).toString();
+                    } else {
+                        final Process process = Runtime.getRuntime().exec(logcatCommand);
+                        final BufferedReader bufferedReader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream()));
+
+                        final StringBuilder log = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            log.append(line);
+                        }
+                        return log.toString();
+                    }
+                }
+            }, new Completion<String>() {
+                @Override
+                public void onSuccess(Context context, String result) {
+                    mLogcatSummary.setVisibility(View.VISIBLE);
+                    mLogcatSummary.setText(result);
+                    if (progress != null) progress.setVisibility(View.GONE);
+                    mShowProgressBar = false;
+                }
+
+                @Override
+                public void onError(Context context, Exception e) {
+                    if (progress != null) progress.setVisibility(View.GONE);
+                    mShowProgressBar = false;
+                    mLogcatSummary.setText(errorText);
+                    mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
+                    e.printStackTrace();
+                }
+            });
         } else {
             showAnimatedCard(false, mCardLogcat);
         }
@@ -776,62 +823,6 @@ public class InfoFragment extends Fragment {
             mDisableScrolling = false;
 
             return false;
-        }
-    }
-
-    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
-
-        final String logcatCommand = "logcat -d -v brief";
-        final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                boolean suAvailable = Shell.SU.available();
-                if (suAvailable) {
-                    return Shell.SU.run(logcatCommand).toString();
-                } else {
-                    final Process process = Runtime.getRuntime().exec(logcatCommand);
-                    final BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(process.getInputStream()));
-
-                    final StringBuilder log = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        log.append(line);
-                    }
-                    return log.toString();
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            // Show loading dialog
-            if (mShowProgressBar) {
-                MDTintHelper.setTint(progress, accentColor);
-                progress.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // execution of result of Long time consuming operation
-            if (result != null) {
-                mLogcatSummary.setVisibility(View.VISIBLE);
-                mLogcatSummary.setText(result);
-            } else {
-                mLogcatSummary.setText(errorText);
-                mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
-            }
-            if (progress != null) progress.setVisibility(View.GONE);
-            mShowProgressBar = false;
         }
     }
 
