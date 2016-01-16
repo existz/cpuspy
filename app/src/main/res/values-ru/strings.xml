@@ -20,6 +20,7 @@
     <string name="snackbar_text_restore">Таймеры восстановлены</string>
     <string name="snackbar_text_crashreport">Сообщения о сбоях отключены. Изменения вступят в силу после перезапуска приложения.</string>
     <string name="snackbar_text_update">Доступна более новая версия!</string>
+    <string name="snackbar_text_undo">Отмена</string>
     <string name="action_changelog">Полная история изменений</string>
     <string name="action_back">Назад</string>
     <string name="action_done">Готово</string>
@@ -124,11 +125,27 @@
     <string name="running_processes">Запущенные процессы</string>
     <string name="btn_full_kernel_version">Полная версия</string>
     <string name="btn_processes">Процессы</string>
+    <string name="btn_logcat">Просмотр логката</string>
     <string name="contact">Контакты</string>
     <string name="email_developer">Написать разработчику</string>
     <string name="email_developer_summary">Отправить сообщение об ошибке и запрос функции</string>
     <string name="view_gplus">Просмотреть профиль G+</string>
     <string name="view_gplus_summary">Открыть страницу профиля на Google+</string>
     <string name="donate_summary">Отправить пожертвование для помощи проекту</string>
-    <string name="menu_timers_restore">Восстановление таймеров</string>
+    <string name="logcat_header">Логкат</string>
+    <string name="logcat_file_saved">Файл сохранен в /sdcard/</string>
+    <string name="logcat_error_saving">Невозможно сохранить логкат на sdcard</string>
+    <string name="process_name_header">Имя:</string>
+    <string name="process_policy_header">Политика:</string>
+    <string name="process_pid_header">PID:</string>
+    <string name="process_uid_header">UID/GID:</string>
+    <string name="process_ppid_header">PPID:</string>
+    <string name="process_started_header">Запущено:</string>
+    <string name="process_cputime_header">Время CPU :</string>
+    <string name="process_nice_header">Nice:</string>
+    <string name="process_scheduling_header">Приоритет расписания:</string>
+    <string name="process_usermode_header">Польз. время</string>
+    <string name="process_kernelmode_header">Время ядра</string>
+    <string name="process_size_header">Размер:</string>
+    <string name="process_rss_header">RSS:</string>
 </resources>

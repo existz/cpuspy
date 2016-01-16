@@ -111,5 +111,4 @@
     <string name="new_feature_summary">Un nuovo servizio di monitoraggio che ti avvisa quando il device non entra in deep sleep.</string>
     <string name="xposed_warning_title">Xposed Rilevato</string>
     <string name="xposed_warning_content">Sfortunatamente non siamo in grado di supportare device che usano Xposed. Il report automatico dei crash sarà disabilitato.</string>
-    <string name="menu_timers_restore">Ripristina Timer</string>
 </resources>

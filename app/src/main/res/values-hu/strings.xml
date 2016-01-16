@@ -130,5 +130,4 @@
     <string name="view_gplus">Google+ profil megtekintése</string>
     <string name="view_gplus_summary">Google+ profil oldalának megnyitása</string>
     <string name="donate_summary">Pénz küldése a projekt támogatására</string>
-    <string name="menu_timers_restore">Időzítők visszaállítása</string>
 </resources>

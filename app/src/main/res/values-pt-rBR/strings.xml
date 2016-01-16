@@ -110,5 +110,4 @@
     <string name="new_feature_summary">Um novo serviço de monitoramento de fundo vai te alertar quando o dispositivo não entrar em sono profundo.</string>
     <string name="xposed_warning_title">Xposed Detectado</string>
     <string name="xposed_warning_content">Infelizmente nós não conseguimos suportar dispositivos rodando Xposed. Relatórios de falhas automático vão ser desativados.</string>
-    <string name="menu_timers_restore">Restaurar Contadores</string>
 </resources>

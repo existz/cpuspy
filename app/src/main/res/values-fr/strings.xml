@@ -130,5 +130,4 @@
     <string name="view_gplus">Voir le profil Google+</string>
     <string name="view_gplus_summary">Accéder à la page de profil Google+</string>
     <string name="donate_summary">Envoyer de l\'argent pour aider à financer ce projet</string>
-    <string name="menu_timers_restore">Restaurer compteurs</string>
 </resources>

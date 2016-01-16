@@ -124,5 +124,4 @@
     <string name="btn_full_kernel_version">Πλήρης έκδοση kernel</string>
     <string name="btn_processes">διεργασίες</string>
     <string name="contact">Επαφή</string>
-    <string name="menu_timers_restore">Ανάκτηση χρονομετρητών</string>
 </resources>
