@@ -855,7 +855,7 @@
         android:id="@+id/card_view_logcat"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:visibility="gone"
         card_view:cardBackgroundColor="?attr/colorCardBackground"
         card_view:cardCornerRadius="0dp">

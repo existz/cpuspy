@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -159,6 +161,7 @@ public class InfoFragment extends Fragment {
 
     private int accentColor;
     private int mNumCores;
+    private int mScreenHeight;
     private final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
@@ -181,6 +184,12 @@ public class InfoFragment extends Fragment {
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
         final String kernelVersion = System.getProperty("os.version");
+
+        /** Get size of the default display */
+        final Display display = getActivity().getWindowManager().getDefaultDisplay();
+        final Point size = new Point();
+        display.getSize(size);
+        mScreenHeight = size.y;
 
         /** @return the current number of CPU cores */
         mNumCores = CPUUtils.getCoreCount();
@@ -808,6 +817,13 @@ public class InfoFragment extends Fragment {
                 cardView.setVisibility(View.VISIBLE);
 
                 mDisableScrolling = true;
+
+                // Set mCardLogcat height to half of screen size
+                if (cardView == mCardLogcat) {
+                    final CardView.LayoutParams mCardLogcatLayoutParams = (CardView.LayoutParams)
+                            mCardLogcat.getLayoutParams();
+                    if (mScreenHeight != 0) mCardLogcatLayoutParams.height = mScreenHeight / 2;
+                }
             }
             return true;
         } else {
