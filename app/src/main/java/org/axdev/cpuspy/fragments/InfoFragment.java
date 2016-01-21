@@ -144,7 +144,6 @@ public class InfoFragment extends Fragment {
     private boolean mIsMonitoringTemp;
     private boolean mIsMonitoringCpu;
     private boolean mIsMonitoringUsage;
-    private boolean mShowProgressBar;
     private boolean mHasCpu0;
     private boolean mHasCpu1;
     private boolean mHasCpu2;
@@ -177,7 +176,6 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         /** Set text and typeface for TextViews */
         this.mContext = this.getActivity();
-        mShowProgressBar = true;
         mHandler = new Handler();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         popupEnterMtrl = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
@@ -258,11 +256,11 @@ public class InfoFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent ev) {
                 if (mCardKernelFull.isShown()
                         && Utils.isOutOfBounds(mCardKernelFull, ev)) {
-                    showAnimatedCard(false, mCardKernelFull);
+                    showFullKernelCard(false);
                     return true;
                 } else if (mCardLogcat.isShown()
                         && Utils.isOutOfBounds(mCardLogcat, ev)) {
-                    showAnimatedCard(false, mCardLogcat);
+                    showLogcatCard(false);
                     return true;
                 }
                 return false;
@@ -286,20 +284,20 @@ public class InfoFragment extends Fragment {
         });
 
         // Allow closing card/menus with back button
-        if (getView() != null) {
-            getView().setFocusableInTouchMode(true);
-            getView().requestFocus();
+        if (view != null) {
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
 
-            getView().setOnKeyListener(new View.OnKeyListener() {
+            view.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (keyCode == KeyEvent.KEYCODE_BACK) {
                             if (mCardKernelFull.isShown()) {
-                                showAnimatedCard(false, mCardKernelFull);
+                                showFullKernelCard(false);
                                 return true;
                             } else if (mCardLogcat.isShown()) {
-                                showAnimatedCard(false, mCardLogcat);
+                                showLogcatCard(false);
                                 return true;
                             } else if (mDeviceMenu.isShown()) {
                                 mDeviceMenu.setVisibility(View.GONE);
@@ -322,7 +320,7 @@ public class InfoFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
-        if (mCardKernelFull.isShown()) showAnimatedCard(false, mCardKernelFull);
+        if (mCardKernelFull.isShown()) showFullKernelCard(false);
         if (mDeviceMenu.isShown()) mDeviceMenu.setVisibility(View.GONE);
         if (mKernelMenu.isShown()) mKernelMenu.setVisibility(View.GONE);
     }
@@ -340,6 +338,9 @@ public class InfoFragment extends Fragment {
             if (!isVisibleToUser) {
                 mIsVisible = false;
                 setMonitoring(false);
+
+                if (mCardKernelFull.isShown()) showFullKernelCard(false);
+                if (mCardLogcat.isShown()) showLogcatCard(false);
             }
 
             if (isVisibleToUser) {
@@ -671,7 +672,7 @@ public class InfoFragment extends Fragment {
     @OnClick({R.id.full_kernel_version, R.id.btn_kernel_close})
     void fullKernelVersion() {
         if (!mCardKernelFull.isShown()) {
-            showAnimatedCard(true, mCardKernelFull);
+            showFullKernelCard(true);
             if (CPUUtils.getKernelVersion() != null) {
                 mKernelVersionFull.setText(CPUUtils.getKernelVersion());
             } else {
@@ -679,7 +680,7 @@ public class InfoFragment extends Fragment {
             }
             mKernelMenu.setVisibility(View.GONE);
         } else {
-            showAnimatedCard(false, mCardKernelFull);
+            showFullKernelCard(false);
         }
     }
 
@@ -705,56 +706,11 @@ public class InfoFragment extends Fragment {
     @OnClick({R.id.logcat, R.id.btn_logcat_close})
     void logcatButton() {
         if (!mCardLogcat.isShown()) {
-            showAnimatedCard(true, mCardLogcat);
             mDeviceMenu.setVisibility(View.GONE);
-
-            final String logcatCommand = "logcat -d -v brief";
-            final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
-
-            // Show loading dialog
-            if (mShowProgressBar) {
-                MDTintHelper.setTint(progress, accentColor);
-                progress.setVisibility(View.VISIBLE);
-            }
-            Tasks.executeInBackground(mContext, new BackgroundWork<String>() {
-                @Override
-                public String doInBackground() throws Exception {
-                    boolean suAvailable = Shell.SU.available();
-                    if (suAvailable) {
-                        return Shell.SU.run(logcatCommand).toString();
-                    } else {
-                        final Process process = Runtime.getRuntime().exec(logcatCommand);
-                        final BufferedReader bufferedReader = new BufferedReader(
-                                new InputStreamReader(process.getInputStream()));
-
-                        final StringBuilder log = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            log.append(line);
-                        }
-                        return log.toString();
-                    }
-                }
-            }, new Completion<String>() {
-                @Override
-                public void onSuccess(Context context, String result) {
-                    mLogcatSummary.setVisibility(View.VISIBLE);
-                    mLogcatSummary.setText(result);
-                    if (progress != null) progress.setVisibility(View.GONE);
-                    mShowProgressBar = false;
-                }
-
-                @Override
-                public void onError(Context context, Exception e) {
-                    if (progress != null) progress.setVisibility(View.GONE);
-                    mShowProgressBar = false;
-                    mLogcatSummary.setText(errorText);
-                    mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
-                    e.printStackTrace();
-                }
-            });
+            mLogcatSummary.setText(null);
+            showLogcatCard(true);
         } else {
-            showAnimatedCard(false, mCardLogcat);
+            showLogcatCard(false);
         }
     }
 
@@ -805,39 +761,117 @@ public class InfoFragment extends Fragment {
         }
     }
 
-    private boolean showAnimatedCard(boolean enabled, CardView cardView) {
+    private boolean showFullKernelCard(boolean enabled) {
+        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
+        final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
+        final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
+        final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
+
         if (enabled) {
-            if (!cardView.isShown()) {
-                final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
-                mContentOverlay.startAnimation(fadeIn);
-                mContentOverlay.setVisibility(View.VISIBLE);
+            mContentOverlay.startAnimation(fadeIn);
+            mContentOverlay.setVisibility(View.VISIBLE);
 
-                final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
-                cardView.startAnimation(slideUp);
-                cardView.setVisibility(View.VISIBLE);
+            mCardKernelFull.startAnimation(slideUp);
+            mCardKernelFull.setVisibility(View.VISIBLE);
 
-                mDisableScrolling = true;
-
-                // Set mCardLogcat height to half of screen size
-                if (cardView == mCardLogcat) {
-                    final CardView.LayoutParams mCardLogcatLayoutParams = (CardView.LayoutParams)
-                            mCardLogcat.getLayoutParams();
-                    if (mScreenHeight != 0) mCardLogcatLayoutParams.height = mScreenHeight / 2;
-                }
-            }
+            mDisableScrolling = true;
             return true;
         } else {
-            final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
 
-            final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-            if (cardView == mCardLogcat) slideDown.setDuration(300);
-            cardView.startAnimation(slideDown);
-            cardView.setVisibility(View.GONE);
+            mCardKernelFull.startAnimation(slideDown);
+            mCardKernelFull.setVisibility(View.GONE);
 
             mDisableScrolling = false;
 
+            return false;
+        }
+    }
+
+    private boolean showLogcatCard(boolean enabled) {
+        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
+        final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
+        final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
+        final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
+
+        if (enabled) {
+            final String logcatCommand = "logcat -d -v brief";
+            final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
+
+            // Show loading dialog
+            MDTintHelper.setTint(progress, accentColor);
+            progress.setVisibility(View.VISIBLE);
+
+            // Set card height to half of screen size
+            final CardView.LayoutParams mCardLogcatLayoutParams = (CardView.LayoutParams)
+                    mCardLogcat.getLayoutParams();
+            if (mScreenHeight != 0) mCardLogcatLayoutParams.height = mScreenHeight / 2;
+
+            mContentOverlay.startAnimation(fadeIn);
+            mContentOverlay.setVisibility(View.VISIBLE);
+            fadeIn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mCardLogcat.startAnimation(slideUp);
+                    mCardLogcat.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    Tasks.executeInBackground(mContext, new BackgroundWork<String>() {
+                        @Override
+                        public String doInBackground() throws Exception {
+                            boolean suAvailable = Shell.SU.available();
+                            if (suAvailable) {
+                                return Shell.SU.run(logcatCommand).toString();
+                            } else {
+                                final Process process = Runtime.getRuntime().exec(logcatCommand);
+                                final BufferedReader bufferedReader = new BufferedReader(
+                                        new InputStreamReader(process.getInputStream()));
+
+                                final StringBuilder log = new StringBuilder();
+                                String line;
+                                while ((line = bufferedReader.readLine()) != null) {
+                                    log.append(line);
+                                }
+                                return log.toString();
+                            }
+                        }
+                    }, new Completion<String>() {
+                        @Override
+                        public void onSuccess(Context context, String result) {
+                            mLogcatSummary.setVisibility(View.VISIBLE);
+                            mLogcatSummary.setText(result);
+                            progress.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError(Context context, Exception e) {
+                            progress.setVisibility(View.GONE);
+                            mLogcatSummary.setText(errorText);
+                            mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
+                            e.printStackTrace();
+                        }
+                    });
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            mDisableScrolling = true;
+            return true;
+        } else {
+            mContentOverlay.startAnimation(fadeOut);
+            mContentOverlay.setVisibility(View.GONE);
+
+            slideDown.setDuration(300);
+            mCardLogcat.startAnimation(slideDown);
+            mCardLogcat.setVisibility(View.GONE);
+
+            mDisableScrolling = false;
             return false;
         }
     }

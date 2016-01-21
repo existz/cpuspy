@@ -217,11 +217,11 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         // Allow dismissing states toolbar with back button
-        if (getView() != null) {
-            getView().setFocusableInTouchMode(true);
-            getView().requestFocus();
+        if (view != null) {
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
 
-            getView().setOnKeyListener(new View.OnKeyListener() {
+            view.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
