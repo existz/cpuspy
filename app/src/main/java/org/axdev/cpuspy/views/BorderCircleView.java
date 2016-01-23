@@ -71,8 +71,9 @@ public class BorderCircleView extends FrameLayout {
         super.onDraw(canvas);
 
         int canvasSize = canvas.getWidth();
-        if (canvas.getHeight() < canvasSize)
+        if (canvas.getHeight() < canvasSize) {
             canvasSize = canvas.getHeight();
+        }
 
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);

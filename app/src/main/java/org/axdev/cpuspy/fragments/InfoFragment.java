@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,6 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -55,6 +59,7 @@ import java.io.InputStreamReader;
 
 import butterknife.Bind;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -130,6 +135,8 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_freq7) TextView mCore7;
 
     @BindColor(R.color.primary_text_color_error) int errorTextColor;
+    @BindDrawable(R.drawable.ic_less) Drawable mLogcatLess;
+    @BindDrawable(R.drawable.ic_more) Drawable mLogcatMore;
     @BindString(R.string.error) String errorText;
     @BindString(R.string.core_offline) String coreOfflineText;
     @BindString(R.string.information_device_runtime_art) String artRuntimeText;
@@ -155,12 +162,14 @@ public class InfoFragment extends Fragment {
 
     private Animation popupEnterMtrl;
     private Context mContext;
+    private FrameLayout.LayoutParams mLayoutParamsLogcat;
     private Handler mHandler;
+    private ImageButton mLogcatExpandButton;
     private Typeface robotoMedium;
 
     private int accentColor;
+    private int mMinScreenHeight;
     private int mNumCores;
-    private int mScreenHeight;
     private final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
@@ -187,7 +196,11 @@ public class InfoFragment extends Fragment {
         final Display display = getActivity().getWindowManager().getDefaultDisplay();
         final Point size = new Point();
         display.getSize(size);
-        mScreenHeight = size.y;
+        mMinScreenHeight = size.y / 2;
+
+        /** Get layout parameters */
+        mLayoutParamsLogcat = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mMinScreenHeight);
+        mLogcatExpandButton = ButterKnife.findById(getActivity(), R.id.btn_logcat_expand);
 
         /** @return the current number of CPU cores */
         mNumCores = CPUUtils.getCoreCount();
@@ -703,6 +716,19 @@ public class InfoFragment extends Fragment {
         startActivity(myIntent);
     }
 
+    @OnClick(R.id.btn_logcat_expand)
+    void expandLogcatButton() {
+        if (mCardLogcat.getLayoutParams().height != mMinScreenHeight) {
+            mLayoutParamsLogcat.height = mMinScreenHeight;
+            mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
+            mLogcatExpandButton.setImageDrawable(mLogcatMore);
+        } else {
+            mLayoutParamsLogcat.height = mContentOverlay.getHeight();
+            mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
+            mLogcatExpandButton.setImageDrawable(mLogcatLess);
+        }
+    }
+
     @OnClick({R.id.logcat, R.id.btn_logcat_close})
     void logcatButton() {
         if (!mCardLogcat.isShown()) {
@@ -804,9 +830,15 @@ public class InfoFragment extends Fragment {
             progress.setVisibility(View.VISIBLE);
 
             // Set card height to half of screen size
-            final CardView.LayoutParams mCardLogcatLayoutParams = (CardView.LayoutParams)
-                    mCardLogcat.getLayoutParams();
-            if (mScreenHeight != 0) mCardLogcatLayoutParams.height = mScreenHeight / 2;
+            if (mMinScreenHeight != 0) {
+                mLayoutParamsLogcat.height = mMinScreenHeight;
+                mLayoutParamsLogcat.gravity = Gravity.BOTTOM;
+                mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
+            }
+
+            if (mLogcatExpandButton.getDrawable() != mLogcatMore) {
+                mLogcatExpandButton.setImageDrawable(mLogcatMore);
+            }
 
             mContentOverlay.startAnimation(fadeIn);
             mContentOverlay.setVisibility(View.VISIBLE);
@@ -864,6 +896,7 @@ public class InfoFragment extends Fragment {
             mDisableScrolling = true;
             return true;
         } else {
+            fadeOut.setDuration(500);
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
 
