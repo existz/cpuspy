@@ -20,6 +20,7 @@
     <string name="snackbar_text_restore">Compteurs restaurés avec succès</string>
     <string name="snackbar_text_crashreport">Rapport de bug désactivé. Les changements prendront effet après redémarrage de l\'application.</string>
     <string name="snackbar_text_update">Une nouvelle version est disponible !</string>
+    <string name="snackbar_text_undo">Annuler</string>
     <string name="action_changelog">Changelog complet</string>
     <string name="action_back">Retour</string>
     <string name="action_done">OK</string>
@@ -124,10 +125,27 @@
     <string name="running_processes">Processus en exécution</string>
     <string name="btn_full_kernel_version">Version complète</string>
     <string name="btn_processes">Processus</string>
+    <string name="btn_logcat">Voir le logcat</string>
     <string name="contact">Contact</string>
     <string name="email_developer">E-mail au développeur</string>
     <string name="email_developer_summary">Envoyer un rapport de bug et une demande de fonctionnalité</string>
     <string name="view_gplus">Voir le profil Google+</string>
     <string name="view_gplus_summary">Accéder à la page de profil Google+</string>
     <string name="donate_summary">Envoyer de l\'argent pour aider à financer ce projet</string>
+    <string name="logcat_header">Logcat</string>
+    <string name="logcat_file_saved">Fichier sauvegardé dans /sdcard/</string>
+    <string name="logcat_error_saving">Impossible de sauvegarder le logcat dans sdcard</string>
+    <string name="process_name_header">Nom :</string>
+    <string name="process_policy_header">Policy :</string>
+    <string name="process_pid_header">PID :</string>
+    <string name="process_uid_header">UID/GID :</string>
+    <string name="process_ppid_header">PPID :</string>
+    <string name="process_started_header">Démarré :</string>
+    <string name="process_cputime_header">Temps CPU :</string>
+    <string name="process_nice_header">Nice :</string>
+    <string name="process_scheduling_header">Priorité de planification :</string>
+    <string name="process_usermode_header">Temps en mode utilisateur :</string>
+    <string name="process_kernelmode_header">Temps en mode kernel :</string>
+    <string name="process_size_header">Taille :</string>
+    <string name="process_rss_header">RSS :</string>
 </resources>
