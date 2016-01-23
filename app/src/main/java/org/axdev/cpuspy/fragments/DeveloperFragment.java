@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -23,8 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.color.CircleView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
@@ -71,8 +67,6 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         }
 
         final CircleImageView imageView = ButterKnife.findById(view, R.id.profile_image);
-        final Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.profile, null);
-        imageView.setImageDrawable(drawable);
         imageView.setBorderColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                 android.R.color.white : android.R.color.black));
 
