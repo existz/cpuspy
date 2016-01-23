@@ -56,6 +56,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.BindColor;
@@ -206,7 +207,7 @@ public class InfoFragment extends Fragment {
         mNumCores = CPUUtils.getCoreCount();
         if (mNumCores != 0) {
             mCpuCoreHeader.setTypeface(robotoMedium);
-            mCpuCore.setText(String.format("%d", mNumCores));
+            mCpuCore.setText(String.format(Locale.US, "%d", mNumCores));
         } else {
             mCpuCoreHeader.setVisibility(View.GONE);
             mCpuCore.setVisibility(View.GONE);
@@ -451,7 +452,7 @@ public class InfoFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mCpuUsage.setText(String.format("%.01f%%", usage));
+                                    mCpuUsage.setText(String.format(Locale.US, "%.01f%%", usage));
                                 }
                             });
                         } catch (NumberFormatException e) {

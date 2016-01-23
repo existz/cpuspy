@@ -71,6 +71,7 @@ import org.axdev.cpuspy.utils.Utils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindDrawable;
 import butterknife.BindString;
@@ -633,7 +634,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         // what percentage we've got
         final float per = (float)state.duration * 100 /
                 monitor.getTotalStateTime();
-        final String sPer = String.format("%.01f%%", per);
+        final String sPer = String.format(Locale.US, "%.01f%%", per);
 
         final String sFreq = state.freq == 0 ? statesDeepSleepText : state.freq / 1000 + "MHz";
 
