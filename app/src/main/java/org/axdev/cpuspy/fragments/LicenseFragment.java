@@ -61,6 +61,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mLicenseHeader.setTypeface(robotoMedium);
+        //noinspection ResourceAsColor
         mLicenseHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.license_list);

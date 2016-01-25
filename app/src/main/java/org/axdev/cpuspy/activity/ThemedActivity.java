@@ -118,6 +118,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
         ThemeSingleton.get().neutralColor = sl;
         ThemeSingleton.get().negativeColor = sl;
         ThemeSingleton.get().widgetColor = mLastAccentColor;
+        //noinspection ResourceType
         setTheme(mLastDarkTheme ? darkTheme() : lightTheme());
         super.onCreate(savedInstanceState);
 

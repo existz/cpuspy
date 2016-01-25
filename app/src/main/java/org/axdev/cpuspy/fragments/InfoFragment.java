@@ -252,8 +252,11 @@ public class InfoFragment extends Fragment {
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
         accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        //noinspection ResourceAsColor
         mKernelHeader.setTextColor(accentColor);
+        //noinspection ResourceAsColor
         mCpuHeader.setTextColor(accentColor);
+        //noinspection ResourceAsColor
         mDeviceHeader.setTextColor(accentColor);
 
         // OnTouchListener to allow disabling scrollview

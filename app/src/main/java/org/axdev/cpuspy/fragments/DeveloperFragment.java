@@ -77,6 +77,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         int accentColor = colorAccent == 0 ? ContextCompat.getColor(mContext, R.color.accent) : colorAccent;
 
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
+        //noinspection ResourceAsColor
         mHeader.setBackgroundColor(primaryColor);
 
         final View mDivider = ButterKnife.findById(view, R.id.viewDivider);
@@ -85,6 +86,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         final TextView contactTitle = ButterKnife.findById(view, R.id.developer_contact_title);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         contactTitle.setTypeface(robotoMedium);
+        //noinspection ResourceAsColor
         contactTitle.setTextColor(accentColor);
 
         final ListView mListView = ButterKnife.findById(getActivity(), R.id.developer_list);

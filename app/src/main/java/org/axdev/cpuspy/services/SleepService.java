@@ -105,6 +105,7 @@ public class SleepService extends Service {
                             final int color = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("primary_color", 0);
                             final int primaryColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
 
+                            //noinspection ResourceAsColor
                             mBuilder = new NotificationCompat.Builder(mContext)
                                     .setContentIntent(contentIntent)
                                     .setContentTitle(res.getString(R.string.notification_warning))

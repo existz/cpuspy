@@ -80,8 +80,10 @@ public class CreditsFragment extends Fragment {
         final int color = act.accentColor();
         final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
         mCreditsHeader.setTypeface(robotoMedium);
+        //noinspection ResourceAsColor
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
+        //noinspection ResourceAsColor
         mTranslatorsHeader.setTextColor(accentColor);
 
         final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.credits_list);
