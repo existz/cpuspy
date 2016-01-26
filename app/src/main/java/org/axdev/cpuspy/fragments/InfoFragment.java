@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -163,6 +164,7 @@ public class InfoFragment extends Fragment {
 
     private Animation popupEnterMtrl;
     private Context mContext;
+    private File mLogcatFile;
     private FrameLayout.LayoutParams mLayoutParamsLogcat;
     private Handler mHandler;
     private ImageButton mLogcatExpandButton;
@@ -314,7 +316,15 @@ public class InfoFragment extends Fragment {
                                 showFullKernelCard(false);
                                 return true;
                             } else if (mCardLogcat.isShown()) {
-                                showLogcatCard(false);
+                                if (mCardLogcat.getHeight() != mMinScreenHeight) {
+                                    mLayoutParamsLogcat.height = mMinScreenHeight;
+                                    mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
+                                    if (mLogcatExpandButton.getDrawable() != mLogcatMore) {
+                                        mLogcatExpandButton.setImageDrawable(mLogcatMore);
+                                    }
+                                } else {
+                                    showLogcatCard(false);
+                                }
                                 return true;
                             } else if (mDeviceMenu.isShown()) {
                                 mDeviceMenu.setVisibility(View.GONE);
@@ -746,14 +756,11 @@ public class InfoFragment extends Fragment {
 
     @OnClick(R.id.btn_logcat_save)
     void logcatSaveButton() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        REQUEST_WRITE_STORAGE);
-            } else {
-                writeLogcatToFile();
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_STORAGE);
         } else {
             writeLogcatToFile();
         }
@@ -761,34 +768,44 @@ public class InfoFragment extends Fragment {
 
     @SuppressWarnings("unused")
     private void writeLogcatToFile() {
-        final String fileName = "logcat.txt";
-        final File outputFile = new File(Environment.getExternalStorageDirectory(), fileName);
-        try {
-            if (outputFile.exists()) { boolean delete = outputFile.delete(); }
-            final FileWriter writer = new FileWriter(outputFile);
-            writer.write(mLogcatSummary.getText().toString());
-            writer.flush();
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            SnackbarManager.show(Snackbar.with(mContext)
-                    .text(logcatErrorSaving)
-                    .actionLabelTypeface(robotoMedium)
-                    .actionLabel(errorText)
-                    .actionColor(errorTextColor));
-        } finally {
-            SnackbarManager.show(Snackbar.with(mContext)
-                    .text(logcatFileSaved + fileName)
-                    .actionLabelTypeface(robotoMedium)
-                    .actionLabel(snackBarUndo) // action button label
-                    .actionColor(accentColor)
-                    .actionListener(new ActionClickListener() {
-                        @Override
-                        public void onActionClicked(Snackbar snackbar) {
-                            if (outputFile.exists()) { boolean delete = outputFile.delete(); }
+        new MaterialDialog.Builder(mContext)
+                .title(R.string.logcat_input_title)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .inputRange(1, 32)
+                .positiveText(R.string.action_done)
+                .input(R.string.logcat_input_hint, 0, false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        mLogcatFile = new File(Environment.getExternalStorageDirectory(), input.toString());
+
+                        try {
+                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
+                            final FileWriter writer = new FileWriter(mLogcatFile);
+                            writer.write(mLogcatSummary.getText().toString());
+                            writer.flush();
+                            writer.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            SnackbarManager.show(Snackbar.with(mContext)
+                                    .text(logcatErrorSaving)
+                                    .actionLabelTypeface(robotoMedium)
+                                    .actionLabel(errorText)
+                                    .actionColor(errorTextColor));
+                        } finally {
+                            SnackbarManager.show(Snackbar.with(mContext)
+                                    .text(logcatFileSaved + input.toString())
+                                    .actionLabelTypeface(robotoMedium)
+                                    .actionLabel(snackBarUndo) // action button label
+                                    .actionColor(accentColor)
+                                    .actionListener(new ActionClickListener() {
+                                        @Override
+                                        public void onActionClicked(Snackbar snackbar) {
+                                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
+                                        }
+                                    }));
                         }
-                    }));
-        }
+                    }
+                }).show();
     }
 
     private boolean showFullKernelCard(boolean enabled) {

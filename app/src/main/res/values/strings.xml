@@ -163,6 +163,8 @@
     <string name="logcat_header">Logcat</string>
     <string name="logcat_file_saved">File saved to /sdcard/</string>
     <string name="logcat_error_saving">"Unable to save logcat to sdcard"</string>
+    <string name="logcat_input_title">Save file as&#8230;</string>
+    <string name="logcat_input_hint">logcat.txt</string>
 
     <string name="process_name_header">Name:</string>
     <string name="process_policy_header">Policy:</string>
