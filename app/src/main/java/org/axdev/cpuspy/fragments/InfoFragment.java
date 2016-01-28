@@ -146,7 +146,7 @@ public class InfoFragment extends Fragment {
     @BindString(R.string.information_kernel_version_unavailable) String versionUnavailableText;
     @BindString(R.string.logcat_file_saved) String logcatFileSaved;
     @BindString(R.string.logcat_error_saving) String logcatErrorSaving;
-    @BindString(R.string.snackbar_text_undo) String snackBarUndo;
+    @BindString(R.string.snackbar_text_delete) String snackBarDelete;
 
     private boolean mDisableScrolling;
     private boolean mIsVisible;
@@ -795,7 +795,7 @@ public class InfoFragment extends Fragment {
                             SnackbarManager.show(Snackbar.with(mContext)
                                     .text(logcatFileSaved + input.toString())
                                     .actionLabelTypeface(robotoMedium)
-                                    .actionLabel(snackBarUndo) // action button label
+                                    .actionLabel(snackBarDelete) // action button label
                                     .actionColor(accentColor)
                                     .actionListener(new ActionClickListener() {
                                         @Override

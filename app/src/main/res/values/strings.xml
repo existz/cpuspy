@@ -32,6 +32,7 @@
     <string name="snackbar_text_crashreport">Crash reporting disabled. Changes will take effect when app restarts.</string>
     <string name="snackbar_text_update">A newer version is available!</string>
     <string name="snackbar_text_undo">Undo</string>
+    <string name="snackbar_text_delete">Delete</string>
 
     <string name="action_changelog">Full Changelog</string>
     <string name="action_back">Back</string>
