@@ -446,6 +446,11 @@ public class InfoFragment extends Fragment {
                     }
                 } catch (NumberFormatException e) {
                     mCpuTemp = null;
+                } catch (Exception e) {
+                    mIsMonitoringTemp = false;
+                    mCpuTemp.setText(errorText);
+                    mCpuTemp.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                    e.printStackTrace();
                 }
                 mHandler.postDelayed(this, 3000);
             }
