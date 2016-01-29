@@ -33,7 +33,7 @@ public class ProcessActivity extends ThemedActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mActionBar.setTitle(R.string.running_processes);
         } else {
-            final SpannableString s = new SpannableString(res.getString(R.string.app_name_long));
+            final SpannableString s = new SpannableString(res.getString(R.string.running_processes));
             s.setSpan(new TypefaceSpan(this, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
