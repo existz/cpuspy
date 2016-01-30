@@ -433,7 +433,7 @@ public class InfoFragment extends Fragment {
                     } else {
                         mIsMonitoringTemp = false;
                         mCpuTemp.setText(errorText);
-                        mCpuTemp.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCpuTemp.setTextColor(errorTextColor);
                         Log.e("CpuSpyInfo", "Error reading cpu temp: null");
                     }
                 } catch (NumberFormatException e) {
@@ -441,7 +441,7 @@ public class InfoFragment extends Fragment {
                 } catch (Exception e) {
                     mIsMonitoringTemp = false;
                     mCpuTemp.setText(errorText);
-                    mCpuTemp.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                    mCpuTemp.setTextColor(errorTextColor);
                     e.printStackTrace();
                 }
                 mHandler.postDelayed(this, 3000);
@@ -468,8 +468,10 @@ public class InfoFragment extends Fragment {
                         } catch (NumberFormatException e) {
                             mCpuUsage = null;
                         } catch (Exception e) {
-                            e.printStackTrace();
                             mIsMonitoringUsage = false;
+                            mCpuUsage.setText(errorText);
+                            mCpuUsage.setTextColor(errorTextColor);
+                            e.printStackTrace();
                         }
                     }
                 }).start();
@@ -492,7 +494,7 @@ public class InfoFragment extends Fragment {
                         } else {
                             mIsMonitoringCpu = false;
                             mCore0.setText(errorText);
-                            mCore0.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                            mCore0.setTextColor(errorTextColor);
                             Log.e("CpuSpyInfo", "Error reading cpu0: null");
                             return;
                         }
@@ -502,7 +504,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu0 = false;
                         mCore0.setText(errorText);
-                        mCore0.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore0.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU1 */
@@ -522,7 +524,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu1 = false;
                         mCore1.setText(errorText);
-                        mCore1.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore1.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU2 */
@@ -542,7 +544,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu2 = false;
                         mCore2.setText(errorText);
-                        mCore2.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore2.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU3 */
@@ -562,7 +564,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu3 = false;
                         mCore3.setText(errorText);
-                        mCore3.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore3.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU4 */
@@ -582,7 +584,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu4 = false;
                         mCore4.setText(errorText);
-                        mCore4.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore4.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU5 */
@@ -602,7 +604,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu5 = false;
                         mCore5.setText(errorText);
-                        mCore5.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore5.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU6 */
@@ -622,7 +624,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu6 = false;
                         mCore6.setText(errorText);
-                        mCore6.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore6.setTextColor(errorTextColor);
                     }
                 }
                 /** Set the frequency for CPU7 */
@@ -642,7 +644,7 @@ public class InfoFragment extends Fragment {
                         e.printStackTrace();
                         mHasCpu7 = false;
                         mCore7.setText(errorText);
-                        mCore7.setTextColor(ContextCompat.getColor(mContext, errorTextColor));
+                        mCore7.setTextColor(errorTextColor);
                     }
                 }
 
@@ -888,7 +890,7 @@ public class InfoFragment extends Fragment {
                         public void onError(Context context, Exception e) {
                             progress.setVisibility(View.GONE);
                             mLogcatSummary.setText(errorText);
-                            mLogcatSummary.setTextColor(ContextCompat.getColor(getActivity(), errorTextColor));
+                            mLogcatSummary.setTextColor(errorTextColor);
                             e.printStackTrace();
                         }
                     });
