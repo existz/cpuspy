@@ -866,20 +866,6 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/btn_logcat_expand"
-                android:src="@drawable/ic_more"
-                android:tint="?attr/colorDrawableTint"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="@dimen/btn_padding_mtrl"
-                style="?android:attr/borderlessButtonStyle"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/btn_logcat_save" />
-
-            <ImageButton
                 android:id="@+id/btn_logcat_save"
                 android:src="@drawable/ic_save"
                 android:tint="?attr/colorDrawableTint"
@@ -918,10 +904,10 @@
                 android:text="@string/logcat_header"/>
 
             <ScrollView
+                android:id="@+id/logcat_scrollview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_mtrl"
-                android:layout_marginBottom="@dimen/padding_mtrl"
                 android:layout_below="@+id/logcat_header"
                 android:orientation="vertical">
 
@@ -934,7 +920,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_gravity="center"
