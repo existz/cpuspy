@@ -19,6 +19,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,10 +95,16 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
                 final String[] entry = licenseList.get(position);
                 final TextView mText1 = ButterKnife.findById(view, android.R.id.text1);
                 final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
+
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
+
+                mText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text1_size));
+                mText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text2_size));
+
                 mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
+
                 return view;
             }
         });

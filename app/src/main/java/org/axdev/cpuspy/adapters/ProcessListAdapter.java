@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,9 @@ public class ProcessListAdapter extends BaseAdapter {
         ImageView imageView = holder.find(R.id.imageView);
         TextView textView = holder.find(R.id.textView);
         TextView textViewSummary = holder.find(R.id.textView_summary);
+
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.list_text2_size));
+        textViewSummary.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.list_text2_size));
 
         picasso.load(Uri.parse(SCHEME_PNAME + ":" + process.getPackageName()))
                 .placeholder(android.R.drawable.sym_def_app_icon)
