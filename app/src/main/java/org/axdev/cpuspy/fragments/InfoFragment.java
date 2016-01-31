@@ -458,20 +458,20 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void run() {
                         final float usage = CPUUtils.getCpuUsage();
-                        try {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mCpuUsage.setText(String.format(Locale.US, "%.01f%%", usage));
-                                }
-                            });
-                        } catch (NumberFormatException e) {
-                            mCpuUsage = null;
-                        } catch (Exception e) {
-                            mIsMonitoringUsage = false;
-                            mCpuUsage.setText(errorText);
-                            mCpuUsage.setTextColor(errorTextColor);
-                            e.printStackTrace();
+                        if (usage != 0) {
+                            try {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mCpuUsage.setText(String.format(Locale.US, "%.01f%%", usage));
+                                    }
+                                });
+                            } catch (NumberFormatException e) {
+                                mCpuUsage = null;
+                            } catch (Exception e) {
+                                mIsMonitoringUsage = false;
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }).start();
@@ -881,9 +881,10 @@ public class InfoFragment extends Fragment {
                     }, new Completion<String>() {
                         @Override
                         public void onSuccess(Context context, String result) {
-                            mLogcatSummary.setVisibility(View.VISIBLE);
                             mLogcatSummary.setText(result);
-                            progress.setVisibility(View.GONE);
+                            if (progress.getVisibility() == View.VISIBLE) {
+                                progress.setVisibility(View.GONE);
+                            }
                         }
 
                         @Override
