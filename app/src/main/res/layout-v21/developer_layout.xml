@@ -21,7 +21,6 @@
             android:layout_below="@+id/developer_header" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:src="@drawable/profile"
             android:layout_width="175dp"
@@ -29,8 +28,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="36dp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false"
-            app:civ_border_width="2dp"/>
+            android:layout_centerVertical="false"/>
 
         <TextView
             android:id="@+id/developer_contact_title"

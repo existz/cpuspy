@@ -69,7 +69,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
 
         final CircleImageView imageView = ButterKnife.findById(view, R.id.profile_image);
         imageView.setBorderColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
-                android.R.color.white : android.R.color.black));
+                android.R.color.white : R.color.light_background));
+        imageView.setBorderWidth((int) getResources().getDimension(ThemedActivity.mIsDarkTheme ?
+                R.dimen.circleimage_border_medium : R.dimen.circleimage_border_large));
 
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int colorPrimary = act.primaryColor();
