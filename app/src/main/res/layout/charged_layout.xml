@@ -69,7 +69,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btn_charged"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="@dimen/padding_mtrl"
                     android:layout_marginBottom="8dp"

@@ -52,9 +52,9 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_feature"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginBottom="@dimen/padding_mtrl"
                 android:layout_marginEnd="@dimen/padding_mtrl"
                 android:text="@string/action_dismiss"
