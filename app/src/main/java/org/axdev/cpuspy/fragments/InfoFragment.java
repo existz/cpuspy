@@ -58,6 +58,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.BindColor;
@@ -167,7 +168,6 @@ public class InfoFragment extends Fragment {
     private Typeface robotoMedium;
 
     private int accentColor;
-    private int mScreenHeight;
     private int mMinScreenHeight;
     private int mInitialY;
     private int mNumCores;
@@ -199,8 +199,7 @@ public class InfoFragment extends Fragment {
         final Display display = getActivity().getWindowManager().getDefaultDisplay();
         final Point size = new Point();
         display.getSize(size);
-        mScreenHeight = size.y;
-        mMinScreenHeight = mScreenHeight / 3;
+        mMinScreenHeight = size.y / 3;
 
         /** Get layout parameters */
         mLayoutParamsLogcat = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mMinScreenHeight);
@@ -733,7 +732,6 @@ public class InfoFragment extends Fragment {
     void logcatButton() {
         if (!mCardLogcat.isShown()) {
             mDeviceMenu.setVisibility(View.GONE);
-            mLogcatSummary.setText(null);
             showLogcatCard(true);
         } else {
             showLogcatCard(false);
@@ -829,7 +827,7 @@ public class InfoFragment extends Fragment {
         final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
 
         if (enabled) {
-            final String logcatCommand = "logcat -d -v brief";
+            final String logcatCommand = "logcat -d -v brief -t 500";
             final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
 
             // Show loading dialog
@@ -864,6 +862,7 @@ public class InfoFragment extends Fragment {
                         public String doInBackground() throws Exception {
                             boolean suAvailable = Shell.SU.available();
                             if (suAvailable) {
+                                TimeUnit.MILLISECONDS.sleep(500);
                                 return Shell.SU.run(logcatCommand).toString();
                             } else {
                                 final Process process = Runtime.getRuntime().exec(logcatCommand);
@@ -889,7 +888,9 @@ public class InfoFragment extends Fragment {
 
                         @Override
                         public void onError(Context context, Exception e) {
-                            progress.setVisibility(View.GONE);
+                            if (progress.getVisibility() == View.VISIBLE) {
+                                progress.setVisibility(View.GONE);
+                            }
                             mLogcatSummary.setText(errorText);
                             mLogcatSummary.setTextColor(errorTextColor);
                             e.printStackTrace();
@@ -912,7 +913,7 @@ public class InfoFragment extends Fragment {
                 public boolean onTouch(View view, MotionEvent event) {
                     int newHeight = mInitialY - (int) (event.getRawY() - mInitialTouchY);
                     int maxHeight = mContentOverlay.getHeight();
-                    int bottomMargin = (int) mContext.getResources().getDimension(R.dimen.padding_mtrl);
+                    int bottomMargin = (int) mContext.getResources().getDimension(R.dimen.padding_mtrl_logcatBottom);
 
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
                         case MotionEvent.ACTION_DOWN:
@@ -920,9 +921,11 @@ public class InfoFragment extends Fragment {
                             mInitialTouchY = event.getRawY();
                             break;
                         case MotionEvent.ACTION_UP:
-                            if (newHeight > mScreenHeight / 2) {
+                            if (newHeight > maxHeight / 2) {
                                 mLayoutParamsLogcat.height = maxHeight;
-                                mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
+                                if (mLayoutParamsLogcatScroll.bottomMargin == 0) {
+                                    mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
+                                }
                             } else if (newHeight < mMinScreenHeight) {
                                 showLogcatCard(false);
                                 mCardLogcat.setOnTouchListener(null);
@@ -936,10 +939,11 @@ public class InfoFragment extends Fragment {
                         case MotionEvent.ACTION_MOVE:
                             if (newHeight > maxHeight) {
                                 mLayoutParamsLogcat.height = maxHeight;
+                                mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
                             } else {
                                 mLayoutParamsLogcat.height = newHeight;
+                                mLayoutParamsLogcatScroll.bottomMargin = 0;
                             }
-                            mLayoutParamsLogcatScroll.bottomMargin = 0;
                             mScrollView.setLayoutParams(mLayoutParamsLogcatScroll);
                             mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
                             break;
@@ -959,6 +963,7 @@ public class InfoFragment extends Fragment {
             mCardLogcat.setVisibility(View.GONE);
 
             mDisableScrolling = false;
+            mLogcatSummary.setText(null);
             return false;
         }
     }

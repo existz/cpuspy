@@ -20,5 +20,6 @@
 <resources>
     <dimen name="padding_mtrl">24dp</dimen>
     <dimen name="padding_mtrl_cpu">32dp</dimen>
+    <dimen name="padding_mtrl_logcatBottom">26dp</dimen>
     <dimen name="btn_padding_mtrl">8dp</dimen>
 </resources>
