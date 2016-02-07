@@ -880,7 +880,7 @@ public class InfoFragment extends Fragment {
                     }, new Completion<String>() {
                         @Override
                         public void onSuccess(Context context, String result) {
-                            mLogcatSummary.setText(result);
+                            if (mLogcatSummary != null) mLogcatSummary.setText(result);
                             if (progress.getVisibility() == View.VISIBLE) {
                                 progress.setVisibility(View.GONE);
                             }
@@ -891,8 +891,10 @@ public class InfoFragment extends Fragment {
                             if (progress.getVisibility() == View.VISIBLE) {
                                 progress.setVisibility(View.GONE);
                             }
-                            mLogcatSummary.setText(errorText);
-                            mLogcatSummary.setTextColor(errorTextColor);
+                            if (mLogcatSummary != null) {
+                                mLogcatSummary.setText(errorText);
+                                mLogcatSummary.setTextColor(errorTextColor);
+                            }
                             e.printStackTrace();
                         }
                     });
