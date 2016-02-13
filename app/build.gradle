@@ -65,7 +65,7 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nispok:snackbar:2.11.0@aar'
-    compile 'com.jaredrummler:android-processes:1.0.4@aar'
+    compile 'com.jaredrummler:android-processes:1.0.6@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.fabiendevos:nanotasks:1.1.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0@aar'
