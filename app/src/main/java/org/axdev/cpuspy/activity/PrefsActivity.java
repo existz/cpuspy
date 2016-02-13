@@ -167,6 +167,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                             .doneButton(R.string.md_done_label)
                             .cancelButton(R.string.md_cancel_label)
                             .backButton(R.string.md_back_label)
+                            .allowUserColorInputAlpha(false)
                             .show();
                     return true;
                 }
@@ -185,6 +186,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
                             .doneButton(R.string.md_done_label)
                             .cancelButton(R.string.md_cancel_label)
                             .backButton(R.string.md_back_label)
+                            .allowUserColorInputAlpha(false)
                             .show();
                     return true;
                 }
