@@ -811,6 +811,7 @@ public class InfoFragment extends Fragment {
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
 
+            slideDown.setDuration(250L);
             mCardKernelFull.startAnimation(slideDown);
             mCardKernelFull.setVisibility(View.GONE);
 
@@ -953,11 +954,11 @@ public class InfoFragment extends Fragment {
 
             return true;
         } else {
-            fadeOut.setDuration(500);
+            fadeOut.setDuration(500L);
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
 
-            slideDown.setDuration(300);
+            slideDown.setDuration(200L);
             mCardLogcat.startAnimation(slideDown);
             mCardLogcat.setVisibility(View.GONE);
             mCardLogcat.setOnTouchListener(null);
