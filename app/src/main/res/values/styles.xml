@@ -43,4 +43,15 @@
         <item name="android:textColor">@color/primary_text_color</item>
     </style>
 
+    <style name="ListTextAppearanceTitle">
+        <item name="android:textSize">@dimen/list_text1_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="ListTextAppearanceSummary">
+        <item name="android:textSize">@dimen/list_text2_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>

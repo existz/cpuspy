@@ -95,33 +95,33 @@ public class CreditsFragment extends Fragment {
         creditList.add(new String[]{"Creator", "Brandon Valosek"});
         mListView1.setAdapter(new ArrayAdapter<String[]>(
                 mContext,
-                android.R.layout.simple_list_item_2,
-                android.R.id.text1,
+                R.layout.list_item_2,
                 creditList) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-                // Must always return just a View.
-                final View view = super.getView(position, convertView, parent);
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) mContext
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(
+                            R.layout.list_item_2, parent, false);
+                }
 
                 // If you look at the android.R.layout.simple_list_item_2 source, you'll see
                 // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
                 //TwoLineListItem listItem = (TwoLineListItem) view;
                 final String[] entry = creditList.get(position);
-                final TextView mText1 = ButterKnife.findById(view, android.R.id.text1);
-                final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
+                final TextView mText1 = ButterKnife.findById(convertView, R.id.text1);
+                final TextView mText2 = ButterKnife.findById(convertView, R.id.text2);
 
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
 
-                mText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text1_size));
-                mText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text2_size));
-
                 mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
 
-                return view;
+                return convertView;
             }
         });
 
@@ -139,33 +139,33 @@ public class CreditsFragment extends Fragment {
         translatorList.add(new String[]{"Swedish", "Carl"});
         mListView2.setAdapter(new ArrayAdapter<String[]>(
                 mContext,
-                android.R.layout.simple_list_item_2,
-                android.R.id.text1,
+                R.layout.list_item_2,
                 translatorList) {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-                // Must always return just a View.
-                final View view = super.getView(position, convertView, parent);
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) mContext
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(
+                            R.layout.list_item_2, parent, false);
+                }
 
                 // If you look at the android.R.layout.simple_list_item_2 source, you'll see
                 // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
                 //TwoLineListItem listItem = (TwoLineListItem) view;
                 final String[] entry = translatorList.get(position);
-                final TextView mText1 = ButterKnife.findById(view, android.R.id.text1);
-                final TextView mText2 = ButterKnife.findById(view, android.R.id.text2);
+                final TextView mText1 = ButterKnife.findById(convertView, R.id.text1);
+                final TextView mText2 = ButterKnife.findById(convertView, R.id.text2);
 
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
 
-                mText1.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text1_size));
-                mText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.list_text2_size));
-
                 mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
                         R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
 
-                return view;
+                return convertView;
             }
         });
 

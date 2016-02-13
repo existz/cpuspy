@@ -47,6 +47,7 @@
         android:layout_toEndOf="@+id/imageView"
         android:singleLine="true"
         android:ellipsize="middle"
+        android:textAppearance="@style/ListTextAppearanceSummary"
         tools:ignore="RtlHardcoded"/>
 
     <TextView
@@ -61,6 +62,7 @@
         android:layout_below="@+id/textView"
         android:singleLine="true"
         android:ellipsize="middle"
+        android:textAppearance="@style/ListTextAppearanceSummary"
         tools:ignore="RtlHardcoded"/>
 
 </RelativeLayout>
