@@ -928,28 +928,25 @@ public class InfoFragment extends Fragment {
                                 if (mLayoutParamsLogcatScroll.bottomMargin == 0) {
                                     mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
                                 }
-                            } else if (newHeight < mMinScreenHeight) {
-                                showLogcatCard(false);
-                                mCardLogcat.setOnTouchListener(null);
                             } else {
-                                mLayoutParamsLogcat.height = mMinScreenHeight;
-                                mLayoutParamsLogcatScroll.bottomMargin = 0;
+                                showLogcatCard(false);
                             }
-                            mScrollView.setLayoutParams(mLayoutParamsLogcatScroll);
-                            mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
                             break;
                         case MotionEvent.ACTION_MOVE:
                             if (newHeight > maxHeight) {
                                 mLayoutParamsLogcat.height = maxHeight;
                                 mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
-                            } else {
+                            } else if (newHeight > 0) {
                                 mLayoutParamsLogcat.height = newHeight;
                                 mLayoutParamsLogcatScroll.bottomMargin = 0;
+                            } else {
+                                mLayoutParamsLogcat.height = 0;
+                                mLayoutParamsLogcatScroll.bottomMargin = 0;
                             }
-                            mScrollView.setLayoutParams(mLayoutParamsLogcatScroll);
-                            mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
                             break;
                     }
+                    mCardLogcat.requestLayout();
+                    mCardLogcat.invalidate();
                     return true;
                 }
             });
@@ -963,6 +960,7 @@ public class InfoFragment extends Fragment {
             slideDown.setDuration(300);
             mCardLogcat.startAnimation(slideDown);
             mCardLogcat.setVisibility(View.GONE);
+            mCardLogcat.setOnTouchListener(null);
 
             mDisableScrolling = false;
             mLogcatSummary.setText(null);
