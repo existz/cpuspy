@@ -26,7 +26,7 @@
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="32dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="false"/>
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="22dp"
             android:layout_below="@+id/profile_image"
             android:text="@string/contact"/>
 
@@ -73,7 +73,7 @@
             android:id="@+id/developer_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="22dp"
             android:layout_marginStart="82dp"
             android:layout_marginEnd="@dimen/padding_mtrl"
             android:layout_below="@+id/profile_image"/>

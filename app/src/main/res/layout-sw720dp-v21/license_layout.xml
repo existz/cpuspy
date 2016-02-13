@@ -16,16 +16,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_mtrl"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:text="@string/license_header"/>
 
         <ListView
             android:id="@+id/license_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginEnd="26dp"/>
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
