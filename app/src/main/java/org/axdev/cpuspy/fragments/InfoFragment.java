@@ -163,12 +163,10 @@ public class InfoFragment extends Fragment {
     private Animation popupEnterMtrl;
     private Context mContext;
     private File mLogcatFile;
-    private FrameLayout.LayoutParams mLayoutParamsLogcat;
     private Handler mHandler;
     private Typeface robotoMedium;
 
     private int accentColor;
-    private int mMinScreenHeight;
     private int mInitialY;
     private int mNumCores;
     private final int REQUEST_WRITE_STORAGE = 112;
@@ -194,15 +192,6 @@ public class InfoFragment extends Fragment {
         final String api = CPUUtils.getSystemProperty("ro.build.version.sdk");
         final String platform = CPUUtils.getSystemProperty("ro.board.platform");
         final String kernelVersion = System.getProperty("os.version");
-
-        /** Get size of the default display */
-        final Display display = getActivity().getWindowManager().getDefaultDisplay();
-        final Point size = new Point();
-        display.getSize(size);
-        mMinScreenHeight = size.y / 3;
-
-        /** Get layout parameters */
-        mLayoutParamsLogcat = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mMinScreenHeight);
 
         /** @return the current number of CPU cores */
         mNumCores = CPUUtils.getCoreCount();
@@ -835,11 +824,14 @@ public class InfoFragment extends Fragment {
             MDTintHelper.setTint(progress, accentColor);
             progress.setVisibility(View.VISIBLE);
 
-            // Set card height to mMinScreenHeight
+            // Get layout parameters
+            final int mMinScreenHeight = mContainer.getMeasuredHeight() / 2;
+            final FrameLayout.LayoutParams mLayoutParamsLogcat = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mMinScreenHeight);
             final ScrollView mScrollView = ButterKnife.findById(getActivity(), R.id.logcat_scrollview);
             final RelativeLayout.LayoutParams mLayoutParamsLogcatScroll = (RelativeLayout.LayoutParams) mScrollView
                     .getLayoutParams();
 
+            // Set card height to mMinScreenHeight
             if (mMinScreenHeight != 0) {
                 mLayoutParamsLogcat.height = mMinScreenHeight;
                 mLayoutParamsLogcat.gravity = Gravity.BOTTOM;
@@ -915,7 +907,7 @@ public class InfoFragment extends Fragment {
                 @Override
                 public boolean onTouch(View view, MotionEvent event) {
                     int newHeight = mInitialY - (int) (event.getRawY() - mInitialTouchY);
-                    int maxHeight = mContentOverlay.getHeight();
+                    int maxHeight = mContainer.getMeasuredHeight();
                     int bottomMargin = (int) mContext.getResources().getDimension(R.dimen.padding_mtrl_logcatBottom);
 
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -934,7 +926,7 @@ public class InfoFragment extends Fragment {
                             }
                             break;
                         case MotionEvent.ACTION_MOVE:
-                            if (newHeight > maxHeight) {
+                            if (newHeight >= maxHeight) {
                                 mLayoutParamsLogcat.height = maxHeight;
                                 mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
                             } else if (newHeight > 0) {
@@ -957,14 +949,26 @@ public class InfoFragment extends Fragment {
             fadeOut.setDuration(500L);
             mContentOverlay.startAnimation(fadeOut);
             mContentOverlay.setVisibility(View.GONE);
+            fadeOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    slideDown.setDuration(200L);
+                    mCardLogcat.startAnimation(slideDown);
+                    mCardLogcat.setVisibility(View.GONE);
+                }
 
-            slideDown.setDuration(200L);
-            mCardLogcat.startAnimation(slideDown);
-            mCardLogcat.setVisibility(View.GONE);
-            mCardLogcat.setOnTouchListener(null);
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mDisableScrolling = false;
+                    mLogcatSummary.setText(null);
+                    mCardLogcat.setOnTouchListener(null);
+                }
 
-            mDisableScrolling = false;
-            mLogcatSummary.setText(null);
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
             return false;
         }
     }
