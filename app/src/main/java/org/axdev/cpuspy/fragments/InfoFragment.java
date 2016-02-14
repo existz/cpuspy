@@ -755,7 +755,7 @@ public class InfoFragment extends Fragment {
         new MaterialDialog.Builder(mContext)
                 .title(R.string.logcat_input_title)
                 .inputType(InputType.TYPE_CLASS_TEXT)
-                .inputRange(1, 32)
+                .inputRange(1, 32, accentColor)
                 .positiveText(R.string.action_done)
                 .input(R.string.logcat_input_hint, 0, false, new MaterialDialog.InputCallback() {
                     @Override
