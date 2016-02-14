@@ -21,7 +21,6 @@
     <dimen name="ab_elevation">4dp</dimen>
     <dimen name="padding_mtrl">16dp</dimen>
     <dimen name="padding_mtrl_cpu">24dp</dimen>
-    <dimen name="padding_mtrl_logcatBottom">18dp</dimen>
     <dimen name="btn_padding_mtrl">0dp</dimen>
     <dimen name="circle_view_border">1dp</dimen>
     <dimen name="list_text1_size">18sp</dimen>

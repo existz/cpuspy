@@ -11,7 +11,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,7 +31,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -74,6 +71,7 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.card_view_logcat) CardView mCardLogcat;
     @Bind(R.id.kernel_menu) CardView mKernelMenu;
     @Bind(R.id.device_menu) CardView mDeviceMenu;
+    @Bind(R.id.logcat_progressbar) MaterialProgressBar mProgressBarLogcat;
     @Bind(R.id.logcat_header) TextView mLogcatHeader;
     @Bind(R.id.logcat_output) TextView mLogcatSummary;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
@@ -684,7 +682,7 @@ public class InfoFragment extends Fragment {
 
     /** Bind button listeners */
     @OnClick({R.id.full_kernel_version, R.id.btn_kernel_close})
-    void fullKernelVersion() {
+    protected void fullKernelVersion() {
         if (!mCardKernelFull.isShown()) {
             showFullKernelCard(true);
             if (CPUUtils.getKernelVersion() != null) {
@@ -699,26 +697,26 @@ public class InfoFragment extends Fragment {
     }
 
     @OnClick(R.id.btn_kernel_more)
-    void kernelMoreButton() {
+    protected void kernelMoreButton() {
         mKernelMenu.startAnimation(popupEnterMtrl);
         mKernelMenu.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.btn_device_more)
-    void deviceMoreButton() {
+    protected void deviceMoreButton() {
         mDeviceMenu.startAnimation(popupEnterMtrl);
         mDeviceMenu.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.running_processes)
-    void runningProcessesButton() {
+    protected void runningProcessesButton() {
         mDeviceMenu.setVisibility(View.GONE);
         Intent myIntent = new Intent(getActivity(), ProcessActivity.class);
         startActivity(myIntent);
     }
 
     @OnClick({R.id.logcat, R.id.btn_logcat_close})
-    void logcatButton() {
+    protected void logcatButton() {
         if (!mCardLogcat.isShown()) {
             mDeviceMenu.setVisibility(View.GONE);
             showLogcatCard(true);
@@ -728,7 +726,7 @@ public class InfoFragment extends Fragment {
     }
 
     @OnClick(R.id.btn_logcat_save)
-    void logcatSaveButton() {
+    protected void logcatSaveButton() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -818,27 +816,20 @@ public class InfoFragment extends Fragment {
 
         if (enabled) {
             final String logcatCommand = "logcat -d -v brief -t 500";
-            final MaterialProgressBar progress = ButterKnife.findById(getActivity(), R.id.logcat_progressbar);
 
             // Show loading dialog
-            MDTintHelper.setTint(progress, accentColor);
-            progress.setVisibility(View.VISIBLE);
+            MDTintHelper.setTint(mProgressBarLogcat, accentColor);
+            mProgressBarLogcat.setVisibility(View.VISIBLE);
 
             // Get layout parameters
             final int mMinScreenHeight = mContainer.getMeasuredHeight() / 2;
             final FrameLayout.LayoutParams mLayoutParamsLogcat = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, mMinScreenHeight);
-            final ScrollView mScrollView = ButterKnife.findById(getActivity(), R.id.logcat_scrollview);
-            final RelativeLayout.LayoutParams mLayoutParamsLogcatScroll = (RelativeLayout.LayoutParams) mScrollView
-                    .getLayoutParams();
 
             // Set card height to mMinScreenHeight
             if (mMinScreenHeight != 0) {
                 mLayoutParamsLogcat.height = mMinScreenHeight;
                 mLayoutParamsLogcat.gravity = Gravity.BOTTOM;
                 mCardLogcat.setLayoutParams(mLayoutParamsLogcat);
-
-                mLayoutParamsLogcatScroll.bottomMargin = 0;
-                mScrollView.setLayoutParams(mLayoutParamsLogcatScroll);
             }
 
             mContentOverlay.startAnimation(fadeIn);
@@ -874,15 +865,15 @@ public class InfoFragment extends Fragment {
                         @Override
                         public void onSuccess(Context context, String result) {
                             if (mLogcatSummary != null) mLogcatSummary.setText(result);
-                            if (progress.getVisibility() == View.VISIBLE) {
-                                progress.setVisibility(View.GONE);
+                            if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
+                                mProgressBarLogcat.setVisibility(View.GONE);
                             }
                         }
 
                         @Override
                         public void onError(Context context, Exception e) {
-                            if (progress.getVisibility() == View.VISIBLE) {
-                                progress.setVisibility(View.GONE);
+                            if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
+                                mProgressBarLogcat.setVisibility(View.GONE);
                             }
                             if (mLogcatSummary != null) {
                                 mLogcatSummary.setText(errorText);
@@ -908,7 +899,6 @@ public class InfoFragment extends Fragment {
                 public boolean onTouch(View view, MotionEvent event) {
                     int newHeight = mInitialY - (int) (event.getRawY() - mInitialTouchY);
                     int maxHeight = mContainer.getMeasuredHeight();
-                    int bottomMargin = (int) mContext.getResources().getDimension(R.dimen.padding_mtrl_logcatBottom);
 
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
                         case MotionEvent.ACTION_DOWN:
@@ -916,11 +906,8 @@ public class InfoFragment extends Fragment {
                             mInitialTouchY = event.getRawY();
                             break;
                         case MotionEvent.ACTION_UP:
-                            if (newHeight > maxHeight / 2) {
+                            if (newHeight >= mMinScreenHeight) {
                                 mLayoutParamsLogcat.height = maxHeight;
-                                if (mLayoutParamsLogcatScroll.bottomMargin == 0) {
-                                    mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
-                                }
                             } else {
                                 showLogcatCard(false);
                             }
@@ -928,13 +915,10 @@ public class InfoFragment extends Fragment {
                         case MotionEvent.ACTION_MOVE:
                             if (newHeight >= maxHeight) {
                                 mLayoutParamsLogcat.height = maxHeight;
-                                mLayoutParamsLogcatScroll.bottomMargin = bottomMargin;
                             } else if (newHeight > 0) {
                                 mLayoutParamsLogcat.height = newHeight;
-                                mLayoutParamsLogcatScroll.bottomMargin = 0;
                             } else {
                                 mLayoutParamsLogcat.height = 0;
-                                mLayoutParamsLogcatScroll.bottomMargin = 0;
                             }
                             break;
                     }
