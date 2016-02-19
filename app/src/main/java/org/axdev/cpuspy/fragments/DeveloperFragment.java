@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,16 +30,30 @@ import org.axdev.cpuspy.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DeveloperFragment extends Fragment implements AdapterView.OnItemClickListener {
 
+    @BindColor(R.color.secondary_text_color_dark) int mColorTextDark;
+    @BindColor(R.color.secondary_text_color_light) int mColorTextLight;
+    @BindString(R.string.pref_about_developer) String mStringDeveloper;
+    @BindString(R.string.email_developer) String mStringEmailDev;
+    @BindString(R.string.email_developer_summary) String mStringEmailDevSummary;
+    @BindString(R.string.view_gplus) String mStringGPlus;
+    @BindString(R.string.view_gplus_summary) String mStringGPlusSummary;
+    @BindString(R.string.menu_donate) String mStringDonate;
+    @BindString(R.string.donate_summary) String mStringDonateSummary;
+
     private int primaryColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.developer_layout, container, false);
+        final View view = inflater.inflate(R.layout.developer_layout, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -49,7 +61,6 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         super.onViewCreated(view, savedInstanceState);
 
         final Context mContext = getActivity();
-        final Resources res = getResources();
         final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
         assert mActionBar != null;
         mActionBar.setDisplayHomeAsUpEnabled(true);
@@ -57,9 +68,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(res.getString(R.string.pref_about_developer));
+            mActionBar.setTitle(mStringDeveloper);
         } else {
-            final SpannableString s = new SpannableString(res.getString(R.string.pref_about_developer));
+            final SpannableString s = new SpannableString(mStringDeveloper);
             s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -94,9 +105,9 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
 
         final ListView mListView = ButterKnife.findById(getActivity(), R.id.developer_list);
         final List<String[]> developerList = new ArrayList<>();
-        developerList.add(new String[]{res.getString(R.string.email_developer), res.getString(R.string.email_developer_summary)});
-        developerList.add(new String[]{res.getString(R.string.view_gplus), res.getString(R.string.view_gplus_summary)});
-        developerList.add(new String[]{res.getString(R.string.menu_donate), res.getString(R.string.donate_summary)});
+        developerList.add(new String[]{mStringEmailDev, mStringEmailDevSummary});
+        developerList.add(new String[]{mStringGPlus, mStringGPlusSummary});
+        developerList.add(new String[]{mStringDonate, mStringDonateSummary});
         mListView.setAdapter(new ArrayAdapter<String[]>(
                 mContext,
                 R.layout.list_item_2,
@@ -122,8 +133,7 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
 
-                mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
-                        R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
+                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
 
                 return convertView;
             }
@@ -151,5 +161,11 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
                 Utils.openChromeTab(mContext, "https://goo.gl/X2sA4D", primaryColor);
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

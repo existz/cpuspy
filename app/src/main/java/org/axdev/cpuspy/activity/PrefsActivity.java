@@ -50,8 +50,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
 
     public static class PrefsFragment extends PreferenceFragment {
 
-        private final String googleURL = "https://plus.google.com/+RobBeane";
-
         private Context mContext;
         private Resources res;
         private SharedPreferences sp;

@@ -8,7 +8,6 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,23 +36,30 @@ import org.axdev.cpuspy.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
+
+    @BindColor(R.color.secondary_text_color_dark) int mColorTextDark;
+    @BindColor(R.color.secondary_text_color_light) int mColorTextLight;
+    @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
     private Context mContext;
     private ThemedActivity act;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.credits_layout, container, false);
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.credits_layout, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Resources res = getResources();
         this.mContext = this.getActivity();
         this.act = ((ThemedActivity) mContext);
 
@@ -64,9 +69,9 @@ public class CreditsFragment extends Fragment {
 
         /** Use custom Typeface for action bar title on KitKat devices */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mActionBar.setTitle(res.getString(R.string.pref_about_header_credits));
+            mActionBar.setTitle(mStringCredits);
         } else {
-            final SpannableString s = new SpannableString(res.getString(R.string.pref_about_header_credits));
+            final SpannableString s = new SpannableString(mStringCredits);
             s.setSpan(new TypefaceSpan(mContext, TypefaceHelper.MEDIUM_FONT), 0, s.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -118,8 +123,7 @@ public class CreditsFragment extends Fragment {
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
 
-                mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
-                        R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
+                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
 
                 return convertView;
             }
@@ -162,8 +166,7 @@ public class CreditsFragment extends Fragment {
                 mText1.setText(entry[0]);
                 mText2.setText(entry[1]);
 
-                mText2.setTextColor(ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
-                        R.color.secondary_text_color_dark : R.color.secondary_text_color_light));
+                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
 
                 return convertView;
             }
@@ -196,5 +199,11 @@ public class CreditsFragment extends Fragment {
                 Utils.openChromeTab(getActivity(), "https://cpuspy.oneskyapp.com", primaryColor);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
