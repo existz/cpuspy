@@ -19,6 +19,7 @@
 -->
 <resources>
     <dimen name="ab_elevation">4dp</dimen>
+    <dimen name="logcat_elevation">3dp</dimen>
     <dimen name="padding_mtrl">16dp</dimen>
     <dimen name="padding_mtrl_cpu">24dp</dimen>
     <dimen name="btn_padding_mtrl">0dp</dimen>
