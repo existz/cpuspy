@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ui_states_warning"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,12 +10,13 @@
     android:background="?android:attr/colorBackground"
     android:orientation="vertical">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/warning_img"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="@dimen/padding_mtrl"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_warning"
+        app:srcCompat="@drawable/ic_warning"
         android:tint="?attr/colorDrawableTint"
         android:gravity="center"
         android:scaleType="fitXY"/>

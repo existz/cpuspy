@@ -24,9 +24,9 @@
             android:layout_height="?android:actionBarSize"
             android:orientation="horizontal">
 
-            <ImageButton
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/btn_logcat_save"
-                android:src="@drawable/ic_save"
+                app:srcCompat="@drawable/ic_save"
                 android:tint="?attr/colorDrawableTint"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -39,9 +39,9 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/btn_logcat_close" />
 
-            <ImageButton
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/btn_logcat_close"
-                android:src="@drawable/ic_close"
+                app:srcCompat="@drawable/ic_close"
                 android:tint="?attr/colorDrawableTint"
                 android:layout_width="56dp"
                 android:layout_height="56dp"

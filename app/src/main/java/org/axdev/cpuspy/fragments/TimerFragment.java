@@ -27,8 +27,10 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -86,11 +88,11 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.btn_charged) AppCompatButton mChargedButton;
     @Bind(R.id.btn_feature) AppCompatButton mFeatureButton;
     @Bind(R.id.btn_welcome) AppCompatButton mWelcomeButton;
+    @Bind(R.id.img_show) AppCompatImageView mShowImage;
     @Bind(R.id.card_view_states) CardView mStatesCardView;
     @Bind(R.id.card_view_welcome) CardView mWelcomeCardView;
     @Bind(R.id.card_view_feature) CardView mFeatureCardView;
     @Bind(R.id.card_view_time) CardView mTimeCardView;
-    @Bind(R.id.img_show) ImageView mShowImage;
     @Bind(R.id.card_container) LinearLayout mCardContainer;
     @Bind(R.id.ui_states_view) LinearLayout mStatesView;
     @Bind(R.id.ui_charged_view) LinearLayout mChargedView;
@@ -315,7 +317,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             mChargedButton.setSupportBackgroundTintList(sl);
             // Set charged image to accent color
             if (chargedDrawable != null) {
-                chargedDrawable.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
+                DrawableCompat.wrap(chargedDrawable);
+                DrawableCompat.setTint(chargedDrawable, accentColor);
             }
 
             mStatesWarning.setVisibility(View.GONE);

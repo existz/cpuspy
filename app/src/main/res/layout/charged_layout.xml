@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/ui_charged_view"
@@ -8,13 +9,13 @@
         android:background="?android:attr/colorBackground"
         android:orientation="vertical">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/charged_img"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="24dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_charged"
+            app:srcCompat="@drawable/ic_charged"
             android:gravity="top"
             android:scaleType="fitXY"/>
 
