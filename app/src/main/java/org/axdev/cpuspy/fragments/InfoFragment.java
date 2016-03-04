@@ -302,7 +302,8 @@ public class InfoFragment extends Fragment {
                             if (mCardKernelFull.isShown()) {
                                 showFullKernelCard(false);
                                 return true;
-                            } else if (mLogcatBottomSheet.isShown()) {
+                            } else if (mLogcatBottomSheet != null &&
+                                    mLogcatBottomSheet.isShown()) {
                                 showLogcatCard(false);
                                 return true;
                             } else if (mDeviceMenu.isShown()) {
