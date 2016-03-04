@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -39,18 +40,18 @@
             android:layout_below="@+id/profile_image"
             android:text="@string/contact"/>
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/email_icon"
-            android:src="@drawable/ic_email"
+            app:srcCompat="@drawable/ic_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_below="@+id/developer_contact_title"
             android:tint="?attr/colorDrawableTint"/>
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/gplus_icon"
-            android:src="@drawable/ic_google_plus"
+            app:srcCompat="@drawable/ic_google_plus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
@@ -59,9 +60,9 @@
             android:layout_below="@+id/email_icon"
             android:tint="?attr/colorDrawableTint"/>
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/donate_icon"
-            android:src="@drawable/ic_donate"
+            app:srcCompat="@drawable/ic_donate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
