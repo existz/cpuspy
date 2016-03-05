@@ -25,10 +25,11 @@ import org.axdev.cpuspy.utils.Utils;
 
 import butterknife.ButterKnife;
 
-public class WhatsNewDialog extends DialogFragment {
+public class WhatsNewDialog extends android.support.v4.app.DialogFragment {
 
     private final String githubURL = "https://github.com/existz/cpuspy/commits/staging";
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Context mContext = this.getActivity();

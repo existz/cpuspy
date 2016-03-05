@@ -18,12 +18,12 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.text.Spanned;
 import android.text.format.Formatter;
 import android.util.Log;
@@ -48,6 +48,7 @@ public class ProcessInfoDialog extends DialogFragment {
     private Context mContext;
     private static final String TAG = "ProcessInfoDialog";
 
+    @NonNull
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         mContext = getActivity();
         AndroidAppProcess process = getArguments().getParcelable("process");

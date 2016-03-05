@@ -289,7 +289,7 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
         /* pressed the load menu button */
             case R.id.menu_changelog:
                 final WhatsNewDialog newFragment = new WhatsNewDialog();
-                newFragment.show(getFragmentManager(), "whatsnew");
+                newFragment.show(getSupportFragmentManager(), "whatsnew");
                 break;
             case android.R.id.home:
                 this.checkBackStack();

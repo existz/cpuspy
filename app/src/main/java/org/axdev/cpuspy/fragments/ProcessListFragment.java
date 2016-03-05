@@ -17,10 +17,9 @@
 
 package org.axdev.cpuspy.fragments;
 
-
-import android.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
@@ -52,6 +51,6 @@ public class ProcessListFragment extends ListFragment implements AndroidAppProce
         Bundle args = new Bundle();
         args.putParcelable("process", process);
         dialog.setArguments(args);
-        dialog.show(getActivity().getFragmentManager(), "ProcessInfoDialog");
+        dialog.show(getActivity().getSupportFragmentManager(), "ProcessInfoDialog");
     }
 }

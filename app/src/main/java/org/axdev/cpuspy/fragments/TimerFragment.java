@@ -183,7 +183,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         if (currentVersionNumber > savedVersionNumber) {
             final WhatsNewDialog newFragment = new WhatsNewDialog();
-            newFragment.show(getActivity().getFragmentManager(), "whatsnew");
+            newFragment.show(getActivity().getSupportFragmentManager(), "whatsnew");
             sp.edit().putInt("version_number", currentVersionNumber).apply();
         }
 

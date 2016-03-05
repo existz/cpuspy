@@ -42,7 +42,7 @@ public class ProcessActivity extends ThemedActivity {
         }
 
         if (savedInstanceState == null)
-            getFragmentManager().beginTransaction().replace(android.R.id.content, new ProcessListFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new ProcessListFragment()).commit();
     }
 
     @Override
