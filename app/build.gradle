@@ -25,7 +25,7 @@ def versionMinor = 2
 def versionPatch = 0
 
 // support library version
-def supportLibVersion = '23.2.0'
+def supportLibVersion = '23.2.1'
 
 android {
     compileSdkVersion 23
