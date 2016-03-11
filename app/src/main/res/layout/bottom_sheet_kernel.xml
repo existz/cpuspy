@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kernel_sheet_contents"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorCardBackground"
+    app:behavior_hideable="true"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <RelativeLayout
+        android:id="@+id/kernel_title_bar"
+        android:background="?attr/colorCardBackground"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:clipToPadding="false"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_kernel_close"
+            app:srcCompat="@drawable/ic_close"
+            android:tint="?attr/colorDrawableTint"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="@dimen/btn_padding_mtrl"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/kernel_version_full_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_mtrl"
+            android:layout_marginLeft="@dimen/padding_mtrl"
+            android:layout_marginRight="@dimen/padding_mtrl"
+            android:layout_centerVertical="true"
+            android:text="@string/information_kernel_version_full_header"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/kernel_version_full"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_mtrl"
+        android:layout_marginBottom="@dimen/padding_mtrl"
+        android:layout_marginLeft="@dimen/padding_mtrl"
+        android:layout_marginRight="@dimen/padding_mtrl"
+        android:textIsSelectable="true"/>
+
+</LinearLayout>

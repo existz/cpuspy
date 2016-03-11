@@ -7,6 +7,7 @@
 package org.axdev.cpuspy.fragments;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +27,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,7 +35,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -71,17 +73,13 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class InfoFragment extends Fragment {
 
-    @Bind(R.id.card_view_kernelfull) CardView mCardKernelFull;
     @Bind(R.id.kernel_menu) CardView mKernelMenu;
     @Bind(R.id.device_menu) CardView mDeviceMenu;
-    @Bind(R.id.info_layout) FrameLayout mInfoLayout;
     @Bind(R.id.kernel_header) TextView mKernelHeader;
     @Bind(R.id.kernel_governor_header) TextView mKernelGovernorHeader;
     @Bind(R.id.kernel_governor) TextView mKernelGovernor;
     @Bind(R.id.kernel_version_header) TextView mKernelVersionHeader;
     @Bind(R.id.kernel_version) TextView mKernelVersion;
-    @Bind(R.id.kernel_version_full_header) TextView mKernelVersionFullHeader;
-    @Bind(R.id.kernel_version_full) TextView mKernelVersionFull;
     @Bind(R.id.cpu_header) TextView mCpuHeader;
     @Bind(R.id.cpu_abi_header) TextView mCpuAbiHeader;
     @Bind(R.id.cpu_abi) TextView mCpuAbi;
@@ -115,7 +113,6 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.device_bootloader_header) TextView mDeviceBootloaderHeader;
     @Bind(R.id.device_bootloader) TextView mDeviceBootloader;
     @Bind(R.id.scroll_container) ScrollView mScrollView;
-    @Bind(R.id.content_overlay) View mContentOverlay;
     @Bind(R.id.container) View mContainer;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
@@ -161,19 +158,18 @@ public class InfoFragment extends Fragment {
 
     private Animation popupEnterMtrl;
     private Context mContext;
-    private File mLogcatFile;
     private Handler mHandler;
     private Typeface robotoMedium;
 
-    private BottomSheetBehavior mLogcatBottomSheetBehavior;
-    private CoordinatorLayout mLogcatCoordinatorLayout;
+    private File mLogcatFile;
     private MaterialProgressBar mProgressBarLogcat;
-    private TextView mLogcatSummary;
+    private NestedScrollView mLogcatScrollView;
     private RelativeLayout mLogcatTitleBar;
-    private View mLogcatBottomSheet;
+    private TextView mLogcatSummary;
 
     private int accentColor;
     private int mNumCores;
+
     private final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
@@ -240,7 +236,6 @@ public class InfoFragment extends Fragment {
         mDevicePlatformHeader.setTypeface(robotoMedium);
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
-        mKernelVersionFullHeader.setTypeface(robotoMedium);
 
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
@@ -257,19 +252,6 @@ public class InfoFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return mDisableScrolling;
-            }
-        });
-
-        // OnTouchListener to check if we touch outside a view
-        mContentOverlay.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent ev) {
-                if (mCardKernelFull.isShown()
-                        && Utils.isOutOfBounds(mCardKernelFull, ev)) {
-                    showFullKernelCard(false);
-                    return true;
-                }
-                return false;
             }
         });
 
@@ -299,14 +281,7 @@ public class InfoFragment extends Fragment {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN) {
                         if (keyCode == KeyEvent.KEYCODE_BACK) {
-                            if (mCardKernelFull.isShown()) {
-                                showFullKernelCard(false);
-                                return true;
-                            } else if (mLogcatBottomSheet != null &&
-                                    mLogcatBottomSheet.isShown()) {
-                                showLogcatCard(false);
-                                return true;
-                            } else if (mDeviceMenu.isShown()) {
+                            if (mDeviceMenu.isShown()) {
                                 mDeviceMenu.setVisibility(View.GONE);
                                 return true;
                             } else if (mKernelMenu.isShown()) {
@@ -327,7 +302,6 @@ public class InfoFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (this.mIsVisible) setMonitoring(false);
-        if (mCardKernelFull.isShown()) showFullKernelCard(false);
         if (mDeviceMenu.isShown()) mDeviceMenu.setVisibility(View.GONE);
         if (mKernelMenu.isShown()) mKernelMenu.setVisibility(View.GONE);
     }
@@ -345,8 +319,6 @@ public class InfoFragment extends Fragment {
             if (!isVisibleToUser) {
                 mIsVisible = false;
                 setMonitoring(false);
-
-                if (mCardKernelFull.isShown()) showFullKernelCard(false);
             }
 
             if (isVisibleToUser) {
@@ -682,19 +654,47 @@ public class InfoFragment extends Fragment {
     }
 
     /** Bind button listeners */
-    @OnClick({R.id.full_kernel_version, R.id.btn_kernel_close})
+    @OnClick(R.id.full_kernel_version)
     protected void fullKernelVersion() {
-        if (!mCardKernelFull.isShown()) {
-            showFullKernelCard(true);
-            if (CPUUtils.getKernelVersion() != null) {
-                mKernelVersionFull.setText(CPUUtils.getKernelVersion());
-            } else {
-                mKernelVersionFull.setText(versionUnavailableText);
-            }
-            mKernelMenu.setVisibility(View.GONE);
+        mKernelMenu.setVisibility(View.GONE);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_kernel, null);
+        final TextView mKernelVersionFullHeader = ButterKnife.findById(view, R.id.kernel_version_full_header);
+        mKernelVersionFullHeader.setTypeface(robotoMedium);
+
+        final TextView mKernelVersionFull = ButterKnife.findById(view, R.id.kernel_version_full);
+        if (CPUUtils.getKernelVersion() != null) {
+            mKernelVersionFull.setText(CPUUtils.getKernelVersion());
         } else {
-            showFullKernelCard(false);
+            mKernelVersionFull.setText(versionUnavailableText);
         }
+
+        final BottomSheetDialog mKernelBottomSheetDialog = new BottomSheetDialog(mContext);
+        mKernelBottomSheetDialog.setContentView(view);
+        mKernelBottomSheetDialog.show();
+
+        final BottomSheetBehavior behavior = BottomSheetBehavior.from(((View) view.getParent()));
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch(newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        mKernelBottomSheetDialog.dismiss();
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
+        behavior.setPeekHeight(515);
+
+        final ImageButton mKernelCloseButton = ButterKnife.findById(view, R.id.btn_kernel_close);
+        mKernelCloseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mKernelBottomSheetDialog.dismiss();
+            }
+        });
     }
 
     @OnClick(R.id.btn_kernel_more)
@@ -719,7 +719,116 @@ public class InfoFragment extends Fragment {
     @OnClick(R.id.logcat)
     protected void logcatButton() {
         mDeviceMenu.setVisibility(View.GONE);
-        showLogcatCard(true);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_logcat, null);
+        mProgressBarLogcat = ButterKnife.findById(view, R.id.logcat_progressbar);
+        mLogcatSummary = ButterKnife.findById(view, R.id.logcat_output);
+        mLogcatTitleBar = ButterKnife.findById(view, R.id.logcat_title_bar);
+        mLogcatScrollView = ButterKnife.findById(view, R.id.logcat_scrollview);
+        final TextView mLogcatHeader = ButterKnife.findById(view, R.id.logcat_header);
+        mLogcatHeader.setTypeface(robotoMedium);
+
+        final BottomSheetDialog mLogcatBottomSheetDialog = new BottomSheetDialog(mContext);
+        mLogcatBottomSheetDialog.setContentView(view);
+        mLogcatBottomSheetDialog.show();
+
+        final View mLogcatBottomSheet = view.findViewById(R.id.logcat_sheet_contents);
+        final BottomSheetBehavior mLogcatBottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
+        mLogcatBottomSheetBehavior.setPeekHeight((int)getResources().getDimension(R.dimen.logcat_min_height));
+        mLogcatBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch(newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        //mLogcatSummary.setText(null);
+                        mLogcatBottomSheetDialog.dismiss();
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        mLogcatScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                            @Override
+                            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                                if (mLogcatBottomSheet.getMeasuredHeight() <= scrollY + v.getHeight()) {
+                                    ViewCompat.setElevation(mLogcatTitleBar, getResources().getDimension(R.dimen.ab_elevation));
+                                } else {
+                                    ViewCompat.setElevation(mLogcatTitleBar, 0);
+                                }
+                            }
+                        });
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
+
+        final ImageButton mLogcatCloseButton = ButterKnife.findById(view, R.id.btn_logcat_close);
+        mLogcatCloseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mLogcatBottomSheetDialog.dismiss();
+            }
+        });
+
+        final ImageButton mLogcatSaveButton = ButterKnife.findById(view, R.id.btn_logcat_save);
+        mLogcatSaveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_WRITE_STORAGE);
+                } else {
+                    writeLogcatToFile();
+                }
+            }
+        });
+
+        //noinspection ResourceAsColor
+        MDTintHelper.setTint(mProgressBarLogcat, accentColor);
+        mProgressBarLogcat.setVisibility(View.VISIBLE);
+
+        Tasks.executeInBackground(getActivity(), new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                boolean suAvailable = Shell.SU.available();
+                final String logcatCommand = "logcat -d -v brief -t 500";
+                if (suAvailable) {
+                    TimeUnit.MILLISECONDS.sleep(500);
+                    return Shell.SU.run(logcatCommand).toString();
+                } else {
+                    final Process process = Runtime.getRuntime().exec(logcatCommand);
+                    final BufferedReader bufferedReader = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+
+                    final StringBuilder log = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        log.append(line);
+                    }
+                    return log.toString();
+                }
+            }
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+                if (mLogcatSummary != null) mLogcatSummary.setText(result);
+                if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
+                    mProgressBarLogcat.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
+                    mProgressBarLogcat.setVisibility(View.GONE);
+                }
+                if (mLogcatSummary != null) {
+                    mLogcatSummary.setText(errorText);
+                    mLogcatSummary.setTextColor(errorTextColor);
+                }
+                e.printStackTrace();
+            }
+        });
     }
 
     @SuppressWarnings("unused")
@@ -762,230 +871,6 @@ public class InfoFragment extends Fragment {
                         }
                     }
                 }).show();
-    }
-
-    private boolean showFullKernelCard(boolean enabled) {
-        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
-        final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
-        final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
-        final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-
-        if (enabled) {
-            mContentOverlay.startAnimation(fadeIn);
-            mContentOverlay.setVisibility(View.VISIBLE);
-
-            mCardKernelFull.startAnimation(slideUp);
-            mCardKernelFull.setVisibility(View.VISIBLE);
-
-            mDisableScrolling = true;
-            return true;
-        } else {
-            mContentOverlay.startAnimation(fadeOut);
-            mContentOverlay.setVisibility(View.GONE);
-
-            slideDown.setDuration(250L);
-            mCardKernelFull.startAnimation(slideDown);
-            mCardKernelFull.setVisibility(View.GONE);
-
-            mDisableScrolling = false;
-
-            return false;
-        }
-    }
-
-    private boolean showLogcatCard(boolean enabled) {
-        final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
-        final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
-        final Animation slideUp = AnimationUtils.loadAnimation(mContext, R.anim.slide_up);
-        final Animation slideDown = AnimationUtils.loadAnimation(mContext, R.anim.slide_down);
-
-        if (enabled) {
-            addLogcatBottomSheet();
-            final String logcatCommand = "logcat -d -v brief -t 500";
-
-            // Show loading dialog
-            MDTintHelper.setTint(mProgressBarLogcat, accentColor);
-            mProgressBarLogcat.setVisibility(View.VISIBLE);
-
-            mContentOverlay.startAnimation(fadeIn);
-            mContentOverlay.setVisibility(View.VISIBLE);
-            fadeIn.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    mLogcatBottomSheet.startAnimation(slideUp);
-                    mLogcatBottomSheet.setVisibility(View.VISIBLE);
-                    mDisableScrolling = true;
-
-                    Tasks.executeInBackground(mContext, new BackgroundWork<String>() {
-                        @Override
-                        public String doInBackground() throws Exception {
-                            boolean suAvailable = Shell.SU.available();
-                            if (suAvailable) {
-                                TimeUnit.MILLISECONDS.sleep(500);
-                                return Shell.SU.run(logcatCommand).toString();
-                            } else {
-                                final Process process = Runtime.getRuntime().exec(logcatCommand);
-                                final BufferedReader bufferedReader = new BufferedReader(
-                                        new InputStreamReader(process.getInputStream()));
-
-                                final StringBuilder log = new StringBuilder();
-                                String line;
-                                while ((line = bufferedReader.readLine()) != null) {
-                                    log.append(line);
-                                }
-                                return log.toString();
-                            }
-                        }
-                    }, new Completion<String>() {
-                        @Override
-                        public void onSuccess(Context context, String result) {
-                            if (mLogcatSummary != null) mLogcatSummary.setText(result);
-                            if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
-                                mProgressBarLogcat.setVisibility(View.GONE);
-                            }
-                        }
-
-                        @Override
-                        public void onError(Context context, Exception e) {
-                            if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
-                                mProgressBarLogcat.setVisibility(View.GONE);
-                            }
-                            if (mLogcatSummary != null) {
-                                mLogcatSummary.setText(errorText);
-                                mLogcatSummary.setTextColor(errorTextColor);
-                            }
-                            e.printStackTrace();
-                        }
-                    });
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-
-            return true;
-        } else {
-            fadeOut.setDuration(500L);
-            mContentOverlay.startAnimation(fadeOut);
-            mContentOverlay.setVisibility(View.GONE);
-            fadeOut.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    ViewCompat.setElevation(mLogcatTitleBar, 0);
-                    mLogcatBottomSheet.startAnimation(slideDown);
-                    mLogcatBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mDisableScrolling = false;
-                    mLogcatSummary.setText(null);
-                    removeView(mLogcatCoordinatorLayout);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            return false;
-        }
-    }
-
-    private void addLogcatBottomSheet() {
-        final CoordinatorLayout view = (CoordinatorLayout) LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_logcat, null);
-        final ImageButton mLogcatCloseButton = ButterKnife.findById(view, R.id.btn_logcat_close);
-        final ImageButton mLogcatSaveButton = ButterKnife.findById(view, R.id.btn_logcat_save);
-        final NestedScrollView mLogcatScrollView = ButterKnife.findById(view, R.id.logcat_scrollview);
-        final TextView mLogcatHeader = ButterKnife.findById(view, R.id.logcat_header);
-
-        mLogcatCoordinatorLayout = ButterKnife.findById(view, R.id.logcat_sheet_container);
-        mLogcatSummary = ButterKnife.findById(view, R.id.logcat_output);
-        mLogcatTitleBar = ButterKnife.findById(view, R.id.logcat_title_bar);
-        mProgressBarLogcat = ButterKnife.findById(view, R.id.logcat_progressbar);
-
-        mLogcatBottomSheet = ButterKnife.findById(mLogcatCoordinatorLayout, R.id.logcat_sheet_contents);
-        mLogcatBottomSheetBehavior = BottomSheetBehavior.from(mLogcatBottomSheet);
-        mLogcatBottomSheetBehavior.setPeekHeight(mContainer.getMeasuredHeight() / 2);
-        mLogcatBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                final Animation fadeOut = AnimationUtils.loadAnimation(mContext, R.anim.fade_out);
-
-                switch (newState) {
-                    case BottomSheetBehavior.STATE_HIDDEN:
-                        if (mContentOverlay.getVisibility() == View.VISIBLE) {
-                            fadeOut.setDuration(200L);
-                            mContentOverlay.startAnimation(fadeOut);
-                            mContentOverlay.setVisibility(View.GONE);
-                            mDisableScrolling = false;
-                        }
-                        mLogcatSummary.setText(null);
-                        removeView(mLogcatCoordinatorLayout);
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                        mLogcatScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                            @Override
-                            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                                if (mLogcatBottomSheet.getMeasuredHeight() <= scrollY + v.getHeight()) {
-                                    ViewCompat.setElevation(mLogcatTitleBar, getResources().getDimension(R.dimen.ab_elevation));
-                                } else {
-                                    ViewCompat.setElevation(mLogcatTitleBar, 0);
-                                }
-                            }
-                        });
-                        break;
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                // React to dragging events
-            }
-        });
-
-        mLogcatCloseButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showLogcatCard(false);
-            }
-        });
-
-        mLogcatSaveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            REQUEST_WRITE_STORAGE);
-                } else {
-                    writeLogcatToFile();
-                }
-            }
-        });
-
-        mLogcatCoordinatorLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent ev) {
-                if (mLogcatBottomSheet.isShown()
-                        && Utils.isOutOfBounds(mLogcatBottomSheet, ev)) {
-                    showLogcatCard(false);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        mLogcatHeader.setTypeface(robotoMedium);
-        mInfoLayout.addView(view);
-    }
-
-    private void removeView(View v) {
-        final ViewGroup mViewGroup = (ViewGroup) v.getParent();
-        if (mViewGroup != null) mViewGroup.removeView(v);
     }
 
     @Override

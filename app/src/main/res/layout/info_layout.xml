@@ -797,8 +797,6 @@
         android:background="@color/dim_background_disabled"
         android:visibility="gone"/>
 
-    <include layout="@layout/card_view_kernelfull"/>
-
     <View
         android:id="@+id/container"
         android:layout_width="fill_parent"
