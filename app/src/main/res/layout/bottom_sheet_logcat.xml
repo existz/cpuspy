@@ -77,7 +77,7 @@
                 android:id="@+id/logcat_output"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="@dimen/padding_mtrl"
                 android:layout_marginRight="@dimen/padding_mtrl"

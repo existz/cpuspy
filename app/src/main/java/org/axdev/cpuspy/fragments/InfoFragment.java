@@ -7,9 +7,8 @@
 package org.axdev.cpuspy.fragments;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -19,15 +18,15 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,7 +36,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -50,7 +48,6 @@ import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.ProcessActivity;
 import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.CPUUtils;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -112,7 +109,6 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.device_runtime) TextView mDeviceRuntime;
     @Bind(R.id.device_bootloader_header) TextView mDeviceBootloaderHeader;
     @Bind(R.id.device_bootloader) TextView mDeviceBootloader;
-    @Bind(R.id.scroll_container) ScrollView mScrollView;
     @Bind(R.id.container) View mContainer;
 
     @Bind(R.id.cpu0_header) TextView mCore0Header;
@@ -142,7 +138,6 @@ public class InfoFragment extends Fragment {
     @BindString(R.string.logcat_error_saving) String logcatErrorSaving;
     @BindString(R.string.snackbar_text_delete) String snackBarDelete;
 
-    private boolean mDisableScrolling;
     private boolean mIsVisible;
     private boolean mIsMonitoringTemp;
     private boolean mIsMonitoringCpu;
@@ -246,14 +241,6 @@ public class InfoFragment extends Fragment {
         mCpuHeader.setTextColor(accentColor);
         //noinspection ResourceAsColor
         mDeviceHeader.setTextColor(accentColor);
-
-        // OnTouchListener to allow disabling scrollview
-        mScrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return mDisableScrolling;
-            }
-        });
 
         mContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -657,6 +644,88 @@ public class InfoFragment extends Fragment {
     @OnClick(R.id.full_kernel_version)
     protected void fullKernelVersion() {
         mKernelMenu.setVisibility(View.GONE);
+        showKernelBottomSheet();
+    }
+
+    @OnClick(R.id.btn_kernel_more)
+    protected void kernelMoreButton() {
+        mKernelMenu.startAnimation(popupEnterMtrl);
+        mKernelMenu.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.btn_device_more)
+    protected void deviceMoreButton() {
+        mDeviceMenu.startAnimation(popupEnterMtrl);
+        mDeviceMenu.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.running_processes)
+    protected void runningProcessesButton() {
+        mDeviceMenu.setVisibility(View.GONE);
+        showProcessBottomSheet();
+    }
+
+    @OnClick(R.id.logcat)
+    protected void logcatButton() {
+        mDeviceMenu.setVisibility(View.GONE);
+        showLogcatBottomSheet();
+    }
+
+    @SuppressWarnings("unused")
+    private void writeLogcatToFile() {
+        new MaterialDialog.Builder(mContext)
+                .title(R.string.logcat_input_title)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .inputRange(1, 32, accentColor)
+                .positiveText(R.string.action_done)
+                .input(R.string.logcat_input_hint, 0, false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        mLogcatFile = new File(Environment.getExternalStorageDirectory(), input.toString());
+
+                        try {
+                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
+                            final FileWriter writer = new FileWriter(mLogcatFile);
+                            writer.write(mLogcatSummary.getText().toString());
+                            writer.flush();
+                            writer.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            SnackbarManager.show(Snackbar.with(mContext)
+                                    .text(logcatErrorSaving)
+                                    .actionLabelTypeface(robotoMedium)
+                                    .actionLabel(errorText)
+                                    .actionColor(errorTextColor));
+                        } finally {
+                            SnackbarManager.show(Snackbar.with(mContext)
+                                    .text(logcatFileSaved + input.toString())
+                                    .actionLabelTypeface(robotoMedium)
+                                    .actionLabel(snackBarDelete) // action button label
+                                    .actionColor(accentColor)
+                                    .actionListener(new ActionClickListener() {
+                                        @Override
+                                        public void onActionClicked(Snackbar snackbar) {
+                                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
+                                        }
+                                    }));
+                        }
+                    }
+                }).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    writeLogcatToFile();
+                }
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void showKernelBottomSheet() {
         final View view = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_kernel, null);
         final TextView mKernelVersionFullHeader = ButterKnife.findById(view, R.id.kernel_version_full_header);
         mKernelVersionFullHeader.setTypeface(robotoMedium);
@@ -697,28 +766,47 @@ public class InfoFragment extends Fragment {
         });
     }
 
-    @OnClick(R.id.btn_kernel_more)
-    protected void kernelMoreButton() {
-        mKernelMenu.startAnimation(popupEnterMtrl);
-        mKernelMenu.setVisibility(View.VISIBLE);
+    private void showProcessBottomSheet() {
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_processes, null);
+        final TextView mProcessHeader = ButterKnife.findById(view, R.id.process_header);
+        mProcessHeader.setTypeface(robotoMedium);
+
+        final BottomSheetDialog mProcessBottomSheetDialog = new BottomSheetDialog(mContext);
+        mProcessBottomSheetDialog.setContentView(view);
+        mProcessBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                removeFragment(R.id.processListFragment);
+            }
+        });
+        mProcessBottomSheetDialog.show();
+
+        final BottomSheetBehavior behavior = BottomSheetBehavior.from(((View) view.getParent()));
+        behavior.setPeekHeight((int)getResources().getDimension(R.dimen.logcat_min_height));
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch(newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        mProcessBottomSheetDialog.dismiss();
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
+
+        final ImageButton mProcessCloseButton = ButterKnife.findById(view, R.id.btn_process_close);
+        mProcessCloseButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mProcessBottomSheetDialog.dismiss();
+            }
+        });
     }
 
-    @OnClick(R.id.btn_device_more)
-    protected void deviceMoreButton() {
-        mDeviceMenu.startAnimation(popupEnterMtrl);
-        mDeviceMenu.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick(R.id.running_processes)
-    protected void runningProcessesButton() {
-        mDeviceMenu.setVisibility(View.GONE);
-        Intent myIntent = new Intent(getActivity(), ProcessActivity.class);
-        startActivity(myIntent);
-    }
-
-    @OnClick(R.id.logcat)
-    protected void logcatButton() {
-        mDeviceMenu.setVisibility(View.GONE);
+    private void showLogcatBottomSheet() {
         final View view = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_logcat, null);
         mProgressBarLogcat = ButterKnife.findById(view, R.id.logcat_progressbar);
         mLogcatSummary = ButterKnife.findById(view, R.id.logcat_output);
@@ -831,58 +919,10 @@ public class InfoFragment extends Fragment {
         });
     }
 
-    @SuppressWarnings("unused")
-    private void writeLogcatToFile() {
-        new MaterialDialog.Builder(mContext)
-                .title(R.string.logcat_input_title)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .inputRange(1, 32, accentColor)
-                .positiveText(R.string.action_done)
-                .input(R.string.logcat_input_hint, 0, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        mLogcatFile = new File(Environment.getExternalStorageDirectory(), input.toString());
-
-                        try {
-                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
-                            final FileWriter writer = new FileWriter(mLogcatFile);
-                            writer.write(mLogcatSummary.getText().toString());
-                            writer.flush();
-                            writer.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            SnackbarManager.show(Snackbar.with(mContext)
-                                    .text(logcatErrorSaving)
-                                    .actionLabelTypeface(robotoMedium)
-                                    .actionLabel(errorText)
-                                    .actionColor(errorTextColor));
-                        } finally {
-                            SnackbarManager.show(Snackbar.with(mContext)
-                                    .text(logcatFileSaved + input.toString())
-                                    .actionLabelTypeface(robotoMedium)
-                                    .actionLabel(snackBarDelete) // action button label
-                                    .actionColor(accentColor)
-                                    .actionListener(new ActionClickListener() {
-                                        @Override
-                                        public void onActionClicked(Snackbar snackbar) {
-                                            if (mLogcatFile.exists()) { boolean delete = mLogcatFile.delete(); }
-                                        }
-                                    }));
-                        }
-                    }
-                }).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_WRITE_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    writeLogcatToFile();
-                }
-                break;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    private void removeFragment(int fragment) {
+        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.remove(fragmentManager.findFragmentById(fragment)).commit();
     }
 
     @Override

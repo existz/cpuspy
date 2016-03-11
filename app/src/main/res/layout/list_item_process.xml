@@ -15,7 +15,6 @@
   ~ limitations under the License.
   ~
   -->
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/padding_mtrl"
         android:layout_marginLeft="@dimen/padding_mtrl"
         android:layout_marginRight="@dimen/padding_mtrl"
         android:layout_centerVertical="true"
@@ -42,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/padding_mtrl"
-        android:layout_marginLeft="@dimen/padding_mtrl"
         android:layout_marginRight="@dimen/padding_mtrl"
         android:layout_toEndOf="@+id/imageView"
         android:singleLine="true"
@@ -56,12 +54,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="@dimen/padding_mtrl"
-        android:layout_marginLeft="@dimen/padding_mtrl"
         android:layout_marginRight="@dimen/padding_mtrl"
         android:layout_toEndOf="@+id/imageView"
         android:layout_below="@+id/textView"
         android:singleLine="true"
         android:ellipsize="middle"
+        android:textColor="?android:attr/textColorSecondary"
         android:textAppearance="@style/ListTextAppearanceSummary"
         tools:ignore="RtlHardcoded"/>
 
