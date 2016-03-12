@@ -37,7 +37,6 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         minSdkVersion 19
         targetSdkVersion 23
-        vectorDrawables.useSupportLibrary = true
     }
 
     lintOptions {
@@ -76,10 +75,10 @@ dependencies {
     compile 'com.fabiendevos:nanotasks:1.1.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0@aar'
     compile 'eu.chainfire:libsuperuser:1.0.0.201602232357@aar'
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.5@aar') {
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
         transitive = true
     }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.5@aar') {
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.6@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:+') {
