@@ -56,7 +56,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_kernel_info"
-                        android:textColor="@color/accent"/>
+                        android:textColor="@color/material_blue_500"/>
 
                     <TextView
                         android:id="@+id/kernel_governor_header"
@@ -115,7 +115,6 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:elevation="4dp"
                         android:visibility="gone"
                         card_view:cardBackgroundColor="?attr/colorFloatingToolbar"
                         card_view:cardCornerRadius="2dp">
@@ -186,7 +185,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_device_info"
-                        android:textColor="@color/accent"/>
+                        android:textColor="@color/material_blue_500"/>
 
                     <TextView
                         android:id="@+id/device_build_header"
@@ -359,7 +358,6 @@
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:elevation="4dp"
                         android:visibility="gone"
                         card_view:cardBackgroundColor="?attr/colorFloatingToolbar"
                         card_view:cardCornerRadius="2dp">
@@ -431,7 +429,7 @@
                         android:layout_marginLeft="@dimen/padding_mtrl"
                         android:layout_marginRight="@dimen/padding_mtrl"
                         android:text="@string/information_cpu_info"
-                        android:textColor="@color/accent"/>
+                        android:textColor="@color/material_blue_500"/>
 
                     <TextView
                         android:id="@+id/cpu_abi_header"

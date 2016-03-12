@@ -31,6 +31,7 @@ import com.jaredrummler.android.processes.models.AndroidAppProcess;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.adapters.ProcessListAdapter;
 import org.axdev.cpuspy.utils.AndroidAppProcessLoader;
+import org.axdev.cpuspy.utils.Utils;
 
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class ProcessListFragment extends ListFragment implements AndroidAppProce
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                         if (mLastFirstVisibleItem < firstVisibleItem && canScrollVertically(list)) {
-                            ViewCompat.setElevation(mProcessTitleBar, getResources().getDimension(R.dimen.ab_elevation));
+                            Utils.setElevation(mProcessTitleBar, getResources().getDimension(R.dimen.ab_elevation));
                         } else {
-                            ViewCompat.setElevation(mProcessTitleBar, 0);
+                            Utils.setElevation(mProcessTitleBar, 0);
                             mLastFirstVisibleItem = firstVisibleItem;
                         }
                     }

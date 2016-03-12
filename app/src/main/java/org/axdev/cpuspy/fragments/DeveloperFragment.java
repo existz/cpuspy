@@ -87,8 +87,8 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int colorPrimary = act.primaryColor();
         final int colorAccent = act.accentColor();
-        primaryColor = colorPrimary == 0 ? ContextCompat.getColor(mContext, R.color.primary) : colorPrimary;
-        int accentColor = colorAccent == 0 ? ContextCompat.getColor(mContext, R.color.accent) : colorAccent;
+        primaryColor = colorPrimary == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : colorPrimary;
+        int accentColor = colorAccent == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : colorAccent;
 
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
         //noinspection ResourceAsColor

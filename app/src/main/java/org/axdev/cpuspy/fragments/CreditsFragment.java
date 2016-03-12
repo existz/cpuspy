@@ -84,7 +84,7 @@ public class CreditsFragment extends Fragment {
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
         final int color = act.accentColor();
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
         mCreditsHeader.setTypeface(robotoMedium);
         //noinspection ResourceAsColor
         mCreditsHeader.setTextColor(accentColor);

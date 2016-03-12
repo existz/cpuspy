@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
@@ -156,7 +157,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
-        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
@@ -439,6 +440,8 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final Animation fadeIn = AnimationUtils.loadAnimation(mContext, R.anim.popup_enter_mtrl);
         mStatesToolbar.startAnimation(fadeIn);
         mStatesToolbar.setVisibility(View.VISIBLE);
+        Utils.setElevation(mStatesToolbar, getResources().getDimension(R.dimen.ab_elevation));
+
         mContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent ev) {

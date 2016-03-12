@@ -83,6 +83,8 @@
                 android:layout_marginRight="@dimen/padding_mtrl"
                 android:layout_gravity="center"
                 android:textIsSelectable="true"
+                android:textSelectHandleLeft="@drawable/text_select_handle_left_mtrl_alpha"
+                android:textSelectHandleRight="@drawable/text_select_handle_right_mtrl_alpha"
                 android:scrollbars="vertical"/>
 
         </LinearLayout>

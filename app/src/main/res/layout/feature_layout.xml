@@ -11,7 +11,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         card_view:cardCornerRadius="2dp"
-        card_view:cardBackgroundColor="@color/accent">
+        card_view:cardBackgroundColor="@color/material_blue_500">
 
         <LinearLayout
             android:id="@+id/new_feature"

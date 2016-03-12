@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
@@ -34,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +66,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.BindColor;
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -129,6 +134,8 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_freq7) TextView mCore7;
 
     @BindColor(R.color.primary_text_color_error) int errorTextColor;
+    @BindDrawable(R.drawable.text_select_handle_left_mtrl_alpha) Drawable mTextSelectHandleLeft;
+    @BindDrawable(R.drawable.text_select_handle_right_mtrl_alpha) Drawable mTextSelectHandleRight;
     @BindString(R.string.error) String errorText;
     @BindString(R.string.core_offline) String coreOfflineText;
     @BindString(R.string.information_device_runtime_art) String artRuntimeText;
@@ -164,6 +171,7 @@ public class InfoFragment extends Fragment {
 
     private int accentColor;
     private int mNumCores;
+    private int mTextHighlightColor;
 
     private final int REQUEST_WRITE_STORAGE = 112;
 
@@ -234,13 +242,29 @@ public class InfoFragment extends Fragment {
 
         final ThemedActivity act = ((ThemedActivity) mContext);
         final int color = act.accentColor();
-        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
+
+        //noinspection ResourceAsColor
+        mTextHighlightColor = ColorUtils.setAlphaComponent(accentColor, 128);
+
         //noinspection ResourceAsColor
         mKernelHeader.setTextColor(accentColor);
         //noinspection ResourceAsColor
         mCpuHeader.setTextColor(accentColor);
         //noinspection ResourceAsColor
         mDeviceHeader.setTextColor(accentColor);
+
+        /** Use accent color for text selector handles */
+        if (mTextSelectHandleLeft != null) {
+            DrawableCompat.wrap(mTextSelectHandleLeft);
+            //noinspection ResourceAsColor
+            DrawableCompat.setTint(mTextSelectHandleLeft, accentColor);
+        }
+        if (mTextSelectHandleRight != null) {
+            DrawableCompat.wrap(mTextSelectHandleRight);
+            //noinspection ResourceAsColor
+            DrawableCompat.setTint(mTextSelectHandleRight, accentColor);
+        }
 
         mContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -651,12 +675,14 @@ public class InfoFragment extends Fragment {
     protected void kernelMoreButton() {
         mKernelMenu.startAnimation(popupEnterMtrl);
         mKernelMenu.setVisibility(View.VISIBLE);
+        Utils.setElevation(mKernelMenu, getResources().getDimension(R.dimen.floating_toolbar_elevation));
     }
 
     @OnClick(R.id.btn_device_more)
     protected void deviceMoreButton() {
         mDeviceMenu.startAnimation(popupEnterMtrl);
         mDeviceMenu.setVisibility(View.VISIBLE);
+        Utils.setElevation(mDeviceMenu, getResources().getDimension(R.dimen.floating_toolbar_elevation));
     }
 
     @OnClick(R.id.running_processes)
@@ -673,7 +699,7 @@ public class InfoFragment extends Fragment {
 
     @SuppressWarnings("unused")
     private void writeLogcatToFile() {
-        new MaterialDialog.Builder(mContext)
+        final MaterialDialog dialog = new MaterialDialog.Builder(mContext)
                 .title(R.string.logcat_input_title)
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .inputRange(1, 32, accentColor)
@@ -710,7 +736,13 @@ public class InfoFragment extends Fragment {
                                     }));
                         }
                     }
-                }).show();
+                }).build();
+
+        final EditText editText = dialog.getInputEditText();
+        if (editText != null)
+            editText.setHighlightColor(mTextHighlightColor);
+
+        dialog.show();
     }
 
     @Override
@@ -733,6 +765,7 @@ public class InfoFragment extends Fragment {
         final TextView mKernelVersionFull = ButterKnife.findById(view, R.id.kernel_version_full);
         if (CPUUtils.getKernelVersion() != null) {
             mKernelVersionFull.setText(CPUUtils.getKernelVersion());
+            mKernelVersionFull.setHighlightColor(mTextHighlightColor);
         } else {
             mKernelVersionFull.setText(versionUnavailableText);
         }
@@ -742,6 +775,7 @@ public class InfoFragment extends Fragment {
         mKernelBottomSheetDialog.show();
 
         final BottomSheetBehavior behavior = BottomSheetBehavior.from(((View) view.getParent()));
+        behavior.setPeekHeight((int)getResources().getDimension(R.dimen.bottom_sheet_min_height));
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -756,7 +790,6 @@ public class InfoFragment extends Fragment {
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             }
         });
-        behavior.setPeekHeight(515);
 
         final ImageButton mKernelCloseButton = ButterKnife.findById(view, R.id.btn_kernel_close);
         mKernelCloseButton.setOnClickListener(new View.OnClickListener() {
@@ -782,7 +815,7 @@ public class InfoFragment extends Fragment {
         mProcessBottomSheetDialog.show();
 
         final BottomSheetBehavior behavior = BottomSheetBehavior.from(((View) view.getParent()));
-        behavior.setPeekHeight((int)getResources().getDimension(R.dimen.logcat_min_height));
+        behavior.setPeekHeight((int)getResources().getDimension(R.dimen.bottom_sheet_min_height));
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -821,7 +854,7 @@ public class InfoFragment extends Fragment {
 
         final View mLogcatBottomSheet = view.findViewById(R.id.logcat_sheet_contents);
         final BottomSheetBehavior mLogcatBottomSheetBehavior = BottomSheetBehavior.from(((View) view.getParent()));
-        mLogcatBottomSheetBehavior.setPeekHeight((int)getResources().getDimension(R.dimen.logcat_min_height));
+        mLogcatBottomSheetBehavior.setPeekHeight((int)getResources().getDimension(R.dimen.bottom_sheet_min_height));
         mLogcatBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -835,9 +868,9 @@ public class InfoFragment extends Fragment {
                             @Override
                             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                                 if (mLogcatBottomSheet.getMeasuredHeight() <= scrollY + v.getHeight()) {
-                                    ViewCompat.setElevation(mLogcatTitleBar, getResources().getDimension(R.dimen.ab_elevation));
+                                    Utils.setElevation(mLogcatTitleBar, getResources().getDimension(R.dimen.ab_elevation));
                                 } else {
-                                    ViewCompat.setElevation(mLogcatTitleBar, 0);
+                                    Utils.setElevation(mLogcatTitleBar, 0);
                                 }
                             }
                         });
@@ -871,8 +904,13 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        //noinspection ResourceAsColor
-        MDTintHelper.setTint(mProgressBarLogcat, accentColor);
+        int progressBarColor;
+        if (ThemedActivity.mIsDarkTheme) {
+            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_700);
+        } else {
+            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_300);
+        }
+        MDTintHelper.setTint(mProgressBarLogcat, progressBarColor);
         mProgressBarLogcat.setVisibility(View.VISIBLE);
 
         Tasks.executeInBackground(getActivity(), new BackgroundWork<String>() {
@@ -899,7 +937,10 @@ public class InfoFragment extends Fragment {
         }, new Completion<String>() {
             @Override
             public void onSuccess(Context context, String result) {
-                if (mLogcatSummary != null) mLogcatSummary.setText(result);
+                if (mLogcatSummary != null) {
+                    mLogcatSummary.setText(result);
+                    mLogcatSummary.setHighlightColor(mTextHighlightColor);
+                }
                 if (mProgressBarLogcat.getVisibility() == View.VISIBLE) {
                     mProgressBarLogcat.setVisibility(View.GONE);
                 }

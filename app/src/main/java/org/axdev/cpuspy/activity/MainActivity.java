@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Spannable;
@@ -139,7 +140,7 @@ public class MainActivity extends ThemedActivity {
                                             .text(res.getString(R.string.snackbar_text_update))
                                             .actionLabel(res.getString(R.string.action_view))
                                             .actionLabelTypeface(robotoMedium)
-                                            .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.primary) : accentColor())
+                                            .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.material_blue_500) : accentColor())
                                             .actionListener(new ActionClickListener() {
                                                 @Override
                                                 public void onActionClicked(Snackbar snackbar) {
@@ -181,6 +182,7 @@ public class MainActivity extends ThemedActivity {
         }
         tabs.setBackgroundColor(primaryColor());
         tabs.setupWithViewPager(viewPager);
+        Utils.setElevation(tabs, getResources().getDimension(R.dimen.ab_elevation));
     }
 
     private void setupViewPager(ViewPager viewPager) {

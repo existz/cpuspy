@@ -4,11 +4,11 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/material_blue_500</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/material_grey_300</item>
         <item name="colorCardBackground">@color/card_light_background</item>
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="colorDrawableTint">@color/drawable_color_light</item>
@@ -23,17 +23,16 @@
         <item name="android:textColor">#212121</item>
         <item name="android:textColorPrimary">@color/primary_text_color</item>
         <item name="android:colorEdgeEffect">@color/edge_effect_color</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="AppTheme_LightAB" parent="@style/Theme.AppCompat.Light" >
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/material_blue_500</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/material_grey_300</item>
         <item name="colorCardBackground">@color/card_light_background</item>
         <item name="colorUnusedBackground">@color/unused_light_background</item>
         <item name="colorDrawableTint">@color/drawable_color_light</item>
@@ -48,17 +47,16 @@
         <item name="android:textColor">#212121</item>
         <item name="android:textColorPrimary">@color/primary_text_color</item>
         <item name="android:colorEdgeEffect">@color/edge_effect_color</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="AppThemeDark" parent="@style/Theme.AppCompat">
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/material_blue_500</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/material_grey_700</item>
         <item name="colorCardBackground">@color/card_dark_background</item>
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="colorDrawableTint">@color/drawable_color_dark</item>
@@ -73,17 +71,16 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/primary_text_color_dark</item>
         <item name="android:colorEdgeEffect">@color/edge_effect_color</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="AppThemeDark_LightAB" parent="@style/Theme.AppCompat">
         <!-- Main theme colors -->
         <!--   your app branding color for the app bar -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/material_blue_500</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/material_grey_700</item>
         <item name="colorCardBackground">@color/card_dark_background</item>
         <item name="colorUnusedBackground">@color/unused_dark_background</item>
         <item name="colorDrawableTint">@color/drawable_color_dark</item>
@@ -100,7 +97,6 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/primary_text_color_dark</item>
         <item name="android:colorEdgeEffect">@color/edge_effect_color</item>
-        <item name="android:textCursorDrawable">@null</item>
     </style>
 
     <style name="Widget.Material.ActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">

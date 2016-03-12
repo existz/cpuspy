@@ -103,7 +103,7 @@ public class SleepService extends Service {
                                     0, mainIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
                             final int color = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("primary_color", 0);
-                            final int primaryColor = color == 0 ? ContextCompat.getColor(mContext, R.color.primary) : color;
+                            final int primaryColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
 
                             //noinspection ResourceAsColor
                             mBuilder = new NotificationCompat.Builder(mContext)

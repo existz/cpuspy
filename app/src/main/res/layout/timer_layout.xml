@@ -73,7 +73,7 @@
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
                             android:text="@string/total_state_time"
-                            android:textColor="@color/accent"/>
+                            android:textColor="@color/material_blue_500"/>
 
                         <TextView
                             android:id="@+id/ui_total_state_time"
@@ -97,7 +97,6 @@
                             android:layout_marginRight="@dimen/padding_mtrl"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:elevation="4dp"
                             android:visibility="gone"
                             card_view:cardBackgroundColor="?attr/colorFloatingToolbar"
                             card_view:cardCornerRadius="2dp">

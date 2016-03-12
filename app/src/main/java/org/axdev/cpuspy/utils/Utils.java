@@ -17,8 +17,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -181,6 +183,14 @@ public class Utils {
             return org.axdev.cpuspy.utils.AppNames.getLabel(pm, packageInfo);
         } catch (PackageManager.NameNotFoundException e) {
             return process.name;
+        }
+    }
+
+    public static void setElevation(View v, float elevation) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            v.setElevation(elevation);
+        } else {
+            ViewCompat.setElevation(v, elevation);
         }
     }
 }

@@ -77,7 +77,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     }
 
     public int primaryColor() {
-        final int defaultColor = ContextCompat.getColor(this, R.color.primary);
+        final int defaultColor = ContextCompat.getColor(this, R.color.material_blue_500);
         return PreferenceManager.getDefaultSharedPreferences(this).getInt("primary_color", defaultColor);
     }
 
@@ -90,7 +90,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     }
 
     public int accentColor() {
-        final int defaultColor = ContextCompat.getColor(this, R.color.primary);
+        final int defaultColor = ContextCompat.getColor(this, R.color.material_blue_500);
         return PreferenceManager.getDefaultSharedPreferences(this).getInt("accent_color", defaultColor);
     }
 

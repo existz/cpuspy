@@ -65,7 +65,7 @@ public class LicenseFragment extends Fragment implements AdapterView.OnItemClick
         final ThemedActivity act = ((ThemedActivity) mContext);
         primaryColor = act.primaryColor();
         final int color = act.accentColor();
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.accent) : color;
+        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
         mLicenseHeader.setTypeface(robotoMedium);
         //noinspection ResourceAsColor
         mLicenseHeader.setTextColor(accentColor);
