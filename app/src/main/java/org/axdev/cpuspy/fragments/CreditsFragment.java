@@ -15,6 +15,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
@@ -23,30 +25,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
+import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
+import org.axdev.cpuspy.data.ItemData;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
+import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
 
-    @BindColor(R.color.secondary_text_color_dark) int mColorTextDark;
-    @BindColor(R.color.secondary_text_color_light) int mColorTextLight;
     @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
-    private Context mContext;
     private ThemedActivity act;
 
     @Override
@@ -60,7 +56,7 @@ public class CreditsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.mContext = this.getActivity();
+        Context mContext = this.getActivity();
         this.act = ((ThemedActivity) mContext);
 
         final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
@@ -92,94 +88,40 @@ public class CreditsFragment extends Fragment {
         //noinspection ResourceAsColor
         mTranslatorsHeader.setTextColor(accentColor);
 
-        final ListView mListView1 = ButterKnife.findById(getActivity(), R.id.credits_list);
-        final ListView mListView2 = ButterKnife.findById(getActivity(), R.id.translator_list);
+        final RecyclerView mCreditsRecyclerView = ButterKnife.findById(view, R.id.credits_list);
+        final ItemData creditsData[] = {
+                new ItemData("Icons", "Eduardo Pratti"),
+                new ItemData("Creator", "Brandon Valosek")};
 
-        final List<String[]> creditList = new ArrayList<>(2);
-        creditList.add(new String[]{"Icons", "Eduardo Pratti"});
-        creditList.add(new String[]{"Creator", "Brandon Valosek"});
-        mListView1.setAdapter(new ArrayAdapter<String[]>(
-                mContext,
-                R.layout.list_item_2,
-                creditList) {
+        final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
+        mLinearLayoutManager.setScrollEnabled(false);
+        final RecyclerViewAdapter mCreditsRecyclerViewAdapter = new RecyclerViewAdapter(creditsData);
+        mCreditsRecyclerViewAdapter.setOnItemClickListener(null);
+        mCreditsRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mCreditsRecyclerView.setAdapter(mCreditsRecyclerViewAdapter);
+        mCreditsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+        final RecyclerView mTranslatorRecyclerView = ButterKnife.findById(view, R.id.translator_list);
+        final ItemData translatorData[] = {
+                new ItemData("Bengali (India)", "suhridkhan"),
+                new ItemData("French", "M1ck, orlith"),
+                new ItemData("German", "AhMaizeBalls"),
+                new ItemData("Greek", "VasilisKos"),
+                new ItemData("Hungarian", "wechy77"),
+                new ItemData("Italian", "sossio18"),
+                new ItemData("Portuguese (Brazil)", "joaomarcosgabaldi"),
+                new ItemData("Portuguese (Portugal)", "Marco Marinho"),
+                new ItemData("Russian", "gaich"),
+                new ItemData("Simplified Chinese", "ContactFront"),
+                new ItemData("Swedish", "Carl")};
 
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) mContext
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(
-                            R.layout.list_item_2, parent, false);
-                }
-
-                // If you look at the android.R.layout.simple_list_item_2 source, you'll see
-                // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
-                //TwoLineListItem listItem = (TwoLineListItem) view;
-                final String[] entry = creditList.get(position);
-                final TextView mText1 = ButterKnife.findById(convertView, R.id.text1);
-                final TextView mText2 = ButterKnife.findById(convertView, R.id.text2);
-
-                mText1.setText(entry[0]);
-                mText2.setText(entry[1]);
-
-                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
-
-                return convertView;
-            }
-        });
-
-        final List<String[]> translatorList = new ArrayList<>(11);
-        translatorList.add(new String[]{"Bengali (India)", "suhridkhan"});
-        translatorList.add(new String[]{"French", "M1ck, orlith"});
-        translatorList.add(new String[]{"German", "AhMaizeBalls"});
-        translatorList.add(new String[]{"Greek", "VasilisKos"});
-        translatorList.add(new String[]{"Hungarian", "wechy77"});
-        translatorList.add(new String[]{"Italian", "sossio18"});
-        translatorList.add(new String[]{"Portuguese (Brazil)", "joaomarcosgabaldi"});
-        translatorList.add(new String[]{"Portuguese (Portugal)", "Marco Marinho"});
-        translatorList.add(new String[]{"Russian", "gaich"});
-        translatorList.add(new String[]{"Simplified Chinese", "ContactFront"});
-        translatorList.add(new String[]{"Swedish", "Carl"});
-        mListView2.setAdapter(new ArrayAdapter<String[]>(
-                mContext,
-                R.layout.list_item_2,
-                translatorList) {
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) mContext
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(
-                            R.layout.list_item_2, parent, false);
-                }
-
-                // If you look at the android.R.layout.simple_list_item_2 source, you'll see
-                // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
-                //TwoLineListItem listItem = (TwoLineListItem) view;
-                final String[] entry = translatorList.get(position);
-                final TextView mText1 = ButterKnife.findById(convertView, R.id.text1);
-                final TextView mText2 = ButterKnife.findById(convertView, R.id.text2);
-
-                mText1.setText(entry[0]);
-                mText2.setText(entry[1]);
-
-                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
-
-                return convertView;
-            }
-        });
-
-        mListView1.setDivider(null);
-        mListView1.setDividerHeight(0);
-
-        mListView2.setDivider(null);
-        mListView2.setDividerHeight(0);
-
-        Utils.setDynamicHeight(mListView1);
-        Utils.setDynamicHeight(mListView2);
+        final RecyclerLinearLayoutManager mLinearLayoutManager2 = new RecyclerLinearLayoutManager(mContext);
+        mLinearLayoutManager2.setScrollEnabled(false);
+        final RecyclerViewAdapter mTranslatorRecyclerViewAdapter = new RecyclerViewAdapter(translatorData);
+        mTranslatorRecyclerViewAdapter.setOnItemClickListener(null);
+        mTranslatorRecyclerView.setLayoutManager(mLinearLayoutManager2);
+        mTranslatorRecyclerView.setAdapter(mTranslatorRecyclerViewAdapter);
+        mTranslatorRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override

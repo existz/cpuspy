@@ -11,34 +11,31 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
+import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
+import org.axdev.cpuspy.data.ItemData;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
+import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
+import org.axdev.cpuspy.views.DividerItemDecoration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DeveloperFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class DeveloperFragment extends Fragment {
 
-    @BindColor(R.color.secondary_text_color_dark) int mColorTextDark;
-    @BindColor(R.color.secondary_text_color_light) int mColorTextLight;
     @BindString(R.string.pref_about_developer) String mStringDeveloper;
     @BindString(R.string.email_developer) String mStringEmailDev;
     @BindString(R.string.email_developer_summary) String mStringEmailDevSummary;
@@ -103,64 +100,41 @@ public class DeveloperFragment extends Fragment implements AdapterView.OnItemCli
         //noinspection ResourceAsColor
         contactTitle.setTextColor(accentColor);
 
-        final ListView mListView = ButterKnife.findById(getActivity(), R.id.developer_list);
-        final List<String[]> developerList = new ArrayList<>();
-        developerList.add(new String[]{mStringEmailDev, mStringEmailDevSummary});
-        developerList.add(new String[]{mStringGPlus, mStringGPlusSummary});
-        developerList.add(new String[]{mStringDonate, mStringDonateSummary});
-        mListView.setAdapter(new ArrayAdapter<String[]>(
-                mContext,
-                R.layout.list_item_2,
-                developerList) {
+        final RecyclerView mDeveloperRecyclerView = ButterKnife.findById(view, R.id.developer_list);
+        final ItemData creditsData[] = {
+                new ItemData(mStringEmailDev, mStringEmailDevSummary),
+                new ItemData(mStringGPlus, mStringGPlusSummary),
+                new ItemData(mStringDonate, mStringDonateSummary)};
 
+        final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
+        mLinearLayoutManager.setScrollEnabled(false);
+        final RecyclerViewAdapter mCreditsRecyclerViewAdapter = new RecyclerViewAdapter(creditsData);
+        mCreditsRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public void onItemClick(View view, int position) {
+                final Activity activity = getActivity();
 
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) mContext
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(
-                            R.layout.list_item_2, parent, false);
+                switch (position) {
+                    case 0: // Email Developer
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("plain/text");
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "robbeane@gmail.com" });
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "CPUSpy Material");
+                        startActivity(Intent.createChooser(intent, mStringEmailDev));
+                        break;
+                    case 1: // Google Plus
+                        Utils.openChromeTab(activity, "https://plus.google.com/+RobBeane", primaryColor);
+                        break;
+                    case 2: // Donate
+                        Utils.openChromeTab(activity, "https://goo.gl/X2sA4D", primaryColor);
+                        break;
                 }
-
-                // If you look at the android.R.layout.simple_list_item_2 source, you'll see
-                // it's a TwoLineListItem with 2 TextViews - mText1 and mText2.
-                //TwoLineListItem listItem = (TwoLineListItem) view;
-                final String[] entry = developerList.get(position);
-                final TextView mText1 = ButterKnife.findById(convertView, R.id.text1);
-                final TextView mText2 = ButterKnife.findById(convertView, R.id.text2);
-
-                mText1.setText(entry[0]);
-                mText2.setText(entry[1]);
-
-                mText2.setTextColor(ThemedActivity.mIsDarkTheme ? mColorTextDark : mColorTextLight);
-
-                return convertView;
             }
         });
-
-        Utils.setDynamicHeight(mListView);
-        mListView.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Activity mContext = getActivity();
-        switch (position) {
-            case 0: // Email Developer
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "robbeane@gmail.com" });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "CPUSpy Material");
-                startActivity(Intent.createChooser(intent, getResources().getString(R.string.email_developer)));
-                break;
-            case 1: // Google Plus
-                Utils.openChromeTab(mContext, "https://plus.google.com/+RobBeane", primaryColor);
-                break;
-            case 2: // Donate
-                Utils.openChromeTab(mContext, "https://goo.gl/X2sA4D", primaryColor);
-                break;
-        }
+        mDeveloperRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mDeveloperRecyclerView.setAdapter(mCreditsRecyclerViewAdapter);
+        mDeveloperRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mDeveloperRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, null));
     }
 
     @Override

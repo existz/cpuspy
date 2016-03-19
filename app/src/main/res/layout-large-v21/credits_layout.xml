@@ -20,7 +20,7 @@
             android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/pref_about_header_credits"/>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/credits_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_marginRight="@dimen/padding_mtrl"
             android:text="@string/translators_header"/>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/translator_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

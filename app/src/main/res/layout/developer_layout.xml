@@ -70,7 +70,7 @@
             android:layout_below="@+id/gplus_icon"
             android:tint="?attr/colorDrawableTint"/>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/developer_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

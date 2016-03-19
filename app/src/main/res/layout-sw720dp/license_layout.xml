@@ -20,7 +20,7 @@
             android:layout_marginRight="32dp"
             android:text="@string/license_header"/>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/license_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
