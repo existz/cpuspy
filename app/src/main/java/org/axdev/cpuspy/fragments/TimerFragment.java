@@ -107,7 +107,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.states_toolbar) CardView mStatesToolbar;
     @Bind(R.id.container) View mContainer;
 
-    @BindDrawable(R.drawable.ic_charged) Drawable chargedDrawable;
     @BindString(R.string.action_dismiss) String actionDismissText;
     @BindString(R.string.snackbar_text_reset) String snackbarResetText;
     @BindString(R.string.snackbar_text_restore) String snackbarRestoreText;
@@ -314,11 +313,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             // Set button background to accent color
             final ColorStateList sl = ColorStateList.valueOf(accentColor);
             mChargedButton.setSupportBackgroundTintList(sl);
-            // Set charged image to accent color
-            if (chargedDrawable != null) {
-                DrawableCompat.wrap(chargedDrawable);
-                DrawableCompat.setTint(chargedDrawable, accentColor);
-            }
 
             mStatesWarning.setVisibility(View.GONE);
             mStatesCardView.setVisibility(View.GONE);
