@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="?android:attr/colorBackground">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -786,7 +786,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <View
         android:id="@+id/content_overlay"
