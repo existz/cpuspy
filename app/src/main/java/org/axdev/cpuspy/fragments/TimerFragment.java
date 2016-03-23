@@ -160,22 +160,10 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
-        mWelcomeCardSummary.setTypeface(robotoMedium);
-        mWelcomeCardFeatures.setTypeface(robotoMedium);
-        mFeatureCardTitle.setTypeface(robotoMedium);
         mAdditionalStatesCount.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTypeface(robotoMedium);
         //noinspection ResourceAsColor
         mHeaderTotalStateTime.setTextColor(accentColor);
-
-        /** Tint cardview and buttons to match accent color */
-        //noinspection ResourceAsColor
-        final int primaryDark = CircleView.shiftColorDown(accentColor);
-        final ColorStateList sl = ColorStateList.valueOf(primaryDark);
-        mWelcomeCardView.setCardBackgroundColor(accentColor);
-        mFeatureCardView.setCardBackgroundColor(accentColor);
-        mWelcomeButton.setSupportBackgroundTintList(sl);
-        mFeatureButton.setSupportBackgroundTintList(sl);
 
         /** Show WhatsNewDialog if versionCode has changed */
         int currentVersionNumber = BuildConfig.VERSION_CODE;
@@ -187,13 +175,31 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             sp.edit().putInt("version_number", currentVersionNumber).apply();
         }
 
+        /** Tint cardview and buttons to match accent color */
+        //noinspection ResourceAsColor
+        final int primaryDark = CircleView.shiftColorDown(accentColor);
+        final ColorStateList sl = ColorStateList.valueOf(primaryDark);
+        
         /** Remove welcome cardview if its already been shown */
         boolean welcomeScreenShown = sp.getBoolean(WELCOME_SCREEN, true);
-        if (!welcomeScreenShown) { this.removeView(mWelcomeCardView); }
+        if (!welcomeScreenShown) {
+            this.removeView(mWelcomeCardView);
+        } else {
+            mWelcomeCardSummary.setTypeface(robotoMedium);
+            mWelcomeCardFeatures.setTypeface(robotoMedium);
+            mWelcomeCardView.setCardBackgroundColor(accentColor);
+            mWelcomeButton.setSupportBackgroundTintList(sl);
+        }
 
         /** Remove new feature cardview if its already been shown */
         boolean newFeatureShown = sp.getBoolean(NEW_FEATURE, true);
-        if (!newFeatureShown) { this.removeView(mFeatureCardView); }
+        if (!newFeatureShown) {
+            this.removeView(mFeatureCardView);
+        } else {
+            mFeatureCardTitle.setTypeface(robotoMedium);
+            mFeatureCardView.setCardBackgroundColor(accentColor);
+            mFeatureButton.setSupportBackgroundTintList(sl);
+        }
 
         /** Set colors and listener for SwipeRefreshLayout */
         mSwipeLayout.setOnRefreshListener(this);
