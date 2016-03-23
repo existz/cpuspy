@@ -134,7 +134,7 @@
     <string name="donate_summary">Spenden, um dieses Projekt zu unterstützen</string>
     <string name="logcat_header">Logcat</string>
     <string name="logcat_file_saved">Datei gespeichert unter /sdcard/</string>
-    <string name="logcat_error_saving">Logcat kann nicht unter /sdcard/ gespeichert werden</string>
+    <string name="logcat_error_saving">"Logcat kann nicht unter /sdcard/ gespeichert werden"</string>
     <string name="process_name_header">Name:</string>
     <string name="process_policy_header">Richtlinie:</string>
     <string name="process_pid_header">PID:</string>

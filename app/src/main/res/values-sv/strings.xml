@@ -21,6 +21,7 @@
     <string name="snackbar_text_crashreport">Crash rapportering inaktiverat. Ändringar tar effekt vid omstart av appen.</string>
     <string name="snackbar_text_update">En nyare version finns tillgänglig!</string>
     <string name="snackbar_text_undo">Ångra</string>
+    <string name="snackbar_text_delete">Ta bort</string>
     <string name="action_changelog">Fulla ändringar</string>
     <string name="action_back">Tillbaka</string>
     <string name="action_done">Klar</string>
@@ -134,7 +135,9 @@
     <string name="donate_summary">Donera pengar för att stödja projektet</string>
     <string name="logcat_header">Logcat</string>
     <string name="logcat_file_saved">Fil sparad till /sdcard/</string>
-    <string name="logcat_error_saving">Kunde inte spara till sd</string>
+    <string name="logcat_error_saving">"Kunde inte spara till sd"</string>
+    <string name="logcat_input_title">Spara fil som&#8230;</string>
+    <string name="logcat_input_hint">logcat.txt</string>
     <string name="process_name_header">Namn:</string>
     <string name="process_policy_header">Policy:</string>
     <string name="process_pid_header">PID:</string>

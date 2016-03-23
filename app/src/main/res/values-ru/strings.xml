@@ -21,6 +21,7 @@
     <string name="snackbar_text_crashreport">Сообщения о сбоях отключены. Изменения вступят в силу после перезапуска приложения.</string>
     <string name="snackbar_text_update">Доступна более новая версия!</string>
     <string name="snackbar_text_undo">Отмена</string>
+    <string name="snackbar_text_delete">Удалить</string>
     <string name="action_changelog">Полная история изменений</string>
     <string name="action_back">Назад</string>
     <string name="action_done">Готово</string>
@@ -134,7 +135,9 @@
     <string name="donate_summary">Отправить пожертвование для помощи проекту</string>
     <string name="logcat_header">Логкат</string>
     <string name="logcat_file_saved">Файл сохранен в /sdcard/</string>
-    <string name="logcat_error_saving">Невозможно сохранить логкат на sdcard</string>
+    <string name="logcat_error_saving">"Невозможно сохранить логкат на sdcard"</string>
+    <string name="logcat_input_title">Сохранить файл как&#8230;</string>
+    <string name="logcat_input_hint">logcat.txt</string>
     <string name="process_name_header">Имя:</string>
     <string name="process_policy_header">Политика:</string>
     <string name="process_pid_header">PID:</string>
