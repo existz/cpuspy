@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -19,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.color.CircleView;
 
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
@@ -43,8 +47,6 @@ public class DeveloperFragment extends Fragment {
     @BindString(R.string.view_gplus_summary) String mStringGPlusSummary;
     @BindString(R.string.menu_donate) String mStringDonate;
     @BindString(R.string.donate_summary) String mStringDonateSummary;
-
-    private int primaryColor;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,23 +83,19 @@ public class DeveloperFragment extends Fragment {
         imageView.setBorderWidth((int) getResources().getDimension(ThemedActivity.mIsDarkTheme ?
                 R.dimen.circleimage_border_medium : R.dimen.circleimage_border_large));
 
-        final ThemedActivity act = ((ThemedActivity) mContext);
-        final int colorPrimary = act.primaryColor();
-        final int colorAccent = act.accentColor();
-        primaryColor = colorPrimary == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : colorPrimary;
-        int accentColor = colorAccent == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : colorAccent;
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
 
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
-        //noinspection ResourceAsColor
         mHeader.setBackgroundColor(primaryColor);
 
         final View mDivider = ButterKnife.findById(view, R.id.viewDivider);
-        mDivider.setBackgroundColor(act.primaryColorDark());
+        mDivider.setBackgroundColor(CircleView.shiftColorDown(primaryColor));
 
         final TextView contactTitle = ButterKnife.findById(view, R.id.developer_contact_title);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
         contactTitle.setTypeface(robotoMedium);
-        //noinspection ResourceAsColor
         contactTitle.setTextColor(accentColor);
 
         final RecyclerView mDeveloperRecyclerView = ButterKnife.findById(view, R.id.developer_list);

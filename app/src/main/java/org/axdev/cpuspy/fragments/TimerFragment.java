@@ -150,15 +150,12 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        final ThemedActivity act = ((ThemedActivity) mContext);
-        final int color = act.accentColor();
-        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
+        accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */
         mAdditionalStatesCount.setTypeface(robotoMedium);
         mHeaderTotalStateTime.setTypeface(robotoMedium);
-        //noinspection ResourceAsColor
         mHeaderTotalStateTime.setTextColor(accentColor);
 
         /** Show WhatsNewDialog if versionCode has changed */
@@ -172,7 +169,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
 
         /** Tint cardview and buttons to match accent color */
-        //noinspection ResourceAsColor
         final int primaryDark = CircleView.shiftColorDown(accentColor);
         final ColorStateList sl = ColorStateList.valueOf(primaryDark);
         
@@ -201,7 +197,6 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeColors(ContextCompat.getColor(mContext, ThemedActivity.isLightAccent(mContext) ?
                 R.color.tabsScrollColor_lightAB : android.R.color.white));
-        //noinspection ResourceAsColor
         mSwipeLayout.setProgressBackgroundColorSchemeColor(accentColor);
 
         /** Add listener for shake to refresh */

@@ -8,9 +8,11 @@ package org.axdev.cpuspy.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -28,7 +30,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
 import org.axdev.cpuspy.data.ItemData;
 import org.axdev.cpuspy.utils.TypefaceHelper;
@@ -43,7 +44,7 @@ public class CreditsFragment extends Fragment {
 
     @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
-    private ThemedActivity act;
+    private SharedPreferences sp;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class CreditsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context mContext = this.getActivity();
-        this.act = ((ThemedActivity) mContext);
 
         final ActionBar mActionBar = ((AppCompatActivity) mContext).getSupportActionBar();
         assert mActionBar != null;
@@ -79,13 +79,12 @@ public class CreditsFragment extends Fragment {
 
         final TextView mCreditsHeader = ButterKnife.findById(getActivity(), R.id.credits_header);
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
-        final int color = act.accentColor();
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
+
+        sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
         mCreditsHeader.setTypeface(robotoMedium);
-        //noinspection ResourceAsColor
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
-        //noinspection ResourceAsColor
         mTranslatorsHeader.setTextColor(accentColor);
 
         final RecyclerView mCreditsRecyclerView = ButterKnife.findById(view, R.id.credits_list);
@@ -133,7 +132,7 @@ public class CreditsFragment extends Fragment {
 
     /** called to handle a menu event */
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        final int primaryColor = act.primaryColor();
+        final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(getActivity(), R.color.material_blue_500));
         // what it do mayne
         switch (item.getItemId()) {
         /* pressed the load menu button */

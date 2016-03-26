@@ -9,6 +9,7 @@ package org.axdev.cpuspy.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -239,27 +241,18 @@ public class InfoFragment extends Fragment {
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
 
-        final ThemedActivity act = ((ThemedActivity) mContext);
-        final int color = act.accentColor();
-        accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
+        accentColor = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
 
-        //noinspection ResourceAsColor
         mTextHighlightColor = ColorUtils.setAlphaComponent(accentColor, 128);
-
-        //noinspection ResourceAsColor
         mKernelHeader.setTextColor(accentColor);
-        //noinspection ResourceAsColor
         mCpuHeader.setTextColor(accentColor);
-        //noinspection ResourceAsColor
         mDeviceHeader.setTextColor(accentColor);
 
         /** Use accent color for text selector handles */
         if (mTextSelectHandleLeft != null && mTextSelectHandleRight != null) {
             DrawableCompat.wrap(mTextSelectHandleLeft);
             DrawableCompat.wrap(mTextSelectHandleRight);
-            //noinspection ResourceAsColor
             DrawableCompat.setTint(mTextSelectHandleLeft, accentColor);
-            //noinspection ResourceAsColor
             DrawableCompat.setTint(mTextSelectHandleRight, accentColor);
         }
 

@@ -7,11 +7,12 @@
 package org.axdev.cpuspy.fragments;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.axdev.cpuspy.BuildConfig;
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.Utils;
 
 import butterknife.ButterKnife;
@@ -33,8 +33,7 @@ public class WhatsNewDialog extends android.support.v4.app.DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Context mContext = this.getActivity();
-        final ThemedActivity act = ((ThemedActivity) mContext);
-        final int primaryColor = act.primaryColor();
+        final int primaryColor = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("primary_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
         final Resources res = getResources();
         final MaterialDialog dialog = new MaterialDialog.Builder(mContext)
                 .title(res.getString(R.string.menu_changelog))

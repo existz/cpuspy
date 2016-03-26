@@ -9,9 +9,11 @@ package org.axdev.cpuspy.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -28,7 +30,6 @@ import android.widget.TextView;
 import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
 import org.axdev.cpuspy.data.ItemData;
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
@@ -41,7 +42,8 @@ public class LicenseFragment extends Fragment {
 
     @BindString(R.string.pref_title_license) String mStringLicense;
 
-    private ThemedActivity act;
+    private Context mContext;
+    private SharedPreferences sp;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,14 +56,13 @@ public class LicenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Context mContext = this.getActivity();
+        mContext = this.getActivity();
         final TextView mLicenseHeader = ButterKnife.findById(getActivity(), R.id.license_header);
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        act = ((ThemedActivity) mContext);
-        final int color = act.accentColor();
-        final int accentColor = color == 0 ? ContextCompat.getColor(mContext, R.color.material_blue_500) : color;
+
+        sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
         mLicenseHeader.setTypeface(robotoMedium);
-        //noinspection ResourceAsColor
         mLicenseHeader.setTextColor(accentColor);
 
         final RecyclerView mLicenseRecyclerView = ButterKnife.findById(view, R.id.license_list);
@@ -84,7 +85,7 @@ public class LicenseFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 final Activity activity = getActivity();
-                final int primaryColor = act.primaryColor();
+                final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
 
                 switch (position) {
                     case 0:
