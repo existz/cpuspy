@@ -71,15 +71,15 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.nispok:snackbar:2.11.0@aar'
-    compile 'com.jaredrummler:android-processes:1.0.6@aar'
+    compile 'com.jaredrummler:android-processes:1.0.7@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.fabiendevos:nanotasks:1.1.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0@aar'
-    compile 'eu.chainfire:libsuperuser:1.0.0.201602232357@aar'
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
+    compile 'eu.chainfire:libsuperuser:1.0.0.+@aar'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
         transitive = true
     }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.6@aar') {
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.7@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics:+') {
