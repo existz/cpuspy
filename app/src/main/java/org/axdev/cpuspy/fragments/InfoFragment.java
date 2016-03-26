@@ -254,13 +254,11 @@ public class InfoFragment extends Fragment {
         mDeviceHeader.setTextColor(accentColor);
 
         /** Use accent color for text selector handles */
-        if (mTextSelectHandleLeft != null) {
+        if (mTextSelectHandleLeft != null && mTextSelectHandleRight != null) {
             DrawableCompat.wrap(mTextSelectHandleLeft);
+            DrawableCompat.wrap(mTextSelectHandleRight);
             //noinspection ResourceAsColor
             DrawableCompat.setTint(mTextSelectHandleLeft, accentColor);
-        }
-        if (mTextSelectHandleRight != null) {
-            DrawableCompat.wrap(mTextSelectHandleRight);
             //noinspection ResourceAsColor
             DrawableCompat.setTint(mTextSelectHandleRight, accentColor);
         }
