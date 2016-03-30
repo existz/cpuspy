@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
-import org.axdev.cpuspy.data.RecyclerViewData;
+import org.axdev.cpuspy.data.RecyclerViewImageData;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class RecyclerViewImageAdapter extends RecyclerView.Adapter<RecyclerViewImageAdapter.ViewHolder> {
 
     private static OnItemClickListener listener;
 
@@ -18,22 +20,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
-        RecyclerViewAdapter.listener = listener;
+        RecyclerViewImageAdapter.listener = listener;
     }
 
-    private RecyclerViewData[] itemsData;
+    private RecyclerViewImageData[] itemsData;
 
-    public RecyclerViewAdapter(RecyclerViewData[] itemsData) {
+    public RecyclerViewImageAdapter(RecyclerViewImageData[] itemsData) {
         this.itemsData = itemsData;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                             int viewType) {
+    public RecyclerViewImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                  int viewType) {
         // create a new view
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_item_layout, null);
+                .inflate(R.layout.recycler_image_item_layout, null);
 
         return new ViewHolder(itemLayoutView);
     }
@@ -45,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
 
+        viewHolder.circleImageView.setImageDrawable(itemsData[position].getDrawable());
         viewHolder.txtViewTitle.setText(itemsData[position].getTitle());
         viewHolder.txtViewSummary.setText(itemsData[position].getSummary());
     }
@@ -52,11 +55,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // inner class to hold a reference to each item of RecyclerView
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
+        private CircleImageView circleImageView;
         private TextView txtViewTitle;
         private TextView txtViewSummary;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+            circleImageView = (CircleImageView) itemLayoutView.findViewById(R.id.imageView);
             txtViewTitle = (TextView) itemLayoutView.findViewById(R.id.text1);
             txtViewSummary = (TextView) itemLayoutView.findViewById(R.id.text2);
 

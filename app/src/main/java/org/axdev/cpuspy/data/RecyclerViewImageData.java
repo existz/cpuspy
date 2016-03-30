@@ -1,15 +1,21 @@
 package org.axdev.cpuspy.data;
 
-public class ItemData {
+import android.graphics.drawable.Drawable;
 
+public class RecyclerViewImageData {
+    private Drawable drawable;
     private String title;
     private String summary;
 
-    public ItemData(String title, String summary){
-
+    public RecyclerViewImageData(Drawable drawable, String title, String summary){
+        this.drawable = drawable;
         this.title = title;
         this.summary = summary;
     }
+
+    public Drawable getDrawable() { return drawable; }
+
+    public void setDrawable(Drawable drawable) { this.drawable = drawable; }
 
     public String getTitle() {
         return title;

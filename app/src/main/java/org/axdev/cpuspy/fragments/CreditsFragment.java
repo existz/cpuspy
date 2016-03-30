@@ -6,10 +6,12 @@
 
 package org.axdev.cpuspy.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,18 +32,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.axdev.cpuspy.R;
+import org.axdev.cpuspy.adapters.RecyclerViewImageAdapter;
 import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
-import org.axdev.cpuspy.data.ItemData;
+import org.axdev.cpuspy.data.RecyclerViewData;
+import org.axdev.cpuspy.data.RecyclerViewImageData;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
 
+    @BindDrawable(R.drawable.brandon_velosek) Drawable mBrandonVelosekDrawable;
+    @BindDrawable(R.drawable.eduardo_pratti) Drawable mEduardoPrattiDrawable;
     @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
     private SharedPreferences sp;
@@ -81,38 +88,53 @@ public class CreditsFragment extends Fragment {
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
 
         sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        final int materialBlue500 = ContextCompat.getColor(mContext, R.color.material_blue_500);
+        final int primaryColor = sp.getInt("primary_color", materialBlue500);
+        final int accentColor = sp.getInt("accent_color", materialBlue500);
         mCreditsHeader.setTypeface(robotoMedium);
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
         mTranslatorsHeader.setTextColor(accentColor);
 
         final RecyclerView mCreditsRecyclerView = ButterKnife.findById(view, R.id.credits_list);
-        final ItemData creditsData[] = {
-                new ItemData("Icons", "Eduardo Pratti"),
-                new ItemData("Creator", "Brandon Valosek")};
+        final RecyclerViewImageData creditsData[] = {
+                new RecyclerViewImageData(mEduardoPrattiDrawable, "Icons", "Eduardo Pratti"),
+                new RecyclerViewImageData(mBrandonVelosekDrawable, "Creator", "Brandon Valosek")};
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
         mLinearLayoutManager.setScrollEnabled(false);
-        final RecyclerViewAdapter mCreditsRecyclerViewAdapter = new RecyclerViewAdapter(creditsData);
-        mCreditsRecyclerViewAdapter.setOnItemClickListener(null);
+        final RecyclerViewImageAdapter mCreditsRecyclerViewAdapter = new RecyclerViewImageAdapter(creditsData);
+        mCreditsRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                final Activity activity = getActivity();
+                switch (position) {
+                    case 0:
+                        Utils.openChromeTab(activity, "https://plus.google.com/+EduardoPratti", primaryColor);
+                        break;
+                    case 1:
+                        Utils.openChromeTab(activity, "https://github.com/bvalosek", primaryColor);
+                        break;
+                }
+            }
+        });
         mCreditsRecyclerView.setLayoutManager(mLinearLayoutManager);
         mCreditsRecyclerView.setAdapter(mCreditsRecyclerViewAdapter);
         mCreditsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         final RecyclerView mTranslatorRecyclerView = ButterKnife.findById(view, R.id.translator_list);
-        final ItemData translatorData[] = {
-                new ItemData("Bengali (India)", "suhridkhan"),
-                new ItemData("French", "M1ck, orlith"),
-                new ItemData("German", "AhMaizeBalls"),
-                new ItemData("Greek", "VasilisKos"),
-                new ItemData("Hungarian", "wechy77"),
-                new ItemData("Italian", "sossio18"),
-                new ItemData("Portuguese (Brazil)", "joaomarcosgabaldi"),
-                new ItemData("Portuguese (Portugal)", "Marco Marinho"),
-                new ItemData("Russian", "gaich"),
-                new ItemData("Simplified Chinese", "ContactFront"),
-                new ItemData("Swedish", "Carl")};
+        final RecyclerViewData translatorData[] = {
+                new RecyclerViewData("Bengali (India)", "suhridkhan"),
+                new RecyclerViewData("French", "M1ck, orlith"),
+                new RecyclerViewData("German", "AhMaizeBalls"),
+                new RecyclerViewData("Greek", "VasilisKos"),
+                new RecyclerViewData("Hungarian", "wechy77"),
+                new RecyclerViewData("Italian", "sossio18"),
+                new RecyclerViewData("Portuguese (Brazil)", "joaomarcosgabaldi"),
+                new RecyclerViewData("Portuguese (Portugal)", "Marco Marinho"),
+                new RecyclerViewData("Russian", "gaich"),
+                new RecyclerViewData("Simplified Chinese", "ContactFront"),
+                new RecyclerViewData("Swedish", "Carl")};
 
         final RecyclerLinearLayoutManager mLinearLayoutManager2 = new RecyclerLinearLayoutManager(mContext);
         mLinearLayoutManager2.setScrollEnabled(false);

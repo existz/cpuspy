@@ -27,7 +27,7 @@ import com.afollestad.materialdialogs.color.CircleView;
 import org.axdev.cpuspy.R;
 import org.axdev.cpuspy.activity.ThemedActivity;
 import org.axdev.cpuspy.adapters.RecyclerViewAdapter;
-import org.axdev.cpuspy.data.ItemData;
+import org.axdev.cpuspy.data.RecyclerViewData;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
@@ -84,8 +84,9 @@ public class DeveloperFragment extends Fragment {
                 R.dimen.circleimage_border_medium : R.dimen.circleimage_border_large));
 
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
-        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        final int materialBlue500 = ContextCompat.getColor(mContext, R.color.material_blue_500);
+        final int primaryColor = sp.getInt("primary_color", materialBlue500);
+        final int accentColor = sp.getInt("accent_color", materialBlue500);
 
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
         mHeader.setBackgroundColor(primaryColor);
@@ -99,10 +100,10 @@ public class DeveloperFragment extends Fragment {
         contactTitle.setTextColor(accentColor);
 
         final RecyclerView mDeveloperRecyclerView = ButterKnife.findById(view, R.id.developer_list);
-        final ItemData creditsData[] = {
-                new ItemData(mStringEmailDev, mStringEmailDevSummary),
-                new ItemData(mStringGPlus, mStringGPlusSummary),
-                new ItemData(mStringDonate, mStringDonateSummary)};
+        final RecyclerViewData creditsData[] = {
+                new RecyclerViewData(mStringEmailDev, mStringEmailDevSummary),
+                new RecyclerViewData(mStringGPlus, mStringGPlusSummary),
+                new RecyclerViewData(mStringDonate, mStringDonateSummary)};
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
         mLinearLayoutManager.setScrollEnabled(false);
