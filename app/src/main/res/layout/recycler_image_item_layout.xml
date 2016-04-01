@@ -17,7 +17,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/listPreferredItemHeight"
+    android:minHeight="?android:attr/listPreferredItemHeight"
     android:background="?android:selectableItemBackground"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
@@ -28,14 +28,13 @@
         android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="@dimen/padding_mtrl"
-        android:layout_marginEnd="@dimen/padding_mtrl"/>
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd"/>
 
     <TextView android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_mtrl"
-        android:layout_marginEnd="@dimen/padding_mtrl"
+        android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/imageView"
         android:textColor="?android:attr/textColorPrimary"
         android:textAppearance="@style/ListTextAppearanceTitle" />
@@ -44,8 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text1"
-        android:layout_marginBottom="@dimen/padding_mtrl"
-        android:layout_marginEnd="@dimen/padding_mtrl"
+        android:layout_marginBottom="16dp"
         android:layout_alignStart="@+id/text1"
         android:textColor="?android:attr/textColorSecondary"
         android:textAppearance="@style/ListTextAppearanceSummary" />

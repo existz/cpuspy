@@ -21,7 +21,6 @@
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/btn_kernel_close"
             app:srcCompat="@drawable/ic_close"
-            android:tint="?attr/colorDrawableTint"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginEnd="@dimen/btn_padding_mtrl"

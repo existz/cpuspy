@@ -52,7 +52,6 @@
                         <android.support.v7.widget.AppCompatImageButton
                             android:id="@+id/btn_states_more"
                             app:srcCompat="@drawable/ic_menu_more"
-                            android:tint="?attr/colorDrawableTint"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginLeft="@dimen/btn_padding_mtrl"

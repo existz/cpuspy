@@ -17,7 +17,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -41,7 +40,6 @@ import org.axdev.cpuspy.fragments.WhatsNewDialog;
 import org.axdev.cpuspy.services.SleepService;
 import org.axdev.cpuspy.utils.TypefaceHelper;
 import org.axdev.cpuspy.utils.TypefaceSpan;
-import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.views.CpuSpyPreference;
 
 public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.ColorCallback {
@@ -62,21 +60,6 @@ public class PrefsActivity extends ThemedActivity implements ColorChooserDialog.
             this.mContext = this.getActivity();
             res = getResources();
             sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-            /** Apply preference icons for Lollipop and above */
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                findPreference("developer").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_developer, null));
-                findPreference("version").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_version, null));
-                findPreference("credit").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_credits, null));
-                findPreference("license").setIcon(ResourcesCompat.getDrawable(res, R.drawable.ic_opensource, null));
-
-                // Tint icons depending on selected theme
-                final int color = Utils.resolveColor(mContext, R.attr.colorDrawableTint);
-                findPreference("developer").getIcon().setTint(color);
-                findPreference("version").getIcon().setTint(color);
-                findPreference("credit").getIcon().setTint(color);
-                findPreference("license").getIcon().setTint(color);
-            }
 
             /** Get versionName and set as summary */
             findPreference("version").setSummary(BuildConfig.VERSION_NAME);
