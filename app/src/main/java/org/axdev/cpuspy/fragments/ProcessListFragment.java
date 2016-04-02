@@ -20,7 +20,6 @@ package org.axdev.cpuspy.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.ViewCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;

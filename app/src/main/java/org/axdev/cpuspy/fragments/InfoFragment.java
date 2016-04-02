@@ -897,7 +897,7 @@ public class InfoFragment extends Fragment {
         if (ThemedActivity.mIsDarkTheme) {
             progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_700);
         } else {
-            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_300);
+            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_200);
         }
         MDTintHelper.setTint(mProgressBarLogcat, progressBarColor);
         mProgressBarLogcat.setVisibility(View.VISIBLE);

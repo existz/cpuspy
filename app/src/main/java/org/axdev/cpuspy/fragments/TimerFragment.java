@@ -203,8 +203,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         if (!mAutoRefresh) {
             mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
             if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-                mSensorListener = new ShakeEventListener();
-                mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+                mSensorListener = new ShakeEventListener(new ShakeEventListener.OnShakeListener() {
                     @Override
                     public void onShake() {
                         if (!mSwipeLayout.isRefreshing()) refreshData();

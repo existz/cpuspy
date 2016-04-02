@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.TextUtils;
 
 import com.squareup.picasso.Request;
@@ -82,12 +83,12 @@ public class AppIconRequestHandler extends RequestHandler {
   private Bitmap getFullResIcon(Resources resources, int iconId) {
     final Drawable drawable;
     try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-        drawable = resources.getDrawableForDensity(iconId, dpi, null);
-      } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-        drawable = resources.getDrawableForDensity(iconId, dpi);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        drawable = resources.getDrawableForDensity(
+                iconId, dpi, null);
       } else {
-        drawable = resources.getDrawable(iconId);
+        drawable = ResourcesCompat.getDrawableForDensity(
+                resources, iconId, dpi, null);
       }
     } catch (Resources.NotFoundException e) {
       return getFullResDefaultActivityIcon();
@@ -98,12 +99,13 @@ public class AppIconRequestHandler extends RequestHandler {
   private Bitmap getFullResDefaultActivityIcon() {
     if (defaultAppIcon == null) {
       Drawable drawable;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-        drawable = Resources.getSystem().getDrawableForDensity(
-            android.R.mipmap.sym_def_app_icon, dpi);
+      Resources res = Resources.getSystem();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        drawable = res.getDrawableForDensity(
+                android.R.mipmap.sym_def_app_icon, dpi, null);
       } else {
-        drawable = Resources.getSystem().getDrawable(
-            android.R.drawable.sym_def_app_icon);
+        drawable = ResourcesCompat.getDrawableForDensity(
+                res, android.R.mipmap.sym_def_app_icon, dpi, null);
       }
       defaultAppIcon = drawableToBitmap(drawable);
     }
