@@ -97,18 +97,18 @@ public class ProcessListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
+    private class ViewHolder {
 
         private final SparseArray<View> views = new SparseArray<>();
 
         private final View view;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             this.view = view;
             view.setTag(this);
         }
 
-        public <T extends View> T find(int id) {
+        private <T extends View> T find(int id) {
             View v = views.get(id);
             if (v == null) {
                 v = view.findViewById(id);
