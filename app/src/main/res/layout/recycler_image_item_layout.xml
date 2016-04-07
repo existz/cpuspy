@@ -29,7 +29,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd"/>
+        android:layout_marginEnd="@dimen/padding_mtrl"/>
 
     <TextView android:id="@+id/text1"
         android:layout_width="match_parent"

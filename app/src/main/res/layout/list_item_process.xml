@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="?android:attr/listPreferredItemPaddingEnd"
+        android:layout_marginEnd="@dimen/padding_mtrl"
         android:layout_centerVertical="true"
         android:src="@android:drawable/sym_def_app_icon"
         tools:ignore="RtlHardcoded"/>
