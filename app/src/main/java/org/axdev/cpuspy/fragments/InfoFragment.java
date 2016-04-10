@@ -893,12 +893,8 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        int progressBarColor;
-        if (ThemedActivity.mIsDarkTheme) {
-            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_700);
-        } else {
-            progressBarColor = ContextCompat.getColor(mContext, R.color.material_grey_200);
-        }
+        int progressBarColor = ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
+                    R.color.material_grey_700 : R.color.material_grey_200);
         MDTintHelper.setTint(mProgressBarLogcat, progressBarColor);
         mProgressBarLogcat.setVisibility(View.VISIBLE);
 
