@@ -25,11 +25,11 @@ def versionMinor = 2
 def versionPatch = 0
 
 // support library version
-def supportLibVersion = '23.2.1'
+def supportLibVersion = '23.3.0'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "org.axdev.cpuspy"
