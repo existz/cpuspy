@@ -78,6 +78,7 @@ public class LicenseFragment extends Fragment {
         mLicenseHeader.setTextColor(accentColor);
 
         final RecyclerView mLicenseRecyclerView = ButterKnife.findById(view, R.id.license_list);
+        mLicenseRecyclerView.setNestedScrollingEnabled(false);
         final RecyclerViewImageData itemsData[] = {
                 new RecyclerViewImageData(mAndroidDrawable, "Android Support Library", "Android Open Source Project"),
                 new RecyclerViewImageData(mJaredRummlerDrawable, "Android Processes", "Jared Rummler"),
@@ -88,10 +89,10 @@ public class LicenseFragment extends Fragment {
                 new RecyclerViewImageData(mAidanFollestadDrawable, "Material Dialogs", "Aidan Follestad"),
                 new RecyclerViewImageData(mFabienDevosDrawable, "NanoTasks", "Fabien Devos"),
                 new RecyclerViewImageData(mSquareDrawable, "Picasso", "Square Inc."),
-                new RecyclerViewImageData(mWilliamMoraDrawable, "Snackbar", "William Mora")};
+                new RecyclerViewImageData(mWilliamMoraDrawable, "Snackbar", "William Mora")
+        };
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
-        mLinearLayoutManager.setScrollEnabled(false);
         final RecyclerViewImageAdapter mLicenseRecyclerViewAdapter = new RecyclerViewImageAdapter(itemsData);
         mLicenseRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewImageAdapter.OnItemClickListener() {
             @Override

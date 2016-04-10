@@ -97,12 +97,13 @@ public class CreditsFragment extends Fragment {
         mTranslatorsHeader.setTextColor(accentColor);
 
         final RecyclerView mCreditsRecyclerView = ButterKnife.findById(view, R.id.credits_list);
+        mCreditsRecyclerView.setNestedScrollingEnabled(false);
         final RecyclerViewImageData creditsData[] = {
                 new RecyclerViewImageData(mEduardoPrattiDrawable, "Icons", "Eduardo Pratti"),
-                new RecyclerViewImageData(mBrandonVelosekDrawable, "Creator", "Brandon Valosek")};
+                new RecyclerViewImageData(mBrandonVelosekDrawable, "Creator", "Brandon Valosek")
+        };
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
-        mLinearLayoutManager.setScrollEnabled(false);
         final RecyclerViewImageAdapter mCreditsRecyclerViewAdapter = new RecyclerViewImageAdapter(creditsData);
         mCreditsRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewImageAdapter.OnItemClickListener() {
             @Override
@@ -123,6 +124,7 @@ public class CreditsFragment extends Fragment {
         mCreditsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         final RecyclerView mTranslatorRecyclerView = ButterKnife.findById(view, R.id.translator_list);
+        mTranslatorRecyclerView.setNestedScrollingEnabled(false);
         final RecyclerViewData translatorData[] = {
                 new RecyclerViewData("Bengali (India)", "suhridkhan"),
                 new RecyclerViewData("French", "M1ck, orlith"),
@@ -134,10 +136,10 @@ public class CreditsFragment extends Fragment {
                 new RecyclerViewData("Portuguese (Portugal)", "Marco Marinho"),
                 new RecyclerViewData("Russian", "gaich"),
                 new RecyclerViewData("Simplified Chinese", "ContactFront"),
-                new RecyclerViewData("Swedish", "Carl")};
+                new RecyclerViewData("Swedish", "Carl")
+        };
 
         final RecyclerLinearLayoutManager mLinearLayoutManager2 = new RecyclerLinearLayoutManager(mContext);
-        mLinearLayoutManager2.setScrollEnabled(false);
         final RecyclerViewAdapter mTranslatorRecyclerViewAdapter = new RecyclerViewAdapter(translatorData);
         mTranslatorRecyclerViewAdapter.setOnItemClickListener(null);
         mTranslatorRecyclerView.setLayoutManager(mLinearLayoutManager2);
