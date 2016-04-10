@@ -11,7 +11,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -36,22 +35,11 @@ import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
-import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class LicenseFragment extends Fragment {
 
-    @BindDrawable(R.drawable.android) Drawable mAndroidDrawable;
-    @BindDrawable(R.drawable.jared_rummler) Drawable mJaredRummlerDrawable;
-    @BindDrawable(R.drawable.jake_wharton) Drawable mJakeWhartonDrawable;
-    @BindDrawable(R.drawable.henning_dodenhof) Drawable mHenningDodenhofDrawable;
-    @BindDrawable(R.drawable.anderweb) Drawable mAnderwebDrawable;
-    @BindDrawable(R.drawable.chainfire) Drawable mChainfireDrawable;
-    @BindDrawable(R.drawable.aidan_follestad) Drawable mAidanFollestadDrawable;
-    @BindDrawable(R.drawable.fabien_devos) Drawable mFabienDevosDrawable;
-    @BindDrawable(R.drawable.square) Drawable mSquareDrawable;
-    @BindDrawable(R.drawable.william_mora) Drawable mWilliamMoraDrawable;
     @BindString(R.string.pref_title_license) String mStringLicense;
 
     private Context mContext;
@@ -80,16 +68,16 @@ public class LicenseFragment extends Fragment {
         final RecyclerView mLicenseRecyclerView = ButterKnife.findById(view, R.id.license_list);
         mLicenseRecyclerView.setNestedScrollingEnabled(false);
         final RecyclerViewImageData itemsData[] = {
-                new RecyclerViewImageData(mAndroidDrawable, "Android Support Library", "Android Open Source Project"),
-                new RecyclerViewImageData(mJaredRummlerDrawable, "Android Processes", "Jared Rummler"),
-                new RecyclerViewImageData(mJakeWhartonDrawable, "Butter Knife", "Jake Wharton"),
-                new RecyclerViewImageData(mHenningDodenhofDrawable, "CircleImageView", "Henning Dodenhof"),
-                new RecyclerViewImageData(mAnderwebDrawable, "Discrete Seekbar", "AnderWeb"),
-                new RecyclerViewImageData(mChainfireDrawable, "libsuperuser", "Chainfire"),
-                new RecyclerViewImageData(mAidanFollestadDrawable, "Material Dialogs", "Aidan Follestad"),
-                new RecyclerViewImageData(mFabienDevosDrawable, "NanoTasks", "Fabien Devos"),
-                new RecyclerViewImageData(mSquareDrawable, "Picasso", "Square Inc."),
-                new RecyclerViewImageData(mWilliamMoraDrawable, "Snackbar", "William Mora")
+                new RecyclerViewImageData(R.drawable.android, "Android Support Library", "Android Open Source Project"),
+                new RecyclerViewImageData(R.drawable.jared_rummler, "Android Processes", "Jared Rummler"),
+                new RecyclerViewImageData(R.drawable.jake_wharton, "Butter Knife", "Jake Wharton"),
+                new RecyclerViewImageData(R.drawable.henning_dodenhof, "CircleImageView", "Henning Dodenhof"),
+                new RecyclerViewImageData(R.drawable.anderweb, "Discrete Seekbar", "AnderWeb"),
+                new RecyclerViewImageData(R.drawable.chainfire, "libsuperuser", "Chainfire"),
+                new RecyclerViewImageData(R.drawable.aidan_follestad, "Material Dialogs", "Aidan Follestad"),
+                new RecyclerViewImageData(R.drawable.fabien_devos, "NanoTasks", "Fabien Devos"),
+                new RecyclerViewImageData(R.drawable.square, "Picasso", "Square Inc."),
+                new RecyclerViewImageData(R.drawable.william_mora, "Snackbar", "William Mora")
         };
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);

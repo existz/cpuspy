@@ -47,7 +47,7 @@ public class RecyclerViewImageAdapter extends RecyclerView.Adapter<RecyclerViewI
         // - get data from your itemsData at this position
         // - replace the contents of the view with that itemsData
 
-        viewHolder.circleImageView.setImageDrawable(itemsData[position].getDrawable());
+        viewHolder.circleImageView.setImageResource(itemsData[position].getDrawable());
         viewHolder.txtViewTitle.setText(itemsData[position].getTitle());
         viewHolder.txtViewSummary.setText(itemsData[position].getSummary());
     }

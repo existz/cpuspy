@@ -11,7 +11,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -41,14 +40,11 @@ import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
-import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
 
-    @BindDrawable(R.drawable.brandon_velosek) Drawable mBrandonVelosekDrawable;
-    @BindDrawable(R.drawable.eduardo_pratti) Drawable mEduardoPrattiDrawable;
     @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
     private SharedPreferences sp;
@@ -99,8 +95,8 @@ public class CreditsFragment extends Fragment {
         final RecyclerView mCreditsRecyclerView = ButterKnife.findById(view, R.id.credits_list);
         mCreditsRecyclerView.setNestedScrollingEnabled(false);
         final RecyclerViewImageData creditsData[] = {
-                new RecyclerViewImageData(mEduardoPrattiDrawable, "Icons", "Eduardo Pratti"),
-                new RecyclerViewImageData(mBrandonVelosekDrawable, "Creator", "Brandon Valosek")
+                new RecyclerViewImageData(R.drawable.eduardo_pratti, "Icons", "Eduardo Pratti"),
+                new RecyclerViewImageData(R.drawable.brandon_velosek, "Creator", "Brandon Valosek")
         };
 
         final RecyclerLinearLayoutManager mLinearLayoutManager = new RecyclerLinearLayoutManager(mContext);
