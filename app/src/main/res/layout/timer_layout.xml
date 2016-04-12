@@ -60,6 +60,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
+                            android:tint="?attr/colorDrawableTint"
                             android:layout_gravity="center_horizontal|top|end"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true" />

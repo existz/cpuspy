@@ -18,6 +18,7 @@
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/ic_warning"
         android:gravity="center"
+        android:tint="?attr/colorDrawableTint"
         android:scaleType="fitXY"/>
 
     <TextView
