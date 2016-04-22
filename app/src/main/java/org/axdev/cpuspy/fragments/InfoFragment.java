@@ -133,6 +133,9 @@ public class InfoFragment extends Fragment {
     @Bind(R.id.cpu_freq6) TextView mCore6;
     @Bind(R.id.cpu_freq7) TextView mCore7;
 
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
+    @BindColor(R.color.material_grey_200) int mMaterialGrey200;
+    @BindColor(R.color.material_grey_700) int mMaterialGrey700;
     @BindColor(R.color.primary_text_color_error) int errorTextColor;
     @BindDrawable(R.drawable.text_select_handle_left_mtrl_alpha) Drawable mTextSelectHandleLeft;
     @BindDrawable(R.drawable.text_select_handle_right_mtrl_alpha) Drawable mTextSelectHandleRight;
@@ -240,7 +243,7 @@ public class InfoFragment extends Fragment {
         mDeviceRuntimeHeader.setTypeface(robotoMedium);
         mDeviceBootloaderHeader.setTypeface(robotoMedium);
 
-        accentColor = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        accentColor = PreferenceManager.getDefaultSharedPreferences(mContext).getInt("accent_color", mMaterialBlue500);
 
         mTextHighlightColor = ColorUtils.setAlphaComponent(accentColor, 128);
         mKernelHeader.setTextColor(accentColor);
@@ -893,8 +896,7 @@ public class InfoFragment extends Fragment {
             }
         });
 
-        int progressBarColor = ContextCompat.getColor(mContext, ThemedActivity.mIsDarkTheme ?
-                    R.color.material_grey_700 : R.color.material_grey_200);
+        int progressBarColor = ThemedActivity.mIsDarkTheme ? mMaterialGrey700 : mMaterialGrey200;
         MDTintHelper.setTint(mProgressBarLogcat, progressBarColor);
         mProgressBarLogcat.setVisibility(View.VISIBLE);
 

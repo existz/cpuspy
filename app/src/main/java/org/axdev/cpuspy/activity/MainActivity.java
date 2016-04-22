@@ -20,7 +20,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Spannable;
@@ -47,10 +46,15 @@ import org.axdev.cpuspy.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindColor;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ThemedActivity {
+
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
+    @BindColor(R.color.tabsTextColor_lightAB) int mTabsTextColor_lightAB;
+    @BindColor(R.color.tabsScrollColor_lightAB) int mTabsScrollColor_lightAB;
 
     private boolean hasXposed;
     private Resources res;
@@ -61,6 +65,7 @@ public class MainActivity extends ThemedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this, this);
         setContentView(R.layout.main_layout);
         setupTabs();
 
@@ -139,7 +144,7 @@ public class MainActivity extends ThemedActivity {
                                             .text(res.getString(R.string.snackbar_text_update))
                                             .actionLabel(res.getString(R.string.action_view))
                                             .actionLabelTypeface(robotoMedium)
-                                            .actionColor(accentColor() == 0 ? ContextCompat.getColor(MainActivity.this, R.color.material_blue_500) : accentColor())
+                                            .actionColor(accentColor() == 0 ? mMaterialBlue500 : accentColor())
                                             .actionListener(new ActionClickListener() {
                                                 @Override
                                                 public void onActionClicked(Snackbar snackbar) {
@@ -175,9 +180,9 @@ public class MainActivity extends ThemedActivity {
         // Assigning the Sliding Tab Layout View
         final TabLayout tabs = ButterKnife.findById(this, R.id.tabLayout);
         if (ThemedActivity.isLightAB(this)) {
-            final ColorStateList sl = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.tabsTextColor_lightAB));
+            final ColorStateList sl = ColorStateList.valueOf(mTabsTextColor_lightAB);
             tabs.setTabTextColors(sl);
-            tabs.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.tabsScrollColor_lightAB));
+            tabs.setSelectedTabIndicatorColor(mTabsScrollColor_lightAB);
         }
         tabs.setBackgroundColor(primaryColor());
         tabs.setupWithViewPager(viewPager);
@@ -240,7 +245,7 @@ public class MainActivity extends ThemedActivity {
         // tint settings icon based on theme
         if (ThemedActivity.isLightAB(this)) {
             final MenuItem settings = menu.findItem(R.id.menu_settings);
-            Utils.colorMenuItem(settings, ContextCompat.getColor(this, R.color.drawable_color_lightAB), 0);
+            Utils.colorMenuItem(settings, mTabsScrollColor_lightAB, 0);
         }
         // made it
         return true;
@@ -256,5 +261,11 @@ public class MainActivity extends ThemedActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

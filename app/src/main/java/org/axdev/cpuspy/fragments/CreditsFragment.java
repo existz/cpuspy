@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -40,11 +39,13 @@ import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class CreditsFragment extends Fragment {
 
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
     @BindString(R.string.pref_about_header_credits) String mStringCredits;
 
     private SharedPreferences sp;
@@ -84,9 +85,8 @@ public class CreditsFragment extends Fragment {
         final TextView mTranslatorsHeader = ButterKnife.findById(getActivity(), R.id.translator_header);
 
         sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final int materialBlue500 = ContextCompat.getColor(mContext, R.color.material_blue_500);
-        final int primaryColor = sp.getInt("primary_color", materialBlue500);
-        final int accentColor = sp.getInt("accent_color", materialBlue500);
+        final int primaryColor = sp.getInt("primary_color", mMaterialBlue500);
+        final int accentColor = sp.getInt("accent_color", mMaterialBlue500);
         mCreditsHeader.setTypeface(robotoMedium);
         mCreditsHeader.setTextColor(accentColor);
         mTranslatorsHeader.setTypeface(robotoMedium);
@@ -152,7 +152,7 @@ public class CreditsFragment extends Fragment {
 
     /** called to handle a menu event */
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(getActivity(), R.color.material_blue_500));
+        final int primaryColor = sp.getInt("primary_color", mMaterialBlue500);
         // what it do mayne
         switch (item.getItemId()) {
         /* pressed the load menu button */

@@ -34,12 +34,14 @@ import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 import org.axdev.cpuspy.views.DividerItemDecoration;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DeveloperFragment extends Fragment {
 
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
     @BindString(R.string.pref_about_developer) String mStringDeveloper;
     @BindString(R.string.email_developer) String mStringEmailDev;
     @BindString(R.string.email_developer_summary) String mStringEmailDevSummary;
@@ -84,9 +86,8 @@ public class DeveloperFragment extends Fragment {
                 R.dimen.circleimage_border_medium : R.dimen.circleimage_border_large));
 
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final int materialBlue500 = ContextCompat.getColor(mContext, R.color.material_blue_500);
-        final int primaryColor = sp.getInt("primary_color", materialBlue500);
-        final int accentColor = sp.getInt("accent_color", materialBlue500);
+        final int primaryColor = sp.getInt("primary_color", mMaterialBlue500);
+        final int accentColor = sp.getInt("accent_color", mMaterialBlue500);
 
         final View mHeader = ButterKnife.findById(view, R.id.developer_header);
         mHeader.setBackgroundColor(primaryColor);

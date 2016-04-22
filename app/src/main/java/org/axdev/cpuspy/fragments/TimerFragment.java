@@ -71,6 +71,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.Bind;
@@ -103,6 +104,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Bind(R.id.states_toolbar) CardView mStatesToolbar;
     @Bind(R.id.container) View mContainer;
 
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
     @BindString(R.string.action_dismiss) String actionDismissText;
     @BindString(R.string.snackbar_text_reset) String snackbarResetText;
     @BindString(R.string.snackbar_text_restore) String snackbarRestoreText;
@@ -150,7 +152,7 @@ public class TimerFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mIsAnimating = true;
         monitor = CpuSpyApp.getCpuStateMonitor();
         robotoMedium = TypefaceHelper.mediumTypeface(mContext);
-        accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        accentColor = sp.getInt("accent_color", mMaterialBlue500);
         this.checkView();
 
         /** Apply Roboto-Medium typeface to textviews */

@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -35,11 +34,13 @@ import org.axdev.cpuspy.utils.TypefaceSpan;
 import org.axdev.cpuspy.utils.Utils;
 import org.axdev.cpuspy.widget.RecyclerLinearLayoutManager;
 
+import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public class LicenseFragment extends Fragment {
 
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
     @BindString(R.string.pref_title_license) String mStringLicense;
 
     private Context mContext;
@@ -61,7 +62,7 @@ public class LicenseFragment extends Fragment {
         final Typeface robotoMedium = TypefaceHelper.mediumTypeface(mContext);
 
         sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        final int accentColor = sp.getInt("accent_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+        final int accentColor = sp.getInt("accent_color", mMaterialBlue500);
         mLicenseHeader.setTypeface(robotoMedium);
         mLicenseHeader.setTextColor(accentColor);
 
@@ -86,7 +87,7 @@ public class LicenseFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 final Activity activity = getActivity();
-                final int primaryColor = sp.getInt("primary_color", ContextCompat.getColor(mContext, R.color.material_blue_500));
+                final int primaryColor = sp.getInt("primary_color", mMaterialBlue500);
 
                 switch (position) {
                     case 0:

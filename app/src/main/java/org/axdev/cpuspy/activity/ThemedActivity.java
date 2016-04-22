@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.color.CircleView;
@@ -19,11 +18,16 @@ import org.axdev.cpuspy.R;
 
 import java.util.Calendar;
 
+import butterknife.BindColor;
+import butterknife.ButterKnife;
+
 /**
  * @author Aidan Follestad (afollestad)
  * @author Rob Beane (existz) - Auto Theme
  */
 public abstract class ThemedActivity extends AppCompatActivity {
+
+    @BindColor(R.color.material_blue_500) int mMaterialBlue500;
 
     public static boolean mIsDarkTheme;
     private boolean mLastDarkTheme;
@@ -77,8 +81,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     }
 
     public int primaryColor() {
-        final int defaultColor = ContextCompat.getColor(this, R.color.material_blue_500);
-        return PreferenceManager.getDefaultSharedPreferences(this).getInt("primary_color", defaultColor);
+        return PreferenceManager.getDefaultSharedPreferences(this).getInt("primary_color", mMaterialBlue500);
     }
 
     protected void primaryColor(int newColor) {
@@ -90,8 +93,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     }
 
     public int accentColor() {
-        final int defaultColor = ContextCompat.getColor(this, R.color.material_blue_500);
-        return PreferenceManager.getDefaultSharedPreferences(this).getInt("accent_color", defaultColor);
+        return PreferenceManager.getDefaultSharedPreferences(this).getInt("accent_color", mMaterialBlue500);
     }
 
     protected void accentColor(int newColor) {
@@ -109,6 +111,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ButterKnife.bind(this, this);
         mLastDarkTheme = isDarkTheme();
         mLastColoredNav = isColoredNavBar();
         mLastPrimaryColor = primaryColor();
@@ -194,5 +197,11 @@ public abstract class ThemedActivity extends AppCompatActivity {
                 || primaryColor != mLastPrimaryColor || accentColor != mLastAccentColor) {
             recreate();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
