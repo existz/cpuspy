@@ -5,30 +5,34 @@
     <string name="changelog_notes">If you are using an AdBlocker please whitelist crashlytics.com in order for crash and usage reporting to work properly.\n</string>
 
     <string-array name="changelog">
-        <item>&#8226; Rewrite CPU usage code</item>
-        <item>&#8226; Fix padding on tablet devices</item>
-        <item>&#8226; Show list of running services</item>
-        <item>&#8226; Use Butterknife resource binding</item>
-        <item>&#8226; Define size of sliding tab ArrayLists</item>
-        <item>&#8226; Only call Utils.isXposedInstalled once</item>
-        <item>&#8226; Check if a light accent color is used</item>
-        <item>&#8226; Add new developer section to Settings</item>
-        <item>&#8226; Fix colored nav bar enabling by default</item>
-        <item>&#8226; Use Chrome custom tab when opening links</item>
-        <item>&#8226; Only recreate if theme preference changes</item>
-        <item>&#8226; Rename kernel/device menus to match action</item>
-        <item>&#8226; Fix padding for credits and license layouts</item>
-        <item>&#8226; Allow multiple retries when updating states</item>
-        <item>&#8226; Catch exception when checking for an update</item>
-        <item>&#8226; Allow checking for multiple update versions</item>
-        <item>&#8226; Use primary color for deep sleep notify icon</item>
-        <item>&#8226; Allow better support for Right to Left layouts</item>
-        <item>&#8226; Fix cpu usage crashing when exiting InfoFragment</item>
-        <item>&#8226; Update libraries and build tools to latest versions</item>
-        <item>&#8226; Define ArrayList sizes for Credits and Licenses</item>
-        <item>&#8226; Use AccelerateDecelerateInterpolator for animations</item>
-        <item>&#8226; Allow catching exception when setting core visibility</item>
-        <item>&#8226; Hack to fix DiscreteSeekBar text color with light accent</item>
+        <item>&#8226; Updated translations</item>
+        <item>&#8226; Optimize new profile pngs</item>
+        <item>&#8226; Update some deprecated APIs</item>
+        <item>&#8226; Fix a couple NullPointerExceptions</item>
+        <item>&#8226; Fix ListView padding and text sizes</item>
+        <item>&#8226; Fix crash when showing error text</item>
+        <item>&#8226; More layout fixes for tablet devices</item>
+        <item>&#8226; Only show last 500 lines of logcat log</item>
+        <item>&#8226; Do not center full kernel version text</item>
+        <item>&#8226; Update developer circleimageview border</item>
+        <item>&#8226; Use new BottomSheet from support library</item>
+        <item>&#8226; Simplify setting logcat progress bar color</item>
+        <item>&#8226; Bind more colors/string using ButterKnife</item>
+        <item>&#8226; Simplify tinting of text selector handles</item>
+        <item>&#8226; Use wrap_content for AppCompatButton width</item>
+        <item>&#8226; Always use accentColor for text input field</item>
+        <item>&#8226; Disable user from changing color input alpha</item>
+        <item>&#8226; Update 3rd party libraries to latest versions</item>
+        <item>&#8226; Fix Running Processes title on KitKat devices</item>
+        <item>&#8226; Update charged drawable to be more material-ish</item>
+        <item>&#8226; Use new Support Vector Drawables instead of pngs</item>
+        <item>&#8226; Update colors and elevations to match guidelines</item>
+        <item>&#8226; Only set background color when cardview is shown</item>
+        <item>&#8226; Fix NullPointerException when closing InfoFragment</item>
+        <item>&#8226; Add null pointer check when setting mLogcatSummary</item>
+        <item>&#8226; Use Fragment and DialogFragment from support library</item>
+        <item>&#8226; Replace Listview with RecyclerView from support library</item>
+        <item>&#8226; Show error text when temp monitor throws an exception</item>
     </string-array>
 
 </resources>
